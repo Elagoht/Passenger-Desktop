@@ -16,19 +16,27 @@ interface IWindowProps {
 const animation = {
   hidden: {
     x: "-100%",
-    opacity: 0
+    filter: "brightness(0.5)",
+    transition: {
+      duration: 0.3,
+      ease: "easeInOut",
+    }
   },
   visible: {
     x: 0,
-    opacity: 1,
+    filter: "brightness(1)",
     transition: {
       duration: 0.3,
-      ease: "easeInOut"
+      ease: "easeInOut",
     }
   },
   exit: {
     x: "-100%",
-    opacity: 0
+    filter: "brightness(0.75)",
+    transition: {
+      duration: 0.3,
+      ease: "easeInOut",
+    }
   }
 }
 
@@ -40,12 +48,12 @@ const Window: FC<IWindowProps> = ({ title }) => {
     initial="hidden"
     animate="visible"
     exit="exit"
-    className="fixed inset-0 background"
+    className="fixed inset-0 background shadow-lg overflow-auto"
   >
-    <header className=" flex p-2 items-center gap-4 window">
+    <header className="flex p-2 items-center gap-4 window shadow">
       <button
         onClick={closeWindow}
-        className="hover:bg-tuatara-100 p-2 rounded-full transition-all"
+        className="hover:bg-tuatara-100 dark:hover:bg-tuatara-800 p-2 rounded-full transition-all"
       >
         <IconChevronLeft />
       </button>
@@ -54,7 +62,7 @@ const Window: FC<IWindowProps> = ({ title }) => {
         {title}
       </h1>
 
-      <button className="hover:bg-tuatara-100 p-2 rounded-full transition-all">
+      <button className="hover:bg-tuatara-100 dark:hover:bg-tuatara-800 p-2 rounded-full transition-all">
         <IconDotsVertical />
       </button>
     </header>

@@ -8,8 +8,8 @@ export default {
     extend: {
       colors: {
         "tuatara": {
-          "50": "#FEFEFE",
-          "100": "#e7e7e6",
+          "50": "#F5F6F6",
+          "100": "#E7E9E9",
           "200": "#d1d1d0",
           "300": "#b1b0af",
           "400": "#898887",
@@ -49,5 +49,7 @@ export default {
       }
     }
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 }

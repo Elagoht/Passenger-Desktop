@@ -12,12 +12,16 @@
   "dependencies": {
     "@tabler/icons-react": "^3.3.0",
     "@tauri-apps/api": "^1",
+    "classnames": "^2.5.1",
+    "formik": "^2.4.6",
     "framer-motion": "^11.1.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "yup": "^1.4.0",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.13",
     "@tauri-apps/cli": "^1",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",

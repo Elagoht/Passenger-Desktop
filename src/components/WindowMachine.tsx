@@ -1,34 +1,34 @@
-import { FC } from "react"
+import { FC, ReactElement } from "react"
 import { useWindowSlice } from "../stores/window"
 import Window from "./Window"
 import { AnimatePresence, motion } from "framer-motion"
 
 const animation = {
-  hidden: { opacity: 1, scale: 0 },
+  hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    scale: 1,
     transition: {
       delayChildren: 0.3,
       staggerChildren: 0.2
     }
-  },
-  exit: {
-    opacity: 0,
-    scale: 0
   }
 }
 
-const WindowMachine: FC = () => {
+interface IWindowMachineProps {
+  mainWin: ReactElement
+}
+
+const WindowMachine: FC<IWindowMachineProps> = ({ mainWin }) => {
   const windowHistory = useWindowSlice((state) => state.windowHistory)
 
   return <motion.aside
     className="fixed inset-0"
     variants={animation}
     initial="hidden"
-    exit="exit"
     animate="visible"
   >
+    {mainWin}
+
     <AnimatePresence>
       {windowHistory.map((window) => (
         <Window

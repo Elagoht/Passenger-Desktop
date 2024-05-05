@@ -1,10 +1,12 @@
 import { FC, useEffect } from "react"
+import LoginForm from "./components/LoginForm"
 import WindowMachine from "./components/WindowMachine"
-import { useWindowSlice } from "./stores/window"
+import { useAuthorizationSlice } from "./stores/authorization"
+import PasswordWin from "./windows/PasswordWin"
 
 const App: FC = () => {
-  const windowHistory = useWindowSlice((state) => state.windowHistory)
-  const openWindow = useWindowSlice((state) => state.openWindow)
+  const isAuthorized = useAuthorizationSlice((state) => state.isAuthorized)
+
 
   useEffect(() => {
     const body = document.querySelector("html") as HTMLElement
@@ -27,21 +29,9 @@ const App: FC = () => {
     }
   }, [])
 
-  return <>
-    <WindowMachine />
-
-    <button
-      className="fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 p-2 bg-tuatara-500 text-white rounded-full transition-all"
-      onClick={() => {
-        openWindow({
-          id: `window-${windowHistory.length + 1}`,
-          title: `Window ${windowHistory.length + 1}`
-        })
-      }}
-    >
-      Open Window
-    </button>
-  </>
+  return isAuthorized
+    ? <WindowMachine mainWin={<PasswordWin />} />
+    : <LoginForm />
 }
 
 export default App
