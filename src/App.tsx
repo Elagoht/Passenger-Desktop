@@ -1,7 +1,6 @@
 import { FC, useEffect } from "react"
-import LoginForm from "./components/LoginForm"
-import WindowMachine from "./components/WindowMachine"
 import { useAuthorizationSlice } from "./stores/authorization"
+import LoginForm from "./windows/LoginWin"
 import PasswordWin from "./windows/PasswordWin"
 
 const App: FC = () => {
@@ -30,7 +29,7 @@ const App: FC = () => {
   }, [])
 
   return isAuthorized
-    ? <WindowMachine mainWin={<PasswordWin />} />
+    ? <PasswordWin />
     : <LoginForm />
 }
 

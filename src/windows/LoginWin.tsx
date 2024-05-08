@@ -1,9 +1,12 @@
 import { Form, Formik } from "formik"
-import { FC } from "react"
-import Input from "./form/Input"
+import { FC, useState } from "react"
+import Commands from "../api/cli"
+import Input from "../components/form/Input"
 import { useAuthorizationSlice } from "../stores/authorization"
 
 const LoginForm: FC = () => {
+  const [text, setText] = useState<string>("")
+
   const setIsAuthorizated = useAuthorizationSlice((state) => state.setIsAuthorizated)
 
   return <main className="h-screen items-center justify-center flex p-4 ">
@@ -11,7 +14,12 @@ const LoginForm: FC = () => {
       initialValues={{
         passphrase: ""
       }}
-      onSubmit={(values) => setIsAuthorizated(true)}
+      onSubmit={(values) =>
+        Commands.login(values.passphrase).then((response) => {
+          setText(JSON.stringify(response))
+          setIsAuthorizated(true)
+        })
+      }
     >
       {({
         values,
@@ -32,6 +40,7 @@ const LoginForm: FC = () => {
             success={touched.passphrase && !errors.passphrase ? "" : undefined}
           />
 
+          <p>{text}</p>
 
           <button className="bg-tuatara-500 text-white rounded-lg p-2 transition-all hover:bg-tuatara-600">
             Login

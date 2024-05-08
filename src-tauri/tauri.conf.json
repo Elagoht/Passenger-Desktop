@@ -13,15 +13,30 @@
     "allowlist": {
       "all": false,
       "shell": {
+        "sidecar": true,
+        "execute": true,
         "all": false,
-        "open": true
+        "open": true,
+        "scope": [
+          {
+            "cmd": "sh",
+            "args": true,
+            "name": "sh",
+            "sidecar": false
+          }
+        ]
       }
     },
     "windows": [
       {
         "title": "passenger-ui",
         "width": 800,
-        "height": 600
+        "height": 600,
+        "minHeight": 392,
+        "minWidth": 392,
+        "acceptFirstMouse": true,
+        "contentProtected": true,
+        "fileDropEnabled": false
       }
     ],
     "security": {

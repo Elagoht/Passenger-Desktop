@@ -3,8 +3,8 @@ import { FC } from "react"
 const Logo: FC = () => {
   return <header className="flex items-center gap-4">
     <img src="/icon.png"
-      width={128}
-      height={128}
+      width={96}
+      height={96}
       alt="Passenger"
     />
 

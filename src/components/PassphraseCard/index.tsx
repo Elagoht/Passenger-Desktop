@@ -1,46 +1,74 @@
 import { FC } from "react"
+import { usePassphrasesSlice } from "../../stores/passphrases"
 import { ListablePassphrase } from "../../types/common"
-import { IconCopy, IconDotsVertical } from "@tabler/icons-react"
 import Copier from "./Copier"
+import LinkOpener from "./LinkOpener"
+import classNames from "classnames"
 
-interface IPassphraseCardProps extends ListablePassphrase { }
+interface IPassphraseCardProps extends ListablePassphrase {
+  selected: boolean
+  index: number
+}
 
-const PassphraseCard: FC<IPassphraseCardProps> = ({ email, id, platform, username }) => {
-  return <div key={id} className="grid gap-2 p-3 shadow-lg rounded-md bg-white dark:bg-tuatara-950">
-    <div className="flex justify-between items-center bg-nebula-300 dark:bg-nebula-700 -m-3 mb-0 p-3 rounded-t-md">
-      <h3 className="text-lg font-semibold">{platform}</h3>
+const PassphraseCard: FC<IPassphraseCardProps> = ({ email, id, platform, username, url, selected, index }) => {
+  const setSelectedPassphrase = usePassphrasesSlice((state) => state.selectPassphrase)
+  const openDetails = usePassphrasesSlice((state) => state.openDetails)
 
-      <button className="p-1 rounded-full hover:bg-nebula-200 dark:hover:bg-nebula-800 transition-all">
-        <IconDotsVertical size={24} />
-      </button>
-    </div>
+  return <li
+    key={id}
+    onClick={() => {
+      setSelectedPassphrase(index)
+      openDetails()
+    }}
+    className={classNames({
+      "flex items-center gap-2 p-3 rounded-lg hover:bg-tuatara-100 hover:dark:bg-tuatara-950 hover:shadow-inner hover:shadow-tuatara-200 hover:dark:shadow-stone-950 cursor-pointer hover:outline outline-1 outline-tuatara-50 dark:outline-tuatara-700 transition-all": true,
+      "outline-lola-500 dark:outline-lola-500 outline-2 outline": selected
+    })}
+  >
+    <img
+      src={`https://logo.clearbit.com/${platform.toLowerCase()}.com`}
+      alt={platform}
+      width={48}
+      height={48}
+      className="rounded-full"
+    />
 
-    <div className="grid grid-cols-3 gap-1">
-      {[{
-        label: "Username", value: username
-      }, {
-        label: "Email", value: email
-      }].map(({ label, value }) =>
-        <div key={label} className="flex flex-col">
-          <div className="line-clamp-1 text-sm text-center font-semibold">{label}</div>
-          {value ?
-            <Copier value={value} />
-            : <span className="text-sm text-center text-tuatara-500 p-2">
-              N/A
-            </span>
-          }
-        </div>
-      )}
+    <div className="flex flex-col gap-1 flex-1">
+      <strong>{platform}</strong>
 
-      <div className="flex flex-col">
-        <span className="line-clamp-1 text-sm font-semibold">Passphrase</span>
-        <button className="p-1 rounded-full bg-tuatara-100 dark:bg-tuatara-900 hover:bg-tuatara-200 dark:hover:bg-tuatara-800 transition-all shadow-inner flex items-center gap-2 justify-center">
-          <div className="line-clamp-1">Copy</div>
-          <IconCopy className="shrink-0" />
-        </button>
+      <div className="flex" role="contentinfo">
+        {username &&
+          <button
+            onClick={(event) => {
+              event.stopPropagation()
+              navigator.clipboard.writeText(username)
+            }}
+            className="line-clamp-1 text-left hover:underline"
+          >
+            {username}
+          </button>
+        }
+
+        {username && email && <span className="mx-1 text-tuatara-500">-</span>}
+
+        {email &&
+          <button
+            onClick={(event) => {
+              event.stopPropagation()
+              navigator.clipboard.writeText(email)
+            }}
+            className="line-clamp-1 text-left hover:underline"
+          >
+            {email}
+          </button>
+        }
       </div>
     </div>
-  </div>
+
+    <LinkOpener url={url} />
+
+    <Copier value="password" />
+  </li >
 }
 
 export default PassphraseCard

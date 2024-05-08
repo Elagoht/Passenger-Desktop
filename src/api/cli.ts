@@ -6,7 +6,7 @@ type Output = {
 }
 
 class CLI {
-  private static executable = "./passenger-cli"
+  private static executable = "./passenger"
 
   public static execute = async (command: string, args: string[]): Promise<shell.ChildProcess> =>
     await new shell.Command(
@@ -19,7 +19,7 @@ class CLI {
 
   public static readOutput = (process: shell.ChildProcess): Output => ({
     success: process.code === 0,
-    output: process.stdout
+    output: process.stdout.trim()
   })
 }
 
