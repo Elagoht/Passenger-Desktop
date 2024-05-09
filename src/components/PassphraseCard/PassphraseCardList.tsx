@@ -18,7 +18,8 @@ const PassphraseCardList: FC = () => {
       || event.key === "ArrowUp"
     ) && selectPreviousPassphrase()
 
-    const arrowDownOrRightToSelectNext = (event: KeyboardEvent) => (event.key === "ArrowRight"
+    const arrowDownOrRightToSelectNext = (event: KeyboardEvent) => (
+      event.key === "ArrowRight"
       || event.key === "ArrowDown"
     ) && selectNextPassphrase()
 
