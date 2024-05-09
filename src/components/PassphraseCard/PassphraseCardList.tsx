@@ -2,7 +2,6 @@ import { FC, useEffect } from "react"
 import PassphraseCard from "."
 import { usePassphrasesSlice } from "../../stores/passphrases"
 
-
 const PassphraseCardList: FC = () => {
   const passphrases = usePassphrasesSlice((state) => state.passphrases)
   const selectedPassphrase = usePassphrasesSlice((state) => state.selectedPassphrase)
@@ -13,14 +12,16 @@ const PassphraseCardList: FC = () => {
   const closeDetails = usePassphrasesSlice((state) => state.closeDetails)
 
   useEffect(() => {
-    const arrowUpOrLeftToSelectPrevious = (event: KeyboardEvent) => (
+    const arrowUpOrLeftToSelectPrevious = (event: KeyboardEvent) => ((
       event.key === "ArrowLeft"
       || event.key === "ArrowUp"
+    ) && !detailsVisible
     ) && selectPreviousPassphrase()
 
-    const arrowDownOrRightToSelectNext = (event: KeyboardEvent) => (
+    const arrowDownOrRightToSelectNext = (event: KeyboardEvent) => ((
       event.key === "ArrowRight"
       || event.key === "ArrowDown"
+    ) && !detailsVisible
     ) && selectNextPassphrase()
 
     const escapeToCloseDetails = (event: KeyboardEvent) => (
@@ -43,7 +44,7 @@ const PassphraseCardList: FC = () => {
       window.removeEventListener("keydown", arrowDownOrRightToSelectNext)
       window.removeEventListener("keydown", spaceOrEnterToOpenDetails)
     }
-  }, [])
+  }, [detailsVisible])
 
   return <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4">
     {passphrases.map((passphrase, index) =>
