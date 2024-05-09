@@ -1,8 +1,8 @@
 import { create } from "zustand"
-import { ListablePassphrase } from "../types/common"
+import { Passphrase } from "../types/common"
 
 interface PassphrasesSlice {
-  passphrases: ListablePassphrase[]
+  passphrases: Passphrase[]
   selectedPassphrase: number
   detailsVisible: boolean
   openDetails: () => void
@@ -10,9 +10,9 @@ interface PassphrasesSlice {
   selectPassphrase: (state: number) => void
   selectPreviousPassphrase: () => void
   selectNextPassphrase: () => void
-  setPassphrases: (passphrases: ListablePassphrase[]) => void
-  addPassphrase: (passphrase: ListablePassphrase) => void
-  updatePassphrase: (passphrase: ListablePassphrase) => void
+  setPassphrases: (passphrases: Passphrase[]) => void
+  addPassphrase: (passphrase: Passphrase) => void
+  updatePassphrase: (passphrase: Passphrase) => void
   deletePassphrase: (id: string) => void
 }
 
@@ -25,6 +25,8 @@ export const usePassphrasesSlice = create<PassphrasesSlice>((set) => ({
     email: "john@doe.com",
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
+    passphrase: "Thi$1$@P@$$M0rD4M3",
+    notes: "This is a note",
   }, {
     id: "2",
     platform: "Twitter",
@@ -33,6 +35,8 @@ export const usePassphrasesSlice = create<PassphrasesSlice>((set) => ({
     email: null,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
+    passphrase: "Thisisapassword",
+    notes: "This is a note",
   }, {
     id: "3",
     platform: "Instagram",
@@ -41,6 +45,8 @@ export const usePassphrasesSlice = create<PassphrasesSlice>((set) => ({
     email: "john@doe.com",
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
+    passphrase: "123456",
+    notes: "This is a note",
   }],
 
   selectedPassphrase: -1,

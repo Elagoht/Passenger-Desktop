@@ -1,6 +1,6 @@
 import { FC, useEffect } from "react"
-import PassphraseCard from "."
-import { usePassphrasesSlice } from "../../stores/passphrases"
+import PassphraseCard from "./PassphraseCard"
+import { usePassphrasesSlice } from "../stores/passphrases"
 
 const PassphraseCardList: FC = () => {
   const passphrases = usePassphrasesSlice((state) => state.passphrases)

@@ -60,31 +60,32 @@ class Strength {
     string,
     string
   > = {
-      "-5": "Let's say you didn't type this",
-      "-4": "Immediately change this",
-      "-3": "Absolutely not",
-      "-2": "Want to be hacked?",
-      "-1": "I don't think so",
-      "0": "I don't call this a password",
+      "-2": "Immediately change this",
+      "-1": "Do not consider this",
+      "0": "Good start",
       "1": "Unacceptable",
       "2": "Extremely weak",
       "3": "Easily guessable",
-      "4": "Breakable",
+      "4": "Should be more varied",
       "5": "Acceptable",
       "6": "Good",
       "7": "Strong",
+      "8": "Perfect",
     }
 
-  public static calculate(password: string): typeof Strength.scoreTable[
-    keyof typeof Strength.scoreTable
-  ] {
+  public static calculate(password: string): number {
     let score = -1 // Short password penalty
 
     for (const [criteria, regex] of Object.entries(this.criterias))
       if (regex.test(password))
         score += this.criteriaScores[criteria as StrengthCriteria]
 
-    return this.scoreTable[score]
+    return score
+  }
+
+  public static calculatedMessage(score: number):
+    typeof this.scoreTable[keyof typeof this.scoreTable] {
+    return this.scoreTable[score.toString()]
   }
 
   public static evaluate(password: string): Record<

@@ -34,6 +34,8 @@
         "height": 600,
         "minHeight": 392,
         "minWidth": 392,
+        "maxHeight": 1024,
+        "maxWidth": 768,
         "acceptFirstMouse": true,
         "contentProtected": true,
         "fileDropEnabled": false
