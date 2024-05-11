@@ -11,7 +11,7 @@ const Copier: FC<ICopierProps> = ({ value }) => {
       event.stopPropagation()
       navigator.clipboard.writeText(value)
     }}
-    className="rounded-full bg-tuatara-100 dark:bg-tuatara-900 hover:brightness-95 transition-all shadow-inner border-tuatara-200 dark:border-tuatara-700 border shadow-tuatara-50 dark:shadow-tuatara-800 aspect-square w-12 grid place-items-center shrink-0"
+    className="rounded-full bg-tuatara-100 dark:bg-tuatara-900 hover:brightness-95 transition-all shadow-inner border-tuatara-200 dark:border-tuatara-700 border shadow-tuatara-50 dark:shadow-tuatara-800 aspect-square w-10 grid place-items-center shrink-0"
   >
     <IconCopy />
   </button>

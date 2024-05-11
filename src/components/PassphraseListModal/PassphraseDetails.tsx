@@ -2,28 +2,27 @@ import { IconCalendarCheck, IconCheck, IconDeviceFloppy, IconEdit, IconExternalL
 import { Form, Formik } from "formik"
 import { AnimatePresence, motion } from "framer-motion"
 import { FC } from "react"
-import Strength from "../helpers/strentgh"
-import { usePassphrasesSlice } from "../stores/passphrases"
-import FancyInput from "./form/FancyInput"
-import FancyTextArea from "./form/FancyTextArea"
-import Meter from "./common/Meter"
-import FormikHelper from "../helpers/formik"
+import Strength from "../../helpers/strength"
+import { usePassphrasesSlice } from "../../stores/passphrases"
+import FancyInput from "../form/FancyInput"
+import FancyTextArea from "../form/FancyTextArea"
+import Meter from "../common/Meter"
+import FormikHelper from "../../helpers/formik"
 
 const PassphraseDetails: FC = () => {
-  const passphrases = usePassphrasesSlice((state) => state.passphrases)
   const selectedPassphrase = usePassphrasesSlice((state) => state.selectedPassphrase)
   const detailsVisible = usePassphrasesSlice((state) => state.detailsVisible)
   const closeDetails = usePassphrasesSlice((state) => state.closeDetails)
 
   return <AnimatePresence>
-    {selectedPassphrase > -1 && detailsVisible &&
+    {selectedPassphrase !== null && detailsVisible &&
       <Formik
         initialValues={{
-          email: passphrases[selectedPassphrase].email || "",
-          username: passphrases[selectedPassphrase].username || "",
-          url: passphrases[selectedPassphrase].url || "",
+          email: selectedPassphrase?.email || "",
+          username: selectedPassphrase?.username || "",
+          url: selectedPassphrase?.url || "",
           password: "",
-          notes: passphrases[selectedPassphrase].notes || "",
+          notes: selectedPassphrase?.notes || "",
         }}
         enableReinitialize
         onSubmit={() => { }}
@@ -66,8 +65,8 @@ const PassphraseDetails: FC = () => {
                   </button>
 
                   <img
-                    src={`https://logo.clearbit.com/${passphrases[selectedPassphrase].platform.toLowerCase()}.com`}
-                    alt={passphrases[selectedPassphrase].platform}
+                    src={`https://logo.clearbit.com/${selectedPassphrase.platform.toLowerCase()}.com`}
+                    alt={selectedPassphrase.platform}
                     width={128}
                     height={128}
                     className="rounded-full absolute -bottom-12 left-4"
@@ -75,10 +74,10 @@ const PassphraseDetails: FC = () => {
 
                   <div className="flex items-center gap-2">
                     <h1 className="text-2xl font-medium text-tuatara-900 dark:text-tuatara-50">
-                      {passphrases[selectedPassphrase].platform}
+                      {selectedPassphrase.platform}
                     </h1>
                     <a
-                      href={passphrases[selectedPassphrase].url}
+                      href={selectedPassphrase.url}
                       target="_blank"
                       rel="noreferrer"
                     >
@@ -172,7 +171,7 @@ const PassphraseDetails: FC = () => {
                     <FancyInput
                       label="Created At"
                       icon={<IconCalendarCheck />}
-                      value={new Date(passphrases[selectedPassphrase].createdAt)
+                      value={new Date(selectedPassphrase.createdAt)
                         .toLocaleString("en-UK", {
                           hour12: false,
                           dateStyle: "medium",
@@ -185,7 +184,7 @@ const PassphraseDetails: FC = () => {
                     <FancyInput
                       label="Updated At"
                       icon={<IconEdit />}
-                      value={new Date(passphrases[selectedPassphrase].updatedAt)
+                      value={new Date(selectedPassphrase.updatedAt)
                         .toLocaleString("en-UK", {
                           hour12: false,
                           dateStyle: "medium",
@@ -199,6 +198,7 @@ const PassphraseDetails: FC = () => {
               </motion.aside>
             </motion.section>
 
+
             {FormikHelper.isEdited(initialValues, values) &&
               <motion.button
                 variants={{
@@ -209,7 +209,7 @@ const PassphraseDetails: FC = () => {
                 animate="visible"
                 exit="hidden"
                 type="submit"
-                className="bg-lola-500 dark:bg-lola-900 text-white p-3 rounded-full hover:bg-lola-400 dark:hover:bg-lola-800 transition-all duration-300 fixed bottom-8 right-8 z-50 cursor-pointer"
+                className="bg-leaf-400 dark:bg-leaf-600 text-white p-3 rounded-full hover:bg-leaf-500 dark:hover:bg-leaf-500 transition-all duration-300 fixed bottom-8 right-8 z-50 cursor-pointer"
               >
                 <IconDeviceFloppy size={36} stroke={1.5} />
               </motion.button>

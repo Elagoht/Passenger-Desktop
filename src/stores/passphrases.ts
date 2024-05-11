@@ -3,13 +3,11 @@ import { Passphrase } from "../types/common"
 
 interface PassphrasesSlice {
   passphrases: Passphrase[]
-  selectedPassphrase: number
+  selectedPassphrase: Passphrase | null
   detailsVisible: boolean
   openDetails: () => void
   closeDetails: () => void
-  selectPassphrase: (state: number) => void
-  selectPreviousPassphrase: () => void
-  selectNextPassphrase: () => void
+  selectPassphrase: (state: Passphrase["id"] | null) => void
   setPassphrases: (passphrases: Passphrase[]) => void
   addPassphrase: (passphrase: Passphrase) => void
   updatePassphrase: (passphrase: Passphrase) => void
@@ -27,6 +25,8 @@ export const usePassphrasesSlice = create<PassphrasesSlice>((set) => ({
     updatedAt: new Date().toISOString(),
     passphrase: "Thi$1$@P@$$M0rD4M3",
     notes: "This is a note",
+    lastAccessedAt: new Date().toISOString(),
+    totalAccesses: 10
   }, {
     id: "2",
     platform: "Twitter",
@@ -37,6 +37,8 @@ export const usePassphrasesSlice = create<PassphrasesSlice>((set) => ({
     updatedAt: new Date().toISOString(),
     passphrase: "Thisisapassword",
     notes: "This is a note",
+    lastAccessedAt: new Date().toISOString(),
+    totalAccesses: 5
   }, {
     id: "3",
     platform: "Instagram",
@@ -45,11 +47,13 @@ export const usePassphrasesSlice = create<PassphrasesSlice>((set) => ({
     email: "john@doe.com",
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
-    passphrase: "123456",
+    passphrase: "Thisisapassword",
     notes: "This is a note",
+    lastAccessedAt: new Date().toISOString(),
+    totalAccesses: 8
   }],
 
-  selectedPassphrase: -1,
+  selectedPassphrase: null,
 
   detailsVisible: false,
 
@@ -61,20 +65,10 @@ export const usePassphrasesSlice = create<PassphrasesSlice>((set) => ({
     detailsVisible: false
   }),
 
-  selectPassphrase: (selectedPassphrase) => set({ selectedPassphrase }),
-
-  selectPreviousPassphrase: () => set((state) => ({
-    selectedPassphrase:
-      state.selectedPassphrase - 1 < 0
-        ? state.passphrases.length - 1
-        : state.selectedPassphrase - 1
-  })),
-
-  selectNextPassphrase: () => set((state) => ({
-    selectedPassphrase:
-      state.selectedPassphrase + 1 >= state.passphrases.length
-        ? 0
-        : state.selectedPassphrase + 1
+  selectPassphrase: (id) => set((state) => ({
+    selectedPassphrase: id === null
+      ? null
+      : state.passphrases.find((p) => p.id === id)
   })),
 
   setPassphrases: (passphrases) => set({

@@ -8,6 +8,8 @@ export type Passphrase = {
   notes?: string
   createdAt: string
   updatedAt: string
+  lastAccessedAt: string
+  totalAccesses: number
 }
 
 export type ListablePassphrase = {
@@ -18,4 +20,5 @@ export type ListablePassphrase = {
   email: string | null
   createdAt: string
   updatedAt: string
+  lastAccessedAt: string
 }

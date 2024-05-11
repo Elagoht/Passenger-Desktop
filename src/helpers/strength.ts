@@ -73,6 +73,10 @@ class Strength {
       "8": "Perfect",
     }
 
+  /**
+   * @param password: password to calculate
+   * @returns calculated score
+   */
   public static calculate(password: string): number {
     let score = -1 // Short password penalty
 
@@ -83,11 +87,19 @@ class Strength {
     return score
   }
 
+  /**
+   * @param score: calculated score
+   * @returns message based on the score
+   */
   public static calculatedMessage(score: number):
     typeof this.scoreTable[keyof typeof this.scoreTable] {
     return this.scoreTable[score.toString()]
   }
 
+  /**
+   * @param password: password to evaluate
+   * @returns object with the result of each criteria
+   */
   public static evaluate(password: string): Record<
     typeof this.criteriaMessages[StrengthCriteria],
     boolean

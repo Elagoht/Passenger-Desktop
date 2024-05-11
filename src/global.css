@@ -6,25 +6,12 @@
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
 }
 
+html {
+  @apply text-xl;
+}
+
 body {
-  @apply text-tuatara-900 dark:text-tuatara-100 select-none;
-}
-
-main {
-  @apply h-screen overflow-auto;
-}
-.focused .window {
-  @apply bg-tuatara-50 dark:bg-tuatara-900;
-}
-.focused .background {
-  @apply bg-tuatara-100 dark:bg-tuatara-950;
-}
-
-.blurred .window {
-  @apply bg-tuatara-100 dark:bg-tuatara-950;
-}
-.blurred .background {
-  @apply bg-tuatara-200 dark:bg-tuatara-900;
+  @apply text-tuatara-900 dark:text-tuatara-100 select-none bg-tuatara-200 dark:bg-tuatara-950;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator,

@@ -5,14 +5,15 @@ import { FC, InputHTMLAttributes, ReactElement, useState } from "react"
 interface IFancyInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string
   icon: ReactElement
+  noCopy?: boolean
 }
 
-const FancyInput: FC<IFancyInputProps> = ({ icon, label, ...props }) => {
+const FancyInput: FC<IFancyInputProps> = ({ icon, label, noCopy, ...props }) => {
   const [focused, setFocused] = useState<boolean>(false)
 
   return <label className={classNames({
     "flex text-lg items-center pl-2 gap-2 rounded-md": true,
-    "bg-white dark:bg-tuatara-900": focused && !props.disabled && !props.readOnly,
+    "bg-white dark:bg-tuatara-800": focused && !props.disabled && !props.readOnly,
     "text-tuatara-500": props.disabled || props.readOnly,
   })}>
     <span className="sr-only">
@@ -27,7 +28,7 @@ const FancyInput: FC<IFancyInputProps> = ({ icon, label, ...props }) => {
       {...props}
       disabled={props.disabled}
       className={classNames({
-        "py-2 bg-transparent outline-none w-full": true,
+        "py-2 bg-transparent outline-none w-full placeholder:text-tuatara-500": true,
         "select-none": props.disabled || props.readOnly,
         [props.className!]: props.className,
       })}
@@ -41,7 +42,7 @@ const FancyInput: FC<IFancyInputProps> = ({ icon, label, ...props }) => {
       }}
     />
 
-    {props.value && !props.disabled && !props.readOnly &&
+    {props.value && !props.disabled && !props.readOnly && !noCopy &&
       <button
         onClick={() => props.value
           && navigator.clipboard.writeText(String(props.value))
