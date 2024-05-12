@@ -56,7 +56,7 @@ const PassphraseDetails: FC = () => {
                 className="bg-tuatara-50 dark:bg-tuatara-950 rounded-lg h-full w-full relative max-w-screen-sm overflow-y-auto"
                 onClick={(event) => event.stopPropagation()}
               >
-                <div className="h-24 pl-40 p-2 bg-tuatara-100 dark:bg-tuatara-900 rounded-t-lg flex items-end gap-4 relative">
+                <div className="h-24 pl-36 p-2 bg-tuatara-100 dark:bg-tuatara-900 rounded-t-lg flex items-end gap-4 relative">
                   <button
                     className="absolute top-4 right-4 hover:bg-tuatara-200 dark:hover:bg-tuatara-800 p-2 hover:rounded-3xl hover:text-red-500 hover:rotate-90 transition-all duration-300"
                     onClick={closeDetails}

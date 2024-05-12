@@ -11,17 +11,17 @@ class Statistics {
   /**
    * @returns the total number of passphrases
    */
-  public passphrasesCount = (): number =>
+  public totalCount = (): number =>
     this.passphrases.length
 
   /**
    * @returns the average length of passphrases
    */
-  public averagePasswordLength = (): number => {
+  public averageLength = (): number => {
     return this.passphrases.reduce((acc, curr) =>
       acc + curr.passphrase.length,
       0
-    ) / this.passphrasesCount()
+    ) / this.totalCount()
   }
 
   /**
@@ -31,9 +31,15 @@ class Statistics {
     Array.from(new Set(this.passphrases.map((passphrase) => passphrase.platform)))
 
   /**
+   * @returns the number of unique passphrases
+   */
+  public uniqueCount = (): number =>
+    Array.from(new Set(this.passphrases.map((passphrase) => passphrase.passphrase))).length
+
+  /**
    * @returns the most accessed passphrases
    */
-  public mostAccessedPassphrases = (limit: number): Passphrase[] =>
+  public mostAccessed = (limit: number): Passphrase[] =>
     this.passphrases
       .sort((a, b) => b.totalAccesses - a.totalAccesses)
       .slice(0, limit)
@@ -52,7 +58,7 @@ class Statistics {
    * ]]
    * ```
    */
-  public commonPasswordsByPlatform = (): Array<Passphrase[]> => {
+  public commonByPlatform = (): Array<Passphrase[]> => {
     const passphrases = this.passphrases
     const commonPasswords: Array<Passphrase[]> = []
 
@@ -67,47 +73,45 @@ class Statistics {
     return commonPasswords
   }
 
-  public percentageOfCommonPasswords = (): number => (
-    this.commonPasswordsByPlatform().length
-    / this.passphrasesCount()
+  public percentageOfCommon = (): number => (
+    this.commonByPlatform().length
+    / this.totalCount()
   ) * 100
 
-  public mostCommonPassword = (): string => {
-    const commonPasswords = this.commonPasswordsByPlatform()
+  public mostCommon = (): string => {
+    const commonPasswords = this.commonByPlatform()
     const mostCommonPassword = commonPasswords.sort((a, b) => b.length - a.length)[0][0].passphrase
     return mostCommonPassword
   }
-  public passphraseStrengths = (): Record<Passphrase["id"], number> => {
+  public strengths = (): Record<Passphrase["id"], number> => {
     return this.passphrases.reduce((evaluations, passphrase) => {
       evaluations[passphrase.id] = Strength.calculate(passphrase.passphrase)
       return evaluations
     }, {} as Record<Passphrase["id"], number>)
   }
 
-  public averagePassphraseStrength = (): number => {
-    const strengths = Object.values(this.passphraseStrengths())
+  public averageStrength = (): number => {
+    const strengths = Object.values(this.strengths())
     return strengths.reduce((acc, curr) => acc + curr, 0) / strengths.length
   }
 
-  public passphrasesWithWeakPasswords = (): Passphrase[] => {
-    const strengths = this.passphraseStrengths()
+  public weakPassphrases = (): Passphrase[] => {
+    const strengths = this.strengths()
     return this.passphrases.filter((passphrase) => strengths[passphrase.id] < 4)
   }
 
-  public passphrasesWithMediumPasswords = (): Passphrase[] => {
-    const strengths = this.passphraseStrengths()
+  public mediumPassphrases = (): Passphrase[] => {
+    const strengths = this.strengths()
     return this.passphrases.filter((passphrase) =>
       strengths[passphrase.id] >= 4 &&
       strengths[passphrase.id] <= 5
     )
   }
 
-  public passphrasesWithStrongPasswords = (): Passphrase[] =>
+  public strongPassphrases = (): Passphrase[] =>
     this.passphrases.filter((passphrase) =>
-      this.passphraseStrengths()[passphrase.id] > 5
+      this.strengths()[passphrase.id] > 5
     )
-
-
 }
 
 export default Statistics

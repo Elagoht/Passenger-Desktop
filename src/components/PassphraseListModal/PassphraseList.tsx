@@ -1,7 +1,6 @@
 import { IconSearch } from "@tabler/icons-react"
 import { AnimatePresence, motion } from "framer-motion"
 import { FC, useEffect, useState } from "react"
-import { useDebounce } from "use-debounce"
 import { usePassphrasesSlice } from "../../stores/passphrases"
 import { ListablePassphrase } from "../../types/common"
 import FancyInput from "../form/FancyInput"
@@ -22,21 +21,12 @@ const PassphraseList: FC = () => {
 
   const [searchTerm, setSearchTerm] = useState<string>("")
 
-  const [debouncedSearchTerm] = useDebounce(searchTerm, 500)
-
-  const [filteredPassphrases, setFilteredPassphrases] = useState<ListablePassphrase[]>([])
-
-  useEffect(() => {
-    if (debouncedSearchTerm) {
-      const searchTermLower = debouncedSearchTerm.toLowerCase()
-      const filtered = passphrases.filter((passphrase) =>
-        passphrase.platform.toLowerCase().includes(searchTermLower)
-      )
-      setFilteredPassphrases(filtered)
-    } else {
-      setFilteredPassphrases(passphrases)
-    }
-  }, [debouncedSearchTerm, passphrases])
+  const filteredPassphrases = passphrases.filter((passphrase: ListablePassphrase) => {
+    const search = searchTerm.toLowerCase()
+    return passphrase.platform.toLowerCase().includes(search)
+      || passphrase.username?.toLowerCase()?.includes(search)
+      || passphrase.email?.toLowerCase()?.includes(search)
+  })
 
   return <>
     <FancyInput
@@ -50,11 +40,11 @@ const PassphraseList: FC = () => {
     />
 
     <AnimatePresence>
-      {debouncedSearchTerm && debouncedSearchTerm.length > 0 &&
+      {searchTerm.length > 0 &&
         <motion.p
-          initial={{ opacity: 0, margin: "-2.3rem" }}
-          animate={{ opacity: 1, margin: "0" }}
-          exit={{ opacity: 0, margin: "-2.3rem" }}
+          initial={{ opacity: 0, marginTop: "-2.6rem" }}
+          animate={{ opacity: 1, marginTop: "0" }}
+          exit={{ opacity: 0, marginTop: "-2.6rem" }}
           className="text-sm text-gray-500 dark:text-gray-400">
           {filteredPassphrases.length > 0
             ? <>
@@ -73,16 +63,17 @@ const PassphraseList: FC = () => {
     >
 
       <AnimatePresence>
-        {filteredPassphrases.map((passphrase) =>
-          <motion.li
-            key={passphrase.id}
-            initial={{ opacity: 0, marginTop: "-5.25rem" }}
-            animate={{ opacity: 1, marginTop: 0 }}
-            exit={{ opacity: 0, marginTop: "-5.25rem" }}
-          >
-            <PassphraseCard {...passphrase} />
-          </motion.li>
-        )}
+        {filteredPassphrases
+          .map((passphrase) =>
+            <motion.li
+              key={passphrase.id}
+              initial={{ opacity: 0, marginBottom: "-4.5rem" }}
+              animate={{ opacity: 1, marginBottom: 0 }}
+              exit={{ opacity: 0, marginBottom: "-4.5rem" }}
+            >
+              <PassphraseCard {...passphrase} />
+            </motion.li>
+          )}
       </AnimatePresence>
     </motion.ul>
   </>

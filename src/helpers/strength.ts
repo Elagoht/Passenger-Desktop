@@ -73,6 +73,26 @@ class Strength {
       "8": "Perfect",
     }
 
+  private static colors: Record<
+    number,
+    string
+  > = {
+      "-2": "#FF0000",
+      "-1": "#FF3300",
+      "0": "#FF6600",
+      "1": "#FF9900",
+      "2": "#FFCC00",
+      "3": "#FFFF00",
+      "4": "#CCFF00",
+      "5": "#99FF00",
+      "6": "#66FF00",
+      "7": "#33FF00",
+      "8": "#00FF00"
+    }
+
+  public static color = (score: number): string =>
+    this.colors[score]
+
   /**
    * @param password: password to calculate
    * @returns calculated score

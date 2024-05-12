@@ -4,10 +4,14 @@ import "swiper/css"
 import "swiper/css/pagination"
 import { A11y, Keyboard, Pagination, Scrollbar } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
+import StatisticsSummary from "./StatisticsSummary"
+import Statistics from "../../helpers/statistics"
 import { usePassphrasesSlice } from "../../stores/passphrases"
 
 const StatisticsSwiper: FC = () => {
-  const detailsVisible = usePassphrasesSlice((state) => state.detailsVisible)
+  const passphrases = usePassphrasesSlice(state => state.passphrases)
+
+  const statisticsManager = new Statistics(passphrases)
 
   return <Swiper
     slidesPerView={1.25}
@@ -20,16 +24,14 @@ const StatisticsSwiper: FC = () => {
     pagination={{ clickable: true }}
     modules={[Scrollbar, A11y, Keyboard, Pagination]}
     className={classNames({
-      "transition-all duration-300 ease-in-out": true,
-      "-translate-y-full": detailsVisible,
+      "fixed top-0 left-0 w-full h-80 -z-10": true,
+      "transition-all duration-300 ease-in-out": true
     })}
   >
-    {Array.from({ length: 3 }).map((_, i) =>
-      <SwiperSlide key={i} className="p-8 h-72 my-4 text-2xl text-center flex items-center justify-center">
-        {i + 1}
-      </SwiperSlide>
-    )}
-  </Swiper >
+    <SwiperSlide>
+      <StatisticsSummary statisticsManager={statisticsManager} />
+    </SwiperSlide>
+  </Swiper>
 }
 
 export default StatisticsSwiper
