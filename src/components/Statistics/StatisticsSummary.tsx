@@ -3,7 +3,6 @@ import { FC } from "react"
 import Statistics from "../../helpers/statistics"
 import Strength from "../../helpers/strength"
 import GaugeChart from "./charts/GauceChart"
-import DoughnutChart from "./charts/DoughnutChart"
 
 interface IStatisticsSummaryProps {
   statisticsManager: Statistics
