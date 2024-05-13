@@ -1,6 +1,6 @@
 import { FC } from "react"
-import { usePassphrasesSlice } from "../../stores/passphrases"
-import { ListablePassphrase } from "../../types/common"
+import { usePassphrasesSlice } from "../../../stores/passphrases"
+import { ListablePassphrase } from "../../../types/common"
 import Copier from "./Copier"
 import LinkOpener from "./LinkOpener"
 

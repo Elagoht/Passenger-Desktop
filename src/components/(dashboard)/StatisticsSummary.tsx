@@ -2,7 +2,7 @@ import "chart.js/auto"
 import { FC } from "react"
 import Statistics from "../../helpers/statistics"
 import Strength from "../../helpers/strength"
-import GaugeChart from "./charts/GauceChart"
+import GaugeChart from "../statistics/GauceChart"
 
 interface IStatisticsSummaryProps {
   statisticsManager: Statistics

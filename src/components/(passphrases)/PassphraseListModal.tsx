@@ -4,7 +4,7 @@ import { FC, useEffect, useState } from "react"
 import { usePassphrasesSlice } from "../../stores/passphrases"
 import { ListablePassphrase } from "../../types/common"
 import FancyInput from "../form/FancyInput"
-import PassphraseCard from "../PassphraseCard"
+import PassphraseCard from "./PassphraseCard"
 
 const PassphraseList: FC = () => {
   const passphrases = usePassphrasesSlice((state) => state.passphrases)
