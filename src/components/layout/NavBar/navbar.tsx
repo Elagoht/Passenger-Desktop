@@ -2,29 +2,29 @@ import { IconChartPie, IconChartPieFilled, IconExclamationCircle, IconListSearch
 
 const menuItems = [
   {
-    "path": "dashboard",
+    "path": "/dashboard",
     "title": "Dashboard",
     "icon": IconChartPie,
     "filled": IconChartPieFilled
   },
   {
-    "path": "passphrases",
+    "path": "/passphrases",
     "title": "Passphrases",
     "icon": IconListSearch
   },
   {
-    "path": "add-passphrase",
+    "path": "/add-passphrase",
     "title": "Add Passphrase",
     "icon": IconPlus,
     "floating": true
   },
   {
-    "path": "actions-and-news",
+    "path": "/actions-and-news",
     "title": "Actions & News",
     "icon": IconExclamationCircle
   },
   {
-    "path": "settings",
+    "path": "/settings",
     "title": "Settings",
     "icon": IconSettings
   }
