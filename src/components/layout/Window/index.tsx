@@ -29,7 +29,7 @@ const Window: FC<IWindowProps> = ({ children }) => {
       ease: "anticipate",
       duration: 0.25
     }}
-    className="fixed top-0 left-0 right-0 bottom-[5.25rem]"
+    className="grow overflow-y-auto"
   >
     {children}
   </motion.main>
