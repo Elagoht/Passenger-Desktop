@@ -29,6 +29,13 @@ const PassphraseList: FC = () => {
   })
 
   return <>
+    <p className="text-center">
+      {passphrases.length} passphrase{passphrases.length > 1
+        ? "s are "
+        : " is "
+      }safe in your vault
+    </p>
+
     <FancyInput
       icon={<IconSearch />}
       noCopy
@@ -56,7 +63,7 @@ const PassphraseList: FC = () => {
     </AnimatePresence>
 
     <motion.ul
-      className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
+      className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1, transition: { staggerChildren: 0.1 } }}
       exit={{ opacity: 0 }}

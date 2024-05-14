@@ -21,6 +21,7 @@ const WinLogin: FC = () => {
         alt="Passenger"
         width={128}
         height={128}
+        draggable="false"
       />
 
       <h1 className="text-3xl font-bold text-center -my-4">

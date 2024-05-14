@@ -8,6 +8,7 @@ import AnimatedRoutes from "./lib/router/AnimatedRoutes"
 import Window from "./components/layout/Window"
 import { AnimatePresence } from "framer-motion"
 import WinDashboard from "./components/windows/(dashboard)/WinDashboard"
+import WinPassphrases from "./components/windows/(passphrases)/WinPassphrases"
 
 const App: FC = () => {
   const isAuthorized = useAuthorizationSlice((state) => state.isAuthorized)
@@ -40,7 +41,7 @@ const App: FC = () => {
               <Route element={<AnimatedRoutes />}>
                 {[
                   { path: "/dashboard", element: <WinDashboard /> },
-                  { path: "/passphrases", element: <Window> Passphrases </Window> },
+                  { path: "/passphrases", element: <WinPassphrases /> },
                   { path: "/add-passphrase", element: <Window> Add Passphrase </Window> },
                   { path: "/actions-and-news", element: <Window> Actions </Window> },
                   { path: "/settings", element: <Window> Settings </Window> },

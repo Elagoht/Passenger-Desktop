@@ -69,6 +69,7 @@ const PassphraseDetails: FC = () => {
                     alt={selectedPassphrase.platform}
                     width={128}
                     height={128}
+                    draggable="false"
                     className="rounded-full absolute -bottom-12 left-4"
                   />
 

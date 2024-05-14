@@ -14,6 +14,7 @@ const NavBar: FC = () => {
         alt="Passenger"
         width={32}
         height={32}
+        draggable="false"
       />
 
       <h1 className="text-xl font-medium text-center text-tuatara-500 dark:text-tuatara-400">

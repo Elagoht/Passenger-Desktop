@@ -11,7 +11,7 @@ html {
 }
 
 body {
-  @apply text-tuatara-900 dark:text-tuatara-100 select-none bg-tuatara-200 dark:bg-tuatara-950;
+  @apply text-tuatara-900 dark:text-tuatara-100 select-none bg-tuatara-100 dark:bg-tuatara-950;
 }
 
 input[type="date"]::-webkit-calendar-picker-indicator,

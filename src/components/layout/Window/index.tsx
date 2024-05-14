@@ -1,11 +1,13 @@
+import classNames from "classnames"
 import { motion } from "framer-motion"
 import { FC, ReactNode } from "react"
 
 interface IWindowProps {
+  className?: string
   children: ReactNode
 }
 
-const Window: FC<IWindowProps> = ({ children }) => {
+const Window: FC<IWindowProps> = ({ children, className }) => {
   return <motion.main
     initial="initial"
     animate="in"
@@ -29,7 +31,10 @@ const Window: FC<IWindowProps> = ({ children }) => {
       ease: "anticipate",
       duration: 0.25
     }}
-    className="grow overflow-y-auto p-2 md:p-4"
+    className={classNames({
+      "grow overflow-y-auto p-2 md:p-4": true,
+      [className as string]: className
+    })}
   >
     {children}
   </motion.main>

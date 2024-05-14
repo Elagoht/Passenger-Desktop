@@ -16,13 +16,14 @@ const PassphraseCard: FC<IPassphraseCardProps> = ({ id, platform, url, }) => {
       setSelectedPassphrase(id)
       openDetails()
     }}
-    className="flex items-center gap-2 p-3 rounded-lg hover:bg-tuatara-100 hover:dark:bg-tuatara-950 hover:shadow-inner hover:shadow-tuatara-200 hover:dark:shadow-stone-950 cursor-pointer hover:outline outline-1 outline-tuatara-50 dark:outline-tuatara-700 transition-all w-full text-left"
+    className="flex items-center gap-2 p-3 rounded-lg hover:bg-tuatara-50 hover:dark:bg-tuatara-900 transition-all w-full text-left bg-tuatara-50 dark:bg-tuatara-900"
   >
     <img
       src={`https://logo.clearbit.com/${platform.toLowerCase()}.com`}
       alt={platform}
       width={36}
       height={36}
+      draggable="false"
       className="rounded-full"
     />
 
