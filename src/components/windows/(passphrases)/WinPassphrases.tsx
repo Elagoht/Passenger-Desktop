@@ -10,7 +10,7 @@ const WinPassphrases: FC = () => {
       width={256}
       height={256}
       draggable="false"
-      className="mt-12 mx-auto max-h-[33%] aspect-square max-w-full object-contain"
+      className="mt-6 mx-auto max-h-[33%] aspect-square max-w-full object-contain"
     />
 
     <PassphraseList />

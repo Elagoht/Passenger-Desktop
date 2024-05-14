@@ -3,6 +3,7 @@ import Window from "../../layout/Window"
 import Statistics from "../../../helpers/statistics"
 import { usePassphrasesSlice } from "../../../stores/passphrases"
 import StrengthMeter from "../../(dashboard)/StrengtMeter"
+import TotalCounts from "../../(dashboard)/TotalCounts"
 
 const WinDashboard: FC = () => {
   const passphrases = usePassphrasesSlice((state) => state.passphrases)
@@ -10,7 +11,9 @@ const WinDashboard: FC = () => {
   const statistics = new Statistics(passphrases)
 
   return <Window>
-    <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-4">
+    <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-2 md:gap-4">
+      <TotalCounts statistics={statistics} />
+
       <StrengthMeter statistics={statistics} />
     </div>
   </Window>
