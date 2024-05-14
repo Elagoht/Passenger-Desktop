@@ -30,12 +30,10 @@
     "windows": [
       {
         "title": "passenger-ui",
-        "width": 800,
-        "height": 600,
-        "minHeight": 392,
+        "width": 392,
+        "height": 697,
+        "minHeight": 697,
         "minWidth": 392,
-        "maxHeight": 1024,
-        "maxWidth": 768,
         "acceptFirstMouse": true,
         "contentProtected": true,
         "fileDropEnabled": false
