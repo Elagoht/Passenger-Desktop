@@ -23,18 +23,15 @@ const GaugeChart: FC<IGaugeChartProps> = ({
   const filledValue = value - minValue
   const emptyValue = totalRange - filledValue
 
-  return <div
-    className="relative text-center"
-  >
+  return <div className="relative text-center -my-6">
     <Doughnut
-      style={{ filter: `drop-shadow(0 0 0.25rem #0005` }}
+      style={{ filter: "drop-shadow(0 0 0.25rem #0005" }}
       data={{
         datasets: [
           {
             data: [filledValue, emptyValue],
             backgroundColor: [fillColor, emptyColor],
             borderWidth: 0,
-            borderRadius: 360,
             circumference: 220,
             rotation: 250
           }

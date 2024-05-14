@@ -24,8 +24,8 @@ interface IInputProps extends Omit<
   | "url"
   | "search"
   optional?: boolean
-  error?: string
-  success?: string
+  error?: string | boolean
+  success?: string | boolean
   message?: string
   iconLeft?: ReactNode
   iconRight?: ReactNode
@@ -135,14 +135,14 @@ const Input: FC<IInputProps> = ({
           }}
         >
           {showPassword
-            ? <IconEye />
-            : <IconEyeOff />}
+            ? <IconEye size="32" />
+            : <IconEyeOff size="32" />}
         </button>
         : validityIcons
           ? error
-            ? <IconAlertCircle />
+            ? <IconAlertCircle size="32" />
             : success
-              ? <IconCheck />
+              ? <IconCheck size="32" />
               : iconRight
           : iconRight
       }

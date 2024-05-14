@@ -2,11 +2,12 @@ import { FC, Suspense } from "react"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import Private from "./components/layout/Private"
 import Public from "./components/layout/Public"
-import WinLogin from "./components/windows/(login)/WinLogin"
+import WinLogin from "./components/windows/(auth)/WinLogin"
 import { useAuthorizationSlice } from "./stores/authorization"
 import AnimatedRoutes from "./lib/router/AnimatedRoutes"
 import Window from "./components/layout/Window"
 import { AnimatePresence } from "framer-motion"
+import WinDashboard from "./components/windows/(dashboard)/WinDashboard"
 
 const App: FC = () => {
   const isAuthorized = useAuthorizationSlice((state) => state.isAuthorized)
@@ -38,7 +39,7 @@ const App: FC = () => {
             <Route element={<Private />}>
               <Route element={<AnimatedRoutes />}>
                 {[
-                  { path: "/dashboard", element: <Window> Dashboard </Window> },
+                  { path: "/dashboard", element: <WinDashboard /> },
                   { path: "/passphrases", element: <Window> Passphrases </Window> },
                   { path: "/add-passphrase", element: <Window> Add Passphrase </Window> },
                   { path: "/actions-and-news", element: <Window> Actions </Window> },

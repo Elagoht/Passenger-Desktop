@@ -1,4 +1,6 @@
 /** @type {import("tailwindcss").Config} */
+import typography from "@tailwindcss/typography"
+
 const tailwindConfig = {
   content: [
     "./index.html",
@@ -10,6 +12,9 @@ const tailwindConfig = {
         "modal": "0 0 1rem var(--tw-shadow-color)",
         "modal-lg": "0 0 2rem var(--tw-shadow-color)",
         "modal-xl": "0 0 3rem var(--tw-shadow-color)",
+      },
+      dropShadow: {
+        "text": "0 0 0.25rem var(--tw-shadow-color)"
       },
       colors: {
         "tuatara": {
@@ -56,8 +61,8 @@ const tailwindConfig = {
     }
   },
   plugins: [
-    require("@tailwindcss/typography"),
+    typography
   ],
 }
 
-module.exports = tailwindConfig
+export default tailwindConfig
