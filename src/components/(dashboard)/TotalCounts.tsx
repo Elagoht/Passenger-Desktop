@@ -17,7 +17,7 @@ const TotalCounts: FC<ITotalCountsProps> = ({ statistics }) => {
         </p>
       </div>
 
-      <IconSparkles size={32} color="currentColor" />
+      <IconSparkles size={32} className="text-leaf-500" />
     </section>
 
     <section className="flex py-2 px-3 rounded-lg shadow shadow-tuatara-300 dark:shadow-tuatara-950 bg-tuatara-50 dark:bg-tuatara-900 text-creamcan-500">
@@ -28,7 +28,7 @@ const TotalCounts: FC<ITotalCountsProps> = ({ statistics }) => {
         </p>
       </div>
 
-      <IconAsterisk size={32} color="currentColor" />
+      <IconAsterisk size={32} className="text-leaf-500" />
     </section>
 
     <section className="flex py-2 px-3 rounded-lg shadow shadow-tuatara-300 dark:shadow-tuatara-950 bg-tuatara-50 dark:bg-tuatara-900 text-creamcan-500">
@@ -39,7 +39,7 @@ const TotalCounts: FC<ITotalCountsProps> = ({ statistics }) => {
         </p>
       </div>
 
-      <IconComponents size={32} color="currentColor" />
+      <IconComponents size={32} className="text-leaf-500" />
     </section>
   </article>
 }
