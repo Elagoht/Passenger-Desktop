@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
+    "tauri:dev": "NODE_ENV=dev tauri",
     "tauri": "tauri"
   },
   "dependencies": {
