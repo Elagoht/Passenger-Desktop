@@ -18,8 +18,8 @@ class Statistics {
    * @returns the average length of passphrases
    */
   public averageLength = (): number => {
-    return this.passphrases.reduce((acc, curr) =>
-      acc + curr.passphrase.length,
+    return this.passphrases.reduce((total, current) =>
+      total + current.passphrase.length,
       0
     ) / this.totalCount()
   }
@@ -59,7 +59,7 @@ class Statistics {
    * ```
    */
   public commonByPlatform = (): Array<Passphrase[]> => {
-    const passphrases = this.passphrases
+    const { passphrases } = this
     const commonPasswords: Array<Passphrase[]> = []
 
     for (const passphrase of passphrases) {
@@ -80,7 +80,9 @@ class Statistics {
 
   public mostCommon = (): string => {
     const commonPasswords = this.commonByPlatform()
-    const mostCommonPassword = commonPasswords.sort((a, b) => b.length - a.length)[0][0].passphrase
+    const mostCommonPassword = commonPasswords.sort(
+      (a, b) => b.length - a.length
+    )[0][0].passphrase
     return mostCommonPassword
   }
   public strengths = (): Record<Passphrase["id"], number> => {
@@ -92,7 +94,10 @@ class Statistics {
 
   public averageStrength = (): number => {
     const strengths = Object.values(this.strengths())
-    return strengths.reduce((acc, curr) => acc + curr, 0) / strengths.length
+    return strengths.reduce(
+      (total, current) => total + current,
+      0
+    ) / strengths.length
   }
 
   public weakPassphrases = (): Passphrase[] => {
