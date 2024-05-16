@@ -29,6 +29,7 @@ fn main() {
         .plugin(tauri_plugin_single_instance::init(
             |app: &tauri::AppHandle, argv: Vec<String>, cwd: String| {
                 println!("{}, {argv:?}, {cwd}", app.package_info().name);
+
                 app.emit_all("single-instance", Payload { args: argv, cwd })
                     .unwrap();
             },

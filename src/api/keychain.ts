@@ -1,19 +1,13 @@
 import { invoke } from "@tauri-apps/api/tauri"
 
-class KeyChain {
-  service: string = "dev.elagoht.passenger"
-  username: string
+class KeyRing {
 
-  constructor(username: string) {
-    this.username = username
-  }
-
-  async write(key: string): Promise<void> {
+  public static write = async (username: string, key: string): Promise<void> => {
     try {
       await invoke("save_key",
         {
-          service: this.service,
-          username: this.username,
+          service: "dev.elagoht.passenger",
+          username: username,
           key
         }
       )
@@ -24,13 +18,13 @@ class KeyChain {
     }
   }
 
-  async read(): Promise<string | null> {
+  public static read = async (username: string): Promise<string | null> => {
     try {
       return await invoke(
         "get_key",
         {
-          service: this.service,
-          username: this.username
+          service: "dev.elagoht.passenger",
+          username: username
         }
       )
     } catch (error) {
@@ -39,6 +33,17 @@ class KeyChain {
       throw new Error("Failed to get key: Unknown error")
     }
   }
+
+  public static generate = (): string => {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789@#$%^&*()_+{}[]|\\:;\"'<>,.?/!-=~`"
+    let result = ""
+    const length = 32
+    Array.from({ length }).forEach(() => {
+      const randomIndex = Math.floor(Math.random() * characters.length)
+      result += characters.charAt(randomIndex)
+    })
+    return result
+  }
 }
 
-export default KeyChain
+export default KeyRing

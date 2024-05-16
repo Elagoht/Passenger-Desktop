@@ -1,7 +1,7 @@
 import { create } from "zustand"
 import { Passphrase } from "../types/common"
 
-interface PassphrasesSlice {
+interface IPassphrasesSlice {
   passphrases: Passphrase[]
   selectedPassphrase: Passphrase | null
   detailsVisible: boolean
@@ -14,7 +14,7 @@ interface PassphrasesSlice {
   deletePassphrase: (id: string) => void
 }
 
-export const usePassphrasesSlice = create<PassphrasesSlice>((set) => ({
+export const usePassphrasesSlice = create<IPassphrasesSlice>((set) => ({
   passphrases: [{
     id: "1",
     platform: "Facebook",

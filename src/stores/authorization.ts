@@ -1,13 +1,13 @@
 import { create } from "zustand"
 
-interface AuthorizationSlice {
+interface IAuthorizationSlice {
   isAuthorized: boolean
   accessToken: string
   setIsAuthorizated: (state: boolean) => void
   setAccessToken: (token: string) => void
 }
 
-export const useAuthorizationSlice = create<AuthorizationSlice>((set) => ({
+export const useAuthorizationSlice = create<IAuthorizationSlice>((set) => ({
   isAuthorized: false,
 
   accessToken: "",
