@@ -1,9 +1,9 @@
 import { FC } from "react"
-import Window from "../../layout/Window"
-import Statistics from "../../../helpers/statistics"
-import { usePassphrasesSlice } from "../../../stores/passphrases"
-import StrengthMeter from "../../(dashboard)/StrengtMeter"
-import TotalCounts from "../../(dashboard)/TotalCounts"
+import Window from "../../components/layout/Window"
+import Statistics from "../../helpers/statistics"
+import { usePassphrasesSlice } from "../../stores/passphrases"
+import StrengthMeter from "../../components/(dashboard)/StrengtMeter"
+import TotalCounts from "../../components/(dashboard)/TotalCounts"
 
 const WinDashboard: FC = () => {
   const passphrases = usePassphrasesSlice((state) => state.passphrases)

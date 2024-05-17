@@ -1,6 +1,6 @@
 import { FC } from "react"
-import Window from "../../layout/Window"
-import PassphraseList from "../../(passphrases)/PassphraseList"
+import Window from "../../components/layout/Window"
+import PassphraseList from "../../components/(passphrases)/PassphraseList"
 
 const WinPassphrases: FC = () => {
   return <Window className="flex flex-col gap-6 p-4">
