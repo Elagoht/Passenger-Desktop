@@ -1,3 +1,4 @@
+import { nanoid } from "nanoid"
 import { ReactNode } from "react"
 import { create } from "zustand"
 
@@ -32,7 +33,7 @@ export const useNotificationSlice = create<INotificationSlice>((set) => ({
     notifications: [
       ...state.notifications,
       {
-        id: `notification-${Date.now()}`,
+        id: nanoid(),
         // Default values
         duration: 2500,
         clickToClose: true,

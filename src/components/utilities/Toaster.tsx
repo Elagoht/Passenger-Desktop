@@ -11,7 +11,7 @@ const Toaster: FC = () => {
     aria-live="polite"
     aria-atomic="true"
     aria-relevant="removals additions"
-    className="fixed inset-0 z-50 p-4 gap-4 pointer-events-none flex flex-col items-end"
+    className="fixed inset-0 z-50 md:p-2 md:gap-2 pointer-events-none flex flex-col items-end"
   >
     <AnimatePresence mode="sync">
       {notifications.map(notification =>

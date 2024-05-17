@@ -34,7 +34,7 @@ const Toast: FC<IToast> = ({
     id={id}
     className={
       classNames({
-        "p-2 bg-white dark:bg-tuatara-800 text-black dark:text-white flex gap-4 items-start border-b-4 rounded-lg shadow-md pointer-events-auto md:max-w-72 w-full": true,
+        "md:p-2 p-1 bg-white dark:bg-tuatara-800 text-black dark:text-white flex md:gap-2 gap-1 items-start border-b-4 md:rounded-lg shadow-md pointer-events-auto md:max-w-72 w-full": true,
         "border-leaf-500": type === "success",
         "border-creamcan-500": type === "warning",
         "border-rose-500": type === "error",
