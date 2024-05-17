@@ -133,15 +133,9 @@ const WinLogin: FC = () => {
               success={touched.passphrase && !errors.passphrase}
             />
 
-            <Button
-              disabled={!isValid}
-            >
+            <Button disabled={!isValid}>
               Login
             </Button>
-
-            <pre>
-              {JSON.stringify(secretKey, null, 2)}
-            </pre>
           </Form>
         }
       </Formik>
