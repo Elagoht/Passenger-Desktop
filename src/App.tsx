@@ -9,6 +9,7 @@ import WinDashboard from "./windows/(dashboard)/WinDashboard"
 import WinPassphrases from "./windows/(passphrases)/WinPassphrases"
 import AnimatedRoutes from "./lib/router/AnimatedRoutes"
 import { useAuthorizationSlice } from "./stores/authorization"
+import WinRegister from "./windows/(auth)/WinRegister"
 
 const App: FC = () => {
   const isAuthorized = useAuthorizationSlice((state) => state.isAuthorized)
@@ -21,10 +22,8 @@ const App: FC = () => {
             <Route element={<AnimatedRoutes />}>
               {[
                 { path: "/auth/login", element: <WinLogin /> },
-                /**
-                 * { path: "/auth/register", element: <WinRegister /> },
-                 * { path: "/auth/reset-password", element: <ResetPassword /> }
-                 */
+                { path: "/auth/register", element: <WinRegister /> },
+                // { path: "/auth/reset-password", element: <ResetPassword /> }
               ].map((route, index) =>
                 <Route
                   key={index}

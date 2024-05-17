@@ -1,16 +1,16 @@
-import { IconKey, IconMoodBoy, IconMoodEmpty, IconMoodHappy, IconMoodLookDown, IconMoodLookLeft, IconMoodLookRight, IconMoodLookUp, IconMoodSmileBeam, IconMoodTongue, IconMoodTongueWink, IconMoodUnamused, IconMoodWink } from "@tabler/icons-react"
+import { IconKey, IconLockOpen, IconMoodBoy, IconMoodEmpty, IconMoodHappy, IconMoodLookDown, IconMoodLookLeft, IconMoodLookRight, IconMoodLookUp, IconMoodSmileBeam, IconMoodTongue, IconMoodTongueWink, IconMoodUnamused, IconMoodWink } from "@tabler/icons-react"
 import { Form, Formik } from "formik"
 import { FC, useState } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Commands from "../../api/cli"
-import { validationAuthLoginForm } from "../../lib/validations/authForms"
-import { useAuthorizationSlice } from "../../stores/authorization"
-import { useKeyringSlice } from "../../stores/keyring"
-import { useNotificationSlice } from "../../stores/notification"
 import Button from "../../components/form/Button"
 import Input from "../../components/form/Input"
 import Window from "../../components/layout/Window"
 import StringHelper from "../../helpers/string"
+import { validationAuthLoginForm } from "../../lib/validations/authForms"
+import { useAuthorizationSlice } from "../../stores/authorization"
+import { useKeyringSlice } from "../../stores/keyring"
+import { useNotificationSlice } from "../../stores/notification"
 
 const moods = [
   <IconMoodSmileBeam size={32} />,
@@ -37,7 +37,6 @@ const WinLogin: FC = () => {
   const [mood, setMood] = useState<number>(Math.floor(Math.random() * moods.length))
 
   return <Window>
-
     <section className="h-screen items-center justify-center flex flex-col p-4 gap-4">
       <img
         src="/icon.png"
@@ -87,7 +86,7 @@ const WinLogin: FC = () => {
               // TODO: Implement a UI feedback for failed login.
               if (!output.success) return addNotification({
                 icon: <IconMoodLookDown size={32} />,
-                title: "Login failed",
+                title: "Could't open the vault",
                 type: "error",
                 message: StringHelper.removeUnixErrorPrefix(output.output)
               })
@@ -133,14 +132,24 @@ const WinLogin: FC = () => {
               success={touched.passphrase && !errors.passphrase}
             />
 
-            <Button disabled={!isValid}>
-              Login
+            <Button
+              rightIcon={<IconLockOpen size={24} />}
+              disabled={!isValid}
+            >
+              Unlock Vault
             </Button>
+
+            <Link
+              to="/auth/register"
+              className="text-sm text-center hover:underline"
+            >
+              Not have a vault yet? Create one!
+            </Link>
           </Form>
         }
       </Formik>
     </section>
-  </Window >
+  </Window>
 }
 
 export default WinLogin

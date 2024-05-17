@@ -23,7 +23,7 @@ class CLI {
   })
 }
 
-export default class Command {
+export default class Commands {
   public static login = async (passphrase: string): Promise<Output> =>
     CLI.readOutput(await CLI.execute("login", [passphrase]))
 
