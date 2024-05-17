@@ -1,6 +1,12 @@
 type StrengthCriteria = "lowercase" | "uppercase" | "numbers" | "special" | "repeated" | "sequentialNumbers" | "sequentialLetters" | "short" | "medium" | "long" | "veryLong" | "extremelyLong"
 
+/**
+ * Represents a password strength evaluator.
+ */
 class Strength {
+  /**
+   * Regular expressions for each strength criteria.
+   */
   private static criterias: Record<
     StrengthCriteria,
     RegExp
@@ -20,6 +26,9 @@ class Strength {
       extremelyLong: /^.{24,}$/ // At least 24 characters
     }
 
+  /**
+   * Scores for each strength criteria.
+   */
   private static criteriaScores: Record<
     StrengthCriteria,
     number
@@ -35,9 +44,12 @@ class Strength {
       medium: 1,
       long: 1,
       veryLong: 1,
-      extremelyLong: 1,
+      extremelyLong: 1
     }
 
+  /**
+   * Messages for each strength criteria.
+   */
   private static criteriaMessages: Record<
     StrengthCriteria,
     string
@@ -53,9 +65,12 @@ class Strength {
       medium: "At least 12 characters",
       long: "At least 16 characters",
       veryLong: "At least 20 characters",
-      extremelyLong: "At least 24 characters",
+      extremelyLong: "At least 24 characters"
     }
 
+  /**
+   * Score table for password strength.
+   */
   private static scoreTable: Record<
     string,
     string
@@ -70,9 +85,12 @@ class Strength {
       "5": "Acceptable",
       "6": "Good",
       "7": "Strong",
-      "8": "Perfect",
+      "8": "Perfect"
     }
 
+  /**
+   * Colors for each score level.
+   */
   private static colors: Record<
     number,
     string
@@ -90,12 +108,19 @@ class Strength {
       "8": "#00FF00"
     }
 
-  public static color = (score: number): string =>
+  /**
+   * Returns the color associated with a score level.
+   * @param score - The score level.
+   * @returns The color code.
+   */
+  public static color = (score: number):
+    typeof this.scoreTable[keyof typeof this.scoreTable] =>
     this.colors[score]
 
   /**
-   * @param password: password to calculate
-   * @returns calculated score
+   * Calculates the strength score of a password.
+   * @param password - The password to calculate.
+   * @returns The calculated score.
    */
   public static calculate(password: string): number {
     let score = -1 // Short password penalty
@@ -108,17 +133,18 @@ class Strength {
   }
 
   /**
-   * @param score: calculated score
-   * @returns message based on the score
+   * Returns the message associated with a score level.
+   * @param score - The calculated score.
+   * @returns The message based on the score.
    */
-  public static calculatedMessage(score: number):
-    typeof this.scoreTable[keyof typeof this.scoreTable] {
-    return this.scoreTable[score.toString()]
-  }
+  public static calculatedMessage = (score: number):
+    typeof this.scoreTable[keyof typeof this.scoreTable] =>
+    this.scoreTable[score.toString()]
 
   /**
-   * @param password: password to evaluate
-   * @returns object with the result of each criteria
+   * Evaluates a password against each strength criteria.
+   * @param password - The password to evaluate.
+   * @returns An object with the result of each criteria.
    */
   public static evaluate(password: string): Record<
     typeof this.criteriaMessages[StrengthCriteria],
@@ -130,7 +156,9 @@ class Strength {
     > = {}
 
     for (const [criteria, regex] of Object.entries(this.criterias))
-      result[this.criteriaMessages[criteria as StrengthCriteria]] = regex.test(password)
+      result[this.criteriaMessages[
+        criteria as StrengthCriteria
+      ]] = regex.test(password)
 
     return result
   }
