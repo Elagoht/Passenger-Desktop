@@ -144,8 +144,13 @@ const WinRegister: FC = () => {
                   className="flex items-center gap-1"
                 >
                   {criteria.regex.test(values.passphrase)
-                    ? <IconCheck size={16} color="green" />
-                    : <IconX size={16} color="red" />
+                    ? <IconCheck
+                      size={16}
+                      color="green" />
+                    : <IconX
+                      size={16}
+                      color="red"
+                    />
                   }
 
                   {criteria.message}
