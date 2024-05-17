@@ -6,7 +6,7 @@ import Strength from "../../helpers/strength"
 import { usePassphrasesSlice } from "../../stores/passphrases"
 import FancyInput from "../form/FancyInput"
 import FancyTextArea from "../form/FancyTextArea"
-import Meter from "../common/Meter"
+import Meter from "../statistics/Meter"
 import FormikHelper from "../../helpers/formik"
 
 const PassphraseDetails: FC = () => {
