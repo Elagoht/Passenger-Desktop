@@ -1,4 +1,4 @@
-import { IconCheck, IconX, IconKey, IconLockCog, IconMoodAnnoyed, IconMoodLookDown } from "@tabler/icons-react"
+import { IconCheck, IconKey, IconLockCog, IconMoodAnnoyed, IconMoodLookDown, IconX } from "@tabler/icons-react"
 import { Form, Formik } from "formik"
 import { FC } from "react"
 import { Link } from "react-router-dom"
@@ -11,6 +11,23 @@ import { validationAuthRegisterForm } from "../../lib/validations/authForms"
 import { useAuthorizationSlice } from "../../stores/authorization"
 import { useKeyringSlice } from "../../stores/keyring"
 import { useNotificationSlice } from "../../stores/notification"
+
+const criterias = [{
+  regex: /.{12,}/,
+  message: "At least 12 characters"
+}, {
+  regex: /[A-Z]/,
+  message: "At least one uppercase letter"
+}, {
+  regex: /[a-z]/,
+  message: "At least one lowercase letter"
+}, {
+  regex: /\d/,
+  message: "At least one digit"
+}, {
+  regex: /[^A-Za-z0-9]/,
+  message: "At least one special character"
+}]
 
 const WinRegister: FC = () => {
   const setSecretKey = useKeyringSlice(state => state.setSecretKey)
@@ -121,57 +138,7 @@ const WinRegister: FC = () => {
             </p>
 
             <ul className="text-sm">
-              {/* <li className="flex items-center gap-1">
-                {/.{12,}/.test(values.passphrase)
-                  ? <IconCheck size={16} color="green" />
-                  : <IconX size={16} color="red" />
-                }
-                At least 12 characters
-              </li>
-              <li className="flex items-center gap-1">
-                {/[A-Z]/.test(values.passphrase)
-                  ? <IconCheck size={16} color="green" />
-                  : <IconX size={16} color="red" />
-                }
-                At least one uppercase letter
-              </li>
-              <li className="flex items-center gap-1">
-                {/[a-z]/.test(values.passphrase)
-                  ? <IconCheck size={16} color="green" />
-                  : <IconX size={16} color="red" />
-                }
-                At least one lowercase letter
-              </li>
-              <li className="flex items-center gap-1">
-                {/\d/.test(values.passphrase)
-                  ? <IconCheck size={16} color="green" />
-                  : <IconX size={16} color="red" />
-                }
-                At least one digit
-              </li>
-              <li className="flex items-center gap-1">
-                {/[^A-Za-z0-9]/.test(values.passphrase)
-                  ? <IconCheck size={16} color="green" />
-                  : <IconX size={16} color="red" />
-                }
-                At least one special character
-              </li> */}
-              {[{
-                regex: /.{12,}/,
-                message: "At least 12 characters"
-              }, {
-                regex: /[A-Z]/,
-                message: "At least one uppercase letter"
-              }, {
-                regex: /[a-z]/,
-                message: "At least one lowercase letter"
-              }, {
-                regex: /\d/,
-                message: "At least one digit"
-              }, {
-                regex: /[^A-Za-z0-9]/,
-                message: "At least one special character"
-              }].map((criteria, index) =>
+              {criterias.map((criteria, index) =>
                 <li
                   key={index}
                   className="flex items-center gap-1"
