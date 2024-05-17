@@ -1,0 +1,3 @@
+.swiper-pagination {
+  @apply translate-y-10;
+}
