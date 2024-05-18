@@ -170,7 +170,7 @@ const WinRegister: FC = () => {
               to="/auth/login"
               className="text-sm text-center hover:underline"
             >
-              I already have a vault, login!
+              I already have a vault, unlock it!
             </Link>
           </Form>
         }
