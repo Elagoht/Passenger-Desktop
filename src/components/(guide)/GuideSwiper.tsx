@@ -6,9 +6,16 @@ import "swiper/css/pagination"
 import { A11y, EffectCards, Keyboard, Pagination } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import guideSlides from "../../data/guide"
+import { useAuthorizationSlice } from "../../stores/authorization"
 
 const GuideSwiper: FC = () => {
+  const setIsGuideDone = useAuthorizationSlice(state => state.setIsGuideDone)
+
   return <main className="fixed inset-0 bg-tuatara-950 bg-opacity-70 backdrop-blur-xl z-50 grid place-items-center">
+    <h1 className="font-bold text-creamcan-500 text-3xl">
+      Welcome Passenger
+    </h1>
+
     <div className="max-w-screen-sm w-screen p-4">
       <Swiper
         grabCursor
@@ -39,6 +46,13 @@ const GuideSwiper: FC = () => {
         )}
       </Swiper>
     </div>
+
+    <button
+      className="py-1 px-2 border border-tuatara-500 rounded-lg text-tuatara-500"
+      onClick={() => setIsGuideDone(true)}
+    >
+      Got it! Skip Guide
+    </button>
   </main>
 }
 
