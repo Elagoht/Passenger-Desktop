@@ -6,7 +6,7 @@ interface IAuthorizationSlice {
   isGuideDone: boolean
   setIsAuthorizated: (state: boolean) => void
   setAccessToken: (token: string) => void
-  setGuideDone: (state: boolean) => void
+  setIsGuideDone: (state: boolean) => void
 }
 
 export const useAuthorizationSlice = create<IAuthorizationSlice>((set) => ({
@@ -24,7 +24,7 @@ export const useAuthorizationSlice = create<IAuthorizationSlice>((set) => ({
     accessToken: token
   }),
 
-  setGuideDone: (state) => set({
+  setIsGuideDone: (state) => set({
     isGuideDone: state
   })
 }))
