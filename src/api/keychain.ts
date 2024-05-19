@@ -39,8 +39,9 @@ class KeyRing {
     let result = ""
     const length = 32
     Array.from({ length }).forEach(() => {
-      const randomIndex = Math.floor(Math.random() * characters.length)
-      result += characters.charAt(randomIndex)
+      result += characters.charAt(
+        Math.floor(Math.random() * characters.length)
+      )
     })
     return result
   }

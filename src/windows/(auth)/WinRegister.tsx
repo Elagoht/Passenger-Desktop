@@ -144,8 +144,13 @@ const WinRegister: FC = () => {
                   className="flex items-center gap-1"
                 >
                   {criteria.regex.test(values.passphrase)
-                    ? <IconCheck size={16} color="green" />
-                    : <IconX size={16} color="red" />
+                    ? <IconCheck
+                      size={16}
+                      color="green" />
+                    : <IconX
+                      size={16}
+                      color="red"
+                    />
                   }
 
                   {criteria.message}
@@ -165,7 +170,7 @@ const WinRegister: FC = () => {
               to="/auth/login"
               className="text-sm text-center hover:underline"
             >
-              I already have a vault, login!
+              I already have a vault, unlock it!
             </Link>
           </Form>
         }
