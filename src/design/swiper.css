@@ -1,0 +1,11 @@
+.swiper-pagination {
+  @apply !translate-y-10;
+}
+
+.swiper-pagination-bullet {
+  @apply !bg-tuatara-50 dark:!bg-tuatara-800 !opacity-100;
+}
+
+.swiper-pagination-bullet-active {
+  @apply !bg-creamcan-500;
+}
