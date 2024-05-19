@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion"
-import { FC, Suspense } from "react"
+import { FC, Suspense, useEffect } from "react"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import Private from "./components/layout/Private"
 import Public from "./components/layout/Public"
@@ -10,9 +10,19 @@ import WinPassphrases from "./windows/(passphrases)/WinPassphrases"
 import AnimatedRoutes from "./lib/router/AnimatedRoutes"
 import { useAuthorizationSlice } from "./stores/authorization"
 import WinRegister from "./windows/(auth)/WinRegister"
+import Storage from "./api/storage"
+
+export const settings = new Storage(".settings.dat")
 
 const App: FC = () => {
   const isAuthorized = useAuthorizationSlice((state) => state.isAuthorized)
+  const setIsGuideDone = useAuthorizationSlice((state) => state.setIsGuideDone)
+
+  useEffect(() => {
+    (async () => setIsGuideDone(
+      await settings.read("isGuideDone") === "true"
+    ))()
+  }, [])
 
   return <BrowserRouter>
     <AnimatePresence mode="wait">
