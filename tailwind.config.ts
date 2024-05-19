@@ -1,7 +1,7 @@
-/** @type {import("tailwindcss").Config} */
+import { Config } from "tailwindcss"
 import typography from "@tailwindcss/typography"
 
-const tailwindConfig = {
+const tailwindConfig: Config = {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -62,7 +62,7 @@ const tailwindConfig = {
   },
   plugins: [
     typography
-  ],
+  ]
 }
 
 export default tailwindConfig
