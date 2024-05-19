@@ -73,9 +73,7 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
           onBlur={handleBlur}
         />
 
-        <Meter percentage={
-          Strength.calculate(values.password) * 100 / 8
-        } />
+        <Meter percentage={Strength.calculate(values.password) * 100 / 8} />
 
         <FancyTextArea
           label="Notes"
@@ -89,29 +87,31 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
 
         <div className="grid md:grid-cols-2 gap-2">
           <FancyInput
+            readOnly
             label="Created At"
             icon={<IconCalendarCheck />}
-            value={new Date()
-              .toLocaleString("en-UK", {
+            value={new Date().toLocaleString(
+              "en-UK",
+              {
                 hour12: false,
                 dateStyle: "medium",
                 timeStyle: "short"
-              })
-            }
-            readOnly
+              }
+            )}
           />
 
           <FancyInput
+            readOnly
             label="Updated At"
             icon={<IconEdit />}
-            value={new Date()
-              .toLocaleString("en-UK", {
+            value={new Date().toLocaleString(
+              "en-UK",
+              {
                 hour12: false,
                 dateStyle: "medium",
                 timeStyle: "short"
-              })
-            }
-            readOnly
+              }
+            )}
           />
         </div>
 
@@ -127,7 +127,10 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
             type="submit"
             className="bg-leaf-400 dark:bg-leaf-600 text-white p-3 rounded-full hover:bg-leaf-500 dark:hover:bg-leaf-500 transition-all duration-300 fixed bottom-8 right-8 z-50 cursor-pointer"
           >
-            <IconDeviceFloppy size={36} stroke={1.5} />
+            <IconDeviceFloppy
+              size={36}
+              stroke={1.5}
+            />
           </motion.button>
         }
       </Form>

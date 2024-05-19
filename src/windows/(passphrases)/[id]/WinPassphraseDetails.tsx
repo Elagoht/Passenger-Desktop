@@ -50,9 +50,7 @@ const WinPassphraseDetails: FC = () => {
       </a>
     </div>
 
-    <PassphraseDetailsForm
-      {...selectedPassphrase}
-    />
+    <PassphraseDetailsForm {...selectedPassphrase} />
   </Window>
 }
 
