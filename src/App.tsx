@@ -11,6 +11,7 @@ import AnimatedRoutes from "./lib/router/AnimatedRoutes"
 import { useAuthorizationSlice } from "./stores/authorization"
 import WinRegister from "./windows/(auth)/WinRegister"
 import Storage from "./api/storage"
+import WinPassphraseDetails from "./windows/(passphrases)/[id]/WinPassphraseDetails"
 
 export const settings = new Storage(".settings.dat")
 
@@ -54,10 +55,8 @@ const App: FC = () => {
                   { path: "/add-passphrase", element: <Window> Add Passphrase </Window> },
                   { path: "/actions-and-news", element: <Window> Actions </Window> },
                   { path: "/settings", element: <Window> Settings </Window> },
+                  { path: "/passphrases/:id", element: <WinPassphraseDetails /> },
                   /**
-                   * { path: "/auth/register", element: <WinRegister /> },
-                   * { path: "/auth/reset-password", element: <WinResetPassword /> },
-                   * { path: "/passphrases/:id", element: <WinPassphraseDetail /> },
                    * { path: "/actions/fix-common", element: <WinFixCommon /> },
                    * { path: "/actions/fix-common/:id", element: <WinFixCommonDetail /> },
                    * { path: "/actions/fix-strength", element: <WinFixStrength /> },

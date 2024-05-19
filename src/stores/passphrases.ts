@@ -3,12 +3,7 @@ import { Passphrase } from "../types/common"
 
 interface IPassphrasesSlice {
   passphrases: Passphrase[]
-  selectedPassphrase: Passphrase | null
-  detailsVisible: boolean
-  openDetails: () => void
-  closeDetails: () => void
-  selectPassphrase: (state: Passphrase["id"] | null) => void
-  setPassphrases: (passphrases: Passphrase[]) => void
+  loadPassphrases: () => void
   addPassphrase: (passphrase: Passphrase) => void
   updatePassphrase: (passphrase: Passphrase) => void
   deletePassphrase: (id: string) => void
@@ -53,27 +48,9 @@ export const usePassphrasesSlice = create<IPassphrasesSlice>((set) => ({
     totalAccesses: 8
   }],
 
-  selectedPassphrase: null,
-
-  detailsVisible: false,
-
-  openDetails: () => set({
-    detailsVisible: true
-  }),
-
-  closeDetails: () => set({
-    detailsVisible: false
-  }),
-
-  selectPassphrase: (id) => set((state) => ({
-    selectedPassphrase: id === null
-      ? null
-      : state.passphrases.find((p) => p.id === id)
+  loadPassphrases: () => set((state) => ({
+    passphrases: state.passphrases
   })),
-
-  setPassphrases: (passphrases) => set({
-    passphrases
-  }),
 
   addPassphrase: (passphrase) => set((state) => ({
     passphrases: [
