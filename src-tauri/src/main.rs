@@ -34,6 +34,7 @@ fn main() {
                     .unwrap();
             },
         ))
+        .plugin(tauri_plugin_store::Builder::default().build())
         .invoke_handler(generate_handler![save_key, get_key])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
