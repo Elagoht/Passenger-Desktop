@@ -1,8 +1,11 @@
 import {
-  IconBrain, IconCircleCheck, IconCircleX, IconExclamationCircle,
-  IconEye, IconEyeClosed, IconEyeCode, IconFlag, IconHeartHandshake,
-  IconList, IconMessage, IconMoodLookDown, IconMoodSilence, IconPassword,
-  IconSalt, IconShield, IconShieldOff, IconTerminal2, IconTools, IconWorld
+  IconBrain, IconCircleCheck, IconCircleX,
+  IconExclamationCircle, IconEye, IconEyeClosed,
+  IconEyeCode, IconFlag, IconHeartHandshake,
+  IconList, IconMessage, IconMoodLookDown,
+  IconMoodSilence, IconPassword, IconPencilCode,
+  IconSalt, IconShield, IconTerminal2, IconTools,
+  IconWorld
 } from "@tabler/icons-react"
 
 const guideSlides = [
@@ -98,11 +101,6 @@ const guideSlides = [
     content: <p>Save your passphrases <i>without your salt here.</i> Copy them from Passenger and then <i>add your salt manually.</i></p>
   },
   {
-    image: IconShieldOff,
-    title: "Passenger isn't unsafe",
-    content: <p>But there will never be a <b>totally</b> secure system.</p>
-  },
-  {
     image: IconWorld,
     title: "Also, check online tools",
     content: <p>to see if your password is leaked. <a href="https://haveibeenpwned.com" target="_blank" rel="noreferrer">Have I Been Pwned</a> is a good start.</p>
@@ -127,18 +125,19 @@ const guideSlides = [
   {
     image: IconTools,
     title: "In case you didn't know",
-    content: <>
-      <p>
-        Passenger uses <b>AES GCM</b> encryption algorithm,
-        your operating system's secure <b>keychain</b>,
-        and <b>JWT</b> system to secure your passphrases.
-      </p>
-
-      <p>
-        But you can still add an extra layer of security by writing a <code>EnDeCode</code> class in source code and compile it yourself.
-        This means you will have a unique Passenger that only you use.
-      </p>
-    </>
+    content: <p>
+      Passenger uses <b>AES GCM</b> encryption algorithm,
+      your operating system's secure <b>keychain</b>,
+      and <b>JWT</b> system to secure your passphrases.
+    </p>
+  },
+  {
+    image: IconPencilCode,
+    title: "You can add an extra layer of security",
+    content: <p>
+      By writing a <code>EnDeCode</code> class in source code and compile it yourself.
+      This means you will have a unique Passenger client that only you use.
+    </p>
   },
   {
     image: IconFlag,
