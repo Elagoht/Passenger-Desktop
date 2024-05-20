@@ -9,7 +9,9 @@ interface IStrengthMeterProps {
 }
 
 const StrengthMeter: FC<IStrengthMeterProps> = ({ statistics }) => {
-  const averageStrength = statistics.averageStrength()
+  const averageStrength = !isNaN(statistics.averageStrength())
+    ? statistics.averageStrength()
+    : -2
 
   return <figure className="flex flex-col items-center justify-center rounded-xl p-4 shadow shadow-tuatara-300 dark:shadow-tuatara-950 bg-tuatara-50 dark:bg-tuatara-900">
     <GaugeChart
@@ -17,7 +19,7 @@ const StrengthMeter: FC<IStrengthMeterProps> = ({ statistics }) => {
       minValue={-2}
       maxValue={8}
       fillColor={Strength.color(averageStrength)}
-      title={<h2 className="text-7xl font-medium drop-shadow-text" style={{ color: Strength.color(averageStrength) }}>{averageStrength + 2}</h2>}
+      title={<h2 className="text-7xl font-medium drop-shadow-text" style={{ color: Strength.color(averageStrength) }}>{(averageStrength) + 2}</h2>}
       subtitle={<h3 className="text-tuatara-500 w-40 drop-shadow-text">{Strength.calculatedMessage(averageStrength)}</h3>}
     />
 
