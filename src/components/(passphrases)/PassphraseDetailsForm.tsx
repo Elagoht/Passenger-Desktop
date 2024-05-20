@@ -1,4 +1,4 @@
-import { IconCalendarCheck, IconDeviceFloppy, IconEdit, IconKey, IconMail, IconUserCircle, IconWorld } from "@tabler/icons-react"
+import { IconCalendarCheck, IconDeviceFloppy, IconEdit, IconKey, IconMail, IconWorld } from "@tabler/icons-react"
 import { Form, Formik } from "formik"
 import { motion } from "framer-motion"
 import { FC } from "react"
@@ -12,11 +12,10 @@ import Meter from "../statistics/Meter"
 type IPassphraseDetailsFormProps = Passphrase
 
 const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
-  email, username, url, notes
+  identity, url, notes
 }) => <Formik
   initialValues={{
-    email: email || "",
-    username: username || "",
+    identity: identity || "",
     url: url || "",
     password: "",
     notes: notes || "",
@@ -31,16 +30,10 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
     }) =>
       <Form className="grid grid-cols-1 gap-1 relative p-2">
         {[{
-          label: "Email",
-          value: values.email,
+          label: "Identity",
+          value: values.identity,
           icon: <IconMail />,
-          name: "email",
-          type: "email",
-        }, {
-          label: "Username",
-          value: values.username,
-          icon: <IconUserCircle />,
-          name: "username",
+          name: "identity",
           type: "text",
         }, {
           label: "URL",
