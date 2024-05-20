@@ -11,7 +11,7 @@ const FancyTextArea: FC<IFancyTextAreaProps> = ({ label, icon, ...props }) => {
 
   return <label className={classNames({
     "flex text-lg items-start p-2 gap-2 rounded-md": true,
-    "bg-white dark:bg-tuatara-900": focused && !props.disabled && !props.readOnly,
+    "bg-white dark:bg-tuatara-900 transition-all ease-in-out": focused && !props.disabled && !props.readOnly,
     "text-tuatara-500": props.disabled || props.readOnly,
   })}>
     <span className="sr-only">
