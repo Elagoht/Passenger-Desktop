@@ -17,8 +17,7 @@ const PassphraseList: FC = () => {
   const filteredPassphrases = passphrases.filter((passphrase: ListablePassphrase) => {
     const search = searchTerm.toLowerCase()
     return passphrase.platform.toLowerCase().includes(search)
-      || passphrase.username?.toLowerCase()?.includes(search)
-      || passphrase.email?.toLowerCase()?.includes(search)
+      || passphrase.identity?.toLowerCase()?.includes(search)
   })
 
   return <>
