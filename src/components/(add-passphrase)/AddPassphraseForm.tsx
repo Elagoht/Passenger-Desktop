@@ -8,13 +8,14 @@ import Input from "../form/Input"
 import TextArea from "../form/TextArea"
 
 const fields = {
-  platform: { icon: IconTag, type: "text" },
-  identity: { icon: IconUserCircle, type: "text" },
-  url: { icon: IconWorld, type: "url" },
-  passphrase: { icon: IconKey, type: "password" }
+  platform: IconTag,
+  identity: IconUserCircle,
+  url: IconWorld,
+  passphrase: IconKey
 }
 
 const AddPassphraseForm: FC = () => {
+
   return <Formik
     initialValues={{
       platform: "",
@@ -23,7 +24,6 @@ const AddPassphraseForm: FC = () => {
       passphrase: "",
       notes: "",
     }}
-    enableReinitialize
     validationSchema={validationAddPassphraseForm}
     onSubmit={(values) => values && void 1}
   >
@@ -45,11 +45,14 @@ const AddPassphraseForm: FC = () => {
             autoCorrect="off"
             autoSave="off"
             name={key}
-            iconLeft={fields[key as keyof typeof fields].icon}
+            iconLeft={fields[key as keyof typeof fields]}
             value={values[key as keyof typeof values]}
             onChange={handleChange}
             onBlur={handleBlur}
-            type={fields[key as keyof typeof fields].type as "text" | "url" | "password"}
+            type={key === "passphrase"
+              ? "password"
+              : "text"
+            }
             error={touched[key as keyof typeof errors]
               ? errors[key as keyof typeof errors]
               : false
