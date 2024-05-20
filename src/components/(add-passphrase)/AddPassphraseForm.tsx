@@ -51,34 +51,31 @@ const AddPassphraseForm: FC = () => {
       isSubmitting
     }) => (
       <Form className="flex flex-col gap-2">
-        {
-          Object.keys(fields)
-            .map((key, index) =>
-              <Input
-                autoFocus={index === 0}
-                label={StringHelper.capitalize(key)}
-                key={key}
-                autoCapitalize="off"
-                autoCorrect="off"
-                autoSave="off"
-                name={key}
-                iconLeft={fields[key as keyof typeof fields].icon}
-                value={values[key as keyof typeof values]}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                type={fields[key as keyof typeof fields].type as "text" | "email" | "url" | "password"}
-                error={touched[key as keyof typeof errors]
-                  ? errors[key as keyof typeof errors]
-                  : false
-                }
-                success={touched[key as keyof typeof errors]
-                  ? !errors[key as keyof typeof errors]
-                  : false
-                }
-                formNoValidate // Will be handled by Formik
-              />
-            )
-        }
+        {Object.keys(fields).map((key, index) =>
+          <Input
+            autoFocus={index === 0}
+            label={StringHelper.capitalize(key)}
+            key={key}
+            autoCapitalize="off"
+            autoCorrect="off"
+            autoSave="off"
+            name={key}
+            iconLeft={fields[key as keyof typeof fields].icon}
+            value={values[key as keyof typeof values]}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            type={fields[key as keyof typeof fields].type as "text" | "email" | "url" | "password"}
+            error={touched[key as keyof typeof errors]
+              ? errors[key as keyof typeof errors]
+              : false
+            }
+            success={touched[key as keyof typeof errors]
+              ? !errors[key as keyof typeof errors]
+              : false
+            }
+            formNoValidate // Will be handled by Formik
+          />
+        )}
 
         <TextArea
           label="Notes"
