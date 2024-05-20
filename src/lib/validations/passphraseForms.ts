@@ -15,7 +15,7 @@ const validationAddPassphraseForm = object().shape({
   url: string()
     .test("is-url", "Invalid URL", (value) => {
       if (!value) return true
-      return /^(?:[a-zA-Z]+:\/\/)?((([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]\.)+[a-zA-Z]{2,})|localhost|(\d{1,3}\.){3}\d{1,3})(:\d+)?(\/[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=]*)?$/.test(value)
+      return /^(?:[a-zA-Z]+:\/\/)?((([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]\.)+[a-zA-Z]{2,})|localhost|(\d{1,3}\.){3}\d{1,3}|x\.com)(:\d+)?(\/[a-zA-Z0-9-._~:\/?#[\]@!$&'()*+,;=]*)?$/.test(value)
     })
     .required("URL is required"),
   passphrase: string()
