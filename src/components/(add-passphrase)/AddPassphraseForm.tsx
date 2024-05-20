@@ -1,8 +1,12 @@
 import { IconDeviceFloppy, IconKey, IconLoader, IconNote, IconTag, IconUserCircle, IconWorld } from "@tabler/icons-react"
 import { Form, Formik } from "formik"
 import { FC } from "react"
+import { useNavigate } from "react-router-dom"
+import Commands from "../../api/cli"
 import StringHelper from "../../helpers/string"
 import validationAddPassphraseForm from "../../lib/validations/passphraseForms"
+import { useAuthorizationSlice } from "../../stores/authorization"
+import { useNotificationSlice } from "../../stores/notification"
 import Button from "../form/Button"
 import Input from "../form/Input"
 import TextArea from "../form/TextArea"
@@ -15,6 +19,9 @@ const fields = {
 }
 
 const AddPassphraseForm: FC = () => {
+  const accessToken = useAuthorizationSlice(state => state.accessToken)
+  const addNotification = useNotificationSlice(state => state.addNotification)
+  const navigate = useNavigate()
 
   return <Formik
     initialValues={{
@@ -25,7 +32,35 @@ const AddPassphraseForm: FC = () => {
       notes: "",
     }}
     validationSchema={validationAddPassphraseForm}
-    onSubmit={(values) => values && void 1}
+    onSubmit={(values, { setSubmitting }) => {
+      Commands.create(
+        accessToken,
+        JSON.stringify({
+          platform: values.platform,
+          email: values.identity, // Temporary workaround until the CLI is updated
+          url: values.url,
+          passphrase: values.passphrase,
+          notes: values.notes
+
+        })
+      ).then((response) => {
+        if (response.success) {
+          addNotification({
+            type: "success",
+            title: "Passphrase added",
+            message: "The passphrase was successfully added."
+          })
+          return navigate("/passphrases")
+        }
+        addNotification({
+          type: "error",
+          title: "Failed to add passphrase",
+          message: StringHelper.removeUnixErrorPrefix(response.output)
+        })
+      }).finally(() =>
+        setSubmitting(false)
+      )
+    }}
   >
     {({
       values,
@@ -93,7 +128,7 @@ const AddPassphraseForm: FC = () => {
         </Button>
       </Form>
     )}
-  </Formik>
+  </Formik >
 }
 
 export default AddPassphraseForm
