@@ -1,17 +1,18 @@
 import { AnimatePresence } from "framer-motion"
 import { FC, Suspense, useEffect } from "react"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
+import Storage from "./api/storage"
 import Private from "./components/layout/Private"
 import Public from "./components/layout/Public"
 import Window from "./components/layout/Window"
-import WinLogin from "./windows/(auth)/WinLogin"
-import WinDashboard from "./windows/(dashboard)/WinDashboard"
-import WinPassphrases from "./windows/(passphrases)/WinPassphrases"
 import AnimatedRoutes from "./lib/router/AnimatedRoutes"
 import { useAuthorizationSlice } from "./stores/authorization"
+import WinAddPassphrase from "./windows/(add-passphrase)/WinAddPassphrase"
+import WinLogin from "./windows/(auth)/WinLogin"
 import WinRegister from "./windows/(auth)/WinRegister"
-import Storage from "./api/storage"
+import WinDashboard from "./windows/(dashboard)/WinDashboard"
 import WinPassphraseDetails from "./windows/(passphrases)/[id]/WinPassphraseDetails"
+import WinPassphrases from "./windows/(passphrases)/WinPassphrases"
 
 export const settings = new Storage(".settings.dat")
 
@@ -52,7 +53,7 @@ const App: FC = () => {
                 {[
                   { path: "/dashboard", element: <WinDashboard /> },
                   { path: "/passphrases", element: <WinPassphrases /> },
-                  { path: "/add-passphrase", element: <Window> Add Passphrase </Window> },
+                  { path: "/add-passphrase", element: <WinAddPassphrase /> },
                   { path: "/actions-and-news", element: <Window> Actions </Window> },
                   { path: "/settings", element: <Window> Settings </Window> },
                   { path: "/passphrases/:id", element: <WinPassphraseDetails /> },

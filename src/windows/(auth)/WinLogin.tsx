@@ -13,24 +13,25 @@ import { useKeyringSlice } from "../../stores/keyring"
 import { useNotificationSlice } from "../../stores/notification"
 
 const moods = [
-  <IconMoodSmileBeam size={32} />,
-  <IconMoodUnamused size={32} />,
-  <IconMoodLookDown size={32} />,
-  <IconMoodBoy size={32} />,
-  <IconMoodLookUp size={32} />,
-  <IconMoodLookLeft size={32} />,
-  <IconMoodLookRight size={32} />,
-  <IconMoodWink size={32} />,
-  <IconMoodTongue size={32} />,
-  <IconMoodTongueWink size={32} />,
-  <IconMoodEmpty size={32} />,
-  <IconMoodHappy size={32} />
+  IconMoodSmileBeam,
+  IconMoodUnamused,
+  IconMoodLookDown,
+  IconMoodBoy,
+  IconMoodLookUp,
+  IconMoodLookLeft,
+  IconMoodLookRight,
+  IconMoodWink,
+  IconMoodTongue,
+  IconMoodTongueWink,
+  IconMoodEmpty,
+  IconMoodHappy,
 ]
 
 const WinLogin: FC = () => {
   const navigate = useNavigate()
 
   const setIsAuthorizated = useAuthorizationSlice((state) => state.setIsAuthorizated)
+  const setAccessToken = useAuthorizationSlice((state) => state.setAccessToken)
   const secretKey = useKeyringSlice((state) => state.secretKey)
   const setSecretKey = useKeyringSlice((state) => state.setSecretKey)
   const addNotification = useNotificationSlice((state) => state.addNotification)
@@ -90,6 +91,7 @@ const WinLogin: FC = () => {
                 type: "error",
                 message: StringHelper.removeUnixErrorPrefix(output.output)
               })
+              setAccessToken(output.output)
               setIsAuthorizated(true)
               navigate("/dashboard")
             }).then(() =>
@@ -124,7 +126,7 @@ const WinLogin: FC = () => {
               type="password"
               name="passphrase"
               label="Passphrase"
-              iconLeft={<IconKey size={32} />}
+              iconLeft={IconKey}
               value={values.passphrase}
               onChange={handleChange}
               onBlur={handleBlur}
