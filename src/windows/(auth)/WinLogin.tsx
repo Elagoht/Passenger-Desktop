@@ -31,6 +31,7 @@ const WinLogin: FC = () => {
   const navigate = useNavigate()
 
   const setIsAuthorizated = useAuthorizationSlice((state) => state.setIsAuthorizated)
+  const setAccessToken = useAuthorizationSlice((state) => state.setAccessToken)
   const secretKey = useKeyringSlice((state) => state.secretKey)
   const setSecretKey = useKeyringSlice((state) => state.setSecretKey)
   const addNotification = useNotificationSlice((state) => state.addNotification)
@@ -90,6 +91,7 @@ const WinLogin: FC = () => {
                 type: "error",
                 message: StringHelper.removeUnixErrorPrefix(output.output)
               })
+              setAccessToken(output.output)
               setIsAuthorizated(true)
               navigate("/dashboard")
             }).then(() =>
