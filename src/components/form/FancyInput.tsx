@@ -13,7 +13,7 @@ const FancyInput: FC<IFancyInputProps> = ({ icon, label, noCopy, ...props }) => 
 
   return <label className={classNames({
     "flex text-lg items-center pl-2 gap-2 rounded-md": true,
-    "bg-white dark:bg-tuatara-800": focused && !props.disabled && !props.readOnly,
+    "bg-white dark:bg-tuatara-800 transition-all ease-in-out": focused && !props.disabled && !props.readOnly,
     "text-tuatara-500": props.disabled || props.readOnly,
   })}>
     <span className="sr-only">

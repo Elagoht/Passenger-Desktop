@@ -113,7 +113,7 @@ const WinRegister: FC = () => {
               type="text"
               name="username"
               label="Username"
-              iconLeft={<IconMoodAnnoyed size={32} />}
+              iconLeft={IconMoodAnnoyed}
               value={values.username}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -125,7 +125,7 @@ const WinRegister: FC = () => {
               type="password"
               name="passphrase"
               label="Passphrase"
-              iconLeft={<IconKey size={32} />}
+              iconLeft={IconKey}
               value={values.passphrase}
               onChange={handleChange}
               onBlur={handleBlur}

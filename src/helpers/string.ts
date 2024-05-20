@@ -19,6 +19,14 @@ class StringHelper {
     this.capitalize(
       input.replace(/passenger:/g, "").trim()
     )
+
+  /**
+   * Converts a string to a shell string by escaping single quotes.
+   * @param input - The input string.
+   * @returns The input string with single quotes escaped.
+   */
+  static convertToShellString = (input: string) =>
+    `'${input.replace(/'/g, "\\'")}'`
 }
 
 export default StringHelper
