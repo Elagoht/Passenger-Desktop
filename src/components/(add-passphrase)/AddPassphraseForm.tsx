@@ -42,7 +42,6 @@ const AddPassphraseForm: FC = () => {
     onSubmit={(values) => values && void 1}
   >
     {({
-      initialValues,
       values,
       errors,
       touched,
