@@ -1,4 +1,5 @@
 import { shell } from "@tauri-apps/api"
+import StringHelper from "../helpers/string"
 
 type Output = {
   success: boolean
@@ -96,14 +97,18 @@ export default class Commands {
   public static fetch = async (jwt: string, uuid: string): Promise<Output> =>
     CLI.readOutput(await CLI.execute("fetch", [jwt, uuid]))
 
+
   /**
    * Creates new data using the provided JWT and data.
    * @param jwt - The JWT for authentication.
-   * @param data - The data to create.
+   * @param json - The data to create.
    * @returns A promise that resolves to the output of the command.
    */
-  public static create = async (jwt: string, data: string): Promise<Output> =>
-    CLI.readOutput(await CLI.execute("create", [jwt, data]))
+  public static create = async (jwt: string, json: string): Promise<Output> =>
+    CLI.readOutput(await CLI.execute("create", [
+      jwt,
+      StringHelper.convertToShellString(json)
+    ]))
 
   /**
    * Updates data using the provided JWT, UUID, and JSON.
