@@ -52,8 +52,7 @@ const AddPassphraseForm: FC = () => {
     }) => (
       <Form className="flex flex-col gap-2">
         {
-          Object.keys(initialValues)
-            .filter((key) => key !== "notes")
+          Object.keys(fields)
             .map((key, index) =>
               <Input
                 autoFocus={index === 0}
