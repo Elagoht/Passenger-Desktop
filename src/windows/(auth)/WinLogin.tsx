@@ -13,18 +13,18 @@ import { useKeyringSlice } from "../../stores/keyring"
 import { useNotificationSlice } from "../../stores/notification"
 
 const moods = [
-  <IconMoodSmileBeam size={32} />,
-  <IconMoodUnamused size={32} />,
-  <IconMoodLookDown size={32} />,
-  <IconMoodBoy size={32} />,
-  <IconMoodLookUp size={32} />,
-  <IconMoodLookLeft size={32} />,
-  <IconMoodLookRight size={32} />,
-  <IconMoodWink size={32} />,
-  <IconMoodTongue size={32} />,
-  <IconMoodTongueWink size={32} />,
-  <IconMoodEmpty size={32} />,
-  <IconMoodHappy size={32} />
+  IconMoodSmileBeam,
+  IconMoodUnamused,
+  IconMoodLookDown,
+  IconMoodBoy,
+  IconMoodLookUp,
+  IconMoodLookLeft,
+  IconMoodLookRight,
+  IconMoodWink,
+  IconMoodTongue,
+  IconMoodTongueWink,
+  IconMoodEmpty,
+  IconMoodHappy,
 ]
 
 const WinLogin: FC = () => {
@@ -124,7 +124,7 @@ const WinLogin: FC = () => {
               type="password"
               name="passphrase"
               label="Passphrase"
-              iconLeft={<IconKey size={32} />}
+              iconLeft={IconKey}
               value={values.passphrase}
               onChange={handleChange}
               onBlur={handleBlur}
