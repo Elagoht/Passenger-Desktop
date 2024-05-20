@@ -1,44 +1,30 @@
-import { IconDeviceFloppy, IconKey, IconLoader, IconMail, IconNote, IconTag, IconUserCircle, IconWorld } from "@tabler/icons-react"
+import { IconDeviceFloppy, IconKey, IconLoader, IconNote, IconTag, IconUserCircle, IconWorld } from "@tabler/icons-react"
 import { Form, Formik } from "formik"
 import { FC } from "react"
 import StringHelper from "../../helpers/string"
+import validationAddPassphraseForm from "../../lib/validations/passphraseForms"
 import Button from "../form/Button"
 import Input from "../form/Input"
 import TextArea from "../form/TextArea"
 
 const fields = {
-  platform: {
-    icon: IconTag,
-    type: "text"
-  },
-  username: {
-    icon: IconUserCircle,
-    type: "text"
-  },
-  email: {
-    icon: IconMail,
-    type: "email"
-  },
-  url: {
-    icon: IconWorld,
-    type: "url"
-  },
-  passphrase: {
-    icon: IconKey,
-    type: "password"
-  }
+  platform: { icon: IconTag, type: "text" },
+  identity: { icon: IconUserCircle, type: "text" },
+  url: { icon: IconWorld, type: "url" },
+  passphrase: { icon: IconKey, type: "password" }
 }
 
 const AddPassphraseForm: FC = () => {
   return <Formik
     initialValues={{
       platform: "",
-      username: "",
-      email: "",
+      identity: "",
       url: "",
       passphrase: "",
       notes: "",
     }}
+    enableReinitialize
+    validationSchema={validationAddPassphraseForm}
     onSubmit={(values) => values && void 1}
   >
     {({
@@ -63,7 +49,7 @@ const AddPassphraseForm: FC = () => {
             value={values[key as keyof typeof values]}
             onChange={handleChange}
             onBlur={handleBlur}
-            type={fields[key as keyof typeof fields].type as "text" | "email" | "url" | "password"}
+            type={fields[key as keyof typeof fields].type as "text" | "url" | "password"}
             error={touched[key as keyof typeof errors]
               ? errors[key as keyof typeof errors]
               : false
