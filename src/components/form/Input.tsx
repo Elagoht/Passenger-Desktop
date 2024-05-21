@@ -1,9 +1,9 @@
 "use client"
 
+import { Icon, IconAlertCircle, IconCheck, IconEye, IconEyeOff, IconProps } from "@tabler/icons-react"
 import classNames from "classnames"
-import { FC, InputHTMLAttributes, ReactNode, useRef, useState } from "react"
+import { FC, ForwardRefExoticComponent, InputHTMLAttributes, createElement, useRef, useState } from "react"
 import Pretty from "../../helpers/prettiers"
-import { IconAlertCircle, IconCheck, IconEye, IconEyeOff } from "@tabler/icons-react"
 
 interface IInputProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
@@ -27,8 +27,8 @@ interface IInputProps extends Omit<
   error?: string | boolean
   success?: string | boolean
   message?: string
-  iconLeft?: ReactNode
-  iconRight?: ReactNode
+  iconLeft?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & React.RefAttributes<Icon>>
+  iconRight?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & React.RefAttributes<Icon>>
   validityIcons?: boolean
 }
 
@@ -53,26 +53,29 @@ const Input: FC<IInputProps> = ({
   })}>
     {optional &&
       <small className="text-xs text-blue-500 ml-2">
-        (İsteğe bağlı)
+        (Optional)
       </small>
     }
 
-    <label className="flex items-center gap-2 relative  border border-current rounded-md transition-all duration-200 ease-in-out px-2">
+    <label className="flex items-center gap-2 relative rounded-md transition-all duration-300 ease-in-out px-2 border border-current">
       <span className={classNames({
-        "text-sm absolute transition-all duration-200 ease-in-out select-none line-clamp-1": true,
+        "absolute transition-all duration-300 ease-in-out select-none line-clamp-1": true,
         "left-2": !iconLeft,
         "left-10": iconLeft,
         "right-2": !iconRight && !validityIcons && type !== "password",
         "right-10": iconRight || validityIcons || type === "password",
-        "top-1/2 -translate-y-1/2": !isFocused && !isFilled,
+        "top-2": !isFocused && !isFilled,
         "top-0.5 text-xs": isFocused || isFilled,
       })}>
         {label}
       </span>
 
-      {iconLeft}
+      {iconLeft && createElement(iconLeft, {
+        size: 32,
+        className: "traansition-all duration-300 ease-in-out"
+      })}
 
-      <input
+      < input
         {...props}
         ref={selfRef}
         type={(type === "password" && showPassword)
@@ -80,7 +83,7 @@ const Input: FC<IInputProps> = ({
           : type
         }
         className={classNames({
-          "bg-transparent pt-3.5 pb-0.5 w-full text-gray-900 dark:text-gray-100 rounded-md outline-none max-w-none min-w-0 h-10": true,
+          "bg-transparent pt-3.5 pb-0.5 w-full text-gray-900 dark:text-gray-100 rounded-md outline-none max-w-none min-w-0 h-10 transition-all duration-300 ease-in-out": true,
           "opacity-0": !isFocused && !isFilled,
           "pl-8 -ml-8": ["date", "time", "datetime-local", "month", "week"].includes(type),
         })}
@@ -143,8 +146,14 @@ const Input: FC<IInputProps> = ({
             ? <IconAlertCircle size="32" />
             : success
               ? <IconCheck size="32" />
-              : iconRight
-          : iconRight
+              : iconRight && createElement(iconRight, {
+                size: 32,
+                className: "transition-all duration-300 ease-in-out"
+              })
+          : iconRight && createElement(iconRight, {
+            size: 32,
+            className: "transition-all duration-300 ease-in-out"
+          })
       }
     </label>
 
