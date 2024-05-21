@@ -11,6 +11,7 @@ import { validationAuthLoginForm } from "../../lib/validations/authForms"
 import { useAuthorizationSlice } from "../../stores/authorization"
 import { useKeyringSlice } from "../../stores/keyring"
 import { useNotificationSlice } from "../../stores/notification"
+import { usePassphrasesSlice } from "../../stores/passphrases"
 
 const moods = [
   IconMoodSmileBeam,
@@ -32,8 +33,9 @@ const WinLogin: FC = () => {
 
   const setIsAuthorizated = useAuthorizationSlice((state) => state.setIsAuthorizated)
   const setAccessToken = useAuthorizationSlice((state) => state.setAccessToken)
-  const secretKey = useKeyringSlice((state) => state.secretKey)
+  //> const secretKey = useKeyringSlice((state) => state.secretKey)
   const setSecretKey = useKeyringSlice((state) => state.setSecretKey)
+  const loadPassphrases = usePassphrasesSlice((state) => state.loadPassphrases)
   const addNotification = useNotificationSlice((state) => state.addNotification)
   const [mood, setMood] = useState<number>(Math.floor(Math.random() * moods.length))
 
@@ -83,17 +85,30 @@ const WinLogin: FC = () => {
           setSecretKey("6%+aR5zG7w!3u9@3_2#8^5&4*7(1@&)0")
           Commands
             .login(values.passphrase)
-            .then((output) => {
-              // TODO: Implement a UI feedback for failed login.
-              if (!output.success) return addNotification({
+            .then((response) => {
+              if (!response.success) return addNotification({
                 icon: <IconMoodLookDown size={32} />,
                 title: "Could't open the vault",
                 type: "error",
-                message: StringHelper.removeUnixErrorPrefix(output.output)
+                message: StringHelper.removeUnixErrorPrefix(response.output)
               })
-              setAccessToken(output.output)
-              setIsAuthorizated(true)
-              navigate("/dashboard")
+
+              const { output: jwt } = response // Extract the JWT from the response.
+              setAccessToken(jwt)
+
+              Commands.fetchAll(
+                jwt
+              ).then((response) => {
+                if (!response.success) return addNotification({
+                  icon: <IconMoodLookDown size={32} />,
+                  title: "Could't fetch passphrases",
+                  type: "error",
+                  message: StringHelper.removeUnixErrorPrefix(response.output)
+                })
+                loadPassphrases(JSON.parse(response.output))
+                setIsAuthorizated(true)
+                navigate("/dashboard")
+              })
             }).then(() =>
               setMood(Math.floor(Math.random() * moods.length))
             ).finally(() =>
