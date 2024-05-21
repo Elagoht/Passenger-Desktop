@@ -1,17 +1,17 @@
+import { IconCopy, IconExternalLink } from "@tabler/icons-react"
 import { FC } from "react"
 import { Link } from "react-router-dom"
-import { ListablePassphrase } from "../../../types/common"
-import Copier from "./Copier"
-import LinkOpener from "./LinkOpener"
+import StringHelper from "../../../helpers/string"
+import { Passphrase } from "../../../types/common"
 
-interface IPassphraseCardProps extends ListablePassphrase { }
+interface IPassphraseCardProps extends Passphrase { }
 
-const PassphraseCard: FC<IPassphraseCardProps> = ({ id, platform, url }) => {
+const PassphraseCard: FC<IPassphraseCardProps> = ({ id, platform, url, passphrase }) => {
 
-  return <li>
+  return <li className="flex items-center rounded-lg hover:bg-tuatara-50 hover:dark:bg-tuatara-900 transition-all w-full text-left bg-tuatara-50 dark:bg-tuatara-900">
     <Link
       to={`/passphrases/${id}`}
-      className="flex items-center gap-2 p-3 rounded-lg hover:bg-tuatara-50 hover:dark:bg-tuatara-900 transition-all w-full text-left bg-tuatara-50 dark:bg-tuatara-900"
+      className="flex items-center grow m-3 gap-2"
     >
       <img
         src={`https://logo.clearbit.com/${platform.toLowerCase()}.com`}
@@ -25,11 +25,23 @@ const PassphraseCard: FC<IPassphraseCardProps> = ({ id, platform, url }) => {
       <strong className="grow font-medium line-clamp-1">
         {platform}
       </strong>
-
-      <LinkOpener url={url} />
-
-      <Copier value="password" />
     </Link>
+
+    <a
+      target="_blank"
+      rel="noopener noreferrer"
+      href={StringHelper.urlify(url)}
+      className="ml-2 h-full bg-white dark:bg-tuatara-800 hover:brightness-90 transition-all aspect-square w-10 grid place-items-center shrink-0"
+    >
+      <IconExternalLink />
+    </a>
+
+    <button
+      onClick={() => navigator.clipboard.writeText(passphrase)}
+      className="rounded-r-lg h-full bg-white dark:bg-tuatara-800 hover:brightness-90 transition-all aspect-square w-10 grid place-items-center shrink-0"
+    >
+      <IconCopy />
+    </button >
   </li>
 }
 

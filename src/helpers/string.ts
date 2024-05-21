@@ -27,6 +27,28 @@ class StringHelper {
    */
   static convertToShellString = (input: string) =>
     `'${input.replace(/'/g, "\\'")}'`
+
+  /**
+   * Converts a string to a URL by prepending "http://" if it doesn't already have a protocol.
+   * @description This method protects Tauri from openin external URLs in its own window.
+   * @param url - The input string.
+   * @returns The input string as a URL.
+   * @example
+   * StringHelper.urlify("example.com") // "https://example.com"
+   * StringHelper.urlify("http://example.com") // "https://example.com"
+   * StringHelper.urlify("/example") // "https://example"
+   * StringHelper.urlify("https://example.com") // "https://example.com"
+   * StringHelper.urlify("ftp://example.com") // "ftp://example.com"
+   * StringHelper.urlify("sftp://example.com") // "sftp://example.com"
+   * StringHelper.urlify("file://example.com") // "file://example.com"
+   */
+  static urlify = (url: string): string => !url
+    ? ""
+    : /^[a-zA-Z]+:\/\//.test(url)
+      ? url
+      : url.startsWith("/")
+        ? this.urlify(url.slice(1))
+        : `https://${url}`
 }
 
 export default StringHelper
