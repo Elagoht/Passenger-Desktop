@@ -1,5 +1,6 @@
 import { shell } from "@tauri-apps/api"
 import StringHelper from "../helpers/string"
+import { Passphrase } from "../types/common"
 
 type Output = {
   success: boolean
@@ -101,24 +102,28 @@ export default class Commands {
   /**
    * Creates new data using the provided JWT and data.
    * @param jwt - The JWT for authentication.
-   * @param json - The data to create.
+   * @param passphrase - The data to create.
    * @returns A promise that resolves to the output of the command.
    */
-  public static create = async (jwt: string, json: string): Promise<Output> =>
+  public static create = async (jwt: string, passphrase: Passphrase): Promise<Output> =>
     CLI.readOutput(await CLI.execute("create", [
       jwt,
-      StringHelper.convertToShellString(json)
+      StringHelper.convertToShellString(JSON.stringify(passphrase))
     ]))
 
   /**
    * Updates data using the provided JWT, UUID, and JSON.
    * @param jwt - The JWT for authentication.
    * @param uuid - The UUID of the data to update.
-   * @param json - The JSON data for updating.
+   * @param passphrase - The JSON data for updating.
    * @returns A promise that resolves to the output of the command.
    */
-  public static update = async (jwt: string, uuid: string, json: string): Promise<Output> =>
-    CLI.readOutput(await CLI.execute("update", [jwt, uuid, json]))
+  public static update = async (jwt: string, uuid: string, passphrase: Passphrase): Promise<Output> =>
+    CLI.readOutput(await CLI.execute("update", [
+      jwt,
+      uuid,
+      StringHelper.convertToShellString(JSON.stringify(passphrase))
+    ]))
 
   /**
    * Deletes data using the provided JWT and UUID.

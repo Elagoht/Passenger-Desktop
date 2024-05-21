@@ -10,6 +10,7 @@ import { useNotificationSlice } from "../../stores/notification"
 import Button from "../form/Button"
 import Input from "../form/Input"
 import TextArea from "../form/TextArea"
+import { Passphrase } from "../../types/common"
 
 const fields = {
   platform: IconTag,
@@ -34,15 +35,13 @@ const AddPassphraseForm: FC = () => {
     validationSchema={validationAddPassphraseForm}
     onSubmit={(values, { setSubmitting }) => {
       Commands.create(
-        accessToken,
-        JSON.stringify({
+        accessToken, {
           platform: values.platform,
-          email: values.identity, // Temporary workaround until the CLI is updated
+          email: values.identity, // CLI expects email, not identity
           url: values.url,
           passphrase: values.passphrase,
           notes: values.notes
-
-        })
+        } as unknown as Passphrase // Temporary workaround until the CLI is updated
       ).then((response) => {
         if (response.success) {
           addNotification({
