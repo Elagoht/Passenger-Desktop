@@ -11,6 +11,7 @@ import Button from "../form/Button"
 import Input from "../form/Input"
 import TextArea from "../form/TextArea"
 import { Passphrase } from "../../types/common"
+import { usePassphrasesSlice } from "../../stores/passphrases"
 
 const fields = {
   platform: IconTag,
@@ -21,6 +22,7 @@ const fields = {
 
 const AddPassphraseForm: FC = () => {
   const accessToken = useAuthorizationSlice(state => state.accessToken)
+  const addPassphrase = usePassphrasesSlice(state => state.addPassphrase)
   const addNotification = useNotificationSlice(state => state.addNotification)
   const navigate = useNavigate()
 
@@ -34,16 +36,19 @@ const AddPassphraseForm: FC = () => {
     }}
     validationSchema={validationAddPassphraseForm}
     onSubmit={(values, { setSubmitting }) => {
+      const passphrase: Passphrase = {
+        platform: values.platform,
+        email: values.identity, // CLI expects email, not identity
+        url: values.url,
+        passphrase: values.passphrase,
+        notes: values.notes
+      } as unknown as Passphrase // Temporary workaround until the CLI is updated
       Commands.create(
-        accessToken, {
-          platform: values.platform,
-          email: values.identity, // CLI expects email, not identity
-          url: values.url,
-          passphrase: values.passphrase,
-          notes: values.notes
-        } as unknown as Passphrase // Temporary workaround until the CLI is updated
+        accessToken,
+        passphrase
       ).then((response) => {
         if (response.success) {
+          addPassphrase(passphrase) // Update the store
           addNotification({
             type: "success",
             title: "Passphrase added",
