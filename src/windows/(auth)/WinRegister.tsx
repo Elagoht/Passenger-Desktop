@@ -32,6 +32,7 @@ const criterias = [{
 const WinRegister: FC = () => {
   const setSecretKey = useKeyringSlice(state => state.setSecretKey)
   const setIsAuthorizated = useAuthorizationSlice(state => state.setIsAuthorizated)
+  const setAccessToken = useAuthorizationSlice(state => state.setAccessToken)
   const addNotification = useNotificationSlice(state => state.addNotification)
 
   return <Window>
@@ -78,26 +79,33 @@ const WinRegister: FC = () => {
            *   })
            */
           setSecretKey("6%+aR5zG7w!3u9@3_2#8^5&4*7(1@&)0")
-          Commands
-            .register(
-              /**
-               * TODO: add username field to CLI
-               * values.username,
-               */
+          Commands.register(
+            values.username,
+            values.passphrase
+          ).then((output) => {
+            // TODO: Implement a UI feedback for failed login.
+            if (!output.success) return addNotification({
+              icon: <IconMoodLookDown size={32} />,
+              title: "Login failed",
+              type: "error",
+              message: StringHelper.removeUnixErrorPrefix(output.output)
+            })
+            Commands.login(
+              values.username,
               values.passphrase
-            )
-            .then((output) => {
-              // TODO: Implement a UI feedback for failed login.
+            ).then((output) => {
               if (!output.success) return addNotification({
                 icon: <IconMoodLookDown size={32} />,
-                title: "Login failed",
+                title: "Unexpected error",
                 type: "error",
                 message: StringHelper.removeUnixErrorPrefix(output.output)
               })
+              setAccessToken(output.output)
               setIsAuthorizated(true)
-            }).finally(() =>
-              setSubmitting(false)
-            )
+            })
+          }).finally(() =>
+            setSubmitting(false)
+          )
         }}
       >
         {({
