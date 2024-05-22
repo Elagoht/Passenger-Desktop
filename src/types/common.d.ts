@@ -1,15 +1,15 @@
 export type ListablePassphrase = {
-  id: string
+  readonly id?: string
   platform: string
-  url: string
   identity: string
-  createdAt: string
-  updatedAt: string
-  lastAccessedAt: string
+  url: string
+  readonly createdAt?: string
+  readonly updatedAt?: string
+  readonly lastAccessedAt?: string
 }
 
 export type Passphrase = ListablePassphrase & {
   passphrase: string
   notes?: string
-  totalAccesses: number
+  readonly totalAccesses?: number
 }

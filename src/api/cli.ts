@@ -52,16 +52,16 @@ export default class Commands {
    * @param passphrase - The passphrase for logging in.
    * @returns A promise that resolves to the output of the command.
    */
-  public static login = async (passphrase: string): Promise<Output> =>
-    CLI.readOutput(await CLI.execute("login", [passphrase]))
+  public static login = async (username: string, passphrase: string): Promise<Output> =>
+    CLI.readOutput(await CLI.execute("login", [username, passphrase]))
 
   /**
    * Registers a new user with the provided passphrase.
    * @param passphrase - The passphrase for registration.
    * @returns A promise that resolves to the output of the command.
    */
-  public static register = async (passphrase: string): Promise<Output> =>
-    CLI.readOutput(await CLI.execute("register", [passphrase]))
+  public static register = async (username: string, passphrase: string): Promise<Output> =>
+    CLI.readOutput(await CLI.execute("register", [username, passphrase]))
 
   /**
    * Resets the user's passphrase from the old passphrase to the new passphrase.

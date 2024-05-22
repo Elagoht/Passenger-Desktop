@@ -83,37 +83,38 @@ const WinLogin: FC = () => {
            *   })
            */
           setSecretKey("6%+aR5zG7w!3u9@3_2#8^5&4*7(1@&)0")
-          Commands
-            .login(values.passphrase)
-            .then((response) => {
+          Commands.login(
+            values.username,
+            values.passphrase
+          ).then((response) => {
+            if (!response.success) return addNotification({
+              icon: <IconMoodLookDown size={32} />,
+              title: "Could't open the vault",
+              type: "error",
+              message: StringHelper.removeUnixErrorPrefix(response.output)
+            })
+
+            const { output: jwt } = response // Extract the JWT from the response.
+            setAccessToken(jwt)
+
+            Commands.fetchAll(
+              jwt
+            ).then((response) => {
               if (!response.success) return addNotification({
                 icon: <IconMoodLookDown size={32} />,
-                title: "Could't open the vault",
+                title: "Could't fetch passphrases",
                 type: "error",
                 message: StringHelper.removeUnixErrorPrefix(response.output)
               })
-
-              const { output: jwt } = response // Extract the JWT from the response.
-              setAccessToken(jwt)
-
-              Commands.fetchAll(
-                jwt
-              ).then((response) => {
-                if (!response.success) return addNotification({
-                  icon: <IconMoodLookDown size={32} />,
-                  title: "Could't fetch passphrases",
-                  type: "error",
-                  message: StringHelper.removeUnixErrorPrefix(response.output)
-                })
-                loadPassphrases(JSON.parse(response.output))
-                setIsAuthorizated(true)
-                navigate("/dashboard")
-              })
-            }).then(() =>
-              setMood(Math.floor(Math.random() * moods.length))
-            ).finally(() =>
-              setSubmitting(false)
-            )
+              loadPassphrases(JSON.parse(response.output))
+              setIsAuthorizated(true)
+              navigate("/dashboard")
+            })
+          }).then(() =>
+            setMood(Math.floor(Math.random() * moods.length))
+          ).finally(() =>
+            setSubmitting(false)
+          )
         }}
       >
         {({
