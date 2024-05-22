@@ -38,11 +38,11 @@ const AddPassphraseForm: FC = () => {
     onSubmit={(values, { setSubmitting }) => {
       const passphrase: Passphrase = {
         platform: values.platform,
-        email: values.identity, // CLI expects email, not identity
+        identity: values.identity, // CLI expects email, not identity
         url: values.url,
         passphrase: values.passphrase,
-        notes: values.notes
-      } as unknown as Passphrase // Temporary workaround until the CLI is updated
+        notes: values.notes,
+      }
       Commands.create(
         accessToken,
         passphrase
