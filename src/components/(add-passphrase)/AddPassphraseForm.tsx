@@ -7,11 +7,10 @@ import StringHelper from "../../helpers/string"
 import validationAddPassphraseForm from "../../lib/validations/passphraseForms"
 import { useAuthorizationSlice } from "../../stores/authorization"
 import { useNotificationSlice } from "../../stores/notification"
+import { usePassphrasesSlice } from "../../stores/passphrases"
 import Button from "../form/Button"
 import Input from "../form/Input"
 import TextArea from "../form/TextArea"
-import { Passphrase } from "../../types/common"
-import { usePassphrasesSlice } from "../../stores/passphrases"
 
 export const formFields = {
   platform: IconTag,
@@ -36,19 +35,12 @@ const AddPassphraseForm: FC = () => {
     }}
     validationSchema={validationAddPassphraseForm}
     onSubmit={(values, { setSubmitting }) => {
-      const passphrase: Passphrase = {
-        platform: values.platform,
-        identity: values.identity, // CLI expects email, not identity
-        url: values.url,
-        passphrase: values.passphrase,
-        notes: values.notes,
-      }
       Commands.create(
         accessToken,
-        passphrase
+        values
       ).then((response) => {
         if (response.success) {
-          addPassphrase(passphrase) // Update the store
+          addPassphrase(values) // Update the store
           addNotification({
             type: "success",
             title: "Passphrase added",
