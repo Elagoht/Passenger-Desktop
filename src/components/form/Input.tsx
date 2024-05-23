@@ -24,7 +24,7 @@ interface IInputProps extends Omit<
   | "url"
   | "search"
   optional?: boolean
-  error?: string | boolean
+  error?: string | boolean | string[]
   success?: string | boolean
   message?: string
   iconLeft?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & React.RefAttributes<Icon>>
