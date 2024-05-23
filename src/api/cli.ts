@@ -27,7 +27,9 @@ class CLI {
       "sh", ["-c",
       `${CLI.executable
       } ${command
-      } ${args.join(" ")
+      } ${args.map((argument) =>
+        StringHelper.convertToShellString(argument)
+      ).join(" ")
       }`]
     ).execute()
 
@@ -106,10 +108,7 @@ export default class Commands {
    * @returns A promise that resolves to the output of the command.
    */
   public static create = async (jwt: string, passphrase: Passphrase): Promise<Output> =>
-    CLI.readOutput(await CLI.execute("create", [
-      jwt,
-      StringHelper.convertToShellString(JSON.stringify(passphrase))
-    ]))
+    CLI.readOutput(await CLI.execute("create", [jwt, JSON.stringify(passphrase)]))
 
   /**
    * Updates data using the provided JWT, UUID, and JSON.
@@ -119,11 +118,7 @@ export default class Commands {
    * @returns A promise that resolves to the output of the command.
    */
   public static update = async (jwt: string, uuid: string, passphrase: Passphrase): Promise<Output> =>
-    CLI.readOutput(await CLI.execute("update", [
-      jwt,
-      uuid,
-      StringHelper.convertToShellString(JSON.stringify(passphrase))
-    ]))
+    CLI.readOutput(await CLI.execute("update", [jwt, uuid, JSON.stringify(passphrase)]))
 
   /**
    * Deletes data using the provided JWT and UUID.
