@@ -12,6 +12,8 @@ import Input from "../form/Input"
 import TextArea from "../form/TextArea"
 import { Passphrase } from "../../types/common"
 import { usePassphrasesSlice } from "../../stores/passphrases"
+import Meter from "../statistics/Meter"
+import Strength from "../../helpers/strength"
 
 const fields = {
   platform: IconTag,
@@ -103,6 +105,8 @@ const AddPassphraseForm: FC = () => {
             formNoValidate // Will be handled by Formik
           />
         )}
+
+        <Meter percentage={Strength.calculate(values.passphrase) * 100 / 8} />
 
         <TextArea
           label="Notes"
