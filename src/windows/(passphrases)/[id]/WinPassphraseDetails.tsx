@@ -72,6 +72,7 @@ const WinPassphraseDetails: FC = () => {
     </div>
 
     <PassphraseDetailsForm
+      id={entry.id}
       platform={entry.platform}
       identity={entry.identity}
       url={entry.url}

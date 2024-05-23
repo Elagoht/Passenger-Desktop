@@ -10,18 +10,30 @@ import Input from "../form/Input"
 import TextArea from "../form/TextArea"
 import Meter from "../statistics/Meter"
 import { Passphrase } from "../../types/common"
+import Commands from "../../api/cli"
+import { useAuthorizationSlice } from "../../stores/authorization"
+import { usePassphrasesSlice } from "../../stores/passphrases"
+import { useNotificationSlice } from "../../stores/notification"
+import { useNavigate } from "react-router-dom"
 
 interface IPassphraseDetailsFormProps {
-  platform?: Passphrase["platform"]
-  identity?: Passphrase["identity"]
-  url?: Passphrase["url"]
-  passphrase?: Passphrase["passphrase"]
-  notes?: Passphrase["notes"]
+  id: Passphrase["id"]
+  platform: Passphrase["platform"]
+  identity: Passphrase["identity"]
+  url: Passphrase["url"]
+  passphrase: Passphrase["passphrase"]
+  notes: Passphrase["notes"]
 }
 
 const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
-  platform, identity, url, passphrase, notes
+  id, platform, identity, url, passphrase, notes
 }) => {
+
+  const navigate = useNavigate()
+
+  const accessToken = useAuthorizationSlice(state => state.accessToken)
+  const updatePassphrase = usePassphrasesSlice(state => state.updatePassphrase)
+  const addNotification = useNotificationSlice(state => state.addNotification)
 
   return <Formik
     initialValues={{
@@ -31,7 +43,30 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
       passphrase: passphrase || "",
       notes: notes || "",
     }}
-    onSubmit={() => { }}
+    onSubmit={(values, { setSubmitting }) => {
+      Commands.update(
+        accessToken,
+        id!, // If null, the form already not shown
+        values
+      ).then((response) => {
+        if (response.success) {
+          updatePassphrase(id, values)
+          addNotification({
+            type: "success",
+            title: "Passphrase updated",
+            message: "The passphrase was successfully updated."
+          })
+          return navigate("/passphrases")
+        }
+        addNotification({
+          type: "error",
+          title: "Failed to update passphrase",
+          message: StringHelper.removeUnixErrorPrefix(response.output)
+        })
+      }).finally(() =>
+        setSubmitting(false)
+      )
+    }}
   >
     {({
       values,
@@ -95,8 +130,8 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
           disabled={isSubmitting || !FormikHelper.isEdited(initialValues, values)}
           rightIcon={isSubmitting
             ? <IconLoader className="animate-spin" />
-            :
-            <IconDeviceFloppy />}
+            : <IconDeviceFloppy />
+          }
         >
           Lock it up!
         </Button>
