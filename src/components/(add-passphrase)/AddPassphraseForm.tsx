@@ -13,7 +13,7 @@ import TextArea from "../form/TextArea"
 import { Passphrase } from "../../types/common"
 import { usePassphrasesSlice } from "../../stores/passphrases"
 
-const fields = {
+export const formFields = {
   platform: IconTag,
   identity: IconUserCircle,
   url: IconWorld,
@@ -75,7 +75,7 @@ const AddPassphraseForm: FC = () => {
       isSubmitting
     }) => (
       <Form className="flex flex-col gap-2">
-        {Object.keys(fields).map((key, index) =>
+        {Object.keys(formFields).map((key, index) =>
           <Input
             autoFocus={index === 0}
             label={StringHelper.capitalize(key)}
@@ -84,7 +84,7 @@ const AddPassphraseForm: FC = () => {
             autoCorrect="off"
             autoSave="off"
             name={key}
-            iconLeft={fields[key as keyof typeof fields]}
+            iconLeft={formFields[key as keyof typeof formFields]}
             value={values[key as keyof typeof values]}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -132,7 +132,7 @@ const AddPassphraseForm: FC = () => {
         </Button>
       </Form>
     )}
-  </Formik >
+  </Formik>
 }
 
 export default AddPassphraseForm
