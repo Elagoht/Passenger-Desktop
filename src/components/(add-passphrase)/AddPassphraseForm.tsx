@@ -3,6 +3,7 @@ import { Form, Formik } from "formik"
 import { FC } from "react"
 import { useNavigate } from "react-router-dom"
 import Commands from "../../api/cli"
+import Strength from "../../helpers/strength"
 import StringHelper from "../../helpers/string"
 import validationAddPassphraseForm from "../../lib/validations/passphraseForms"
 import { useAuthorizationSlice } from "../../stores/authorization"
@@ -11,6 +12,7 @@ import { usePassphrasesSlice } from "../../stores/passphrases"
 import Button from "../form/Button"
 import Input from "../form/Input"
 import TextArea from "../form/TextArea"
+import Meter from "../statistics/Meter"
 
 export const formFields = {
   platform: IconTag,
@@ -95,6 +97,8 @@ const AddPassphraseForm: FC = () => {
             formNoValidate // Will be handled by Formik
           />
         )}
+
+        <Meter percentage={Strength.calculate(values.passphrase) * 100 / 8} />
 
         <TextArea
           label="Notes"
