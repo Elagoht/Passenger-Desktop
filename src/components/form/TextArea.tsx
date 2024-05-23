@@ -5,7 +5,7 @@ import { FC, ReactNode, TextareaHTMLAttributes, useRef, useState } from "react"
 interface ITextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string
   optional?: boolean
-  error?: string | boolean
+  error?: string | boolean | string[]
   success?: string | boolean
   message?: string
   iconLeft?: ReactNode

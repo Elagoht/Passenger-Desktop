@@ -1,133 +1,143 @@
-import { IconCalendarCheck, IconDeviceFloppy, IconEdit, IconKey, IconMail, IconWorld } from "@tabler/icons-react"
+import { IconDeviceFloppy, IconLoader, IconNote } from "@tabler/icons-react"
 import { Form, Formik } from "formik"
-import { motion } from "framer-motion"
 import { FC } from "react"
+import { formFields } from "../(add-passphrase)/AddPassphraseForm"
 import FormikHelper from "../../helpers/formik"
 import Strength from "../../helpers/strength"
-import { Passphrase } from "../../types/common"
-import FancyInput from "../form/FancyInput"
-import FancyTextArea from "../form/FancyTextArea"
+import StringHelper from "../../helpers/string"
+import Button from "../form/Button"
+import Input from "../form/Input"
+import TextArea from "../form/TextArea"
 import Meter from "../statistics/Meter"
+import { Passphrase } from "../../types/common"
+import Commands from "../../api/cli"
+import { useAuthorizationSlice } from "../../stores/authorization"
+import { usePassphrasesSlice } from "../../stores/passphrases"
+import { useNotificationSlice } from "../../stores/notification"
+import { useNavigate } from "react-router-dom"
 
-type IPassphraseDetailsFormProps = Passphrase
+interface IPassphraseDetailsFormProps {
+  id: Passphrase["id"]
+  platform: Passphrase["platform"]
+  identity: Passphrase["identity"]
+  url: Passphrase["url"]
+  passphrase: Passphrase["passphrase"]
+  notes: Passphrase["notes"]
+}
 
 const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
-  identity, url, notes
-}) => <Formik
-  initialValues={{
-    identity: identity || "",
-    url: url || "",
-    password: "",
-    notes: notes || "",
-  }}
-  onSubmit={() => { }}
->
+  id, platform, identity, url, passphrase, notes
+}) => {
+
+  const navigate = useNavigate()
+
+  const accessToken = useAuthorizationSlice(state => state.accessToken)
+  const updatePassphrase = usePassphrasesSlice(state => state.updatePassphrase)
+  const addNotification = useNotificationSlice(state => state.addNotification)
+
+  return <Formik
+    initialValues={{
+      platform: platform || "",
+      identity: identity || "",
+      url: url || "",
+      passphrase: passphrase || "",
+      notes: notes || "",
+    }}
+    onSubmit={(values, { setSubmitting }) => {
+      Commands.update(
+        accessToken,
+        id!, // If null, the form already not shown
+        values
+      ).then((response) => {
+        if (response.success) {
+          updatePassphrase(id, values)
+          addNotification({
+            type: "success",
+            title: "Passphrase updated",
+            message: "The passphrase was successfully updated."
+          })
+          return navigate("/passphrases")
+        }
+        addNotification({
+          type: "error",
+          title: "Failed to update passphrase",
+          message: StringHelper.removeUnixErrorPrefix(response.output)
+        })
+      }).finally(() =>
+        setSubmitting(false)
+      )
+    }}
+  >
     {({
       values,
+      errors,
+      touched,
       handleChange,
       handleBlur,
-      initialValues
+      initialValues,
+      isSubmitting
     }) =>
       <Form className="grid grid-cols-1 gap-1 relative p-2">
-        {[{
-          label: "Identity",
-          value: values.identity,
-          icon: <IconMail />,
-          name: "identity",
-          type: "text",
-        }, {
-          label: "URL",
-          value: values.url,
-          icon: <IconWorld />,
-          name: "url",
-          type: "url",
-        }].map((field, index) =>
-          <FancyInput
-            key={index}
-            placeholder={field.label}
-            label={field.label}
-            icon={field.icon}
-            name={field.name}
-            type={field.type}
-            value={field.value}
+        {Object.keys(formFields).map((key, index) =>
+          <Input
+            autoFocus={index === 0}
+            label={StringHelper.capitalize(key)}
+            key={key}
+            autoCapitalize="off"
+            autoCorrect="off"
+            autoSave="off"
+            name={key}
+            iconLeft={formFields[key as keyof typeof formFields]}
+            value={values[key as keyof typeof values]}
             onChange={handleChange}
             onBlur={handleBlur}
+            type={key === "passphrase"
+              ? "password"
+              : "text"
+            }
+            error={touched[key as keyof typeof errors]
+              ? errors[key as keyof typeof errors]
+              : false
+            }
+            success={touched[key as keyof typeof errors]
+              ? !errors[key as keyof typeof errors]
+              : false
+            }
+            formNoValidate // Will be handled by Formik
           />
         )}
 
-        <FancyInput
-          label="Password"
-          type="password"
-          placeholder="Enter password"
-          icon={<IconKey />}
-          value={values.password}
-          name="password"
-          onChange={handleChange}
-          onBlur={handleBlur}
-        />
+        <Meter percentage={Strength.calculate(values.passphrase) * 100 / 8} />
 
-        <Meter percentage={Strength.calculate(values.password) * 100 / 8} />
-
-        <FancyTextArea
+        <TextArea
           label="Notes"
-          placeholder="Enter notes"
-          icon={<IconEdit />}
-          value={values.notes}
+          iconLeft={<IconNote />}
           name="notes"
+          value={values.notes}
           onChange={handleChange}
           onBlur={handleBlur}
+          error={touched.notes
+            ? errors.notes
+            : false
+          }
+          success={touched.notes
+            ? !errors.notes
+            : false
+          }
         />
 
-        <div className="grid md:grid-cols-2 gap-2">
-          <FancyInput
-            readOnly
-            label="Created At"
-            icon={<IconCalendarCheck />}
-            value={new Date().toLocaleString(
-              "en-UK",
-              {
-                hour12: false,
-                dateStyle: "medium",
-                timeStyle: "short"
-              }
-            )}
-          />
-
-          <FancyInput
-            readOnly
-            label="Updated At"
-            icon={<IconEdit />}
-            value={new Date().toLocaleString(
-              "en-UK",
-              {
-                hour12: false,
-                dateStyle: "medium",
-                timeStyle: "short"
-              }
-            )}
-          />
-        </div>
-
-        {FormikHelper.isEdited(initialValues, values) &&
-          <motion.button
-            variants={{
-              hidden: { opacity: 0, rotate: 360, scale: 0, transition: { ease: "easeInOut", duration: 0 } },
-              visible: { opacity: 1, rotate: 0, scale: 1, transition: { ease: "easeInOut", duration: 0 } },
-            }}
-            initial="hidden"
-            animate="visible"
-            exit="hidden"
-            type="submit"
-            className="bg-leaf-400 dark:bg-leaf-600 text-white p-3 rounded-full hover:bg-leaf-500 dark:hover:bg-leaf-500 transition-all duration-300 fixed bottom-8 right-8 z-50 cursor-pointer"
-          >
-            <IconDeviceFloppy
-              size={36}
-              stroke={1.5}
-            />
-          </motion.button>
-        }
+        <Button
+          disabled={isSubmitting || !FormikHelper.isEdited(initialValues, values)}
+          rightIcon={isSubmitting
+            ? <IconLoader className="animate-spin" />
+            : <IconDeviceFloppy />
+          }
+        >
+          Lock it up!
+        </Button>
       </Form>
     }
   </Formik>
+}
 
 export default PassphraseDetailsForm

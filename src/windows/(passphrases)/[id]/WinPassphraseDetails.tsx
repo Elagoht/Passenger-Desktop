@@ -1,26 +1,47 @@
 import { IconArrowLeft, IconExternalLink } from "@tabler/icons-react"
-import { FC } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { FC, useEffect, useState } from "react"
+import { Link, useNavigate, useParams } from "react-router-dom"
+import Commands from "../../../api/cli"
 import PassphraseDetailsForm from "../../../components/(passphrases)/PassphraseDetailsForm"
+import Loading from "../../../components/layout/Loading"
 import Window from "../../../components/layout/Window"
-import { usePassphrasesSlice } from "../../../stores/passphrases"
-import { Link } from "react-router-dom"
+import { useAuthorizationSlice } from "../../../stores/authorization"
+import { useNotificationSlice } from "../../../stores/notification"
+import { Passphrase } from "../../../types/common"
 
 const WinPassphraseDetails: FC = () => {
+  const params = useParams<{ id: string }>()
   const navigate = useNavigate()
+  const accessToken = useAuthorizationSlice((state) => state.accessToken)
+  const addNotification = useNotificationSlice((state) => state.addNotification)
+  const [entry, setEntry] = useState<Passphrase | null>(null)
 
-  const passphraseId = useParams<{ id: string }>()
-  const passphrases = usePassphrasesSlice((state) => state.passphrases)
-  const selectedPassphrase = passphrases.find((passphrase) => passphrase.id === passphraseId.id)
+  useEffect(() => {
+    if (!params.id) navigate("/passphrases")
 
-  // If the passphrase is not found, navigate to the passphrases page
-  if (!selectedPassphrase) {
-    navigate("/passphrases")
-    return null
-  }
+    const fetchPassphrase = async () => {
+      const response = await Commands.fetch(
+        accessToken,
+        params.id as string
+      )
+
+      if (!response.success) {
+        addNotification({
+          title: "Passphrase not found",
+          message: "The passphrase you are looking for does not exist.",
+          type: "error"
+        })
+        navigate("/passphrases")
+      }
+      setEntry(JSON.parse(response.output))
+    }
+    fetchPassphrase()
+  }, [params.id])
+
+  if (!entry) return <Loading />
 
   return <Window compact>
-    <div className="flex gap-2 items-center">
+    <div className="flex gap-2 items-center mb-4">
       <Link
         to="/passphrases"
         className="hover:bg-tuatara-200 dark:hover:bg-tuatara-800 p-2 hover:rounded-3xl transition-all duration-300"
@@ -29,8 +50,8 @@ const WinPassphraseDetails: FC = () => {
       </Link>
 
       <img
-        src={`https://logo.clearbit.com/${selectedPassphrase.platform.toLowerCase()}.com`}
-        alt={selectedPassphrase.platform}
+        src={`https://logo.clearbit.com/${entry?.platform.toLowerCase()}.com`}
+        alt={entry?.platform}
         width={48}
         height={48}
         draggable="false"
@@ -38,11 +59,11 @@ const WinPassphraseDetails: FC = () => {
       />
 
       <h1 className="text-2xl font-medium text-tuatara-900 dark:text-tuatara-50">
-        {selectedPassphrase.platform}
+        {entry?.platform}
       </h1>
 
       <a
-        href={selectedPassphrase.url}
+        href={entry?.url}
         target="_blank"
         rel="noreferrer"
       >
@@ -50,7 +71,14 @@ const WinPassphraseDetails: FC = () => {
       </a>
     </div>
 
-    <PassphraseDetailsForm {...selectedPassphrase} />
+    <PassphraseDetailsForm
+      id={entry.id}
+      platform={entry.platform}
+      identity={entry.identity}
+      url={entry.url}
+      passphrase={entry.passphrase}
+      notes={entry.notes}
+    />
   </Window>
 }
 

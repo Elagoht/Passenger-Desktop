@@ -3,19 +3,18 @@ import { Form, Formik } from "formik"
 import { FC } from "react"
 import { useNavigate } from "react-router-dom"
 import Commands from "../../api/cli"
+import Strength from "../../helpers/strength"
 import StringHelper from "../../helpers/string"
 import validationAddPassphraseForm from "../../lib/validations/passphraseForms"
 import { useAuthorizationSlice } from "../../stores/authorization"
 import { useNotificationSlice } from "../../stores/notification"
+import { usePassphrasesSlice } from "../../stores/passphrases"
 import Button from "../form/Button"
 import Input from "../form/Input"
 import TextArea from "../form/TextArea"
-import { Passphrase } from "../../types/common"
-import { usePassphrasesSlice } from "../../stores/passphrases"
 import Meter from "../statistics/Meter"
-import Strength from "../../helpers/strength"
 
-const fields = {
+export const formFields = {
   platform: IconTag,
   identity: IconUserCircle,
   url: IconWorld,
@@ -38,19 +37,12 @@ const AddPassphraseForm: FC = () => {
     }}
     validationSchema={validationAddPassphraseForm}
     onSubmit={(values, { setSubmitting }) => {
-      const passphrase: Passphrase = {
-        platform: values.platform,
-        identity: values.identity, // CLI expects email, not identity
-        url: values.url,
-        passphrase: values.passphrase,
-        notes: values.notes,
-      }
       Commands.create(
         accessToken,
-        passphrase
+        values
       ).then((response) => {
         if (response.success) {
-          addPassphrase(passphrase) // Update the store
+          addPassphrase(values) // Update the store
           addNotification({
             type: "success",
             title: "Passphrase added",
@@ -77,7 +69,7 @@ const AddPassphraseForm: FC = () => {
       isSubmitting
     }) => (
       <Form className="flex flex-col gap-2">
-        {Object.keys(fields).map((key, index) =>
+        {Object.keys(formFields).map((key, index) =>
           <Input
             autoFocus={index === 0}
             label={StringHelper.capitalize(key)}
@@ -86,7 +78,7 @@ const AddPassphraseForm: FC = () => {
             autoCorrect="off"
             autoSave="off"
             name={key}
-            iconLeft={fields[key as keyof typeof fields]}
+            iconLeft={formFields[key as keyof typeof formFields]}
             value={values[key as keyof typeof values]}
             onChange={handleChange}
             onBlur={handleBlur}
@@ -136,7 +128,7 @@ const AddPassphraseForm: FC = () => {
         </Button>
       </Form>
     )}
-  </Formik >
+  </Formik>
 }
 
 export default AddPassphraseForm
