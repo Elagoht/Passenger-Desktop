@@ -8,6 +8,7 @@ import Window from "../../../components/layout/Window"
 import { useAuthorizationSlice } from "../../../stores/authorization"
 import { useNotificationSlice } from "../../../stores/notification"
 import { Passphrase } from "../../../types/common"
+import PassphraseDeleteButton from "../../../components/(passphrases)/PassphraseDeleteButton"
 
 const WinPassphraseDetails: FC = () => {
   const params = useParams<{ id: string }>()
@@ -41,44 +42,50 @@ const WinPassphraseDetails: FC = () => {
   if (!entry) return <Loading />
 
   return <Window compact>
-    <div className="flex gap-2 items-center mb-4">
-      <Link
-        to="/passphrases"
-        className="hover:bg-tuatara-200 dark:hover:bg-tuatara-800 p-2 hover:rounded-3xl transition-all duration-300"
-      >
-        <IconArrowLeft size={32} />
-      </Link>
+    <div className="flex flex-col h-full mb-4">
+      <div className="flex gap-2 items-center mb-4">
+        <Link
+          to="/passphrases"
+          className="hover:bg-tuatara-200 dark:hover:bg-tuatara-800 p-2 hover:rounded-3xl transition-all duration-300"
+        >
+          <IconArrowLeft size={32} />
+        </Link>
 
-      <img
-        src={`https://logo.clearbit.com/${entry?.platform.toLowerCase()}.com`}
-        alt={entry?.platform}
-        width={48}
-        height={48}
-        draggable="false"
-        className="rounded-full"
+        <img
+          src={`https://logo.clearbit.com/${entry?.platform.toLowerCase()}.com`}
+          alt={entry?.platform}
+          width={48}
+          height={48}
+          draggable="false"
+          className="rounded-full"
+        />
+
+        <h1 className="text-2xl font-medium text-tuatara-900 dark:text-tuatara-50">
+          {entry?.platform}
+        </h1>
+
+        <a
+          href={entry?.url}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <IconExternalLink className="stroke-tuatara-500 hover:stroke-tuatara-400" />
+        </a>
+      </div>
+
+      <PassphraseDetailsForm
+        id={entry.id}
+        platform={entry.platform}
+        identity={entry.identity}
+        url={entry.url}
+        passphrase={entry.passphrase}
+        notes={entry.notes}
       />
 
-      <h1 className="text-2xl font-medium text-tuatara-900 dark:text-tuatara-50">
-        {entry?.platform}
-      </h1>
-
-      <a
-        href={entry?.url}
-        target="_blank"
-        rel="noreferrer"
-      >
-        <IconExternalLink className="stroke-tuatara-500 hover:stroke-tuatara-400" />
-      </a>
+      <div className="grow flex items-end">
+        <PassphraseDeleteButton id={entry.id!} />
+      </div>
     </div>
-
-    <PassphraseDetailsForm
-      id={entry.id}
-      platform={entry.platform}
-      identity={entry.identity}
-      url={entry.url}
-      passphrase={entry.passphrase}
-      notes={entry.notes}
-    />
   </Window>
 }
 
