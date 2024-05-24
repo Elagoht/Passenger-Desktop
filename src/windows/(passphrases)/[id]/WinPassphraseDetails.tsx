@@ -29,7 +29,7 @@ const WinPassphraseDetails: FC = () => {
       if (!response.success) {
         addNotification({
           title: "Passphrase not found",
-          message: "The passphrase you are looking for does not exist.",
+          message: response.output,
           type: "error"
         })
         navigate("/passphrases")
