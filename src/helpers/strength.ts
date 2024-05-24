@@ -1,4 +1,16 @@
-type StrengthCriteria = "lowercase" | "uppercase" | "numbers" | "special" | "repeated" | "sequentialNumbers" | "sequentialLetters" | "short" | "medium" | "long" | "veryLong" | "extremelyLong"
+type StrengthCriteria = 
+  | "lowercase"
+  | "uppercase"
+  | "numbers"
+  | "special"
+  | "repeated"
+  | "sequentialNumbers"
+  | "sequentialLetters"
+  | "short"
+  | "medium"
+  | "long"
+  | "veryLong"
+  | "extremelyLong"
 
 /**
  * Represents a password strength evaluator.
