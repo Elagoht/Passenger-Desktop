@@ -11,6 +11,7 @@ const PassphraseCard: FC<IPassphraseCardProps> = ({ id, platform, url, passphras
   return <li className="flex items-center rounded-lg hover:bg-tuatara-50 hover:dark:bg-tuatara-900 transition-all w-full text-left bg-tuatara-50 dark:bg-tuatara-900">
     <Link
       to={`/passphrases/${id}`}
+      draggable="false"
       className="flex items-center grow m-3 gap-2"
     >
       <img

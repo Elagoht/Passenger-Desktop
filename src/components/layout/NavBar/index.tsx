@@ -26,6 +26,7 @@ const NavBar: FC = () => {
     {menuItems.map((item, index) =>
       <Link
         key={index}
+        draggable="false"
         className={classNames({
           "p-2 md:gap-2 flex items-center justify-center transition-all ease-in-out duration-300 rounded-lg": true,
           "bg-tuatara-100 dark:bg-tuatara-800 text-creamcan-600 dark:text-creamcan-300": pathname.startsWith(item.path),

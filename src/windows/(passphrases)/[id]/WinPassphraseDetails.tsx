@@ -46,6 +46,7 @@ const WinPassphraseDetails: FC = () => {
       <div className="flex gap-2 items-center mb-4">
         <Link
           to="/passphrases"
+          draggable="false"
           className="hover:bg-tuatara-200 dark:hover:bg-tuatara-800 p-2 hover:rounded-3xl transition-all duration-300"
         >
           <IconArrowLeft size={32} />
