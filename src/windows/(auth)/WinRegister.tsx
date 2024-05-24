@@ -176,6 +176,7 @@ const WinRegister: FC = () => {
             <Link
               type="button"
               to="/auth/login"
+              draggable="false"
               className="text-sm text-center hover:underline"
             >
               I already have a vault, unlock it!

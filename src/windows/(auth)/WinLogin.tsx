@@ -159,6 +159,7 @@ const WinLogin: FC = () => {
 
             <Link
               to="/auth/register"
+              draggable="false"
               className="text-sm text-center hover:underline"
             >
               Not have a vault yet? Create one!
