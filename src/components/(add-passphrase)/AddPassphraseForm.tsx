@@ -65,6 +65,7 @@ const AddPassphraseForm: FC = () => {
       errors,
       touched,
       handleChange,
+      setFieldValue,
       handleBlur,
       isSubmitting
     }) => (
@@ -80,7 +81,16 @@ const AddPassphraseForm: FC = () => {
             name={key}
             iconLeft={formFields[key as keyof typeof formFields]}
             value={values[key as keyof typeof values]}
-            onChange={handleChange}
+            onChange={(event) => {
+              key === "platform" && (
+                values.url === "" ||
+                values.url === `${values.platform.toLowerCase().replace(/\s/g, "")}.com`
+              ) && (event.target.value.length === 0
+                ? setFieldValue("url", "")
+                : setFieldValue("url", `${event.target.value.toLowerCase().replace(/\s/g, "")}.com`)
+                )
+              handleChange(event)
+            }}
             onBlur={handleBlur}
             type={key === "passphrase"
               ? "password"
