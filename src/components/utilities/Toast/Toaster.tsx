@@ -1,7 +1,8 @@
 import { AnimatePresence } from "framer-motion"
 import { FC } from "react"
-import { useNotificationSlice } from "../../stores/notification"
-import Toast from "./Toast"
+import { useNotificationSlice } from "../../../stores/notification"
+import Toast from "."
+
 
 const Toaster: FC = () => {
   const notifications = useNotificationSlice(state => state.notifications)

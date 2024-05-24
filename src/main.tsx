@@ -2,7 +2,7 @@ import React, { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 import App from "./App"
 import "./design/global.css"
-import Toaster from "./components/utilities/Toaster"
+import Toaster from "./components/utilities/Toast/Toaster"
 
 createRoot(document.getElementById("root")!)
   .render(
