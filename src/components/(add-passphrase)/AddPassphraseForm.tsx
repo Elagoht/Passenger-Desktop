@@ -42,7 +42,7 @@ const AddPassphraseForm: FC = () => {
         values
       ).then((response) => {
         if (response.success) {
-          addPassphrase(values) // Update the store
+          addPassphrase(JSON.parse(response.output)) // Update the store
           addNotification({
             type: "success",
             title: "Passphrase added",
