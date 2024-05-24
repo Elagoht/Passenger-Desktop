@@ -77,7 +77,7 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
       initialValues,
       isSubmitting
     }) =>
-      <Form className="grid grid-cols-1 gap-1 relative p-2">
+      <Form className="grid grid-cols-1 gap-1 relative">
         {Object.keys(formFields).map((key, index) =>
           <Input
             autoFocus={index === 0}
