@@ -2,7 +2,7 @@
 
 import { Icon, IconAlertCircle, IconCheck, IconEye, IconEyeOff, IconProps } from "@tabler/icons-react"
 import classNames from "classnames"
-import { FC, ForwardRefExoticComponent, InputHTMLAttributes, createElement, useRef, useState } from "react"
+import { FC, ForwardRefExoticComponent, InputHTMLAttributes, createElement, useEffect, useRef, useState } from "react"
 import Pretty from "../../helpers/prettiers"
 
 interface IInputProps extends Omit<
@@ -42,6 +42,11 @@ const Input: FC<IInputProps> = ({
   const [isFilled, setIsFilled] = useState<boolean>(Boolean(props.value))
   const [showPassword, setShowPassword] = useState<boolean>(false)
   const selfRef = useRef<HTMLInputElement>(null)
+
+  useEffect(
+    () => setIsFilled(Boolean(props.value)),
+    [props.value]
+  )
 
   return <div className={classNames({
     "flex flex-col gap-0.5": true,
