@@ -9,6 +9,7 @@ import { useAuthorizationSlice } from "../../../stores/authorization"
 import { useNotificationSlice } from "../../../stores/notification"
 import { Passphrase } from "../../../types/common"
 import PassphraseDeleteButton from "../../../components/(passphrases)/PassphraseDeleteButton"
+import StringHelper from "../../../helpers/string"
 
 const WinPassphraseDetails: FC = () => {
   const params = useParams<{ id: string }>()
@@ -29,7 +30,7 @@ const WinPassphraseDetails: FC = () => {
       if (!response.success) {
         addNotification({
           title: "Passphrase not found",
-          message: response.output,
+          message: StringHelper.removeUnixErrorPrefix(response.output),
           type: "error"
         })
         navigate("/passphrases")
