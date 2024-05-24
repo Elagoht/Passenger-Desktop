@@ -51,6 +51,7 @@ class CLI {
 export default class Commands {
   /**
    * Generates a JWT to use other commands.
+   * @param username - The username for logging in.
    * @param passphrase - The passphrase for logging in.
    * @returns A promise that resolves to the output of the command.
    */
@@ -59,6 +60,7 @@ export default class Commands {
 
   /**
    * Registers a new user with the provided passphrase.
+   * @param passphrase - The passphrase for registration.
    * @param passphrase - The passphrase for registration.
    * @returns A promise that resolves to the output of the command.
    */
