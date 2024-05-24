@@ -20,7 +20,7 @@ const WinPassphraseDetails: FC = () => {
 
   Commands.fetch(
     accessToken,
-    params.id as string
+    params.id!
   ).then((response) => {
     if (response.success)
       return setEntry(JSON.parse(response.output))
