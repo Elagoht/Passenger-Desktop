@@ -6,10 +6,10 @@ export type ListablePassphrase = {
   readonly createdAt?: string
   readonly updatedAt?: string
   readonly lastAccessedAt?: string
+  readonly totalAccesses?: number
 }
 
 export type Passphrase = ListablePassphrase & {
   passphrase: string
   notes?: string
-  readonly totalAccesses?: number
 }
