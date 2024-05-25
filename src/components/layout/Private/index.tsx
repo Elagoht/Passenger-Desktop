@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom"
 import NavBar from "../NavBar"
 import { useAuthorizationSlice } from "../../../stores/authorization"
 import GuideSwiper from "../../(guide)/GuideSwiper"
+import ReAuthModal from "../../(auth)/ReAuthModal"
 
 const Private: FC = () => {
   const isGuideDone = useAuthorizationSlice(state => state.isGuideDone)
@@ -12,9 +13,9 @@ const Private: FC = () => {
 
     <NavBar />
 
-    {!isGuideDone &&
-      <GuideSwiper />
-    }
+    {!isGuideDone && <GuideSwiper />}
+
+    <ReAuthModal />
   </main>
 }
 
