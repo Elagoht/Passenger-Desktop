@@ -1,5 +1,5 @@
 import { IconArrowLeft, IconExternalLink } from "@tabler/icons-react"
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import Commands from "../../../api/cli"
 import PassphraseDeleteButton from "../../../components/(passphrases)/PassphraseDeleteButton"
@@ -18,19 +18,21 @@ const WinPassphraseDetails: FC = () => {
   const addNotification = useNotificationSlice((state) => state.addNotification)
   const [entry, setEntry] = useState<Passphrase | null>(null)
 
-  Commands.fetch(
-    accessToken,
-    params.id!
-  ).then((response) => {
-    if (response.success)
-      return setEntry(JSON.parse(response.output))
-    addNotification({
-      title: "Passphrase not found",
-      message: StringHelper.removeUnixErrorPrefix(response.output),
-      type: "error"
+  useEffect(() => {
+    Commands.fetch(
+      accessToken,
+      params.id!
+    ).then((response) => {
+      if (response.success)
+        return setEntry(JSON.parse(response.output))
+      addNotification({
+        title: "Passphrase not found",
+        message: StringHelper.removeUnixErrorPrefix(response.output),
+        type: "error"
+      })
+      navigate("/passphrases")
     })
-    navigate("/passphrases")
-  })
+  }, [])
 
   if (!entry) return <Loading />
 
