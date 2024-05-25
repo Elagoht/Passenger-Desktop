@@ -35,7 +35,7 @@ const Window: FC<IWindowProps> = ({ children, className, compact }) => {
     className={classNames({
       "grow overflow-y-auto p-2 md:p-4": true,
       "max-w-2xl mx-auto w-full": compact,
-      [className as string]: className
+      [className!]: className
     })}
   >
     {children}

@@ -67,7 +67,7 @@ const Modal: FC<IModalProps> = ({
                     {...button}
                   />
                 )
-              : <Button {...buttons as IButtonProps} />
+              : <Button {...buttons} />
             }
           </div>
         </footer>
