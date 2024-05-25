@@ -1,8 +1,8 @@
 import { IconCopy, IconExternalLink } from "@tabler/icons-react"
 import { FC } from "react"
 import { Link } from "react-router-dom"
-import StringHelper from "../../../helpers/string"
-import { Passphrase } from "../../../types/common"
+import StringHelper from "../../helpers/string"
+import { Passphrase } from "../../types/common"
 
 interface IPassphraseCardProps extends Passphrase { }
 
@@ -12,7 +12,7 @@ const PassphraseCard: FC<IPassphraseCardProps> = ({ id, platform, url, passphras
     <Link
       to={`/passphrases/${id}`}
       draggable="false"
-      className="flex items-center grow m-3 gap-2"
+      className="flex items-center grow p-3 gap-2 rounded-l-lg"
     >
       <img
         src={`https://logo.clearbit.com/${platform.toLowerCase()}.com`}
@@ -32,7 +32,7 @@ const PassphraseCard: FC<IPassphraseCardProps> = ({ id, platform, url, passphras
       target="_blank"
       rel="noopener noreferrer"
       href={StringHelper.urlify(url)}
-      className="ml-2 h-full bg-white dark:bg-tuatara-800 hover:brightness-90 transition-all aspect-square w-10 grid place-items-center shrink-0"
+      className="h-full bg-white dark:bg-tuatara-800 hover:brightness-90 transition-all aspect-square w-10 grid place-items-center shrink-0"
     >
       <IconExternalLink />
     </a>
