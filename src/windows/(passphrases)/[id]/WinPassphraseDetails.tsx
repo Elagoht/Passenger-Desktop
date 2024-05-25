@@ -1,14 +1,15 @@
 import { IconArrowLeft, IconExternalLink } from "@tabler/icons-react"
-import { FC, useEffect, useState } from "react"
+import { FC, useState } from "react"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import Commands from "../../../api/cli"
+import PassphraseDeleteButton from "../../../components/(passphrases)/PassphraseDeleteButton"
 import PassphraseDetailsForm from "../../../components/(passphrases)/PassphraseDetailsForm"
 import Loading from "../../../components/layout/Loading"
 import Window from "../../../components/layout/Window"
+import StringHelper from "../../../helpers/string"
 import { useAuthorizationSlice } from "../../../stores/authorization"
 import { useNotificationSlice } from "../../../stores/notification"
 import { Passphrase } from "../../../types/common"
-import PassphraseDeleteButton from "../../../components/(passphrases)/PassphraseDeleteButton"
 
 const WinPassphraseDetails: FC = () => {
   const params = useParams<{ id: string }>()
@@ -17,27 +18,19 @@ const WinPassphraseDetails: FC = () => {
   const addNotification = useNotificationSlice((state) => state.addNotification)
   const [entry, setEntry] = useState<Passphrase | null>(null)
 
-  useEffect(() => {
-    if (!params.id) navigate("/passphrases")
-
-    const fetchPassphrase = async () => {
-      const response = await Commands.fetch(
-        accessToken,
-        params.id as string
-      )
-
-      if (!response.success) {
-        addNotification({
-          title: "Passphrase not found",
-          message: response.output,
-          type: "error"
-        })
-        navigate("/passphrases")
-      }
-      setEntry(JSON.parse(response.output))
-    }
-    fetchPassphrase()
-  }, [params.id])
+  Commands.fetch(
+    accessToken,
+    params.id!
+  ).then((response) => {
+    if (response.success)
+      return setEntry(JSON.parse(response.output))
+    addNotification({
+      title: "Passphrase not found",
+      message: StringHelper.removeUnixErrorPrefix(response.output),
+      type: "error"
+    })
+    navigate("/passphrases")
+  })
 
   if (!entry) return <Loading />
 

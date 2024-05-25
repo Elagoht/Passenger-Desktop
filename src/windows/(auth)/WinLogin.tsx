@@ -33,6 +33,7 @@ const WinLogin: FC = () => {
 
   const setIsAuthorizated = useAuthorizationSlice((state) => state.setIsAuthorizated)
   const setAccessToken = useAuthorizationSlice((state) => state.setAccessToken)
+  const setDoesRequireReAuth = useAuthorizationSlice((state) => state.setDoesRequireReAuth)
   //> const secretKey = useKeyringSlice((state) => state.secretKey)
   const setSecretKey = useKeyringSlice((state) => state.setSecretKey)
   const loadPassphrases = usePassphrasesSlice((state) => state.loadPassphrases)
@@ -96,6 +97,12 @@ const WinLogin: FC = () => {
 
             const { output: jwt } = response // Extract the JWT from the response.
             setAccessToken(jwt)
+
+            // Start a 10 minutes interval to show re-authentication modal.
+            window.setInterval(
+              () => setDoesRequireReAuth(true),
+              60 * 10 * 1000 // This is the expiration time of the JWT.
+            )
 
             Commands.fetchAll(
               jwt

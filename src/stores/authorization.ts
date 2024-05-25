@@ -4,9 +4,11 @@ interface IAuthorizationSlice {
   isAuthorized: boolean
   accessToken: string
   isGuideDone: boolean
+  doesRequireReAuth: boolean
   setIsAuthorizated: (state: boolean) => void
   setAccessToken: (token: string) => void
   setIsGuideDone: (state: boolean) => void
+  setDoesRequireReAuth: (state: boolean) => void
 }
 
 export const useAuthorizationSlice = create<IAuthorizationSlice>((set) => ({
@@ -15,6 +17,8 @@ export const useAuthorizationSlice = create<IAuthorizationSlice>((set) => ({
   accessToken: "",
 
   isGuideDone: false,
+
+  doesRequireReAuth: false,
 
   setIsAuthorizated: (state) => set({
     isAuthorized: state
@@ -26,5 +30,9 @@ export const useAuthorizationSlice = create<IAuthorizationSlice>((set) => ({
 
   setIsGuideDone: (state) => set({
     isGuideDone: state
+  }),
+
+  setDoesRequireReAuth: (state) => set({
+    doesRequireReAuth: state
   })
 }))
