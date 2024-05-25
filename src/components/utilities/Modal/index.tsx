@@ -16,10 +16,10 @@ interface IModalProps {
 
 const Modal: FC<IModalProps> = ({
   children, close, persist, title, isOpen, size = "md", buttons
-}) => {
-  return <div
+}) =>
+  <div
     className={classNames({
-      "fixed inset-0 z-50 flex md:items-center items-end justify-center bg-black bg-opacity-50 backdrop-blur md:p-8 transition-all ease-in-out duration-300": true,
+      "fixed inset-0 z-50 flex md:items-center items-end justify-center bg-black bg-opacity-50 backdrop-blur-3xl md:p-8 transition-all ease-in-out duration-300": true,
       "opacity-0 pointer-events-none": !isOpen,
     })}
     onClick={persist
@@ -74,6 +74,5 @@ const Modal: FC<IModalProps> = ({
       }
     </div>
   </div>
-}
 
 export default Modal
