@@ -7,6 +7,7 @@ import { useNotificationSlice } from "../../stores/notification"
 import { IconBox, IconFlame, IconTrash } from "@tabler/icons-react"
 import { usePassphrasesSlice } from "../../stores/passphrases"
 import { useNavigate } from "react-router-dom"
+import StringHelper from "../../helpers/string"
 
 interface IPassphraseDeleteButtonProps {
   id: string
@@ -53,7 +54,7 @@ const PassphraseDeleteButton: FC<IPassphraseDeleteButtonProps> = ({ id }) => {
               : "Failed to Delete Passphrase",
             message: response.success
               ? "Lost forever."
-              : response.output,
+              : StringHelper.removeUnixErrorPrefix(response.output),
             type: response.success
               ? "success"
               : "error"
