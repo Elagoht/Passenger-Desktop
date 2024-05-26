@@ -1,12 +1,13 @@
-import { IconCopy, IconExternalLink } from "@tabler/icons-react"
+import { IconExternalLink } from "@tabler/icons-react"
 import { FC } from "react"
 import { Link } from "react-router-dom"
-import StringHelper from "../../helpers/string"
-import { Passphrase } from "../../types/common"
+import StringHelper from "../../../helpers/string"
+import { Passphrase } from "../../../types/common"
+import PassphraseCopyButton from "./PassphraseCopyButton"
 
 interface IPassphraseCardProps extends Passphrase { }
 
-const PassphraseCard: FC<IPassphraseCardProps> = ({ id, platform, url, passphrase }) => {
+const PassphraseCard: FC<IPassphraseCardProps> = ({ id, platform, url }) => {
 
   return <li className="flex items-center rounded-lg hover:bg-tuatara-50 hover:dark:bg-tuatara-900 transition-all w-full text-left bg-tuatara-50 dark:bg-tuatara-900">
     <Link
@@ -37,12 +38,7 @@ const PassphraseCard: FC<IPassphraseCardProps> = ({ id, platform, url, passphras
       <IconExternalLink />
     </a>
 
-    <button
-      onClick={() => navigator.clipboard.writeText(passphrase)}
-      className="rounded-r-lg h-full bg-white dark:bg-tuatara-800 hover:brightness-90 transition-all aspect-square w-10 grid place-items-center shrink-0"
-    >
-      <IconCopy />
-    </button >
+    <PassphraseCopyButton id={id} />
   </li>
 }
 
