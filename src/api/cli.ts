@@ -132,6 +132,14 @@ export default class Commands {
     CLI.readOutput(await CLI.execute("delete", [jwt, uuid]))
 
   /**
+   * Retrieves the statistics as a JSON object.
+   * @param jwt - The JWT for authentication.
+   * @returns A promise that resolves to the output of the command.
+   */
+  public static stats = async (jwt: string): Promise<Output> =>
+    CLI.readOutput(await CLI.execute("stats", [jwt]))
+
+  /**
    * Retrieves the version information.
    * @returns A promise that resolves to the output of the command.
    */
