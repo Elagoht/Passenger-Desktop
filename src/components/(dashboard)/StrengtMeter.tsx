@@ -1,16 +1,16 @@
 import "chart.js/auto"
 import { FC } from "react"
-import Statistics from "../../helpers/statistics"
 import Strength from "../../helpers/strength"
 import GaugeChart from "../statistics/GauceChart"
+import { Statistics } from "../../types/statistics"
 
 interface IStrengthMeterProps {
-  statistics: Statistics
+  averageStrength: Statistics["averageStrength"]
 }
 
-const StrengthMeter: FC<IStrengthMeterProps> = ({ statistics }) => {
-  const averageStrength = !isNaN(statistics.averageStrength())
-    ? statistics.averageStrength()
+const StrengthMeter: FC<IStrengthMeterProps> = ({ averageStrength }) => {
+  const average = !isNaN(averageStrength)
+    ? averageStrength
     : -2
 
   return <figure className="flex flex-col items-center justify-center rounded-xl p-4 shadow shadow-tuatara-300 dark:shadow-tuatara-950 bg-tuatara-50 dark:bg-tuatara-900">
@@ -18,9 +18,9 @@ const StrengthMeter: FC<IStrengthMeterProps> = ({ statistics }) => {
       value={averageStrength}
       minValue={-2}
       maxValue={8}
-      fillColor={Strength.color(averageStrength)}
-      title={<h2 className="text-7xl font-medium drop-shadow-text" style={{ color: Strength.color(averageStrength) }}>{(averageStrength) + 2}</h2>}
-      subtitle={<h3 className="text-tuatara-500 w-40 drop-shadow-text">{Strength.calculatedMessage(averageStrength)}</h3>}
+      fillColor={Strength.color(average)}
+      title={<h2 className="text-7xl font-medium drop-shadow-text" style={{ color: Strength.color(average) }}>{Math.round(average + 2)}</h2>}
+      subtitle={<h3 className="text-tuatara-500 w-40 drop-shadow-text">{Strength.calculatedMessage(average)}</h3>}
     />
 
     <figcaption className="text-xl text-tuatara-500 font-bold">Average Strength</figcaption>
