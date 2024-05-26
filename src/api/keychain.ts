@@ -4,7 +4,8 @@ class KeyRing {
 
   public static write = async (username: string, key: string): Promise<void> => {
     try {
-      await invoke("save_key",
+      await invoke(
+        "save_key",
         {
           service: "dev.elagoht.passenger",
           username: username,
