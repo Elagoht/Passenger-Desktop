@@ -7,6 +7,7 @@ import Commands from "../../api/cli"
 import { useAuthorizationSlice } from "../../stores/authorization"
 import { useNotificationSlice } from "../../stores/notification"
 import StringHelper from "../../helpers/string"
+import MostAccessed from "../../components/(dashboard)/MostAccessed"
 
 const WinDashboard: FC = () => {
   const accessToken = useAuthorizationSlice(state => state.accessToken)
@@ -51,6 +52,8 @@ const WinDashboard: FC = () => {
       />
 
       <StrengthMeter averageStrength={statistics.averageStrength} />
+
+      <MostAccessed mostAccessed={statistics.mostAccessed} />
     </div>
   </Window>
 }
