@@ -49,6 +49,15 @@ class StringHelper {
       : url.startsWith("/")
         ? this.urlify(url.slice(1))
         : `https://${url}`
+
+  /**
+   * Converts a string to a typed object.
+   * @param input - The input string.
+   * @returns The typed object.
+   * @description **Do not use** this method for untrusted input.
+   */
+  static deserialize = <Type>(input: string): Type =>
+    JSON.parse(input) as Type
 }
 
 export default StringHelper
