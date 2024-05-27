@@ -26,7 +26,7 @@ const ReAuthModal: FC = () => {
         username: "",
         passphrase: ""
       }}
-      onSubmit={(values, { setSubmitting }) => {
+      onSubmit={(values, { setSubmitting, setValues }) => {
         Commands.login(
           values.username,
           values.passphrase
@@ -43,6 +43,10 @@ const ReAuthModal: FC = () => {
             type: "success",
             icon: <IconMoodSmile size={32} />,
             message: "Access granted, again!"
+          })
+          setValues({ // Clear the form for next time
+            username: "",
+            passphrase: ""
           })
         }).finally(
           () => setSubmitting(false)
@@ -63,7 +67,8 @@ const ReAuthModal: FC = () => {
               size={32}
               className="mr-2 inline-block"
             />
-            Re-authenticate
+
+            The vault lid closed by itself
           </h1>
 
           <p>
