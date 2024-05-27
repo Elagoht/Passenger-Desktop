@@ -23,7 +23,7 @@ const StrengthMeter: FC<IStrengthMeterProps> = ({ averageStrength }) => {
       subtitle={<h3 className="text-tuatara-500 w-40 drop-shadow-text">{Strength.calculatedMessage(average)}</h3>}
     />
 
-    <figcaption className="text-xl text-tuatara-500 font-bold">Average Strength</figcaption>
+    <figcaption className="text-xl text-creamcan-500 font-bold">Average Strength</figcaption>
   </figure>
 }
 
