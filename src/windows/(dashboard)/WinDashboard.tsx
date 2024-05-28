@@ -8,6 +8,7 @@ import StringHelper from "../../helpers/string"
 import { useAuthorizationSlice } from "../../stores/authorization"
 import { useNotificationSlice } from "../../stores/notification"
 import { Statistics } from "../../types/statistics"
+import MostUsedPassphrase from "../../components/(dashboard)/MostUsedPassphrase"
 
 const WinDashboard: FC = () => {
   const accessToken = useAuthorizationSlice(state => state.accessToken)
@@ -56,7 +57,7 @@ const WinDashboard: FC = () => {
 
       <MostAccessed mostAccessed={statistics.mostAccessed} />
 
-
+      <MostUsedPassphrase mostCommon={statistics.mostCommon} />
     </div>
   </Window>
 }
