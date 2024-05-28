@@ -1,13 +1,13 @@
 import { FC, useEffect, useState } from "react"
+import Commands from "../../api/cli"
+import MostAccessed from "../../components/(dashboard)/MostAccessed"
 import StrengthMeter from "../../components/(dashboard)/StrengtMeter"
 import TotalCounts from "../../components/(dashboard)/TotalCounts"
 import Window from "../../components/layout/Window"
-import { Statistics } from "../../types/statistics"
-import Commands from "../../api/cli"
+import StringHelper from "../../helpers/string"
 import { useAuthorizationSlice } from "../../stores/authorization"
 import { useNotificationSlice } from "../../stores/notification"
-import StringHelper from "../../helpers/string"
-import MostAccessed from "../../components/(dashboard)/MostAccessed"
+import { Statistics } from "../../types/statistics"
 
 const WinDashboard: FC = () => {
   const accessToken = useAuthorizationSlice(state => state.accessToken)
@@ -24,7 +24,7 @@ const WinDashboard: FC = () => {
     percentageOfCommon: 0,
     mostCommon: "",
     strengths: {},
-    averageStrength: 0,
+    averageStrength: -2,
     weakPassphrases: [],
     mediumPassphrases: [],
     strongPassphrases: []
@@ -49,11 +49,14 @@ const WinDashboard: FC = () => {
         totalCount={statistics.totalCount}
         uniqueCount={statistics.uniquePassphrases}
         uniquePlatformsCount={statistics.uniquePlatformsCount}
+        percentageOfCommon={statistics.percentageOfCommon}
       />
 
       <StrengthMeter averageStrength={statistics.averageStrength} />
 
       <MostAccessed mostAccessed={statistics.mostAccessed} />
+
+
     </div>
   </Window>
 }
