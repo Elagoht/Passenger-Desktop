@@ -9,7 +9,8 @@ import { useAuthorizationSlice } from "../../stores/authorization"
 import { useNotificationSlice } from "../../stores/notification"
 import { Statistics } from "../../types/statistics"
 import MostUsedPassphrase from "../../components/(dashboard)/MostUsedPassphrase"
-import AverateLength from "../../components/(dashboard)/AverateLength"
+import AverageLength from "../../components/(dashboard)/AverageLength"
+import StrengthDistributionChart from "../../components/(dashboard)/StrengthDistributionChart"
 
 const WinDashboard: FC = () => {
   const accessToken = useAuthorizationSlice(state => state.accessToken)
@@ -17,7 +18,7 @@ const WinDashboard: FC = () => {
 
   const [statistics, setStatistics] = useState<Statistics>({
     totalCount: 0, // Used 
-    averageLength: 0,
+    averageLength: 0, // Used
     uniquePlatforms: [],
     uniquePlatformsCount: 0, // Used
     uniquePassphrases: 0, // Used
@@ -56,11 +57,13 @@ const WinDashboard: FC = () => {
 
       <StrengthMeter averageStrength={statistics.averageStrength} />
 
+      <StrengthDistributionChart strengths={statistics.strengths} />
+
+      <AverageLength averageLength={statistics.averageLength} />
+
       <MostAccessed mostAccessed={statistics.mostAccessed} />
 
       <MostUsedPassphrase mostCommon={statistics.mostCommon} />
-
-      <AverateLength averageLength={statistics.averageLength} />
     </div>
   </Window>
 }
