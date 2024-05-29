@@ -9,23 +9,24 @@ import { useAuthorizationSlice } from "../../stores/authorization"
 import { useNotificationSlice } from "../../stores/notification"
 import { Statistics } from "../../types/statistics"
 import MostUsedPassphrase from "../../components/(dashboard)/MostUsedPassphrase"
+import AverateLength from "../../components/(dashboard)/AverateLength"
 
 const WinDashboard: FC = () => {
   const accessToken = useAuthorizationSlice(state => state.accessToken)
   const addNotification = useNotificationSlice(state => state.addNotification)
 
   const [statistics, setStatistics] = useState<Statistics>({
-    totalCount: 0,
+    totalCount: 0, // Used 
     averageLength: 0,
     uniquePlatforms: [],
-    uniquePlatformsCount: 0,
-    uniquePassphrases: 0,
-    mostAccessed: [],
+    uniquePlatformsCount: 0, // Used
+    uniquePassphrases: 0, // Used
+    mostAccessed: [], // Used
     commonByPlatform: [],
-    percentageOfCommon: 0,
-    mostCommon: "",
+    percentageOfCommon: 0, // Used
+    mostCommon: "", // Used
     strengths: {},
-    averageStrength: -2,
+    averageStrength: -2, // Used
     weakPassphrases: [],
     mediumPassphrases: [],
     strongPassphrases: []
@@ -34,14 +35,14 @@ const WinDashboard: FC = () => {
   useEffect(() => {
     Commands.stats(
       accessToken
-    ).then((response) => {
-      if (!response.success) return addNotification({
+    ).then((response) => response.success
+      ? setStatistics(JSON.parse(response.output))
+      : addNotification({
         type: "error",
         title: "Unsuccessful Request",
         message: StringHelper.removeUnixErrorPrefix(response.output)
       })
-      setStatistics(JSON.parse(response.output))
-    })
+    )
   }, [])
 
   return <Window>
@@ -58,6 +59,8 @@ const WinDashboard: FC = () => {
       <MostAccessed mostAccessed={statistics.mostAccessed} />
 
       <MostUsedPassphrase mostCommon={statistics.mostCommon} />
+
+      <AverateLength averageLength={statistics.averageLength} />
     </div>
   </Window>
 }
