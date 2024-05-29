@@ -19,11 +19,13 @@ const StrengthMeter: FC<IStrengthMeterProps> = ({ averageStrength }) => {
       minValue={-2}
       maxValue={8}
       fillColor={Strength.color(average)}
-      title={<h2 className="text-7xl font-medium drop-shadow-text" style={{ color: Strength.color(average) }}>{Math.round(average + 2)}</h2>}
-      subtitle={<h3 className="text-tuatara-500 w-40 drop-shadow-text">{Strength.calculatedMessage(average)}</h3>}
+      title={<h2 className="text-7xl font-medium" style={{ color: Strength.color(average) }}>{Math.round(average + 2)}</h2>}
+      subtitle={<h3 className="text-tuatara-500 w-40">{Strength.calculatedMessage(average)}</h3>}
     />
 
-    <figcaption className="text-xl text-creamcan-500 font-bold">Average Strength</figcaption>
+    <figcaption className="text-xl text-creamcan-500 font-bold">
+      Average Strength
+    </figcaption>
   </figure>
 }
 
