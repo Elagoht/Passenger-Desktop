@@ -17,7 +17,7 @@ const StrengthDistributionChart: FC<IStrengthDistributionChartProps> = ({ streng
 
   const colors = Array.from({ length: 11 }, (_, index) => Strength.color(index))
 
-  return <article className="rounded-xl p-4 shadow shadow-tuatara-300 dark:shadow-tuatara-950 bg-tuatara-50 dark:bg-tuatara-900">
+  return <article className="rounded-xl p-4 lg:col-span-2 lg:row-span-2 shadow shadow-tuatara-300 dark:shadow-tuatara-950 bg-tuatara-50 dark:bg-tuatara-900">
     <h2 className="text-lg font-semibold text-creamcan-500 mb-3">
       Strength Distribution
     </h2>

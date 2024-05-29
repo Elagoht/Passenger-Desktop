@@ -57,11 +57,11 @@ const WinDashboard: FC = () => {
 
       <StrengthMeter averageStrength={statistics.averageStrength} />
 
-      <StrengthDistributionChart strengths={statistics.strengths} />
-
       <AverageLength averageLength={statistics.averageLength} />
 
       <MostAccessed mostAccessed={statistics.mostAccessed} />
+
+      <StrengthDistributionChart strengths={statistics.strengths} />
 
       <MostUsedPassphrase mostCommon={statistics.mostCommon} />
     </div>
