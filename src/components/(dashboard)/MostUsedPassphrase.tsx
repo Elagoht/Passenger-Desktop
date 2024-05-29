@@ -30,7 +30,7 @@ const MostUsedPassphrase: FC<IMostUsedPassphraseProps> = ({ mostCommon }) => {
       <span className="text-lg font-medium line-clamp-1 grow text-center">
         {reveal
           ? mostCommon
-          : "The most used one is..."
+          : "Reveal the secret"
         }
       </span>
 
@@ -38,7 +38,7 @@ const MostUsedPassphrase: FC<IMostUsedPassphraseProps> = ({ mostCommon }) => {
         reveal
           ? IconEyeOff
           : IconEye,
-        { className: "text-leaf-500 shrink-0" }
+        { className: "text-leaf-500 shrink-0", size: 32 }
       )}
     </button>
   </article>
