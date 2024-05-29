@@ -1,6 +1,6 @@
 import { IconArrowLeft, IconExternalLink } from "@tabler/icons-react"
 import { FC, useEffect, useState } from "react"
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
 import Commands from "../../../api/cli"
 import PassphraseDeleteButton from "../../../components/(passphrases)/PassphraseDeleteButton"
 import PassphraseDetailsForm from "../../../components/(passphrases)/PassphraseDetailsForm"
@@ -13,6 +13,7 @@ import { Passphrase } from "../../../types/common"
 
 const WinPassphraseDetails: FC = () => {
   const params = useParams<{ id: string }>()
+  const searchParams = useSearchParams()[0]
   const navigate = useNavigate()
   const accessToken = useAuthorizationSlice((state) => state.accessToken)
   const addNotification = useNotificationSlice((state) => state.addNotification)
@@ -40,7 +41,7 @@ const WinPassphraseDetails: FC = () => {
     <div className="flex flex-col h-full mb-4">
       <div className="flex gap-2 items-center mb-4">
         <Link
-          to="/passphrases"
+          to={searchParams.get("cameFrom") || "/passphrases"}
           draggable="false"
           className="hover:bg-tuatara-200 dark:hover:bg-tuatara-800 p-2 hover:rounded-3xl transition-all duration-300"
         >

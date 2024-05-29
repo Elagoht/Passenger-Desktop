@@ -25,7 +25,6 @@ const GaugeChart: FC<IGaugeChartProps> = ({
 
   return <div className="relative text-center -my-6">
     <Doughnut
-      style={{ filter: "drop-shadow(0 0 0.25rem #0005" }}
       data={{
         datasets: [
           {
