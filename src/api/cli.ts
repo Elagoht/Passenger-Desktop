@@ -1,4 +1,4 @@
-import { shell } from "@tauri-apps/api"
+import { ChildProcess, Command } from "@tauri-apps/api/shell"
 import StringHelper from "../helpers/string"
 import { Passphrase } from "../types/common"
 
@@ -22,8 +22,8 @@ class CLI {
    * @param args - The arguments for the verb.
    * @returns A promise that resolves to the child process.
    */
-  public static execute = async (command: string, args: string[]): Promise<shell.ChildProcess> =>
-    await new shell.Command(
+  public static execute = async (command: string, args: string[]): Promise<ChildProcess> =>
+    await new Command(
       "sh", ["-c",
       `${CLI.executable
       } ${command
@@ -39,7 +39,7 @@ class CLI {
    * @returns The output of the process.
    * @see Output
    */
-  public static readOutput = (process: shell.ChildProcess): Output => ({
+  public static readOutput = (process: ChildProcess): Output => ({
     success: process.code === 0,
     output: process.stdout.trim()
   })
