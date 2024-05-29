@@ -5,7 +5,7 @@ interface IAverateLengthProps {
   averageLength: Statistics["averageLength"]
 }
 
-const AverateLength: FC<IAverateLengthProps> = ({ averageLength }) => {
+const AverageLength: FC<IAverateLengthProps> = ({ averageLength }) => {
   return <article className="rounded-xl p-4 shadow shadow-tuatara-300 dark:shadow-tuatara-950 bg-tuatara-50 dark:bg-tuatara-900 relative overflow-clip">
     <img
       src="/hacker.webp"
@@ -13,7 +13,7 @@ const AverateLength: FC<IAverateLengthProps> = ({ averageLength }) => {
       className="absolute bottom-0 right-0 opacity-25 dark:opacity-100"
     />
 
-    <div className="relative drop-shadow-text">
+    <div className="relative h-full flex flex-col">
       <div className="flex items-start justify-between">
         <h2 className="text-lg font-semibold text-creamcan-500 mb-3">
           Average Length
@@ -24,9 +24,9 @@ const AverateLength: FC<IAverateLengthProps> = ({ averageLength }) => {
         </p>
       </div>
 
-      <p>POV: You're a hacker trying to crack your passphrases:</p>
+      <p>This is how hackers see your passphrases:</p>
 
-      <div className="flex items-center justify-center flex-wrap my-4">
+      <div className="flex items-center justify-center flex-wrap my-4 grow">
         {Array.from({ length: averageLength }, (_, index) => (
           <span
             key={index}
@@ -62,4 +62,4 @@ const AverateLength: FC<IAverateLengthProps> = ({ averageLength }) => {
   </article >
 }
 
-export default AverateLength
+export default AverageLength
