@@ -2,7 +2,7 @@ import { IconKey, IconLockOpen, IconMoodBoy, IconMoodEmpty, IconMoodHappy, IconM
 import { Form, Formik } from "formik"
 import { FC, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import Commands from "../../api/cli"
+import Service from "../../services"
 import Button from "../../components/form/Button"
 import Input from "../../components/form/Input"
 import Window from "../../components/layout/Window"
@@ -84,7 +84,7 @@ const WinLogin: FC = () => {
            *   })
            */
           setSecretKey("6%+aR5zG7w!3u9@3_2#8^5&4*7(1@&)0")
-          Commands.login(
+          Service.login(
             values.username,
             values.passphrase
           ).then((response) => {
@@ -104,7 +104,7 @@ const WinLogin: FC = () => {
               60 * 10 * 1000 // This is the expiration time of the JWT.
             )
 
-            Commands.fetchAll(
+            Service.fetchAll(
               jwt
             ).then((response) => {
               if (!response.success) return addNotification({

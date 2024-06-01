@@ -1,6 +1,6 @@
 import { IconCopy, IconCopyCheck } from "@tabler/icons-react"
 import { FC } from "react"
-import Commands from "../../../api/cli"
+import Service from "../../../services"
 import StringHelper from "../../../helpers/string"
 import { useAuthorizationSlice } from "../../../stores/authorization"
 import { useNotificationSlice } from "../../../stores/notification"
@@ -15,7 +15,7 @@ const PassphraseCopyButton: FC<IPassphraseCopyButtonProps> = ({ id }) => {
   const addNotification = useNotificationSlice(state => state.addNotification)
 
   return <button
-    onClick={() => Commands.fetch(
+    onClick={() => Service.fetch(
       accessToken,
       id!
     ).then((response) => {

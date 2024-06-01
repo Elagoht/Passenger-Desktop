@@ -1,7 +1,7 @@
 import { IconArrowLeft, IconExternalLink } from "@tabler/icons-react"
 import { FC, useEffect, useState } from "react"
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
-import Commands from "../../../api/cli"
+import Service from "../../../services"
 import PassphraseDeleteButton from "../../../components/(passphrases)/PassphraseDeleteButton"
 import PassphraseDetailsForm from "../../../components/(passphrases)/PassphraseDetailsForm"
 import Loading from "../../../components/layout/Loading"
@@ -20,7 +20,7 @@ const WinPassphraseDetails: FC = () => {
   const [entry, setEntry] = useState<Passphrase | null>(null)
 
   useEffect(() => {
-    Commands.fetch(
+    Service.fetch(
       accessToken,
       params.id!
     ).then((response) => {

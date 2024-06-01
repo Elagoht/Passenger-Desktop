@@ -2,7 +2,7 @@ import { IconDeviceFloppy, IconKey, IconLoader, IconNote, IconTag, IconUserCircl
 import { Form, Formik } from "formik"
 import { FC } from "react"
 import { useNavigate } from "react-router-dom"
-import Commands from "../../api/cli"
+import Service from "../../services"
 import Strength from "../../helpers/strength"
 import StringHelper from "../../helpers/string"
 import validationAddPassphraseForm from "../../lib/validations/passphraseForms"
@@ -37,7 +37,7 @@ const AddPassphraseForm: FC = () => {
     }}
     validationSchema={validationAddPassphraseForm}
     onSubmit={(values, { setSubmitting }) => {
-      Commands.create(
+      Service.create(
         accessToken,
         values
       ).then((response) => {
