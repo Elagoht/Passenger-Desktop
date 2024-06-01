@@ -131,8 +131,7 @@ const AddPassphraseForm: FC = () => {
           disabled={isSubmitting}
           rightIcon={isSubmitting
             ? <IconLoader className="animate-spin" />
-            :
-            <IconDeviceFloppy />
+            : <IconDeviceFloppy />
           }
         >
           Lock it up!

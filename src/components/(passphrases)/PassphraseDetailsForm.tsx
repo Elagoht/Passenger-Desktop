@@ -41,7 +41,7 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
       identity: identity || "",
       url: url || "",
       passphrase: passphrase || "",
-      notes: notes || "",
+      notes: notes || ""
     }}
     onSubmit={(values, { setSubmitting }) => {
       Commands.update(
