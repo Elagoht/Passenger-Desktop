@@ -96,6 +96,22 @@ export default class Service {
     CLI.readOutput(await CLI.execute("stats", [jwt]))
 
   /**
+   * Generates a new passphrase.
+   * @param length - The length of the passphrase. Defaults to 32.
+   * @returns A promise that resolves to the output of the command.
+   */
+  public static generate = async (length: number): Promise<Output> =>
+    CLI.readOutput(await CLI.execute("generate", [length.toString()]))
+
+  /**
+   * Manipulates the passphrase by changing similar looking characters.
+   * @param passphrase - The passphrase to manipulate.
+   * @returns A promise that resolves to the output of the command.
+   */
+  public static manipulate = async (passphrase: string): Promise<Output> =>
+    CLI.readOutput(await CLI.execute("manipulate", [passphrase]))
+
+  /**
    * Retrieves the version information.
    * @returns A promise that resolves to the output of the command.
    */
