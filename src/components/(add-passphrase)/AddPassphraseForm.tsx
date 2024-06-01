@@ -33,7 +33,7 @@ const AddPassphraseForm: FC = () => {
       identity: "",
       url: "",
       passphrase: "",
-      notes: "",
+      notes: ""
     }}
     validationSchema={validationAddPassphraseForm}
     onSubmit={(values, { setSubmitting }) => {
@@ -104,7 +104,7 @@ const AddPassphraseForm: FC = () => {
               ? !errors[key as keyof typeof errors]
               : false
             }
-            formNoValidate // Will be handled by Formik
+            formNoValidate // Will be handled by Formik and Yup
           />
         )}
 
@@ -132,7 +132,8 @@ const AddPassphraseForm: FC = () => {
           rightIcon={isSubmitting
             ? <IconLoader className="animate-spin" />
             :
-            <IconDeviceFloppy />}
+            <IconDeviceFloppy />
+          }
         >
           Lock it up!
         </Button>
