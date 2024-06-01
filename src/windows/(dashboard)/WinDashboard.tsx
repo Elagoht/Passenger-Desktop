@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react"
-import Commands from "../../api/cli"
+import Service from "../../services"
 import MostAccessed from "../../components/(dashboard)/MostAccessed"
 import StrengthMeter from "../../components/(dashboard)/StrengtMeter"
 import TotalCounts from "../../components/(dashboard)/TotalCounts"
@@ -34,7 +34,7 @@ const WinDashboard: FC = () => {
   }) // This is a placeholder for initial state
 
   useEffect(() => {
-    Commands.stats(
+    Service.stats(
       accessToken
     ).then((response) => response.success
       ? setStatistics(JSON.parse(response.output))

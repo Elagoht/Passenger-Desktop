@@ -1,7 +1,7 @@
 import { IconKey, IconLock, IconLockOpen, IconMoodLookDown, IconMoodSmile } from "@tabler/icons-react"
 import { Form, Formik } from "formik"
 import { FC } from "react"
-import Commands from "../../api/cli"
+import Service from "../../services"
 import StringHelper from "../../helpers/string"
 import { useAuthorizationSlice } from "../../stores/authorization"
 import { useNotificationSlice } from "../../stores/notification"
@@ -27,7 +27,7 @@ const ReAuthModal: FC = () => {
         passphrase: ""
       }}
       onSubmit={(values, { setSubmitting, setValues }) => {
-        Commands.login(
+        Service.login(
           values.username,
           values.passphrase
         ).then((response) => {

@@ -1,7 +1,7 @@
 import { FC, useState } from "react"
 import Modal from "../utilities/Modal"
 import Button from "../form/Button"
-import Commands from "../../api/cli"
+import Service from "../../services"
 import { useAuthorizationSlice } from "../../stores/authorization"
 import { useNotificationSlice } from "../../stores/notification"
 import { IconBox, IconFlame, IconTrash } from "@tabler/icons-react"
@@ -45,7 +45,7 @@ const PassphraseDeleteButton: FC<IPassphraseDeleteButtonProps> = ({ id }) => {
           children: "Yes, Delete",
           rightIcon: <IconTrash size={24} />,
           color: "danger",
-          onClick: () => Commands.delete(
+          onClick: () => Service.delete(
             accessToken,
             id
           ).then((response) => addNotification({
