@@ -2,15 +2,16 @@ import { IconDeviceFloppy, IconKey, IconLoader, IconNote, IconTag, IconUserCircl
 import { Form, Formik } from "formik"
 import { FC } from "react"
 import { useNavigate } from "react-router-dom"
-import Service from "../../services"
 import Strength from "../../helpers/strength"
 import StringHelper from "../../helpers/string"
 import validationAddPassphraseForm from "../../lib/validations/passphraseForms"
+import Service from "../../services"
 import { useAuthorizationSlice } from "../../stores/authorization"
 import { useNotificationSlice } from "../../stores/notification"
 import { usePassphrasesSlice } from "../../stores/passphrases"
 import Button from "../form/Button"
 import Input from "../form/Input"
+import PassphraseSuggestion from "../form/PassphraseSuggestion"
 import TextArea from "../form/TextArea"
 import Meter from "../statistics/Meter"
 
@@ -109,6 +110,11 @@ const AddPassphraseForm: FC = () => {
         )}
 
         <Meter percentage={Strength.calculate(values.passphrase) * 100 / 8} />
+
+        <PassphraseSuggestion
+          currentPassphrase={values.passphrase}
+          setFieldValue={setFieldValue}
+        />
 
         <TextArea
           label="Notes"

@@ -1,20 +1,21 @@
 import { IconDeviceFloppy, IconLoader, IconNote } from "@tabler/icons-react"
 import { Form, Formik } from "formik"
 import { FC } from "react"
+import { useNavigate } from "react-router-dom"
 import { formFields } from "../(add-passphrase)/AddPassphraseForm"
 import FormikHelper from "../../helpers/formik"
 import Strength from "../../helpers/strength"
 import StringHelper from "../../helpers/string"
-import Button from "../form/Button"
-import Input from "../form/Input"
-import TextArea from "../form/TextArea"
-import Meter from "../statistics/Meter"
-import { Passphrase } from "../../types/common"
 import Service from "../../services"
 import { useAuthorizationSlice } from "../../stores/authorization"
-import { usePassphrasesSlice } from "../../stores/passphrases"
 import { useNotificationSlice } from "../../stores/notification"
-import { useNavigate } from "react-router-dom"
+import { usePassphrasesSlice } from "../../stores/passphrases"
+import { Passphrase } from "../../types/common"
+import Button from "../form/Button"
+import Input from "../form/Input"
+import PassphraseSuggestion from "../form/PassphraseSuggestion"
+import TextArea from "../form/TextArea"
+import Meter from "../statistics/Meter"
 
 interface IPassphraseDetailsFormProps {
   id: Passphrase["id"]
@@ -73,6 +74,7 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
       errors,
       touched,
       handleChange,
+      setFieldValue,
       handleBlur,
       initialValues,
       isSubmitting
@@ -108,6 +110,11 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
         )}
 
         <Meter percentage={Strength.calculate(values.passphrase) * 100 / 8} />
+
+        <PassphraseSuggestion
+          currentPassphrase={values.passphrase}
+          setFieldValue={setFieldValue}
+        />
 
         <TextArea
           label="Notes"
