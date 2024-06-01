@@ -80,7 +80,7 @@ const Input: FC<IInputProps> = ({
         className: "traansition-all duration-300 ease-in-out"
       })}
 
-      < input
+      <input
         {...props}
         ref={selfRef}
         type={(type === "password" && showPassword)
