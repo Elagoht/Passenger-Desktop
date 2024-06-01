@@ -111,7 +111,10 @@ const AddPassphraseForm: FC = () => {
 
         <Meter percentage={Strength.calculate(values.passphrase) * 100 / 8} />
 
-        <PassphraseSuggestion setFieldValue={setFieldValue} />
+        <PassphraseSuggestion
+          currentPassphrase={values.passphrase}
+          setFieldValue={setFieldValue}
+        />
 
         <TextArea
           label="Notes"
