@@ -1,4 +1,4 @@
-import { IconDeviceFloppy, IconLoader, IconNote } from "@tabler/icons-react"
+import { IconDeviceFloppy, IconDice, IconLoader, IconNote, IconRotate } from "@tabler/icons-react"
 import { Form, Formik } from "formik"
 import { FC } from "react"
 import { formFields } from "../(add-passphrase)/AddPassphraseForm"
@@ -73,6 +73,7 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
       errors,
       touched,
       handleChange,
+      setFieldValue,
       handleBlur,
       initialValues,
       isSubmitting
@@ -108,6 +109,31 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
         )}
 
         <Meter percentage={Strength.calculate(values.passphrase) * 100 / 8} />
+
+        <div className="grid grid-cols-2 gap-2">
+          <Button
+            rightIcon={<IconDice />}
+            type="button"
+            variant="ghost"
+            color="secondary"
+            onClick={() => setFieldValue("passphrase",
+              "generated"
+            )}
+          >
+            Generate
+          </Button>
+
+          <Button
+            rightIcon={<IconRotate />}
+            type="button"
+            color="secondary"
+            onClick={() => setFieldValue("passphrase",
+              "rotated"
+            )}
+          >
+            Manipulate
+          </Button>
+        </div>
 
         <TextArea
           label="Notes"

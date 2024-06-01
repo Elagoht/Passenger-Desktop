@@ -1,4 +1,4 @@
-import { IconDeviceFloppy, IconKey, IconLoader, IconNote, IconTag, IconUserCircle, IconWorld } from "@tabler/icons-react"
+import { IconDeviceFloppy, IconDice, IconKey, IconLoader, IconNote, IconRotate, IconTag, IconUserCircle, IconWorld } from "@tabler/icons-react"
 import { Form, Formik } from "formik"
 import { FC } from "react"
 import { useNavigate } from "react-router-dom"
@@ -109,6 +109,31 @@ const AddPassphraseForm: FC = () => {
         )}
 
         <Meter percentage={Strength.calculate(values.passphrase) * 100 / 8} />
+
+        <div className="grid grid-cols-2 gap-2">
+          <Button
+            rightIcon={<IconDice />}
+            type="button"
+            variant="ghost"
+            color="secondary"
+            onClick={() => setFieldValue("passphrase",
+              "generated"
+            )}
+          >
+            Generate
+          </Button>
+
+          <Button
+            rightIcon={<IconRotate />}
+            type="button"
+            color="secondary"
+            onClick={() => setFieldValue("passphrase",
+              "rotated"
+            )}
+          >
+            Manipulate
+          </Button>
+        </div>
 
         <TextArea
           label="Notes"
