@@ -2,7 +2,7 @@ import { IconCheck, IconKey, IconLockCog, IconMoodAnnoyed, IconMoodLookDown, Ico
 import { Form, Formik } from "formik"
 import { FC } from "react"
 import { Link } from "react-router-dom"
-import Commands from "../../api/cli"
+import Service from "../../services"
 import Button from "../../components/form/Button"
 import Input from "../../components/form/Input"
 import Window from "../../components/layout/Window"
@@ -79,7 +79,7 @@ const WinRegister: FC = () => {
            *   })
            */
           setSecretKey("6%+aR5zG7w!3u9@3_2#8^5&4*7(1@&)0")
-          Commands.register(
+          Service.register(
             values.username,
             values.passphrase
           ).then((output) => {
@@ -90,7 +90,7 @@ const WinRegister: FC = () => {
               type: "error",
               message: StringHelper.removeUnixErrorPrefix(output.output)
             })
-            Commands.login(
+            Service.login(
               values.username,
               values.passphrase
             ).then((output) => {

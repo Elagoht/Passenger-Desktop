@@ -10,7 +10,7 @@ import Input from "../form/Input"
 import TextArea from "../form/TextArea"
 import Meter from "../statistics/Meter"
 import { Passphrase } from "../../types/common"
-import Commands from "../../api/cli"
+import Service from "../../services"
 import { useAuthorizationSlice } from "../../stores/authorization"
 import { usePassphrasesSlice } from "../../stores/passphrases"
 import { useNotificationSlice } from "../../stores/notification"
@@ -41,10 +41,10 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
       identity: identity || "",
       url: url || "",
       passphrase: passphrase || "",
-      notes: notes || "",
+      notes: notes || ""
     }}
     onSubmit={(values, { setSubmitting }) => {
-      Commands.update(
+      Service.update(
         accessToken,
         id!, // If null, the form already not shown
         values
