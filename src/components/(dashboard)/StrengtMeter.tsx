@@ -1,8 +1,9 @@
+import { IconBarbell } from "@tabler/icons-react"
 import "chart.js/auto"
 import { FC } from "react"
 import Strength from "../../helpers/strength"
-import GaugeChart from "../statistics/GauceChart"
 import { Statistics } from "../../types/statistics"
+import GaugeChart from "../statistics/GauceChart"
 
 interface IStrengthMeterProps {
   averageStrength: Statistics["averageStrength"]
@@ -13,8 +14,10 @@ const StrengthMeter: FC<IStrengthMeterProps> = ({ averageStrength }) => {
     ? averageStrength
     : -2
 
-  return <figure className="flex flex-col items-center justify-center rounded-xl p-4 shadow shadow-tuatara-300 dark:shadow-tuatara-950 bg-tuatara-50 dark:bg-tuatara-900">
-    <div className="max-sm:max-w-56">
+  return <figure className="flex flex-col items-center justify-center rounded-xl p-4 shadow shadow-tuatara-300 dark:shadow-tuatara-950 bg-tuatara-50 dark:bg-tuatara-900 relative overflow-clip">
+    <IconBarbell className="text-tuatara-500 absolute top-2 left-2 w-full h-full opacity-10" />
+
+    <div className="max-sm:max-w-56 relative">
       <GaugeChart
         value={averageStrength}
         minValue={-2}
@@ -25,7 +28,7 @@ const StrengthMeter: FC<IStrengthMeterProps> = ({ averageStrength }) => {
       />
     </div>
 
-    <figcaption className="text-xl text-creamcan-500 font-bold">
+    <figcaption className="text-xl text-creamcan-500 font-bold relative">
       Average Strength
     </figcaption>
   </figure>

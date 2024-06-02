@@ -1,4 +1,5 @@
-import { IconAsterisk, IconComponents, IconPercentage, IconSparkles } from "@tabler/icons-react"
+import { IconGlobe, IconKey, IconLockSquareRounded } from "@tabler/icons-react"
+import classNames from "classnames"
 import { FC, createElement } from "react"
 import { Statistics } from "../../types/statistics"
 
@@ -9,28 +10,26 @@ interface ITotalCountsProps {
   percentageOfCommon: Statistics["percentageOfCommon"]
 }
 const TotalCounts: FC<ITotalCountsProps> = ({
-  totalCount, uniqueCount, uniquePlatformsCount, percentageOfCommon
+  totalCount, uniqueCount, uniquePlatformsCount
 }) => {
   const summaryData = [
     {
-      icon: IconSparkles,
+      icon: IconLockSquareRounded,
       label: "Total Count",
-      value: totalCount
+      value: totalCount,
+      colSpan: 2,
     },
     {
-      icon: IconAsterisk,
+      icon: IconKey,
       label: "Unique Passphrases",
-      value: uniqueCount
+      value: uniqueCount,
+      colSpan: 1
     },
     {
-      icon: IconComponents,
+      icon: IconGlobe,
       label: "Unique Platforms",
-      value: uniquePlatformsCount
-    },
-    {
-      icon: IconPercentage,
-      label: "% of Common",
-      value: percentageOfCommon
+      value: uniquePlatformsCount,
+      colSpan: 1
     }
   ]
 
@@ -39,15 +38,21 @@ const TotalCounts: FC<ITotalCountsProps> = ({
     {summaryData.map((data, index) =>
       <section
         key={index}
-        className="flex py-2 px-3 rounded-lg shadow shadow-tuatara-300 dark:shadow-tuatara-950 bg-tuatara-50 dark:bg-tuatara-900 text-creamcan-500 relative items-center justify-center flex-col text-center"
+        className={classNames({
+          "flex py-2 px-3 rounded-lg shadow shadow-tuatara-300 dark:shadow-tuatara-950 bg-tuatara-50 dark:bg-tuatara-900 text-creamcan-500 relative items-center justify-center flex-col text-center overflow-clip": true,
+          "col-span-2": data.colSpan === 2
+        })}
       >
-        <h2 className="text-3xl font-semibold">{data.value}</h2>
+        {createElement(data.icon, {
+          size: 128,
+          className: "text-tuatara-500 absolute top-2 right-2 opacity-10"
+        })}
 
-        <p className="max-sm:text-sm text-gray-500 dark:text-gray-400 leading-5">
+        <h2 className="relative text-3xl font-semibold">{data.value}</h2>
+
+        <p className="relative max-sm:text-sm text-tuatara-500 leading-5">
           <strong>{data.label}</strong>
         </p>
-
-        {createElement(data.icon, { size: 32, className: "text-leaf-500 absolute top-2 right-2" })}
       </section>
     )}
   </article>
