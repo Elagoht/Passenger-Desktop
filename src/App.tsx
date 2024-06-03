@@ -13,6 +13,7 @@ import WinRegister from "./windows/(auth)/WinRegister"
 import WinDashboard from "./windows/(dashboard)/WinDashboard"
 import WinPassphraseDetails from "./windows/(passphrases)/[id]/WinPassphraseDetails"
 import WinPassphrases from "./windows/(passphrases)/WinPassphrases"
+import WinSettings from "./windows/(settings)/WinSettings"
 
 export const settings = new Storage(".settings.dat")
 
@@ -55,7 +56,7 @@ const App: FC = () => {
                   { path: "/passphrases", element: <WinPassphrases /> },
                   { path: "/add-passphrase", element: <WinAddPassphrase /> },
                   { path: "/actions-and-news", element: <Window> Actions </Window> },
-                  { path: "/settings", element: <Window> Settings </Window> },
+                  { path: "/settings", element: <WinSettings /> },
                   { path: "/passphrases/:id", element: <WinPassphraseDetails /> },
                   /**
                    * { path: "/actions/fix-common", element: <WinFixCommon /> },
