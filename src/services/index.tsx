@@ -96,6 +96,14 @@ export default class Service {
     CLI.readOutput(await CLI.execute("stats", [jwt]))
 
   /**
+   * Retrieves all the constant pairs as a JSON object.
+   * @param jwt - The JWT for authentication.
+   * @returns A promise that resolves to the output of the command.
+   */
+  public static constants = async (jwt: string): Promise<Output> =>
+    CLI.readOutput(await CLI.execute("constants", [jwt]))
+
+  /**
    * Generates a new passphrase.
    * @param length - The length of the passphrase. Defaults to 32.
    * @returns A promise that resolves to the output of the command.
