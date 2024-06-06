@@ -38,7 +38,7 @@ const Window: FC<IWindowProps> = ({ children, className, compact }) => {
       [className!]: className
     })}
   >
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col min-h-full">
       {children}
     </div>
   </motion.main>
