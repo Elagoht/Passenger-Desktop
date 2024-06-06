@@ -15,6 +15,7 @@ import WinPassphraseDetails from "./windows/(passphrases)/[id]/WinPassphraseDeta
 import WinPassphrases from "./windows/(passphrases)/WinPassphrases"
 import WinSettings from "./windows/(settings)/WinSettings"
 import WinConstantPairs from "./windows/(settings)/constant-pairs/WinConstantPairs"
+import WinConstantPairForm from "./windows/(settings)/constant-pairs/[key]/WinConstantPairForm"
 
 export const settings = new Storage(".settings.dat")
 
@@ -60,13 +61,7 @@ const App: FC = () => {
                   { path: "/actions-and-news", element: <Window> Actions </Window> },
                   { path: "/settings", element: <WinSettings /> },
                   { path: "/settings/constant-pairs", element: <WinConstantPairs /> },
-                  /**
-                   * { path: "/actions/fix-common", element: <WinFixCommon /> },
-                   * { path: "/actions/fix-common/:id", element: <WinFixCommonDetail /> },
-                   * { path: "/actions/fix-strength", element: <WinFixStrength /> },
-                   * { path: "/actions/fix-strength/:id", element: <WinFixStrengthDetail /> },
-                   * { path: "/settings/data", element: <WinSettingsData /> },
-                   */
+                  { path: "/settings/constant-pairs/:key", element: <WinConstantPairForm /> },
                   { path: "*", element: <Window>404 Not Found</Window> }
                 ].map((route, index) =>
                   <Route

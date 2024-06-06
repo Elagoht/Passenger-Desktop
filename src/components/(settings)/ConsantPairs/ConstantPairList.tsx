@@ -5,18 +5,14 @@ import Service from "../../../services"
 import { useAuthorizationSlice } from "../../../stores/authorization"
 import { useNotificationSlice } from "../../../stores/notification"
 import { ConstantPair } from "../../../types/common"
-import ConstantPairField from "./ConstantPairField"
+import ConstantPairItem from "./ConstantPairItem"
+import Loading from "../../layout/Loading"
 
-const ConstantPairsForm: FC = () => {
+const ConstantPairList: FC = () => {
   const accessToken = useAuthorizationSlice((state) => state.accessToken)
   const addNotification = useNotificationSlice((state) => state.addNotification)
 
   const [constants, setConstants] = useState<ConstantPair[]>()
-
-  const [currentlyEditing, setCurrentlyEditing] = useState<Record<string, boolean>>(
-    Object.fromEntries(constants?.map(constant => [constant.key, false]) ?? [])
-  )
-
 
   useEffect(() => {
     Service.constants(
@@ -31,24 +27,16 @@ const ConstantPairsForm: FC = () => {
     })
   }, [])
 
-  if (!constants) return <></>
+  if (!constants) return <Loading />
 
   return <div className="grid gap-2">
     {constants.map((constant, index) =>
-      <ConstantPairField
+      <ConstantPairItem
         key={index}
         constant={constant}
-        isEditing={currentlyEditing[constant.key]}
-        toggleEditing={() => setCurrentlyEditing(prev => ({
-          // Collapse all other fields
-          ...Object.fromEntries(constants.map(
-            constant => [constant.key, false]
-          )), // Toggle the current field
-          [constant.key]: !prev[constant.key]
-        }))}
       />
     )}
   </div>
 }
 
-export default ConstantPairsForm
+export default ConstantPairList

@@ -1,6 +1,6 @@
 import { FC } from "react"
 import Window from "../../../components/layout/Window"
-import ConstantPairsForm from "../../../components/(settings)/ConsantPairs"
+import ConstantPairList from "../../../components/(settings)/ConsantPairs/ConstantPairList"
 
 const WinConstantPairs: FC = () => {
   return <Window compact>
@@ -16,7 +16,7 @@ const WinConstantPairs: FC = () => {
       </p>
     </fieldset>
 
-    <ConstantPairsForm />
+    <ConstantPairList />
   </Window>
 }
 
