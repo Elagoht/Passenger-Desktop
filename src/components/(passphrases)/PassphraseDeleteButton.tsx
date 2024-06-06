@@ -73,7 +73,7 @@ const PassphraseDeleteButton: FC<IPassphraseDeleteButtonProps> = ({ id }) => {
         },
       ]}>
       <p>Are you sure you want to delete this passphrase?</p>
-    </Modal >
+    </Modal>
   </>
 }
 
