@@ -5,7 +5,7 @@ import { IconLoader } from "@tabler/icons-react"
 const Loading: FC = () => {
   return <Window>
     <div className="flex gap-2 items-center justify-center h-full">
-      <IconLoader className="animate-spin" size={128} />
+      <IconLoader className="animate-spin fade-in" size={128} />
     </div>
   </Window>
 }
