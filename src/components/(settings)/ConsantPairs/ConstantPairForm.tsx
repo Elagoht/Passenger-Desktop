@@ -1,19 +1,20 @@
+import { IconDatabaseExclamation, IconDeviceFloppy, IconTrash } from "@tabler/icons-react"
 import { Form, Formik } from "formik"
 import { FC, useEffect, useState } from "react"
-import { useParams } from "react-router-dom"
-import Input from "../../form/Input"
-import Button from "../../form/Button"
-import { IconDatabaseExclamation, IconDeviceFloppy, IconTrash } from "@tabler/icons-react"
+import { useNavigate, useParams } from "react-router-dom"
+import StringHelper from "../../../helpers/string"
 import { validationConstantPairForms } from "../../../lib/validations/constantPairForms"
-import { ConstantPair } from "../../../types/common"
 import Service from "../../../services"
-import Loading from "../../layout/Loading"
 import { useAuthorizationSlice } from "../../../stores/authorization"
 import { useNotificationSlice } from "../../../stores/notification"
-import StringHelper from "../../../helpers/string"
+import { ConstantPair } from "../../../types/common"
+import Button from "../../form/Button"
+import Input from "../../form/Input"
+import Loading from "../../layout/Loading"
 
 const ConstantPairForm: FC = () => {
   const params = useParams<{ key: string }>()
+  const navigate = useNavigate()
 
   const accessToken = useAuthorizationSlice((state) => state.accessToken)
   const addNotification = useNotificationSlice((state) => state.addNotification)
@@ -38,7 +39,38 @@ const ConstantPairForm: FC = () => {
   return <Formik
     initialValues={constant}
     validationSchema={validationConstantPairForms}
-    onSubmit={(values) => { values }}
+    onSubmit={(values, { setSubmitting }) => {
+      Service.forget(
+        accessToken,
+        constant.key
+      ).then((response) => {
+        if (!response.success) return addNotification({
+          type: "error",
+          message: StringHelper.removeUnixErrorPrefix(response.output),
+          icon: <IconDatabaseExclamation />
+        })
+        Service.declare(
+          accessToken,
+          values.key,
+          values.value
+        ).then((response) => {
+          if (!response.success) return addNotification({
+            type: "error",
+            message: StringHelper.removeUnixErrorPrefix(response.output),
+            icon: <IconDatabaseExclamation />
+          })
+
+          addNotification({
+            type: "success",
+            message: "Constant pair updated successfully."
+          })
+
+          navigate("/settings/constant-pairs")
+        })
+      }).finally(() =>
+        setSubmitting(false)
+      )
+    }}
   >
     {({
       values,
