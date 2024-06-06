@@ -1,4 +1,4 @@
-import { IconDatabaseExclamation, IconDeviceFloppy, IconTrash } from "@tabler/icons-react"
+import { IconDatabaseExclamation, IconDeviceFloppy } from "@tabler/icons-react"
 import { Form, Formik } from "formik"
 import { FC, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
@@ -11,6 +11,7 @@ import { ConstantPair } from "../../../types/common"
 import Button from "../../form/Button"
 import Input from "../../form/Input"
 import Loading from "../../layout/Loading"
+import ConstantPairDeleteButton from "./ConstantPairDeleteButton"
 
 const ConstantPairForm: FC = () => {
   const params = useParams<{ key: string }>()
@@ -105,14 +106,7 @@ const ConstantPairForm: FC = () => {
           Save
         </Button>
 
-        <Button
-          color="danger"
-          variant="ghost"
-          className="mt-auto"
-          rightIcon={<IconTrash size={24} />}
-        >
-          Delete
-        </Button>
+        <ConstantPairDeleteButton constantKey={values.key} />
       </Form>
     }
   </Formik>
