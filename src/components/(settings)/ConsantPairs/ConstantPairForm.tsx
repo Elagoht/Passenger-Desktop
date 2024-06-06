@@ -68,7 +68,6 @@ const ConstantPairForm: FC = () => {
 
         <Button
           color="success"
-          variant="ghost"
           rightIcon={<IconDeviceFloppy size={24} />}
         >
           Save
