@@ -23,15 +23,16 @@ const ConstantPairForm: FC = () => {
   const [constant, setConstant] = useState<ConstantPair>()
 
   useEffect(() => {
-    Service.constants(
-      accessToken
+    Service.remember(
+      accessToken,
+      params.key!
     ).then((response) => {
       if (!response.success) return addNotification({
         type: "error",
         message: StringHelper.removeUnixErrorPrefix(response.output),
         icon: <IconDatabaseExclamation />
       })
-      setConstant(StringHelper.deserialize<ConstantPair[]>(response.output)?.find(constant => constant.key === params.key))
+      setConstant(StringHelper.deserialize<ConstantPair>(response.output))
     })
   }, [])
 
@@ -41,33 +42,25 @@ const ConstantPairForm: FC = () => {
     initialValues={constant}
     validationSchema={validationConstantPairForms}
     onSubmit={(values, { setSubmitting }) => {
-      Service.forget(
+      Service.modify(
         accessToken,
-        constant.key
+        params.key!,
+        values.key,
+        values.value
       ).then((response) => {
         if (!response.success) return addNotification({
           type: "error",
           message: StringHelper.removeUnixErrorPrefix(response.output),
+          title: "Couldn't modify at the moment",
           icon: <IconDatabaseExclamation />
         })
-        Service.declare(
-          accessToken,
-          values.key,
-          values.value
-        ).then((response) => {
-          if (!response.success) return addNotification({
-            type: "error",
-            message: StringHelper.removeUnixErrorPrefix(response.output),
-            icon: <IconDatabaseExclamation />
-          })
-
-          addNotification({
-            type: "success",
-            message: "Constant pair updated successfully."
-          })
-
-          navigate("/settings/constant-pairs")
+        addNotification({
+          type: "success",
+          message: "Constant pair modified successfully",
+          title: "Modified Constant Pair",
+          icon: <IconDeviceFloppy />
         })
+        navigate("/settings/constant-pairs")
       }).finally(() =>
         setSubmitting(false)
       )

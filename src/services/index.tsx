@@ -105,6 +105,26 @@ export default class Service {
     CLI.readOutput(await CLI.execute("declare", [jwt, key, value]))
 
   /**
+   * Modify a constant pair using the provided JWT and key-value pair.
+   * @param jwt - The JWT for authentication.
+   * @param key - The key of the constant pair.
+   * @param newKey - The new key of the constant pair.
+   * @param newValue - The new value of the constant pair.
+   * @returns A promise that resolves to the output of the command.
+   */
+  public static modify = async (jwt: string, key: string, newKey: string, newValue: string): Promise<Output> =>
+    CLI.readOutput(await CLI.execute("modify", [jwt, key, newKey, newValue]))
+
+  /**
+   * Fetches a constant pair using the provided JWT and key.
+   * @param jwt - The JWT for authentication.
+   * @param key - The key of the constant pair.
+   * @returns A promise that resolves to the output of the command.
+   */
+  public static remember = async (jwt: string, key: string): Promise<Output> =>
+    CLI.readOutput(await CLI.execute("remember", [jwt, key]))
+
+  /**
    * Removes a constant pair using the provided JWT and key.
    * @param jwt - The JWT for authentication.
    * @param key - The key of the constant pair.
