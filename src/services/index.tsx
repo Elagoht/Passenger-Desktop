@@ -96,6 +96,51 @@ export default class Service {
     CLI.readOutput(await CLI.execute("stats", [jwt]))
 
   /**
+   * Declare a constant pair using the provided JWT and key-value pair.
+   * @param jwt - The JWT for authentication.
+   * @param key - The key of the constant pair.
+   * @param value - The value of the constant pair.
+   */
+  public static declare = async (jwt: string, key: string, value: string): Promise<Output> =>
+    CLI.readOutput(await CLI.execute("declare", [jwt, key, value]))
+
+  /**
+   * Modify a constant pair using the provided JWT and key-value pair.
+   * @param jwt - The JWT for authentication.
+   * @param key - The key of the constant pair.
+   * @param newKey - The new key of the constant pair.
+   * @param newValue - The new value of the constant pair.
+   * @returns A promise that resolves to the output of the command.
+   */
+  public static modify = async (jwt: string, key: string, newKey: string, newValue: string): Promise<Output> =>
+    CLI.readOutput(await CLI.execute("modify", [jwt, key, newKey, newValue]))
+
+  /**
+   * Fetches a constant pair using the provided JWT and key.
+   * @param jwt - The JWT for authentication.
+   * @param key - The key of the constant pair.
+   * @returns A promise that resolves to the output of the command.
+   */
+  public static remember = async (jwt: string, key: string): Promise<Output> =>
+    CLI.readOutput(await CLI.execute("remember", [jwt, key]))
+
+  /**
+   * Removes a constant pair using the provided JWT and key.
+   * @param jwt - The JWT for authentication.
+   * @param key - The key of the constant pair.
+   */
+  public static forget = async (jwt: string, key: string): Promise<Output> =>
+    CLI.readOutput(await CLI.execute("forget", [jwt, key]))
+
+  /**
+   * Retrieves all the constant pairs as a JSON object.
+   * @param jwt - The JWT for authentication.
+   * @returns A promise that resolves to the output of the command.
+   */
+  public static constants = async (jwt: string): Promise<Output> =>
+    CLI.readOutput(await CLI.execute("constants", [jwt]))
+
+  /**
    * Generates a new passphrase.
    * @param length - The length of the passphrase. Defaults to 32.
    * @returns A promise that resolves to the output of the command.

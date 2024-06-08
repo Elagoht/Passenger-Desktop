@@ -13,3 +13,8 @@ export type Passphrase = ListablePassphrase & {
   passphrase: string
   notes?: string
 }
+
+export type ConstantPair = {
+  key: string
+  value: string
+}

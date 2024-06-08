@@ -5,7 +5,10 @@ import Window from "../../components/layout/Window"
 
 const WinSettings: FC = () => {
 
-  return <Window className="flex flex-col gap-4">
+  return <Window
+    compact
+    className="flex flex-col gap-4"
+  >
     <SettingsGroup
       title="Security"
       items={[{

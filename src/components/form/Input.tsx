@@ -5,7 +5,7 @@ import classNames from "classnames"
 import { FC, ForwardRefExoticComponent, InputHTMLAttributes, createElement, useEffect, useRef, useState } from "react"
 import Pretty from "../../helpers/prettiers"
 
-interface IInputProps extends Omit<
+export interface IInputProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,
   "type"
 > {
@@ -44,8 +44,11 @@ const Input: FC<IInputProps> = ({
   const selfRef = useRef<HTMLInputElement>(null)
 
   useEffect(
-    () => setIsFilled(Boolean(props.value)),
-    [props.value]
+    () => setIsFilled(
+      Boolean(props.value) ||
+      Boolean(props.defaultValue)
+    ),
+    [props.value, props.defaultValue]
   )
 
   return <div className={classNames({

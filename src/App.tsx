@@ -14,6 +14,9 @@ import WinDashboard from "./windows/(dashboard)/WinDashboard"
 import WinPassphraseDetails from "./windows/(passphrases)/[id]/WinPassphraseDetails"
 import WinPassphrases from "./windows/(passphrases)/WinPassphrases"
 import WinSettings from "./windows/(settings)/WinSettings"
+import WinConstantPairs from "./windows/(settings)/constant-pairs/WinConstantPairs"
+import WinConstantPairForm from "./windows/(settings)/constant-pairs/[key]/WinConstantPairForm"
+import WinNewConstantPair from "./windows/(settings)/constant-pairs/new-constant-pair/WinNewConstantPair"
 
 export const settings = new Storage(".settings.dat")
 
@@ -54,17 +57,13 @@ const App: FC = () => {
                 {[
                   { path: "/dashboard", element: <WinDashboard /> },
                   { path: "/passphrases", element: <WinPassphrases /> },
+                  { path: "/passphrases/:id", element: <WinPassphraseDetails /> },
                   { path: "/add-passphrase", element: <WinAddPassphrase /> },
                   { path: "/actions-and-news", element: <Window> Actions </Window> },
                   { path: "/settings", element: <WinSettings /> },
-                  { path: "/passphrases/:id", element: <WinPassphraseDetails /> },
-                  /**
-                   * { path: "/actions/fix-common", element: <WinFixCommon /> },
-                   * { path: "/actions/fix-common/:id", element: <WinFixCommonDetail /> },
-                   * { path: "/actions/fix-strength", element: <WinFixStrength /> },
-                   * { path: "/actions/fix-strength/:id", element: <WinFixStrengthDetail /> },
-                   * { path: "/settings/data", element: <WinSettingsData /> },
-                   */
+                  { path: "/settings/constant-pairs", element: <WinConstantPairs /> },
+                  { path: "/settings/constant-pairs/:key", element: <WinConstantPairForm /> },
+                  { path: "/settings/new-constant-pair", element: <WinNewConstantPair /> },
                   { path: "*", element: <Window>404 Not Found</Window> }
                 ].map((route, index) =>
                   <Route
