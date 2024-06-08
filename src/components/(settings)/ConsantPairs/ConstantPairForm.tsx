@@ -12,6 +12,7 @@ import Button from "../../form/Button"
 import Input from "../../form/Input"
 import Loading from "../../layout/Loading"
 import ConstantPairDeleteButton from "./ConstantPairDeleteButton"
+import FormikHelper from "../../../helpers/formik"
 
 const ConstantPairForm: FC = () => {
   const params = useParams<{ key: string }>()
@@ -94,9 +95,10 @@ const ConstantPairForm: FC = () => {
 
         <Button
           color="success"
+          disabled={!FormikHelper.isEdited(values, constant)}
           rightIcon={<IconDeviceFloppy size={24} />}
         >
-          Save
+          Modify
         </Button>
 
         <ConstantPairDeleteButton constantKey={values.key} />
