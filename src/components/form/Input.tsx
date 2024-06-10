@@ -2,7 +2,7 @@
 
 import { Icon, IconAlertCircle, IconCheck, IconEye, IconEyeOff, IconProps } from "@tabler/icons-react"
 import classNames from "classnames"
-import { FC, ForwardRefExoticComponent, InputHTMLAttributes, createElement, useEffect, useRef, useState } from "react"
+import { FC, ForwardRefExoticComponent, InputHTMLAttributes, ReactNode, createElement, useEffect, useRef, useState } from "react"
 import Pretty from "../../helpers/prettiers"
 
 export interface IInputProps extends Omit<
@@ -24,9 +24,9 @@ export interface IInputProps extends Omit<
   | "url"
   | "search"
   optional?: boolean
-  error?: string | boolean | string[]
-  success?: string | boolean
-  message?: string
+  error?: ReactNode | boolean | string[]
+  success?: ReactNode | boolean
+  message?: ReactNode
   iconLeft?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & React.RefAttributes<Icon>>
   iconRight?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & React.RefAttributes<Icon>>
   validityIcons?: boolean
@@ -94,6 +94,7 @@ const Input: FC<IInputProps> = ({
           "bg-transparent pt-3.5 pb-0.5 w-full text-gray-900 dark:text-gray-100 rounded-md outline-none max-w-none min-w-0 h-10 transition-all duration-300 ease-in-out": true,
           "opacity-0": !isFocused && !isFilled,
           "pl-8 -ml-8": ["date", "time", "datetime-local", "month", "week"].includes(type),
+          [props.className ?? ""]: true,
         })}
         defaultValue={props.defaultValue
           ? type === "tel"
@@ -165,9 +166,14 @@ const Input: FC<IInputProps> = ({
       }
     </label>
 
-    {(error ?? success ?? message) &&
+    {(error || success || message) &&
       <small className="ml-2 text-xs">
-        {error ?? success ?? message}
+        {typeof error === "string"
+          ? error
+          : typeof success === "string"
+            ? success
+            : message
+        }
       </small>
     }
   </div>
