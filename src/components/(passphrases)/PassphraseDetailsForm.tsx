@@ -16,6 +16,8 @@ import Input from "../form/Input"
 import PassphraseSuggestion from "../form/PassphraseSuggestion"
 import TextArea from "../form/TextArea"
 import Meter from "../statistics/Meter"
+import classNames from "classnames"
+import { Link } from "react-router-dom"
 
 interface IPassphraseDetailsFormProps {
   id: Passphrase["id"]
@@ -96,6 +98,17 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
             type={key === "passphrase"
               ? "password"
               : "text"
+            }
+            className={classNames({
+              "!text-creamcan-500": key === "identity" && values.identity.startsWith("_$"),
+            })}
+            message={key === "identity" && values.identity.startsWith("_$")
+              ? values.identity === identity
+                ? <>Your identity is connected to a <Link className="underline" to="/constant-pairs">
+                  constant pair.</Link></>
+                : <>Your identity will be connected to a <Link className="underline" to="/constant-pairs">
+                  constant pair.</Link></>
+              : undefined
             }
             error={touched[key as keyof typeof errors]
               ? errors[key as keyof typeof errors]
