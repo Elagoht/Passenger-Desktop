@@ -1,10 +1,10 @@
-import { IconCopy, IconCopyCheck } from "@tabler/icons-react"
+import { IconCopyCheck, IconKey } from "@tabler/icons-react"
 import { FC } from "react"
-import Service from "../../../services"
 import StringHelper from "../../../helpers/string"
+import Service from "../../../services"
 import { useAuthorizationSlice } from "../../../stores/authorization"
 import { useNotificationSlice } from "../../../stores/notification"
-import { ListablePassphrase } from "../../../types/common"
+import { ListablePassphrase, Passphrase } from "../../../types/common"
 
 interface IPassphraseCopyButtonProps {
   id: ListablePassphrase["id"]
@@ -18,22 +18,27 @@ const PassphraseCopyButton: FC<IPassphraseCopyButtonProps> = ({ id }) => {
     onClick={() => Service.fetch(
       accessToken,
       id!
-    ).then((response) => {
-      if (!response.success) return addNotification({
+    ).then((response) => response.success
+      ? navigator.clipboard.writeText(
+        StringHelper.deserialize<Passphrase>(response.output).passphrase
+      ).then(() => addNotification({
+        type: "success",
+        icon: <IconCopyCheck />,
+        message: "Don't show anyone 😉"
+      })).catch(() => addNotification({
+        type: "error",
+        title: "Failed to copy passphrase",
+        message: "Please try again"
+      }))
+      : addNotification({
         type: "error",
         title: "Failed to obtain passphrase",
         message: StringHelper.removeUnixErrorPrefix(response.output)
       })
-      navigator.clipboard.writeText(JSON.parse(response.output).passphrase)
-      addNotification({
-        type: "success",
-        icon: <IconCopyCheck />,
-        message: "Don't show anyone 😉"
-      })
-    })}
+    )}
     className="rounded-r-lg h-full bg-white dark:bg-tuatara-800 hover:brightness-90 transition-all aspect-square w-10 grid place-items-center shrink-0"
   >
-    <IconCopy />
+    <IconKey />
   </button>
 }
 
