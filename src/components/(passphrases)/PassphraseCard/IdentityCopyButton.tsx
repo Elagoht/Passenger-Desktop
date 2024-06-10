@@ -47,7 +47,7 @@ const IdentityCopyButton: FC<IIdentityCopyButtonProps> = ({ id }) => {
       ).then(() => addNotification({
         type: "success",
         icon: <IconCopyCheck />,
-        message: "Don't show anyone 😉"
+        message: "I kwnow who you are 😉"
       })).catch(() => addNotification({
         type: "error",
         title: "Failed to copy passphrase",
