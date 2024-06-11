@@ -21,7 +21,7 @@ const IdentityCopyButton: FC<IIdentityCopyButtonProps> = ({ id }) => {
     ).then(async (response) => {
       if (!response.success) return addNotification({
         type: "error",
-        title: "Failed to obtain passphrase",
+        title: "Failed to obtain identity",
         message: StringHelper.removeUnixErrorPrefix(response.output)
       })
 
@@ -32,15 +32,19 @@ const IdentityCopyButton: FC<IIdentityCopyButtonProps> = ({ id }) => {
           accessToken,
           identity.substring(2)
         ).then((response) => {
-          if (!response.success) return addNotification({
-            type: "error",
-            title: "Failed to remember passphrase",
-            message: StringHelper.removeUnixErrorPrefix(response.output)
-          })
-
+          if (!response.success) {
+            addNotification({
+              type: "error",
+              title: "Not recognized",
+              message: "This key has no paired value!"
+            })
+            return null
+          }
           return StringHelper.deserialize<ConstantPair>(response.output).value
         })
         : identity
+
+      if (result === null) return
 
       navigator.clipboard.writeText(
         result ?? identity // Fallback to original identity if result is null
@@ -50,7 +54,7 @@ const IdentityCopyButton: FC<IIdentityCopyButtonProps> = ({ id }) => {
         message: "I kwnow who you are 😉"
       })).catch(() => addNotification({
         type: "error",
-        title: "Failed to copy passphrase",
+        title: "Failed to copy identity",
         message: "Please try again"
       }))
     })}
