@@ -8,7 +8,7 @@ import PassphraseCopyButton from "./PassphraseCopyButton"
 
 interface IPassphraseCardProps extends ListablePassphrase { }
 
-const PassphraseCard: FC<IPassphraseCardProps> = ({ id, platform, url, identity }) => {
+const PassphraseCard: FC<IPassphraseCardProps> = ({ id, platform, url }) => {
 
   return <li className="flex items-center rounded-lg hover:bg-tuatara-50 hover:dark:bg-tuatara-900 transition-all w-full text-left bg-tuatara-50 dark:bg-tuatara-900">
     <Link
