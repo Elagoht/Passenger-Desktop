@@ -3,7 +3,7 @@ import { IconSearch } from "@tabler/icons-react"
 import { AnimatePresence, motion } from "framer-motion"
 import { FC, useState } from "react"
 import { usePassphrasesSlice } from "../../stores/passphrases"
-import { ListablePassphrase } from "../../types/common"
+import { ListableDatabaseEntry } from "../../types/common"
 import FancyInput from "../form/FancyInput"
 import PassphraseCard from "./PassphraseCard"
 
@@ -14,7 +14,7 @@ const PassphraseList: FC = () => {
 
   const [searchTerm, setSearchTerm] = useState<string>("")
 
-  const filteredPassphrases = passphrases.filter((passphrase: ListablePassphrase) => {
+  const filteredPassphrases = passphrases.filter((passphrase: ListableDatabaseEntry) => {
     const search = searchTerm.toLowerCase()
     return passphrase.platform.toLowerCase().includes(search)
       || passphrase.identity?.toLowerCase()?.includes(search)

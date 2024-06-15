@@ -4,10 +4,10 @@ import StringHelper from "../../../helpers/string"
 import Service from "../../../services"
 import { useAuthorizationSlice } from "../../../stores/authorization"
 import { useNotificationSlice } from "../../../stores/notification"
-import { ListablePassphrase, Passphrase } from "../../../types/common"
+import { DatabaseEntry, ListableDatabaseEntry } from "../../../types/common"
 
 interface IPassphraseCopyButtonProps {
-  id: ListablePassphrase["id"]
+  id: ListableDatabaseEntry["id"]
 }
 
 const PassphraseCopyButton: FC<IPassphraseCopyButtonProps> = ({ id }) => {
@@ -20,7 +20,7 @@ const PassphraseCopyButton: FC<IPassphraseCopyButtonProps> = ({ id }) => {
       id!
     ).then((response) => response.success
       ? navigator.clipboard.writeText(
-        StringHelper.deserialize<Passphrase>(response.output).passphrase
+        StringHelper.deserialize<DatabaseEntry>(response.output).passphrase
       ).then(() => addNotification({
         type: "success",
         icon: <IconCopyCheck />,

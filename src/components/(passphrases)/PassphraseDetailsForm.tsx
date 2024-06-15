@@ -10,7 +10,7 @@ import Service from "../../services"
 import { useAuthorizationSlice } from "../../stores/authorization"
 import { useNotificationSlice } from "../../stores/notification"
 import { usePassphrasesSlice } from "../../stores/passphrases"
-import { Passphrase } from "../../types/common"
+import { DatabaseEntry } from "../../types/common"
 import Button from "../form/Button"
 import Input from "../form/Input"
 import PassphraseSuggestion from "../form/PassphraseSuggestion"
@@ -20,12 +20,12 @@ import classNames from "classnames"
 import { Link } from "react-router-dom"
 
 interface IPassphraseDetailsFormProps {
-  id: Passphrase["id"]
-  platform: Passphrase["platform"]
-  identity: Passphrase["identity"]
-  url: Passphrase["url"]
-  passphrase: Passphrase["passphrase"]
-  notes: Passphrase["notes"]
+  id: DatabaseEntry["id"]
+  platform: DatabaseEntry["platform"]
+  identity: DatabaseEntry["identity"]
+  url: DatabaseEntry["url"]
+  passphrase: DatabaseEntry["passphrase"]
+  notes: DatabaseEntry["notes"]
 }
 
 const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({

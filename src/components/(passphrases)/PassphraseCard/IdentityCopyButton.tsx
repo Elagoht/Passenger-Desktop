@@ -4,10 +4,10 @@ import StringHelper from "../../../helpers/string"
 import Service from "../../../services"
 import { useAuthorizationSlice } from "../../../stores/authorization"
 import { useNotificationSlice } from "../../../stores/notification"
-import { ConstantPair, ListablePassphrase, Passphrase } from "../../../types/common"
+import { ConstantPair, DatabaseEntry, ListableDatabaseEntry } from "../../../types/common"
 
 interface IIdentityCopyButtonProps {
-  id: ListablePassphrase["id"]
+  id: ListableDatabaseEntry["id"]
 }
 
 const IdentityCopyButton: FC<IIdentityCopyButtonProps> = ({ id }) => {
@@ -25,7 +25,7 @@ const IdentityCopyButton: FC<IIdentityCopyButtonProps> = ({ id }) => {
         message: StringHelper.removeUnixErrorPrefix(response.output)
       })
 
-      const { identity } = StringHelper.deserialize<Passphrase>(response.output)
+      const { identity } = StringHelper.deserialize<DatabaseEntry>(response.output)
 
       const result = identity.startsWith("_$")
         ? await Service.remember(

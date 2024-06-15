@@ -9,7 +9,7 @@ import Window from "../../../components/layout/Window"
 import StringHelper from "../../../helpers/string"
 import { useAuthorizationSlice } from "../../../stores/authorization"
 import { useNotificationSlice } from "../../../stores/notification"
-import { Passphrase } from "../../../types/common"
+import { DatabaseEntry } from "../../../types/common"
 
 const WinPassphraseDetails: FC = () => {
   const params = useParams<{ id: string }>()
@@ -17,7 +17,7 @@ const WinPassphraseDetails: FC = () => {
   const navigate = useNavigate()
   const accessToken = useAuthorizationSlice((state) => state.accessToken)
   const addNotification = useNotificationSlice((state) => state.addNotification)
-  const [entry, setEntry] = useState<Passphrase | null>(null)
+  const [entry, setEntry] = useState<DatabaseEntry | null>(null)
 
   useEffect(() => {
     Service.fetch(

@@ -1,4 +1,4 @@
-import { ListablePassphrase } from "./common"
+import { ListableDatabaseEntry } from "./common"
 
 export type Statistics = {
   totalCount: number
@@ -6,13 +6,13 @@ export type Statistics = {
   uniquePlatforms: string[]
   uniquePlatformsCount: number
   uniquePassphrases: number
-  mostAccessed: ListablePassphrase[]
-  commonByPlatform: Array<ListablePassphrase[]>
+  mostAccessed: ListableDatabaseEntry[]
+  commonByPlatform: Array<ListableDatabaseEntry[]>
   percentageOfCommon: number
   mostCommon: string
   strengths: Record<string, number>
   averageStrength: number
-  weakPassphrases: ListablePassphrase[]
-  mediumPassphrases: ListablePassphrase[]
-  strongPassphrases: ListablePassphrase[]
+  weakPassphrases: ListableDatabaseEntry[]
+  mediumPassphrases: ListableDatabaseEntry[]
+  strongPassphrases: ListableDatabaseEntry[]
 }

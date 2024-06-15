@@ -2,11 +2,11 @@ import { IconExternalLink } from "@tabler/icons-react"
 import { FC } from "react"
 import { Link } from "react-router-dom"
 import StringHelper from "../../../helpers/string"
-import { ListablePassphrase } from "../../../types/common"
+import { ListableDatabaseEntry } from "../../../types/common"
 import IdentityCopyButton from "./IdentityCopyButton"
 import PassphraseCopyButton from "./PassphraseCopyButton"
 
-interface IPassphraseCardProps extends ListablePassphrase { }
+interface IPassphraseCardProps extends ListableDatabaseEntry { }
 
 const PassphraseCard: FC<IPassphraseCardProps> = ({ id, platform, url }) => {
 

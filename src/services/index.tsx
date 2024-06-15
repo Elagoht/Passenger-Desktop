@@ -1,5 +1,5 @@
 import { CLI, Output } from "../api/cli"
-import { Passphrase } from "../types/common"
+import { DatabaseEntry } from "../types/common"
 
 /**
  * Commands for interacting with the CLI.
@@ -65,7 +65,7 @@ export default class Service {
    * @param passphrase - The data to create.
    * @returns A promise that resolves to the output of the command.
    */
-  public static create = async (jwt: string, passphrase: Passphrase): Promise<Output> =>
+  public static create = async (jwt: string, passphrase: DatabaseEntry): Promise<Output> =>
     CLI.readOutput(await CLI.execute("create", [jwt, JSON.stringify(passphrase)]))
 
   /**
@@ -75,7 +75,7 @@ export default class Service {
    * @param passphrase - The JSON data for updating.
    * @returns A promise that resolves to the output of the command.
    */
-  public static update = async (jwt: string, uuid: string, passphrase: Passphrase): Promise<Output> =>
+  public static update = async (jwt: string, uuid: string, passphrase: DatabaseEntry): Promise<Output> =>
     CLI.readOutput(await CLI.execute("update", [jwt, uuid, JSON.stringify(passphrase)]))
 
   /**
