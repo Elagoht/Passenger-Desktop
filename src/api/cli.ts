@@ -21,16 +21,26 @@ export class CLI {
    * @param args - The arguments for the verb.
    * @returns A promise that resolves to the child process.
    */
-  public static execute = async (command: string, args: string[]): Promise<ChildProcess> =>
-    await new Command(
-      "sh", ["-c",
-      `${CLI.executable
+  public static execute = async (
+    command: string, args: string[], piped: string | null = null
+  ): Promise<ChildProcess> => {
+    return await new Command("sh", [
+      "-c",
+      `${piped
+        ? `echo ${StringHelper.convertToShellString(piped)} |`
+        : ""
+      } ${CLI.executable
       } ${command
       } ${args.map((argument) =>
         StringHelper.convertToShellString(argument)
       ).join(" ")
-      }`]
-    ).execute()
+      }`
+    ], {
+      env: {
+        "SECRET_KEY": localStorage.getItem("SECRET_KEY") ?? ""
+      }
+    }).execute()
+  }
 
   /**
    * Reads the output of the process.

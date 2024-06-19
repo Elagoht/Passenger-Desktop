@@ -9,7 +9,6 @@ import Window from "../../components/layout/Window"
 import StringHelper from "../../helpers/string"
 import { validationAuthLoginForm } from "../../lib/validations/authForms"
 import { useAuthorizationSlice } from "../../stores/authorization"
-import { useKeyringSlice } from "../../stores/keyring"
 import { useNotificationSlice } from "../../stores/notification"
 import { usePassphrasesSlice } from "../../stores/passphrases"
 
@@ -34,8 +33,6 @@ const WinLogin: FC = () => {
   const setIsAuthorizated = useAuthorizationSlice((state) => state.setIsAuthorizated)
   const setAccessToken = useAuthorizationSlice((state) => state.setAccessToken)
   const setDoesRequireReAuth = useAuthorizationSlice((state) => state.setDoesRequireReAuth)
-  //> const secretKey = useKeyringSlice((state) => state.secretKey)
-  const setSecretKey = useKeyringSlice((state) => state.setSecretKey)
   const loadPassphrases = usePassphrasesSlice((state) => state.loadPassphrases)
   const addNotification = useNotificationSlice((state) => state.addNotification)
   const [mood, setMood] = useState<number>(Math.floor(Math.random() * moods.length))
@@ -73,17 +70,17 @@ const WinLogin: FC = () => {
            *
            * KeyRing
            *   .read(values.username)
-           *   .then((key) => setSecretKey(key))
+           *   .then((key) => localStorage.setItem("SECRET_KEY", key))
            *   .catch(() => {
            *     const key = KeyRing.generate()
            *     KeyRing
            *       .write(values.username, key)
-           *       .then(() => setSecretKey(key))
+           *       .then(() => localStorage.setItem("SECRET_KEY", key))
            *       .catch(() => console.error("Failed to communicate with keyring.")
            *       )
            *   })
            */
-          setSecretKey("6%+aR5zG7w!3u9@3_2#8^5&4*7(1@&)0")
+          localStorage.setItem("SECRET_KEY", "A VERY STRONG SECRET KEY")
           Service.login(
             values.username,
             values.passphrase
