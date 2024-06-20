@@ -105,6 +105,14 @@ export default class Service {
     CLI.readOutput(await CLI.execute("import", [jwt, browser], content))
 
   /**
+   * Exports data using the provided JWT in bare or encrypted csv format.
+   * @param jwt - The JWT for authentication.
+   * @param exportType - The export type for exporting.
+   */
+  public static export = async (jwt: string, exportType: string): Promise<Output> =>
+    CLI.readOutput(await CLI.execute("export", [jwt, exportType]))
+
+  /**
    * Declare a constant pair using the provided JWT and key-value pair.
    * @param jwt - The JWT for authentication.
    * @param key - The key of the constant pair.

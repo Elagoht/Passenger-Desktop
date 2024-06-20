@@ -27,7 +27,7 @@ const WinSettings: FC = () => {
       items={[{
         icon: IconDatabaseExport,
         label: "Export to CSV",
-        action: () => void 0
+        link: "/settings/export-to-csv"
       }, {
         icon: IconBrowser,
         label: "Import from Browser/CSV",
