@@ -81,10 +81,9 @@ const WinRegister: FC = () => {
             values.username,
             values.passphrase
           ).then((output) => {
-            // TODO: Implement a UI feedback for failed login.
             if (!output.success) return addNotification({
               icon: <IconMoodLookDown size={32} />,
-              title: "Login failed",
+              title: "Register failed",
               type: "error",
               message: StringHelper.removeUnixErrorPrefix(output.output)
             })

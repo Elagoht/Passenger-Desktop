@@ -48,7 +48,12 @@ const WinPassphraseDetails: FC = () => {
       </Link>
 
       <img
-        src={`https://logo.clearbit.com/${entry?.platform.toLowerCase()}.com`}
+        src={`https://icon.horse/icon/${new URL(
+          entry.url.startsWith("http")
+            ? entry.url
+            : `http://${entry.url}`
+        ).hostname}`}
+        onError={(event) => { (event.target as HTMLImageElement).src = "/icon.png" }}
         alt={entry?.platform}
         width={48}
         height={48}
