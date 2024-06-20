@@ -22,25 +22,21 @@ export class CLI {
    * @returns A promise that resolves to the child process.
    */
   public static execute = async (
-    command: string, args: string[], piped: string | null = null
-  ): Promise<ChildProcess> => {
-    return await new Command("sh", [
-      "-c",
-      `${piped
-        ? `echo ${StringHelper.convertToShellString(piped)} |`
-        : ""
-      } ${CLI.executable
-      } ${command
-      } ${args.map((argument) =>
-        StringHelper.convertToShellString(argument)
-      ).join(" ")
-      }`
-    ], {
-      env: {
-        "SECRET_KEY": localStorage.getItem("SECRET_KEY") ?? ""
-      }
-    }).execute()
-  }
+    command: string, args: string[], piped: string = ""
+  ): Promise<ChildProcess> => await new Command("sh", [
+    "-c", // Empty pipe will no effect, so we can safely use it here.
+    `echo ${StringHelper.convertToShellString(piped)} |
+    ${CLI.executable
+    } ${command
+    } ${args.map((argument) =>
+      StringHelper.convertToShellString(argument)
+    ).join(" ")
+    }`
+  ], {
+    env: {
+      "SECRET_KEY": localStorage.getItem("SECRET_KEY") ?? ""
+    }
+  }).execute()
 
   /**
    * Reads the output of the process.
