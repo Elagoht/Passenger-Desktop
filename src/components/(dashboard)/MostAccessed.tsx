@@ -19,7 +19,12 @@ const MostAccessed: FC<IMostAccessedProps> = ({ mostAccessed }) => {
         >
           <li className="flex items-center gap-4 p-1 pr-3 hover:bg-tuatara-100 dark:hover:bg-tuatara-800 rounded-full transition duration">
             <img
-              src={`https://logo.clearbit.com/${passphrase.platform.toLowerCase()}.com`}
+              src={`https://icon.horse/icon/${new URL(
+                passphrase.url.startsWith("http")
+                  ? passphrase.url
+                  : `http://${passphrase.url}`
+              ).hostname}`}
+              onError={(event) => { (event.target as HTMLImageElement).src = "/icon.png" }}
               alt={passphrase.platform}
               width={32}
               height={32}

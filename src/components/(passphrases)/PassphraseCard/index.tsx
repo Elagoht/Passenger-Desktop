@@ -17,7 +17,12 @@ const PassphraseCard: FC<IPassphraseCardProps> = ({ id, platform, url }) => {
       className="flex items-center grow p-3 gap-2 rounded-l-lg"
     >
       <img
-        src={`https://logo.clearbit.com/${platform.toLowerCase()}.com`}
+        src={`https://icon.horse/icon/${new URL(
+          url.startsWith("http")
+            ? url
+            : `http://${url}`
+        ).hostname}`}
+        onError={(event) => { (event.target as HTMLImageElement).src = "/icon.png" }}
         alt={platform}
         width={36}
         height={36}
