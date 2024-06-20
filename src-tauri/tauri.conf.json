@@ -12,6 +12,12 @@
   "tauri": {
     "allowlist": {
       "all": false,
+      "dialog": {
+        "save": true
+      },
+      "fs": {
+        "writeFile": true
+      },
       "shell": {
         "sidecar": true,
         "execute": true,
