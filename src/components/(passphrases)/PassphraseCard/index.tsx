@@ -1,7 +1,7 @@
-import { IconEdit } from "@tabler/icons-react"
 import { FC } from "react"
 import { Link } from "react-router-dom"
 import { ListableDatabaseEntry } from "../../../types/common"
+import EntryEditLink from "./EntryEditLink"
 import IdentityCopyButton from "./IdentityCopyButton"
 import PassphraseCopyButton from "./PassphraseCopyButton"
 
@@ -11,15 +11,10 @@ const PassphraseCard: FC<IPassphraseCardProps> = ({ id, platform, url }) => {
   return <li
     className="flex items-center rounded-lg transition-all w-full text-left bg-tuatara-50 dark:bg-tuatara-900 h-14 relative group">
     <nav className="absolute inset-0 flex group-hover:opacity-100 opacity-0
-    bg-tuatara-50 dark:bg-tuatara-900 rounded-lg transition-all">
+    bg-tuatara-50 dark:bg-tuatara-900 rounded-lg transition-all ease-in-out">
       <IdentityCopyButton id={id} />
 
-      <Link
-        to={`/passphrases/${id}`}
-        draggable="false"
-        className="transition-all hover:bg-sky-500 flex flex-col items-center justify-center leading-snug h-14 flex-1 hover:flex-[1.5] hover:text-white px-2">
-        <IconEdit /> Edit
-      </Link>
+      <EntryEditLink id={id} />
 
       <PassphraseCopyButton id={id} />
     </nav>
