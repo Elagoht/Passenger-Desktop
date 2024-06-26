@@ -37,7 +37,7 @@ const WinDashboard: FC = () => {
     Service.stats(
       accessToken
     ).then((response) => response.success
-      ? setStatistics(JSON.parse(response.output))
+      ? setStatistics(StringHelper.deserialize<Statistics>(response.output))
       : addNotification({
         type: "error",
         title: "Unsuccessful Request",
