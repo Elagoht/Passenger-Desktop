@@ -17,7 +17,7 @@ const WinDashboard: FC = () => {
   const addNotification = useNotificationSlice(state => state.addNotification)
 
   const [statistics, setStatistics] = useState<Statistics>({
-    totalCount: 0, // Used 
+    totalCount: 0, // Used
     averageLength: 0, // Used
     uniquePlatforms: [],
     uniquePlatformsCount: 0, // Used
