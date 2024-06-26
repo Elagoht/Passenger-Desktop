@@ -1,4 +1,4 @@
-import { IconCopyCheck, IconIdBadge } from "@tabler/icons-react"
+import { IconCopyCheck, IconUser } from "@tabler/icons-react"
 import { FC } from "react"
 import StringHelper from "../../../helpers/string"
 import Service from "../../../services"
@@ -58,9 +58,9 @@ const IdentityCopyButton: FC<IIdentityCopyButtonProps> = ({ id }) => {
         message: "Please try again"
       }))
     })}
-    className="h-full bg-white dark:bg-tuatara-800 hover:brightness-90 transition-all aspect-square w-10 grid place-items-center shrink-0"
+    className="transition-all hover:bg-leaf-500 flex flex-col items-center justify-center leading-snug rounded-l-lg h-14 flex-1 hover:flex-[1.5] hover:text-white px-2"
   >
-    <IconIdBadge />
+    <IconUser /> Identity
   </button>
 }
 
