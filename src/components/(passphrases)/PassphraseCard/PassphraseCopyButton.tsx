@@ -17,7 +17,7 @@ const PassphraseCopyButton: FC<IPassphraseCopyButtonProps> = ({ id }) => {
   return <button
     onClick={() => Service.fetch(
       accessToken,
-      id!
+      id
     ).then((response) => response.success
       ? navigator.clipboard.writeText(
         StringHelper.deserialize<DatabaseEntry>(response.output).passphrase
@@ -36,10 +36,10 @@ const PassphraseCopyButton: FC<IPassphraseCopyButtonProps> = ({ id }) => {
         message: StringHelper.removeUnixErrorPrefix(response.output)
       })
     )}
-    className="transition-all hover:bg-creamcan-500 grid place-items-center shrink-0 rounded-r-lg h-14 flex-1 hover:flex-[1.5] hover:text-white"
+    className="transition-all hover:bg-creamcan-500 flex flex-col items-center justify-center leading-snug rounded-r-lg h-14 flex-1 hover:flex-[1.5] hover:text-white px-2"
   >
-    <IconKey />
-  </button >
+    <IconKey /> Passphrase
+  </button>
 }
 
 export default PassphraseCopyButton

@@ -17,8 +17,8 @@ const PassphraseCard: FC<IPassphraseCardProps> = ({ id, platform, url }) => {
       <Link
         to={`/passphrases/${id}`}
         draggable="false"
-        className="grid place-items-center h-14 bg-white dark:bg-tuatara-800 transition-all aspect-square hover:bg-sky-500 hover:text-white flex-1">
-        <IconEdit />
+        className="transition-all hover:bg-sky-500 flex flex-col items-center justify-center leading-snug h-14 flex-1 hover:flex-[1.5] hover:text-white px-2">
+        <IconEdit /> Edit
       </Link>
 
       <PassphraseCopyButton id={id} />
