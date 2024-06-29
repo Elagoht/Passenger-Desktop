@@ -14,12 +14,22 @@ export type ListableDatabaseEntry = CountableDatabaseEntry & {
   readonly updatedAt: string
 }
 
-export type DatabaseEntry = ListableDatabaseEntry & {
+export type ReadWriteDatabaseEntry = ListableDatabaseEntry & {
   passphrase: string
   notes?: string
+}
+
+export type DatabaseEntry = ReadWriteDatabaseEntry & {
+  readonly passphraseHistory: TrackablePassphrase[]
 }
 
 export type ConstantPair = {
   key: string
   value: string
+}
+
+export type TrackablePassphrase = {
+  strength: number
+  length: number
+  created: string
 }

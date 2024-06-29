@@ -17,6 +17,8 @@ import WinSettings from "./windows/(settings)/WinSettings"
 import WinConstantPairs from "./windows/(settings)/constant-pairs/WinConstantPairs"
 import WinConstantPairForm from "./windows/(settings)/constant-pairs/[key]/WinConstantPairForm"
 import WinNewConstantPair from "./windows/(settings)/constant-pairs/new-constant-pair/WinNewConstantPair"
+import WinImportFromBrowser from "./windows/(settings)/import-from-browser/WinImportFromBrowser"
+import WinExportToCSV from "./windows/(settings)/export-to-csv/WinExportToCSV"
 
 export const settings = new Storage(".settings.dat")
 
@@ -64,6 +66,8 @@ const App: FC = () => {
                   { path: "/settings/constant-pairs", element: <WinConstantPairs /> },
                   { path: "/settings/constant-pairs/:key", element: <WinConstantPairForm /> },
                   { path: "/settings/new-constant-pair", element: <WinNewConstantPair /> },
+                  { path: "/settings/import-from-browser", element: <WinImportFromBrowser /> },
+                  { path: "/settings/export-to-csv", element: <WinExportToCSV /> },
                   { path: "*", element: <Window>404 Not Found</Window> }
                 ].map((route, index) =>
                   <Route

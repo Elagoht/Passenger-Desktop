@@ -40,12 +40,12 @@ const GenerateButton: FC<IGenerateButtonProps> = ({ setFieldValue }) => {
     onClick={() => Service.generate(
       32
     ).then((response) => {
-      if (!response.success) return addNotification({
+      if (response.status !== 0) return addNotification({
         type: "error",
         title: "Failed to generate passphrase",
-        message: StringHelper.removeUnixErrorPrefix(response.output)
+        message: StringHelper.removeUnixErrorPrefix(response.stderr)
       })
-      setFieldValue("passphrase", response.output)
+      setFieldValue("passphrase", response.stdout)
     }).finally(() =>
       setDiceIcon(changedDiceIcon(diceIcon))
     )}

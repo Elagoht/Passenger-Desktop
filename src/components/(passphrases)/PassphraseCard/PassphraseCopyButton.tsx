@@ -4,7 +4,7 @@ import StringHelper from "../../../helpers/string"
 import Service from "../../../services"
 import { useAuthorizationSlice } from "../../../stores/authorization"
 import { useNotificationSlice } from "../../../stores/notification"
-import { DatabaseEntry, ListableDatabaseEntry } from "../../../types/common"
+import { ListableDatabaseEntry, ReadWriteDatabaseEntry } from "../../../types/common"
 
 interface IPassphraseCopyButtonProps {
   id: ListableDatabaseEntry["id"]
@@ -18,9 +18,9 @@ const PassphraseCopyButton: FC<IPassphraseCopyButtonProps> = ({ id }) => {
     onClick={() => Service.fetch(
       accessToken,
       id
-    ).then((response) => response.success
+    ).then((response) => response.status === 0
       ? navigator.clipboard.writeText(
-        StringHelper.deserialize<DatabaseEntry>(response.output).passphrase
+        StringHelper.deserialize<ReadWriteDatabaseEntry>(response.stdout).passphrase
       ).then(() => addNotification({
         type: "success",
         icon: <IconCopyCheck />,
@@ -33,7 +33,7 @@ const PassphraseCopyButton: FC<IPassphraseCopyButtonProps> = ({ id }) => {
       : addNotification({
         type: "error",
         title: "Failed to obtain passphrase",
-        message: StringHelper.removeUnixErrorPrefix(response.output)
+        message: StringHelper.removeUnixErrorPrefix(response.stderr)
       })
     )}
     className="transition-all hover:bg-creamcan-500 flex flex-col items-center justify-center leading-snug rounded-r-lg h-14 flex-1 hover:flex-[1.5] hover:text-white px-2"

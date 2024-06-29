@@ -36,12 +36,12 @@ const WinDashboard: FC = () => {
   useEffect(() => {
     Service.stats(
       accessToken
-    ).then((response) => response.success
-      ? setStatistics(StringHelper.deserialize<Statistics>(response.output))
+    ).then((response) => response.status === 0
+      ? setStatistics(StringHelper.deserialize<Statistics>(response.stdout))
       : addNotification({
         type: "error",
         title: "Unsuccessful Request",
-        message: StringHelper.removeUnixErrorPrefix(response.output)
+        message: StringHelper.removeUnixErrorPrefix(response.stderr)
       })
     )
   }, [])

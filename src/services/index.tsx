@@ -1,5 +1,6 @@
 import { CLI, Output } from "../api/cli"
-import { DatabaseEntry } from "../types/common"
+import { ReadWriteDatabaseEntry } from "../types/common"
+import { Mutable } from "../types/utility"
 
 /**
  * Commands for interacting with the CLI.
@@ -58,14 +59,13 @@ export default class Service {
   public static fetch = async (jwt: string, uuid: string): Promise<Output> =>
     CLI.readOutput(await CLI.execute("fetch", [jwt, uuid]))
 
-
   /**
    * Creates new data using the provided JWT and data.
    * @param jwt - The JWT for authentication.
    * @param passphrase - The data to create.
    * @returns A promise that resolves to the output of the command.
    */
-  public static create = async (jwt: string, passphrase: DatabaseEntry): Promise<Output> =>
+  public static create = async (jwt: string, passphrase: Mutable<ReadWriteDatabaseEntry>): Promise<Output> =>
     CLI.readOutput(await CLI.execute("create", [jwt, JSON.stringify(passphrase)]))
 
   /**
@@ -75,7 +75,7 @@ export default class Service {
    * @param passphrase - The JSON data for updating.
    * @returns A promise that resolves to the output of the command.
    */
-  public static update = async (jwt: string, uuid: string, passphrase: DatabaseEntry): Promise<Output> =>
+  public static update = async (jwt: string, uuid: string, passphrase: Mutable<ReadWriteDatabaseEntry>): Promise<Output> =>
     CLI.readOutput(await CLI.execute("update", [jwt, uuid, JSON.stringify(passphrase)]))
 
   /**
@@ -94,6 +94,24 @@ export default class Service {
    */
   public static stats = async (jwt: string): Promise<Output> =>
     CLI.readOutput(await CLI.execute("stats", [jwt]))
+
+  /**
+   * Imports data using the provided csv content and JWT according
+   * to the provided browser type.
+   * @param jwt - The JWT for authentication.
+   * @param browser - The browser type for importing.
+   * @param content - The content of the CSV file.
+   */
+  public static import = async (jwt: string, browser: string, content: string): Promise<Output> =>
+    CLI.readOutput(await CLI.execute("import", [jwt, browser], content))
+
+  /**
+   * Exports data using the provided JWT in bare or encrypted csv format.
+   * @param jwt - The JWT for authentication.
+   * @param exportType - The export type for exporting.
+   */
+  public static export = async (jwt: string, exportType: string): Promise<Output> =>
+    CLI.readOutput(await CLI.execute("export", [jwt, exportType]))
 
   /**
    * Declare a constant pair using the provided JWT and key-value pair.
