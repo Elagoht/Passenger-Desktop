@@ -49,10 +49,10 @@ const ConstantPairDeleteButton: FC<IConstantPairDeleteButtonProps> = ({ constant
             accessToken,
             constantKey
           ).then((response) => {
-            if (!response.success) return addNotification({
+            if (response.status !== 0) return addNotification({
               type: "error",
               title: "I can't forget it 😩",
-              message: StringHelper.removeUnixErrorPrefix(response.output),
+              message: StringHelper.removeUnixErrorPrefix(response.stderr),
               icon: <IconDatabaseExclamation />
             })
 

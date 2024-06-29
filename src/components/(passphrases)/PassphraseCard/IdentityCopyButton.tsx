@@ -4,7 +4,7 @@ import StringHelper from "../../../helpers/string"
 import Service from "../../../services"
 import { useAuthorizationSlice } from "../../../stores/authorization"
 import { useNotificationSlice } from "../../../stores/notification"
-import { ConstantPair, DatabaseEntry, ListableDatabaseEntry } from "../../../types/common"
+import { ConstantPair, ListableDatabaseEntry, ReadWriteDatabaseEntry } from "../../../types/common"
 
 interface IIdentityCopyButtonProps {
   id: ListableDatabaseEntry["id"]
@@ -19,28 +19,27 @@ const IdentityCopyButton: FC<IIdentityCopyButtonProps> = ({ id }) => {
       accessToken,
       id!
     ).then(async (response) => {
-      if (!response.success) return addNotification({
+      if (response.status !== 0) return addNotification({
         type: "error",
         title: "Failed to obtain identity",
-        message: StringHelper.removeUnixErrorPrefix(response.output)
+        message: StringHelper.removeUnixErrorPrefix(response.stderr)
       })
 
-      const { identity } = StringHelper.deserialize<DatabaseEntry>(response.output)
+      const { identity } = StringHelper.deserialize<ReadWriteDatabaseEntry>(response.stdout)
 
       const result = identity.startsWith("_$")
         ? await Service.remember(
           accessToken,
           identity.substring(2)
         ).then((response) => {
-          if (!response.success) {
-            addNotification({
-              type: "error",
-              title: "Not recognized",
-              message: "This key has no paired value!"
-            })
-            return null
-          }
-          return StringHelper.deserialize<ConstantPair>(response.output).value
+          if (response.status === 0) return StringHelper
+            .deserialize<ConstantPair>(response.stdout).value
+          addNotification({
+            type: "error",
+            title: "Not recognized",
+            message: "This key has no paired value!"
+          })
+          return null
         })
         : identity
 

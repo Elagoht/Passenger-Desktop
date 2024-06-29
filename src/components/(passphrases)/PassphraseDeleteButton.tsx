@@ -49,13 +49,13 @@ const PassphraseDeleteButton: FC<IPassphraseDeleteButtonProps> = ({ id }) => {
             accessToken,
             id
           ).then((response) => addNotification({
-            title: response.success
+            title: response.status === 0
               ? "Passphrase Deleted"
               : "Failed to Delete Passphrase",
-            message: response.success
+            message: response.status === 0
               ? "Lost forever."
-              : StringHelper.removeUnixErrorPrefix(response.output),
-            type: response.success
+              : StringHelper.removeUnixErrorPrefix(response.stderr),
+            type: response.status === 0
               ? "success"
               : "error"
           })

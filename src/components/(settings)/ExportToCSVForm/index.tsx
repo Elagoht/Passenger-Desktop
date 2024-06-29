@@ -26,9 +26,9 @@ const ExportToCSVForm: FC = () => {
         accessToken,
         values.exportType
       ).then((response) => {
-        if (!response.success) return addNotification({
+        if (response.status !== 0) return addNotification({
           type: "error", // If unsuccessful, show an error notification
-          message: StringHelper.removeUnixErrorPrefix(response.output)
+          message: StringHelper.removeUnixErrorPrefix(response.stderr)
         })
         save({ // Open a save file selection dialog
           filters: [{
@@ -42,7 +42,7 @@ const ExportToCSVForm: FC = () => {
           })
           writeTextFile( // Write the export data to the selected file
             path,
-            response.output
+            response.stdout
           ).then(() => addNotification({ // Show a success notification
             type: "success", message: "Exported successfully"
           }))

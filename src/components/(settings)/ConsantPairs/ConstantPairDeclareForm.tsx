@@ -29,9 +29,9 @@ const ConstantPairDeclareForm: FC = () => {
         values.key,
         values.value
       ).then((response) => {
-        if (!response.success) return addNotification({
+        if (response.status !== 0) return addNotification({
           type: "error",
-          message: StringHelper.removeUnixErrorPrefix(response.output),
+          message: StringHelper.removeUnixErrorPrefix(response.stderr),
           title: "Couldn't declare 🥹",
           icon: <IconDatabaseExclamation />
         })

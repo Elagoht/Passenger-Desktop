@@ -26,18 +26,18 @@ const ReAuthModal: FC = () => {
         username: "",
         passphrase: ""
       }}
-      onSubmit={(values, { setSubmitting, setValues }) => {
+      onSubmit={(values, { setSubmitting, setValues }) =>
         Service.login(
           values.username,
           values.passphrase
         ).then((response) => {
-          if (!response.success) return addNotification({
+          if (response.status !== 0) return addNotification({
             title: "Access denied",
             type: "error",
             icon: <IconMoodLookDown size={32} />,
-            message: StringHelper.removeUnixErrorPrefix(response.output)
+            message: StringHelper.removeUnixErrorPrefix(response.stderr)
           })
-          setAccessToken(response.output)
+          setAccessToken(response.stdout)
           setDoesRequireReAuth(false)
           addNotification({
             type: "success",
@@ -51,7 +51,7 @@ const ReAuthModal: FC = () => {
         }).finally(
           () => setSubmitting(false)
         )
-      }}
+      }
     >
       {({
         values,
@@ -110,7 +110,7 @@ const ReAuthModal: FC = () => {
       }
     </Formik>
 
-  </Modal>
+  </Modal >
 }
 
 export default ReAuthModal

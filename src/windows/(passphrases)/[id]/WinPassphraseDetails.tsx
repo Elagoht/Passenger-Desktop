@@ -24,11 +24,11 @@ const WinPassphraseDetails: FC = () => {
       accessToken,
       params.id!
     ).then((response) => {
-      if (response.success)
-        return setEntry(JSON.parse(response.output))
+      if (response.status === 0)
+        return setEntry(JSON.parse(response.stdout))
       addNotification({
         title: "Passphrase not found",
-        message: StringHelper.removeUnixErrorPrefix(response.output),
+        message: StringHelper.removeUnixErrorPrefix(response.stderr),
         type: "error"
       })
       navigate("/passphrases")

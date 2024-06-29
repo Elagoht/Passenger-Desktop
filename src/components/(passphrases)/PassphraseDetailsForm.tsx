@@ -52,20 +52,18 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
         id!, // If null, the form already not shown
         values
       ).then((response) => {
-        if (response.success) {
-          updatePassphrase(id, values)
-          addNotification({
-            type: "success",
-            title: "Passphrase updated",
-            message: "The passphrase was successfully updated."
-          })
-          return navigate("/passphrases")
-        }
-        addNotification({
+        if (response.status !== 0) return addNotification({
           type: "error",
           title: "Failed to update passphrase",
-          message: StringHelper.removeUnixErrorPrefix(response.output)
+          message: StringHelper.removeUnixErrorPrefix(response.stderr)
         })
+        updatePassphrase(id, values)
+        addNotification({
+          type: "success",
+          title: "Passphrase updated",
+          message: "The passphrase was successfully updated."
+        })
+        return navigate("/passphrases")
       }).finally(() =>
         setSubmitting(false)
       )
