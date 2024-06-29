@@ -1,7 +1,8 @@
 import { IconDeviceFloppy, IconLoader, IconNote } from "@tabler/icons-react"
+import classNames from "classnames"
 import { Form, Formik } from "formik"
 import { FC } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { formFields } from "../(add-passphrase)/AddPassphraseForm"
 import FormikHelper from "../../helpers/formik"
 import Strength from "../../helpers/strength"
@@ -10,22 +11,20 @@ import Service from "../../services"
 import { useAuthorizationSlice } from "../../stores/authorization"
 import { useNotificationSlice } from "../../stores/notification"
 import { usePassphrasesSlice } from "../../stores/passphrases"
-import { DatabaseEntry } from "../../types/common"
+import { ReadWriteDatabaseEntry } from "../../types/common"
 import Button from "../form/Button"
 import Input from "../form/Input"
 import PassphraseSuggestion from "../form/PassphraseSuggestion"
 import TextArea from "../form/TextArea"
 import Meter from "../statistics/Meter"
-import classNames from "classnames"
-import { Link } from "react-router-dom"
 
 interface IPassphraseDetailsFormProps {
-  id: DatabaseEntry["id"]
-  platform: DatabaseEntry["platform"]
-  identity: DatabaseEntry["identity"]
-  url: DatabaseEntry["url"]
-  passphrase: DatabaseEntry["passphrase"]
-  notes: DatabaseEntry["notes"]
+  id: ReadWriteDatabaseEntry["id"]
+  platform: ReadWriteDatabaseEntry["platform"]
+  identity: ReadWriteDatabaseEntry["identity"]
+  url: ReadWriteDatabaseEntry["url"]
+  passphrase: ReadWriteDatabaseEntry["passphrase"]
+  notes: ReadWriteDatabaseEntry["notes"]
 }
 
 const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({

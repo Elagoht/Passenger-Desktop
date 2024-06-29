@@ -1,11 +1,12 @@
 import { create } from "zustand"
 import { ReadWriteDatabaseEntry } from "../types/common"
+import { Mutable } from "../types/utility"
 
 interface IPassphrasesSlice {
   passphrases: ReadWriteDatabaseEntry[]
   loadPassphrases: (passphrases: ReadWriteDatabaseEntry[]) => void
   addPassphrase: (passphrase: ReadWriteDatabaseEntry) => void
-  updatePassphrase: (id: ReadWriteDatabaseEntry["id"], passphrase: ReadWriteDatabaseEntry) => void
+  updatePassphrase: (id: ReadWriteDatabaseEntry["id"], passphrase: Mutable<ReadWriteDatabaseEntry>) => void
   deletePassphrase: (id: string) => void
 }
 
