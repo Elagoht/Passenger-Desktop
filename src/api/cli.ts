@@ -2,8 +2,9 @@ import { ChildProcess, Command } from "@tauri-apps/api/shell"
 import StringHelper from "../helpers/string"
 
 export type Output = {
-  success: boolean
-  output: string
+  status: number
+  stdout: string
+  stderr: string
 }
 
 /**
@@ -45,7 +46,8 @@ export class CLI {
    * @see Output
    */
   public static readOutput = (process: ChildProcess): Output => ({
-    success: process.code === 0,
-    output: process.stdout.trim()
+    status: process.code || 1, // 1 is the default error code
+    stdout: process.stdout,
+    stderr: process.stderr
   })
 }
