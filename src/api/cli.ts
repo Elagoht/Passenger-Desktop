@@ -46,8 +46,8 @@ export class CLI {
    * @see Output
    */
   public static readOutput = (process: ChildProcess): Output => ({
-    status: process.code || 1, // 1 is the default error code
-    stdout: process.stdout,
-    stderr: process.stderr
+    status: process.code ?? 1, // 1 is the default error code
+    stdout: process.stdout.trim(),
+    stderr: process.stderr.trim()
   })
 }
