@@ -17,7 +17,7 @@ const WinDashboard: FC = () => {
   const addNotification = useNotificationSlice(state => state.addNotification)
 
   const [statistics, setStatistics] = useState<Statistics>({
-    totalCount: 0, // Used 
+    totalCount: 0, // Used
     averageLength: 0, // Used
     uniquePlatforms: [],
     uniquePlatformsCount: 0, // Used
@@ -36,12 +36,12 @@ const WinDashboard: FC = () => {
   useEffect(() => {
     Service.stats(
       accessToken
-    ).then((response) => response.success
-      ? setStatistics(JSON.parse(response.output))
+    ).then((response) => response.status === 0
+      ? setStatistics(StringHelper.deserialize<Statistics>(response.stdout))
       : addNotification({
         type: "error",
         title: "Unsuccessful Request",
-        message: StringHelper.removeUnixErrorPrefix(response.output)
+        message: StringHelper.removeUnixErrorPrefix(response.stderr)
       })
     )
   }, [])

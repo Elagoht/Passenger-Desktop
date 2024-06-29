@@ -1,5 +1,6 @@
 import { CLI, Output } from "../api/cli"
-import { DatabaseEntry } from "../types/common"
+import { ReadWriteDatabaseEntry } from "../types/common"
+import { Mutable } from "../types/utility"
 
 /**
  * Commands for interacting with the CLI.
@@ -64,7 +65,7 @@ export default class Service {
    * @param passphrase - The data to create.
    * @returns A promise that resolves to the output of the command.
    */
-  public static create = async (jwt: string, passphrase: DatabaseEntry): Promise<Output> =>
+  public static create = async (jwt: string, passphrase: Mutable<ReadWriteDatabaseEntry>): Promise<Output> =>
     CLI.readOutput(await CLI.execute("create", [jwt, JSON.stringify(passphrase)]))
 
   /**
@@ -74,7 +75,7 @@ export default class Service {
    * @param passphrase - The JSON data for updating.
    * @returns A promise that resolves to the output of the command.
    */
-  public static update = async (jwt: string, uuid: string, passphrase: DatabaseEntry): Promise<Output> =>
+  public static update = async (jwt: string, uuid: string, passphrase: Mutable<ReadWriteDatabaseEntry>): Promise<Output> =>
     CLI.readOutput(await CLI.execute("update", [jwt, uuid, JSON.stringify(passphrase)]))
 
   /**

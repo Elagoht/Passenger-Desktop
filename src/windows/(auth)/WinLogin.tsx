@@ -85,14 +85,14 @@ const WinLogin: FC = () => {
             values.username,
             values.passphrase
           ).then((response) => {
-            if (!response.success) return addNotification({
+            if (response.status !== 0) return addNotification({
               icon: <IconMoodLookDown size={32} />,
               title: "Could't open the vault",
               type: "error",
-              message: StringHelper.removeUnixErrorPrefix(response.output)
+              message: StringHelper.removeUnixErrorPrefix(response.stderr)
             })
 
-            const { output: jwt } = response // Extract the JWT from the response.
+            const { stdout: jwt } = response // Extract the JWT from the response.
             setAccessToken(jwt)
 
             // Start a 10 minutes interval to show re-authentication modal.
@@ -104,13 +104,13 @@ const WinLogin: FC = () => {
             Service.fetchAll(
               jwt
             ).then((response) => {
-              if (!response.success) return addNotification({
+              if (response.status !== 0) return addNotification({
                 icon: <IconMoodLookDown size={32} />,
                 title: "Could't fetch passphrases",
                 type: "error",
-                message: StringHelper.removeUnixErrorPrefix(response.output)
+                message: StringHelper.removeUnixErrorPrefix(response.stderr)
               })
-              loadPassphrases(JSON.parse(response.output))
+              loadPassphrases(JSON.parse(response.stdout))
               setIsAuthorizated(true)
               navigate("/dashboard")
             })

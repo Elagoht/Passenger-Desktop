@@ -44,20 +44,18 @@ const AddPassphraseForm: FC = () => {
         accessToken,
         values
       ).then((response) => {
-        if (response.success) {
-          addPassphrase(JSON.parse(response.output)) // Update the store
-          addNotification({
-            type: "success",
-            title: "Passphrase added",
-            message: "The passphrase was successfully added."
-          })
-          return navigate("/passphrases")
-        }
-        addNotification({
+        if (response.status !== 0) return addNotification({
           type: "error",
           title: "Failed to add passphrase",
-          message: StringHelper.removeUnixErrorPrefix(response.output)
+          message: StringHelper.removeUnixErrorPrefix(response.stderr)
         })
+        addPassphrase(JSON.parse(response.stdout)) // Update the store
+        addNotification({
+          type: "success",
+          title: "Passphrase added",
+          message: "The passphrase was successfully added."
+        })
+        navigate("/passphrases")
       }).finally(() =>
         setSubmitting(false)
       )

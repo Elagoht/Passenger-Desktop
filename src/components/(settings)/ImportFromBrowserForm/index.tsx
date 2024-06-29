@@ -1,17 +1,17 @@
 import { IconBrandChrome, IconBrandFirefox, IconBrandSafari, IconFileImport, IconLoader, IconSelector } from "@tabler/icons-react"
 import { Form, Formik } from "formik"
 import { FC } from "react"
-import FileInput from "../../form/FileInput"
-import Select from "../../form/Select"
+import { useNavigate } from "react-router-dom"
+import StringHelper from "../../../helpers/string"
 import { validationImportFromBrowserForm } from "../../../lib/validations/importExportForms"
-import Button from "../../form/Button"
 import Service from "../../../services"
 import { useAuthorizationSlice } from "../../../stores/authorization"
 import { useNotificationSlice } from "../../../stores/notification"
-import { useNavigate } from "react-router-dom"
-import StringHelper from "../../../helpers/string"
 import { usePassphrasesSlice } from "../../../stores/passphrases"
-import { DatabaseEntry } from "../../../types/common"
+import { ReadWriteDatabaseEntry } from "../../../types/common"
+import Button from "../../form/Button"
+import FileInput from "../../form/FileInput"
+import Select from "../../form/Select"
 
 const browserIcons = {
   "": IconSelector,
@@ -36,29 +36,29 @@ const ImportFromBrowserForm: FC = () => {
       file: File | null
     }}
     validationSchema={validationImportFromBrowserForm}
-    onSubmit={async (values, { setSubmitting }) => {
+    onSubmit={async (values, { setSubmitting }) =>
       Service.import( // Import passwords from the browser
         accessToken,
         values.browser,
         await values.file!.text()
       ).then((response) => {
-        if (!response.success) return addNotification({
+        if (response.status !== 0) return addNotification({
           type: "error", // If unsuccessful, show an error notification
-          message: StringHelper.removeUnixErrorPrefix(response.output)
+          message: StringHelper.removeUnixErrorPrefix(response.stderr)
         })
         addNotification({ // If successful, show a success notification
           type: "success",
-          message: StringHelper.removeUnixErrorPrefix(response.output)
+          message: StringHelper.removeUnixErrorPrefix(response.stdout)
         })
         Service.fetchAll( // Fetch all passphrases
           accessToken
         ).then((response) => {
-          if (!response.success) return addNotification({
+          if (response.status !== 0) return addNotification({
             type: "error", // If unsuccessful, show an error notification
-            message: StringHelper.removeUnixErrorPrefix(response.output)
+            message: StringHelper.removeUnixErrorPrefix(response.stderr)
           })
-          loadPassphrases(StringHelper.deserialize<DatabaseEntry[]>(
-            response.output // If successful, load the new passphrases
+          loadPassphrases(StringHelper.deserialize<ReadWriteDatabaseEntry[]>(
+            response.stdout // If successful, load the new passphrases
           ))
         }).finally( // Navigate to the passphrases page
           () => navigate("/passphrases")
@@ -66,7 +66,7 @@ const ImportFromBrowserForm: FC = () => {
       }).finally( // Fallback for any error
         () => setSubmitting(false)
       )
-    }}
+    }
   >
     {({
       values,
@@ -120,7 +120,7 @@ const ImportFromBrowserForm: FC = () => {
         </Button>
       </Form>
     }
-  </Formik>
+  </Formik >
 }
 
 export default ImportFromBrowserForm

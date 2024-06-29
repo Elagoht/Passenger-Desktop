@@ -28,12 +28,12 @@ const ConstantPairForm: FC = () => {
       accessToken,
       params.key!
     ).then((response) => {
-      if (!response.success) return addNotification({
+      if (response.status !== 0) return addNotification({
         type: "error",
-        message: StringHelper.removeUnixErrorPrefix(response.output),
+        message: StringHelper.removeUnixErrorPrefix(response.stderr),
         icon: <IconDatabaseExclamation />
       })
-      setConstant(StringHelper.deserialize<ConstantPair>(response.output))
+      setConstant(StringHelper.deserialize<ConstantPair>(response.stdout))
     })
   }, [])
 
@@ -49,9 +49,9 @@ const ConstantPairForm: FC = () => {
         values.key,
         values.value
       ).then((response) => {
-        if (!response.success) return addNotification({
+        if (response.status !== 0) return addNotification({
           type: "error",
-          message: StringHelper.removeUnixErrorPrefix(response.output),
+          message: StringHelper.removeUnixErrorPrefix(response.stdout),
           title: "Couldn't modify at the moment",
           icon: <IconDatabaseExclamation />
         })

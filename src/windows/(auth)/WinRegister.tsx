@@ -81,23 +81,23 @@ const WinRegister: FC = () => {
             values.username,
             values.passphrase
           ).then((output) => {
-            if (!output.success) return addNotification({
+            if (output.status !== 0) return addNotification({
               icon: <IconMoodLookDown size={32} />,
               title: "Register failed",
               type: "error",
-              message: StringHelper.removeUnixErrorPrefix(output.output)
+              message: StringHelper.removeUnixErrorPrefix(output.stderr)
             })
             Service.login(
               values.username,
               values.passphrase
-            ).then((output) => {
-              if (!output.success) return addNotification({
+            ).then((response) => {
+              if (response.status !== 0) return addNotification({
                 icon: <IconMoodLookDown size={32} />,
                 title: "Unexpected error",
                 type: "error",
-                message: StringHelper.removeUnixErrorPrefix(output.output)
+                message: StringHelper.removeUnixErrorPrefix(response.stderr)
               })
-              setAccessToken(output.output)
+              setAccessToken(response.stdout)
               setIsAuthorizated(true)
             })
           }).finally(() =>

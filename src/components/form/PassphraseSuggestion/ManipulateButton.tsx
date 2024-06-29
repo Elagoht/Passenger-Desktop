@@ -20,12 +20,12 @@ const ManipulateButton: FC<IManipulateButtonProps> = ({ currentPassphrase, setFi
     onClick={() => Service.manipulate(
       currentPassphrase
     ).then((response) => {
-      if (!response.success) return addNotification({
+      if (response.status !== 0) return addNotification({
         type: "error",
         title: "Failed to manipulate passphrase",
-        message: StringHelper.removeUnixErrorPrefix(response.output)
+        message: StringHelper.removeUnixErrorPrefix(response.stderr)
       })
-      setFieldValue("passphrase", response.output)
+      setFieldValue("passphrase", response.stdout)
     })}
   >
     Manipulate

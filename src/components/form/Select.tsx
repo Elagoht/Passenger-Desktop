@@ -2,7 +2,7 @@
 
 import { Icon, IconAlertCircle, IconCheck, IconProps } from "@tabler/icons-react"
 import classNames from "classnames"
-import { FC, ForwardRefExoticComponent, ReactNode, SelectHTMLAttributes, createElement, useEffect, useRef, useState } from "react"
+import { FC, ForwardRefExoticComponent, ReactNode, SelectHTMLAttributes, createElement, useEffect, useState } from "react"
 
 export interface ISelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label: string
@@ -23,7 +23,6 @@ const Select: FC<ISelectProps> = ({
 }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [isFilled, setIsFilled] = useState<boolean>(Boolean(props.value))
-  const selfRef = useRef<HTMLSelectElement>(null)
 
   useEffect(
     () => setIsFilled(
@@ -43,7 +42,6 @@ const Select: FC<ISelectProps> = ({
   })}>
     <label
       className="flex items-center gap-2 relative rounded-md transition-all duration-300 ease-in-out px-2 border border-current"
-      onClick={() => selfRef.current?.showPicker?.()}
     >
       <span className={classNames({
         "absolute transition-all duration-300 ease-in-out select-none line-clamp-1": true,
@@ -62,7 +60,6 @@ const Select: FC<ISelectProps> = ({
 
       <select
         {...props}
-        ref={selfRef}
         className={classNames({
           "bg-transparent pt-3.5 pb-0.5 w-full text-gray-900 dark:text-gray-100 rounded-md outline-none max-w-none min-w-0 h-10 transition-all duration-300 ease-in-out appearance-none": true,
           "opacity-0": !isFocused && !isFilled,
