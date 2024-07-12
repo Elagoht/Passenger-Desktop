@@ -10,7 +10,6 @@ import StringHelper from "../../helpers/string"
 import { validationAuthLoginForm } from "../../lib/validations/authForms"
 import { useAuthorizationSlice } from "../../stores/authorization"
 import { useNotificationSlice } from "../../stores/notification"
-import { usePassphrasesSlice } from "../../stores/passphrases"
 
 const moods = [
   IconMoodSmileBeam,
@@ -33,7 +32,6 @@ const WinLogin: FC = () => {
   const setIsAuthorizated = useAuthorizationSlice((state) => state.setIsAuthorizated)
   const setAccessToken = useAuthorizationSlice((state) => state.setAccessToken)
   const setDoesRequireReAuth = useAuthorizationSlice((state) => state.setDoesRequireReAuth)
-  const loadPassphrases = usePassphrasesSlice((state) => state.loadPassphrases)
   const addNotification = useNotificationSlice((state) => state.addNotification)
   const [mood, setMood] = useState<number>(Math.floor(Math.random() * moods.length))
 
@@ -100,20 +98,8 @@ const WinLogin: FC = () => {
               () => setDoesRequireReAuth(true),
               60 * 10 * 1000 // This is the expiration time of the JWT.
             )
-
-            Service.fetchAll(
-              jwt
-            ).then((response) => {
-              if (response.status !== 0) return addNotification({
-                icon: <IconMoodLookDown size={32} />,
-                title: "Could't fetch passphrases",
-                type: "error",
-                message: StringHelper.removeUnixErrorPrefix(response.stderr)
-              })
-              loadPassphrases(JSON.parse(response.stdout))
-              setIsAuthorizated(true)
-              navigate("/dashboard")
-            })
+            navigate("/dashboard")
+            setIsAuthorizated(true)
           }).then(() =>
             setMood(Math.floor(Math.random() * moods.length))
           ).finally(() =>
