@@ -5,7 +5,6 @@ import Service from "../../services"
 import { useAuthorizationSlice } from "../../stores/authorization"
 import { useNotificationSlice } from "../../stores/notification"
 import { IconBox, IconFlame, IconTrash } from "@tabler/icons-react"
-import { usePassphrasesSlice } from "../../stores/passphrases"
 import { useNavigate } from "react-router-dom"
 import StringHelper from "../../helpers/string"
 
@@ -18,7 +17,6 @@ const PassphraseDeleteButton: FC<IPassphraseDeleteButtonProps> = ({ id }) => {
 
   const accessToken = useAuthorizationSlice(state => state.accessToken)
   const addNotification = useNotificationSlice(state => state.addNotification)
-  const deletePassphrase = usePassphrasesSlice(state => state.deletePassphrase)
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
@@ -59,8 +57,6 @@ const PassphraseDeleteButton: FC<IPassphraseDeleteButtonProps> = ({ id }) => {
               ? "success"
               : "error"
           })
-          ).then(() =>
-            deletePassphrase(id)
           ).then(() =>
             navigate("/passphrases")
           ).finally(() =>

@@ -10,7 +10,6 @@ import StringHelper from "../../helpers/string"
 import Service from "../../services"
 import { useAuthorizationSlice } from "../../stores/authorization"
 import { useNotificationSlice } from "../../stores/notification"
-import { usePassphrasesSlice } from "../../stores/passphrases"
 import { ReadWriteDatabaseEntry } from "../../types/common"
 import Button from "../form/Button"
 import Input from "../form/Input"
@@ -34,7 +33,6 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
   const navigate = useNavigate()
 
   const accessToken = useAuthorizationSlice(state => state.accessToken)
-  const updatePassphrase = usePassphrasesSlice(state => state.updatePassphrase)
   const addNotification = useNotificationSlice(state => state.addNotification)
 
   return <Formik
@@ -56,7 +54,6 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
           title: "Failed to update passphrase",
           message: StringHelper.removeUnixErrorPrefix(response.stderr)
         })
-        updatePassphrase(id, values)
         addNotification({
           type: "success",
           title: "Passphrase updated",
