@@ -1,18 +1,44 @@
 import { useAutoAnimate } from "@formkit/auto-animate/react"
-import { IconSearch } from "@tabler/icons-react"
+import { IconMoodLookDown, IconSearch } from "@tabler/icons-react"
 import { AnimatePresence, motion } from "framer-motion"
-import { FC, useState } from "react"
-import { usePassphrasesSlice } from "../../stores/passphrases"
+import { FC, useEffect, useState } from "react"
 import { ListableDatabaseEntry } from "../../types/common"
 import FancyInput from "../form/FancyInput"
 import PassphraseCard from "./PassphraseCard"
+import Service from "../../services"
+import { useAuthorizationSlice } from "../../stores/authorization"
+import { useNotificationSlice } from "../../stores/notification"
+import StringHelper from "../../helpers/string"
+import Loading from "../layout/Loading"
 
 const PassphraseList: FC = () => {
-  const passphrases = usePassphrasesSlice((state) => state.passphrases)
 
   const [autoAnimateRef] = useAutoAnimate()
 
+  const accessToken = useAuthorizationSlice((state) => state.accessToken)
+  const addNotification = useNotificationSlice((state) => state.addNotification)
+  const [passphrases, setPassphrases] = useState<ListableDatabaseEntry[] | null>(null)
+
   const [searchTerm, setSearchTerm] = useState<string>("")
+
+  useEffect(() => {
+    Service.fetchAll(
+      accessToken
+    ).then((response) => {
+      if (response.status === 0) return setPassphrases(
+        StringHelper.deserialize<ListableDatabaseEntry[]>(response.stdout)
+      )
+      addNotification({
+        icon: <IconMoodLookDown size={32} />,
+        title: "Could't fetch passphrases",
+        type: "error",
+        message: StringHelper.removeUnixErrorPrefix(response.stderr)
+      })
+      setPassphrases([])
+    })
+  }, [])
+
+  if (passphrases === null) return <Loading />
 
   const filteredPassphrases = passphrases.filter((passphrase: ListableDatabaseEntry) => {
     const search = searchTerm.toLowerCase()

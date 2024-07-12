@@ -1,6 +1,6 @@
 import { IconAlertCircle, IconCheck } from "@tabler/icons-react"
 import classNames from "classnames"
-import { FC, ReactNode, TextareaHTMLAttributes, useRef, useState } from "react"
+import { FC, ReactNode, TextareaHTMLAttributes, useEffect, useRef, useState } from "react"
 
 interface ITextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
   label: string
@@ -21,6 +21,10 @@ const TextArea: FC<ITextAreaProps> = ({
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [isFilled, setIsFilled] = useState<boolean>(Boolean(props.value))
   const selfRef = useRef<HTMLTextAreaElement>(null)
+
+  useEffect(() => {
+    setIsFilled(Boolean(props.value))
+  }, [props.value])
 
   return (
     <div className={classNames({

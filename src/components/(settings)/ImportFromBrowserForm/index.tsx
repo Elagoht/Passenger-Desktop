@@ -1,17 +1,17 @@
 import { IconBrandChrome, IconBrandFirefox, IconBrandSafari, IconFileImport, IconLoader, IconSelector } from "@tabler/icons-react"
 import { Form, Formik } from "formik"
-import { FC } from "react"
+import Papa from "papaparse"
+import { FC, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import StringHelper from "../../../helpers/string"
 import { validationImportFromBrowserForm } from "../../../lib/validations/importExportForms"
 import Service from "../../../services"
 import { useAuthorizationSlice } from "../../../stores/authorization"
 import { useNotificationSlice } from "../../../stores/notification"
-import { usePassphrasesSlice } from "../../../stores/passphrases"
-import { ReadWriteDatabaseEntry } from "../../../types/common"
+import { CSVLineEntry } from "../../../types/common"
 import Button from "../../form/Button"
 import FileInput from "../../form/FileInput"
 import Select from "../../form/Select"
+import EditImportDataModal from "./EditImportDataModal"
 
 const browserIcons = {
   "": IconSelector,
@@ -23,7 +23,9 @@ const browserIcons = {
 const ImportFromBrowserForm: FC = () => {
   const accessToken = useAuthorizationSlice((state) => state.accessToken)
   const addNotification = useNotificationSlice((state) => state.addNotification)
-  const loadPassphrases = usePassphrasesSlice((state) => state.loadPassphrases)
+  const [editModal, setEditModal] = useState<boolean>(false)
+  const [acceptableEntries, setAcceptableEntries] = useState<CSVLineEntry[]>([])
+  const [badEntries, setBadEntries] = useState<CSVLineEntry[]>([])
 
   const navigate = useNavigate()
 
@@ -42,29 +44,32 @@ const ImportFromBrowserForm: FC = () => {
         values.browser,
         await values.file!.text()
       ).then((response) => {
-        if (response.status !== 0) return addNotification({
-          type: "error", // If unsuccessful, show an error notification
-          message: StringHelper.removeUnixErrorPrefix(response.stderr)
-        })
-        addNotification({ // If successful, show a success notification
-          type: "success",
-          message: StringHelper.removeUnixErrorPrefix(response.stdout)
-        })
-        Service.fetchAll( // Fetch all passphrases
-          accessToken
-        ).then((response) => {
-          if (response.status !== 0) return addNotification({
-            type: "error", // If unsuccessful, show an error notification
-            message: StringHelper.removeUnixErrorPrefix(response.stderr)
+        if (response.status === 0) {
+          addNotification({
+            message: response.stdout
           })
-          loadPassphrases(StringHelper.deserialize<ReadWriteDatabaseEntry[]>(
-            response.stdout // If successful, load the new passphrases
-          ))
-        }).finally( // Navigate to the passphrases page
-          () => navigate("/passphrases")
-        )
-      }).finally( // Fallback for any error
-        () => setSubmitting(false)
+          return navigate("/passphrases")
+        }
+        /**
+         * If unsuccessful, there should be an stderr that contains bad entries,
+         * and an stdout that contains the accaptable entries.
+         * Acceptable entries will NOT be saved to the database.
+         * Outputs will be in formatted as CSV with headers.
+         */
+        const badEntries = Papa.parse<CSVLineEntry>(
+          response.stderr,
+          { skipEmptyLines: true }
+        ).data
+        badEntries.shift() // Remove first description
+        badEntries.pop() // Remove second description
+        setBadEntries(badEntries)
+        setAcceptableEntries(Papa.parse<CSVLineEntry>(
+          response.stdout,
+          { skipEmptyLines: true }
+        ).data)
+        setEditModal(true)
+      }).then(() =>
+        setSubmitting(false)
       )
     }
   >
@@ -89,7 +94,7 @@ const ImportFromBrowserForm: FC = () => {
           error={touched.browser && errors.browser}
           success={!errors.browser && touched.browser}
           disabled={isSubmitting}
-          message="Chromium covers Chrome, Edge, Brave, Edge, Vivaldi etc."
+          message="Chromium covers Chrome, Edge, Brave, Opera, Vivaldi etc."
         >
           <option value="chromium">Chromium</option>
           <option value="firefox">Firefox</option>
@@ -118,9 +123,50 @@ const ImportFromBrowserForm: FC = () => {
         >
           Secure Passwords
         </Button>
+
+        <EditImportDataModal
+          acceptableCount={acceptableEntries.length}
+          badEntries={badEntries}
+          setBadEntries={setBadEntries}
+          isOpen={editModal}
+          closeModal={() => setEditModal(false)}
+          onContinue={(editedBadEntries: CSVLineEntry[]) => {
+            setEditModal(false)
+            // Continue with the edited entries
+            Service.import(
+              accessToken,
+              values.browser,
+              Papa.unparse([
+                ...acceptableEntries,
+                ...editedBadEntries
+              ])
+            ).then((response) => {
+              // Loop until successful import
+              if (response.status === 0) {
+                addNotification({
+                  message: response.stdout
+                })
+                return navigate("/passphrases")
+              }
+              // If unsuccessful, set the new bad entries
+              const badEntries = Papa.parse<CSVLineEntry>(
+                response.stderr,
+                { skipEmptyLines: true }
+              ).data
+              badEntries.shift() // Remove first description
+              badEntries.pop() // Remove second description
+              setBadEntries(badEntries)
+              setAcceptableEntries(Papa.parse<CSVLineEntry>(
+                response.stdout,
+                { skipEmptyLines: true }
+              ).data)
+              setEditModal(true)
+            })
+          }}
+        />
       </Form>
     }
-  </Formik >
+  </Formik>
 }
 
 export default ImportFromBrowserForm

@@ -8,7 +8,6 @@ import validationAddPassphraseForm from "../../lib/validations/passphraseForms"
 import Service from "../../services"
 import { useAuthorizationSlice } from "../../stores/authorization"
 import { useNotificationSlice } from "../../stores/notification"
-import { usePassphrasesSlice } from "../../stores/passphrases"
 import Button from "../form/Button"
 import Input from "../form/Input"
 import PassphraseSuggestion from "../form/PassphraseSuggestion"
@@ -26,7 +25,6 @@ export const formFields = {
 
 const AddPassphraseForm: FC = () => {
   const accessToken = useAuthorizationSlice(state => state.accessToken)
-  const addPassphrase = usePassphrasesSlice(state => state.addPassphrase)
   const addNotification = useNotificationSlice(state => state.addNotification)
   const navigate = useNavigate()
 
@@ -49,7 +47,6 @@ const AddPassphraseForm: FC = () => {
           title: "Failed to add passphrase",
           message: StringHelper.removeUnixErrorPrefix(response.stderr)
         })
-        addPassphrase(JSON.parse(response.stdout)) // Update the store
         addNotification({
           type: "success",
           title: "Passphrase added",

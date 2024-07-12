@@ -64,6 +64,7 @@ const Modal: FC<IModalProps> = ({
                 .map((button, index) =>
                   <Button
                     key={index}
+                    type="button" // Prevent form submission by default 
                     {...button}
                   />
                 )
