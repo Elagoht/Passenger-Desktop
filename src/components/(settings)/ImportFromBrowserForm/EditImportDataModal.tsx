@@ -54,7 +54,7 @@ const EditImportDataModal: FC<EditImportDataModalProps> = ({
         onClick: closeModal
       }, {
         type: "button",
-        children: `Continue with ${Object
+        children: `Go with ${Object
           .values(selectedEntries)
           .filter(Boolean).length
           + acceptableCount
