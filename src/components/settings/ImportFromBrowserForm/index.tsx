@@ -161,6 +161,11 @@ const ImportFromBrowserForm: FC = () => {
                 response.stdout,
                 { skipEmptyLines: true }
               ).data)
+              /*
+               * Then open the modal again.
+               * This will create a loop
+               * until successful import.
+               */
               setEditModal(true)
             })
           }}
