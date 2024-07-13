@@ -1,71 +1,72 @@
-import { IconDatabaseExclamation, IconDeviceFloppy } from "@tabler/icons-react"
-import { Form, Formik } from "formik"
-import { FC, useEffect, useState } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import Button from "@/components/formElements/Button"
+import Input from "@/components/formElements/Input"
+import ConstantPairDeleteButton from "@/components/windows/settings/ConsantPairs/ConstantPairDeleteButton"
 import FormikHelper from "@/helpers/formik"
 import StringHelper from "@/helpers/string"
 import { useAuthorizationSlice } from "@/lib/stores/authorization"
 import { useNotificationSlice } from "@/lib/stores/notification"
 import { validationConstantPairForms } from "@/lib/validations/constantPairForms"
-import { modifyConstantPair, rememberConstantPair } from "@/services/constantPairServices"
+import { declareConstantPair, modifyConstantPair } from "@/services/constantPairServices"
 import { ConstantPair } from "@/types/common"
-import Button from "@/components/formElements/Button"
-import Input from "@/components/formElements/Input"
-import Loading from "@/components/layout/Loading"
-import ConstantPairDeleteButton from "@/components/windows/settings/ConsantPairs/ConstantPairDeleteButton"
+import { IconDatabaseExclamation, IconDeviceFloppy } from "@tabler/icons-react"
+import { Form, Formik } from "formik"
+import { FC } from "react"
+import { useNavigate } from "react-router-dom"
 
-const ConstantPairForm: FC = () => {
-  const params = useParams<{ key: string }>()
+type IConstantPairFormProps = {
+  mode: "declare"
+  existing?: undefined
+} | {
+  mode: "modify"
+  existing: ConstantPair
+}
+
+const ConstantPairForm: FC<IConstantPairFormProps> = ({ mode, existing }) => {
   const navigate = useNavigate()
 
   const accessToken = useAuthorizationSlice((state) => state.accessToken)
   const addNotification = useNotificationSlice((state) => state.addNotification)
 
-  const [constant, setConstant] = useState<ConstantPair>()
-
-  useEffect(() => {
-    rememberConstantPair(
-      accessToken,
-      params.key!
-    ).then((response) => {
-      if (response.status !== 0) return addNotification({
-        type: "error",
-        message: StringHelper.removeUnixErrorPrefix(response.stderr),
-        icon: <IconDatabaseExclamation />
-      })
-      setConstant(StringHelper.deserialize<ConstantPair>(response.stdout))
-    })
-  }, [])
-
-  if (!constant) return <Loading />
+  const formAction = (values: Record<string, string>) =>
+    mode === "declare"
+      ? declareConstantPair(accessToken, values.key, values.value)
+      : modifyConstantPair(accessToken, existing.key, values.key, values.value)
 
   return <Formik
-    initialValues={constant}
+    initialValues={
+      mode === "declare"
+        ? { key: "", value: "" }
+        : { key: existing.key, value: existing.value }
+    }
     validationSchema={validationConstantPairForms}
-    onSubmit={(values, { setSubmitting }) => {
-      modifyConstantPair(
-        accessToken,
-        params.key!,
-        values.key,
-        values.value
-      ).then((response) => {
+    onSubmit={(values, { setSubmitting }) => formAction(values)
+      .then((response) => {
         if (response.status !== 0) return addNotification({
           type: "error",
           message: StringHelper.removeUnixErrorPrefix(response.stdout),
-          title: "Couldn't modify at the moment",
+          title: `Couldn't ${mode === "declare"
+            ? "declare"
+            : "modify"
+            } at the moment`,
           icon: <IconDatabaseExclamation />
         })
         addNotification({
           type: "success",
-          message: "Constant pair modified successfully",
-          title: "Modified Constant Pair",
+          message: `Constant pair is ${mode === "declare"
+            ? "ready to use"
+            : "modified"
+            }`,
+          title: `${mode === "declare"
+            ? "Declared"
+            : "Modified"
+            } Constant Pair`,
           icon: <IconDeviceFloppy />
         })
         navigate("/settings/constant-pairs")
       }).finally(() =>
         setSubmitting(false)
       )
-    }}
+    }
   >
     {({
       values,
@@ -95,16 +96,19 @@ const ConstantPairForm: FC = () => {
 
         <Button
           color="success"
-          disabled={!FormikHelper.isEdited(values, constant)}
+          disabled={mode === "modify" && !FormikHelper.isEdited(values, existing)}
           rightIcon={<IconDeviceFloppy size={24} />}
         >
-          Modify
+          {mode === "declare"
+            ? "Declare"
+            : "Modify"
+          }
         </Button>
 
         <ConstantPairDeleteButton constantKey={values.key} />
       </Form>
     }
-  </Formik>
+  </Formik >
 }
 
 export default ConstantPairForm
