@@ -10,6 +10,7 @@ import { useAuthorizationSlice } from "../../lib/stores/authorization"
 import { useNotificationSlice } from "../../lib/stores/notification"
 import StringHelper from "../../helpers/string"
 import Loading from "../layout/Loading"
+import { Maybe } from "../../types/utility"
 
 const PassphraseList: FC = () => {
 
@@ -17,7 +18,7 @@ const PassphraseList: FC = () => {
 
   const accessToken = useAuthorizationSlice((state) => state.accessToken)
   const addNotification = useNotificationSlice((state) => state.addNotification)
-  const [passphrases, setPassphrases] = useState<ListableDatabaseEntry[] | null>(null)
+  const [passphrases, setPassphrases] = useState<Maybe<ListableDatabaseEntry[]>>(null)
 
   const [searchTerm, setSearchTerm] = useState<string>("")
 

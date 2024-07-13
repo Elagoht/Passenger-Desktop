@@ -12,6 +12,7 @@ import Button from "../../form/Button"
 import FileInput from "../../form/FileInput"
 import Select from "../../form/Select"
 import EditImportDataModal from "./EditImportDataModal"
+import { Maybe } from "yup"
 
 const browserIcons = {
   "": IconSelector,
@@ -35,7 +36,7 @@ const ImportFromBrowserForm: FC = () => {
       file: null
     } as {
       browser: string,
-      file: File | null
+      file: Maybe<File>
     }}
     validationSchema={validationImportFromBrowserForm}
     onSubmit={async (values, { setSubmitting }) =>

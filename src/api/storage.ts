@@ -1,4 +1,5 @@
 import { Store } from "tauri-plugin-store-api"
+import { Maybe } from "yup"
 
 /**
  * Represents a storage class that provides methods for reading and writing data.
@@ -28,7 +29,7 @@ class Storage {
    * @param key - The key to retrieve the value for.
    * @returns A promise that resolves to the value associated with the key, or null if the key doesn't exist.
    */
-  read = async (key: string): Promise<string | null> =>
+  read = async (key: string): Promise<Maybe<string>> =>
     await this.store.get(key)
 }
 
