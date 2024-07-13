@@ -46,7 +46,7 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
     onSubmit={(values, { setSubmitting }) => {
       updateEntry(
         accessToken,
-        id!, // If null, the form already not shown
+        id, // If null, the form already not shown
         values
       ).then((response) => {
         if (response.status !== 0) return addNotification({

@@ -18,7 +18,7 @@ const IdentityCopyButton: FC<IIdentityCopyButtonProps> = ({ id }) => {
   return <button
     onClick={() => fetchEntry(
       accessToken,
-      id!
+      id
     ).then(async (response) => {
       if (response.status !== 0) return addNotification({
         type: "error",
