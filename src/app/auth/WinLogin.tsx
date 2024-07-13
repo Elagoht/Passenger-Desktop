@@ -2,14 +2,14 @@ import { IconKey, IconLockOpen, IconMoodBoy, IconMoodEmpty, IconMoodHappy, IconM
 import { Form, Formik } from "formik"
 import { FC, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import Service from "../../services/generationServices"
 import Button from "../../components/form/Button"
 import Input from "../../components/form/Input"
 import Window from "../../components/layout/Window"
 import StringHelper from "../../helpers/string"
-import { validationAuthLoginForm } from "../../lib/validations/authForms"
 import { useAuthorizationSlice } from "../../lib/stores/authorization"
 import { useNotificationSlice } from "../../lib/stores/notification"
+import { validationAuthLoginForm } from "../../lib/validations/authForms"
+import { loginToPassenger } from "../../services/authServices"
 
 const moods = [
   IconMoodSmileBeam,
@@ -79,7 +79,7 @@ const WinLogin: FC = () => {
            *   })
            */
           localStorage.setItem("SECRET_KEY", "A VERY STRONG SECRET KEY")
-          Service.login(
+          loginToPassenger(
             values.username,
             values.passphrase
           ).then((response) => {

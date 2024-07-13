@@ -4,11 +4,11 @@ import { writeTextFile } from "@tauri-apps/api/fs"
 import { Form, Formik } from "formik"
 import { FC } from "react"
 import StringHelper from "../../../helpers/string"
-import Service from "../../../services/generationServices"
 import { useAuthorizationSlice } from "../../../lib/stores/authorization"
 import { useNotificationSlice } from "../../../lib/stores/notification"
 import Button from "../../form/Button"
 import Select from "../../form/Select"
+import { exportToCSV } from "../../../services/dataTransferServices"
 
 const ExportTypeIcons = {
   bare: IconLockOpen,
@@ -22,7 +22,7 @@ const ExportToCSVForm: FC = () => {
   return <Formik
     initialValues={{ exportType: "bare" }}
     onSubmit={(values, { setSubmitting }) => {
-      Service.export( // Get the export data from the CLI
+      exportToCSV( // Get the export data from the CLI
         accessToken,
         values.exportType
       ).then((response) => {

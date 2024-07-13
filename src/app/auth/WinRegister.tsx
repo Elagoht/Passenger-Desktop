@@ -2,14 +2,14 @@ import { IconCheck, IconKey, IconLockCog, IconMoodAnnoyed, IconMoodLookDown, Ico
 import { Form, Formik } from "formik"
 import { FC } from "react"
 import { Link } from "react-router-dom"
-import Service from "../../services/generationServices"
 import Button from "../../components/form/Button"
 import Input from "../../components/form/Input"
 import Window from "../../components/layout/Window"
 import StringHelper from "../../helpers/string"
-import { validationAuthRegisterForm } from "../../lib/validations/authForms"
 import { useAuthorizationSlice } from "../../lib/stores/authorization"
 import { useNotificationSlice } from "../../lib/stores/notification"
+import { validationAuthRegisterForm } from "../../lib/validations/authForms"
+import { loginToPassenger, registerToPassenger } from "../../services/authServices"
 
 const criterias = [{
   regex: /.{12,}/,
@@ -77,7 +77,7 @@ const WinRegister: FC = () => {
            *   })
            */
           localStorage.setItem("SECRET_KEY", "A VERY STRONG SECRET KEY")
-          Service.register(
+          registerToPassenger(
             values.username,
             values.passphrase
           ).then((output) => {
@@ -87,7 +87,7 @@ const WinRegister: FC = () => {
               type: "error",
               message: StringHelper.removeUnixErrorPrefix(output.stderr)
             })
-            Service.login(
+            loginToPassenger(
               values.username,
               values.passphrase
             ).then((response) => {

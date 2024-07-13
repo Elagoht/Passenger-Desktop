@@ -4,12 +4,12 @@ import { FC } from "react"
 import { useNavigate } from "react-router-dom"
 import StringHelper from "../../../helpers/string"
 import { validationConstantPairForms } from "../../../lib/validations/constantPairForms"
-import Service from "../../../services/generationServices"
 import { useAuthorizationSlice } from "../../../lib/stores/authorization"
 import { useNotificationSlice } from "../../../lib/stores/notification"
 import Button from "../../form/Button"
 import Input from "../../form/Input"
 import ConstantPairDeleteButton from "./ConstantPairDeleteButton"
+import { declareConstantPair } from "../../../services/constantPairServices"
 
 const ConstantPairDeclareForm: FC = () => {
   const navigate = useNavigate()
@@ -24,7 +24,7 @@ const ConstantPairDeclareForm: FC = () => {
     }}
     validationSchema={validationConstantPairForms}
     onSubmit={(values, { setSubmitting }) => {
-      Service.declare(
+      declareConstantPair(
         accessToken,
         values.key,
         values.value

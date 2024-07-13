@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom"
 import Strength from "../../helpers/strength"
 import StringHelper from "../../helpers/string"
 import validationAddPassphraseForm from "../../lib/validations/passphraseForms"
-import Service from "../../services/generationServices"
 import { useAuthorizationSlice } from "../../lib/stores/authorization"
 import { useNotificationSlice } from "../../lib/stores/notification"
 import Button from "../form/Button"
@@ -15,6 +14,7 @@ import TextArea from "../form/TextArea"
 import Meter from "../statistics/Meter"
 import classNames from "classnames"
 import { Link } from "react-router-dom"
+import { createEntry } from "../../services/passphraseServices"
 
 export const formFields = {
   platform: IconTag,
@@ -38,7 +38,7 @@ const AddPassphraseForm: FC = () => {
     }}
     validationSchema={validationAddPassphraseForm}
     onSubmit={(values, { setSubmitting }) => {
-      Service.create(
+      createEntry(
         accessToken,
         values
       ).then((response) => {

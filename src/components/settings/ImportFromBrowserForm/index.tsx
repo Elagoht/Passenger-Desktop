@@ -4,7 +4,6 @@ import Papa from "papaparse"
 import { FC, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { validationImportFromBrowserForm } from "../../../lib/validations/importExportForms"
-import Service from "../../../services/generationServices"
 import { useAuthorizationSlice } from "../../../lib/stores/authorization"
 import { useNotificationSlice } from "../../../lib/stores/notification"
 import { CSVLineEntry } from "../../../types/common"
@@ -13,6 +12,7 @@ import FileInput from "../../form/FileInput"
 import Select from "../../form/Select"
 import EditImportDataModal from "./EditImportDataModal"
 import { Maybe } from "yup"
+import { importFromBrowser } from "../../../services/dataTransferServices"
 
 const browserIcons = {
   "": IconSelector,
@@ -40,7 +40,7 @@ const ImportFromBrowserForm: FC = () => {
     }}
     validationSchema={validationImportFromBrowserForm}
     onSubmit={async (values, { setSubmitting }) =>
-      Service.import( // Import passwords from the browser
+      importFromBrowser( // Import passwords from the browser
         accessToken,
         values.browser,
         await values.file!.text()
@@ -134,7 +134,7 @@ const ImportFromBrowserForm: FC = () => {
           onContinue={(editedBadEntries: CSVLineEntry[]) => {
             setEditModal(false)
             // Continue with the edited entries
-            Service.import(
+            importFromBrowser(
               accessToken,
               values.browser,
               Papa.unparse([

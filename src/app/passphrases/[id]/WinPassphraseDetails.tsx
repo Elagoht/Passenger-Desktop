@@ -1,7 +1,6 @@
 import { IconArrowLeft, IconExternalLink } from "@tabler/icons-react"
 import { FC, useEffect, useState } from "react"
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
-import Service from "../../../services/generationServices"
 import PassphraseDeleteButton from "../../../components/passphrases/PassphraseDeleteButton"
 import PassphraseDetailsForm from "../../../components/passphrases/PassphraseDetailsForm"
 import Loading from "../../../components/layout/Loading"
@@ -11,6 +10,7 @@ import { useAuthorizationSlice } from "../../../lib/stores/authorization"
 import { useNotificationSlice } from "../../../lib/stores/notification"
 import { DatabaseEntry } from "../../../types/common"
 import { Maybe } from "../../../types/utility"
+import { fetchEntry } from "../../../services/passphraseServices"
 
 const WinPassphraseDetails: FC = () => {
   const params = useParams<{ id: string }>()
@@ -21,7 +21,7 @@ const WinPassphraseDetails: FC = () => {
   const [entry, setEntry] = useState<Maybe<DatabaseEntry>>(null)
 
   useEffect(() => {
-    Service.fetch(
+    fetchEntry(
       accessToken,
       params.id!
     ).then((response) => {

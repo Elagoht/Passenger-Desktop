@@ -4,7 +4,6 @@ import { FC, useEffect, useState } from "react"
 import { useNavigate, useParams } from "react-router-dom"
 import StringHelper from "../../../helpers/string"
 import { validationConstantPairForms } from "../../../lib/validations/constantPairForms"
-import Service from "../../../services/generationServices"
 import { useAuthorizationSlice } from "../../../lib/stores/authorization"
 import { useNotificationSlice } from "../../../lib/stores/notification"
 import { ConstantPair } from "../../../types/common"
@@ -13,6 +12,7 @@ import Input from "../../form/Input"
 import Loading from "../../layout/Loading"
 import ConstantPairDeleteButton from "./ConstantPairDeleteButton"
 import FormikHelper from "../../../helpers/formik"
+import { modifyConstantPair, rememberConstantPair } from "../../../services/constantPairServices"
 
 const ConstantPairForm: FC = () => {
   const params = useParams<{ key: string }>()
@@ -24,7 +24,7 @@ const ConstantPairForm: FC = () => {
   const [constant, setConstant] = useState<ConstantPair>()
 
   useEffect(() => {
-    Service.remember(
+    rememberConstantPair(
       accessToken,
       params.key!
     ).then((response) => {
@@ -43,7 +43,7 @@ const ConstantPairForm: FC = () => {
     initialValues={constant}
     validationSchema={validationConstantPairForms}
     onSubmit={(values, { setSubmitting }) => {
-      Service.modify(
+      modifyConstantPair(
         accessToken,
         params.key!,
         values.key,

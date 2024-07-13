@@ -7,7 +7,6 @@ import { formFields } from "../add-passphrase/AddPassphraseForm"
 import FormikHelper from "../../helpers/formik"
 import Strength from "../../helpers/strength"
 import StringHelper from "../../helpers/string"
-import Service from "../../services/generationServices"
 import { useAuthorizationSlice } from "../../lib/stores/authorization"
 import { useNotificationSlice } from "../../lib/stores/notification"
 import { ReadWriteDatabaseEntry } from "../../types/common"
@@ -16,6 +15,7 @@ import Input from "../form/Input"
 import PassphraseSuggestion from "../form/PassphraseSuggestion"
 import TextArea from "../form/TextArea"
 import Meter from "../statistics/Meter"
+import { updateEntry } from "../../services/passphraseServices"
 
 interface IPassphraseDetailsFormProps {
   id: ReadWriteDatabaseEntry["id"]
@@ -44,7 +44,7 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
       notes: notes || ""
     }}
     onSubmit={(values, { setSubmitting }) => {
-      Service.update(
+      updateEntry(
         accessToken,
         id!, // If null, the form already not shown
         values

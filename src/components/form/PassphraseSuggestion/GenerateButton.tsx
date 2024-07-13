@@ -1,9 +1,9 @@
 import { IconDice1, IconDice2, IconDice3, IconDice4, IconDice5, IconDice6 } from "@tabler/icons-react"
 import { FC, createElement, useState } from "react"
 import Button from "../Button"
-import Service from "../../../services/generationServices"
 import { useNotificationSlice } from "../../../lib/stores/notification"
 import StringHelper from "../../../helpers/string"
+import { generatePassphrase } from "../../../services/generationServices"
 
 interface IGenerateButtonProps {
   setFieldValue: (field: string, value: string) => void
@@ -37,7 +37,7 @@ const GenerateButton: FC<IGenerateButtonProps> = ({ setFieldValue }) => {
     type="button"
     variant="ghost"
     color="secondary"
-    onClick={() => Service.generate(
+    onClick={() => generatePassphrase(
       32
     ).then((response) => {
       if (response.status !== 0) return addNotification({

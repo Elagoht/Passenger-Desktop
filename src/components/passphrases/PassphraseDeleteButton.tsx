@@ -1,12 +1,12 @@
 import { FC, useState } from "react"
 import Modal from "../utility/Modal"
 import Button from "../form/Button"
-import Service from "../../services/generationServices"
 import { useAuthorizationSlice } from "../../lib/stores/authorization"
 import { useNotificationSlice } from "../../lib/stores/notification"
 import { IconBox, IconFlame, IconTrash } from "@tabler/icons-react"
 import { useNavigate } from "react-router-dom"
 import StringHelper from "../../helpers/string"
+import { deleteEntry } from "../../services/passphraseServices"
 
 interface IPassphraseDeleteButtonProps {
   id: string
@@ -43,7 +43,7 @@ const PassphraseDeleteButton: FC<IPassphraseDeleteButtonProps> = ({ id }) => {
           children: "Yes, Delete",
           rightIcon: <IconTrash size={24} />,
           color: "danger",
-          onClick: () => Service.delete(
+          onClick: () => deleteEntry(
             accessToken,
             id
           ).then((response) => addNotification({

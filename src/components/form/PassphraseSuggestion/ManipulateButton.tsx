@@ -1,9 +1,9 @@
 import { FC } from "react"
 import Button from "../Button"
 import { IconRotate } from "@tabler/icons-react"
-import Service from "../../../services/generationServices"
 import { useNotificationSlice } from "../../../lib/stores/notification"
 import StringHelper from "../../../helpers/string"
+import { manipulatePassphrase } from "../../../services/generationServices"
 
 interface IManipulateButtonProps {
   currentPassphrase: string
@@ -17,7 +17,7 @@ const ManipulateButton: FC<IManipulateButtonProps> = ({ currentPassphrase, setFi
     rightIcon={<IconRotate />}
     type="button"
     color="secondary"
-    onClick={() => Service.manipulate(
+    onClick={() => manipulatePassphrase(
       currentPassphrase
     ).then((response) => {
       if (response.status !== 0) return addNotification({

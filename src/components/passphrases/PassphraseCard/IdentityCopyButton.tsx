@@ -1,10 +1,11 @@
 import { IconCopyCheck, IconUser } from "@tabler/icons-react"
 import { FC } from "react"
 import StringHelper from "../../../helpers/string"
-import Service from "../../../services/generationServices"
 import { useAuthorizationSlice } from "../../../lib/stores/authorization"
 import { useNotificationSlice } from "../../../lib/stores/notification"
 import { ConstantPair, ListableDatabaseEntry, ReadWriteDatabaseEntry } from "../../../types/common"
+import { fetchEntry } from "../../../services/passphraseServices"
+import { rememberConstantPair } from "../../../services/constantPairServices"
 
 interface IIdentityCopyButtonProps {
   id: ListableDatabaseEntry["id"]
@@ -15,7 +16,7 @@ const IdentityCopyButton: FC<IIdentityCopyButtonProps> = ({ id }) => {
   const addNotification = useNotificationSlice(state => state.addNotification)
 
   return <button
-    onClick={() => Service.fetch(
+    onClick={() => fetchEntry(
       accessToken,
       id!
     ).then(async (response) => {
@@ -28,7 +29,7 @@ const IdentityCopyButton: FC<IIdentityCopyButtonProps> = ({ id }) => {
       const { identity } = StringHelper.deserialize<ReadWriteDatabaseEntry>(response.stdout)
 
       const result = identity.startsWith("_$")
-        ? await Service.remember(
+        ? await rememberConstantPair(
           accessToken,
           identity.substring(2)
         ).then((response) => {

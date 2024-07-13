@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from "react"
-import Service from "../../services/generationServices"
 import MostAccessed from "../../components/dashboard/MostAccessed"
 import StrengthMeter from "../../components/dashboard/StrengtMeter"
 import TotalCounts from "../../components/dashboard/TotalCounts"
@@ -11,6 +10,7 @@ import { Statistics } from "../../types/statistics"
 import MostUsedPassphrase from "../../components/dashboard/MostUsedPassphrase"
 import AverageLength from "../../components/dashboard/AverageLength"
 import StrengthDistributionChart from "../../components/dashboard/StrengthDistributionChart"
+import { getStatistics } from "../../services/reportServices"
 
 const WinDashboard: FC = () => {
   const accessToken = useAuthorizationSlice(state => state.accessToken)
@@ -34,7 +34,7 @@ const WinDashboard: FC = () => {
   }) // This is a placeholder for initial state
 
   useEffect(() => {
-    Service.stats(
+    getStatistics(
       accessToken
     ).then((response) => response.status === 0
       ? setStatistics(StringHelper.deserialize<Statistics>(response.stdout))

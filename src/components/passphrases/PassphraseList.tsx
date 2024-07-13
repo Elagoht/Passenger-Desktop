@@ -5,12 +5,12 @@ import { FC, useEffect, useState } from "react"
 import { ListableDatabaseEntry } from "../../types/common"
 import FancyInput from "../form/FancyInput"
 import PassphraseCard from "./PassphraseCard"
-import Service from "../../services/generationServices"
 import { useAuthorizationSlice } from "../../lib/stores/authorization"
 import { useNotificationSlice } from "../../lib/stores/notification"
 import StringHelper from "../../helpers/string"
 import Loading from "../layout/Loading"
 import { Maybe } from "../../types/utility"
+import { fetchAllEntries } from "../../services/passphraseServices"
 
 const PassphraseList: FC = () => {
 
@@ -23,7 +23,7 @@ const PassphraseList: FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("")
 
   useEffect(() => {
-    Service.fetchAll(
+    fetchAllEntries(
       accessToken
     ).then((response) => {
       if (response.status === 0) return setPassphrases(

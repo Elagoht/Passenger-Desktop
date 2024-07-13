@@ -1,13 +1,13 @@
 import { IconKey, IconLock, IconLockOpen, IconMoodLookDown, IconMoodSmile } from "@tabler/icons-react"
 import { Form, Formik } from "formik"
 import { FC } from "react"
-import Service from "../../services/generationServices"
 import StringHelper from "../../helpers/string"
 import { useAuthorizationSlice } from "../../lib/stores/authorization"
 import { useNotificationSlice } from "../../lib/stores/notification"
 import Button from "../form/Button"
 import Input from "../form/Input"
 import Modal from "../utility/Modal"
+import { loginToPassenger } from "../../services/authServices"
 
 const ReAuthModal: FC = () => {
   const doesRequireReAuth = useAuthorizationSlice(state => state.doesRequireReAuth)
@@ -27,7 +27,7 @@ const ReAuthModal: FC = () => {
         passphrase: ""
       }}
       onSubmit={(values, { setSubmitting, setValues }) =>
-        Service.login(
+        loginToPassenger(
           values.username,
           values.passphrase
         ).then((response) => {

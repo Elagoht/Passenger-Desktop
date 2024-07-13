@@ -2,12 +2,12 @@ import { FC, useState } from "react"
 import Button from "../../form/Button"
 import { IconBox, IconDatabaseExclamation, IconTrash } from "@tabler/icons-react"
 import { ConstantPair } from "../../../types/common"
-import Service from "../../../services/generationServices"
 import { useAuthorizationSlice } from "../../../lib/stores/authorization"
 import { useNotificationSlice } from "../../../lib/stores/notification"
 import { useNavigate } from "react-router-dom"
 import StringHelper from "../../../helpers/string"
 import Modal from "../../utility/Modal"
+import { forgetConstantPair } from "../../../services/constantPairServices"
 
 interface IConstantPairDeleteButtonProps {
   constantKey: ConstantPair["key"]
@@ -45,7 +45,7 @@ const ConstantPairDeleteButton: FC<IConstantPairDeleteButtonProps> = ({ constant
           children: "Yes, Delete",
           rightIcon: <IconTrash size={24} />,
           color: "danger",
-          onClick: () => Service.forget(
+          onClick: () => forgetConstantPair(
             accessToken,
             constantKey
           ).then((response) => {
