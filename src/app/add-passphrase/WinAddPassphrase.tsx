@@ -1,4 +1,4 @@
-import PassphraseEntryForm from "@/components/forms/ImportFromBrowserForm/PassphraseEntryForm"
+import PassphraseEntryForm from "@/components/forms/PassphraseEntryForm"
 import Window from "@/components/layout/Window"
 import { FC } from "react"
 

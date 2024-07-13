@@ -10,7 +10,7 @@ import { fetchEntry } from "@/services/passphraseServices"
 import { DatabaseEntry } from "@/types/common"
 import { Maybe } from "@/types/utility"
 import PassphraseDeleteButton from "@/components/windows/passphrases/PassphraseDeleteButton"
-import PassphraseEntryForm from "@/components/forms/ImportFromBrowserForm/PassphraseEntryForm"
+import PassphraseEntryForm from "@/components/forms/PassphraseEntryForm"
 
 const WinPassphraseDetails: FC = () => {
   const params = useParams<{ id: string }>()
