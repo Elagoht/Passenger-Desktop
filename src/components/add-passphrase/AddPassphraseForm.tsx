@@ -1,20 +1,19 @@
 import { IconDeviceFloppy, IconKey, IconLoader, IconNote, IconTag, IconUserCircle, IconWorld } from "@tabler/icons-react"
+import classNames from "classnames"
 import { Form, Formik } from "formik"
 import { FC } from "react"
-import { useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import Strength from "../../helpers/strength"
 import StringHelper from "../../helpers/string"
-import validationAddPassphraseForm from "../../lib/validations/passphraseForms"
 import { useAuthorizationSlice } from "../../lib/stores/authorization"
 import { useNotificationSlice } from "../../lib/stores/notification"
-import Button from "../form/Button"
-import Input from "../form/Input"
-import PassphraseSuggestion from "../form/PassphraseSuggestion"
-import TextArea from "../form/TextArea"
-import Meter from "../statistics/Meter"
-import classNames from "classnames"
-import { Link } from "react-router-dom"
+import validationAddPassphraseForm from "../../lib/validations/passphraseForms"
 import { createEntry } from "../../services/passphraseServices"
+import Button from "../formElements/Button"
+import Input from "../formElements/Input"
+import PassphraseSuggestion from "../formElements/PassphraseSuggestion"
+import TextArea from "../formElements/TextArea"
+import Meter from "../statistics/Meter"
 
 export const formFields = {
   platform: IconTag,
@@ -24,9 +23,9 @@ export const formFields = {
 }
 
 const AddPassphraseForm: FC = () => {
+  const navigate = useNavigate()
   const accessToken = useAuthorizationSlice(state => state.accessToken)
   const addNotification = useNotificationSlice(state => state.addNotification)
-  const navigate = useNavigate()
 
   return <Formik
     initialValues={{

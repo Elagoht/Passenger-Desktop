@@ -1,5 +1,5 @@
 import { FC, useState } from "react"
-import Button from "../../form/Button"
+import Button from "../../formElements/Button"
 import { IconBox, IconDatabaseExclamation, IconTrash } from "@tabler/icons-react"
 import { ConstantPair } from "../../../types/common"
 import { useAuthorizationSlice } from "../../../lib/stores/authorization"

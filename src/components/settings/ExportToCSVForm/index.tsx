@@ -6,8 +6,8 @@ import { FC } from "react"
 import StringHelper from "../../../helpers/string"
 import { useAuthorizationSlice } from "../../../lib/stores/authorization"
 import { useNotificationSlice } from "../../../lib/stores/notification"
-import Button from "../../form/Button"
-import Select from "../../form/Select"
+import Button from "../../formElements/Button"
+import Select from "../../formElements/Select"
 import { exportToCSV } from "../../../services/dataTransferServices"
 
 const ExportTypeIcons = {

@@ -1,6 +1,6 @@
 import { FC, useState } from "react"
 import Modal from "../utility/Modal"
-import Button from "../form/Button"
+import Button from "../formElements/Button"
 import { useAuthorizationSlice } from "../../lib/stores/authorization"
 import { useNotificationSlice } from "../../lib/stores/notification"
 import { IconBox, IconFlame, IconTrash } from "@tabler/icons-react"

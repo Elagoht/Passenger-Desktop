@@ -7,8 +7,8 @@ import { useAuthorizationSlice } from "../../lib/stores/authorization"
 import { useNotificationSlice } from "../../lib/stores/notification"
 import StringHelper from "../../helpers/string"
 import { loginToPassenger, registerToPassenger } from "../../services/authServices"
-import Input from "../form/Input"
-import Button from "../form/Button"
+import Input from "../formElements/Input"
+import Button from "../formElements/Button"
 import { Link } from "react-router-dom"
 
 interface IAuthFormProps {

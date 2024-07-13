@@ -3,19 +3,19 @@ import classNames from "classnames"
 import { Form, Formik } from "formik"
 import { FC } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { formFields } from "../add-passphrase/AddPassphraseForm"
 import FormikHelper from "../../helpers/formik"
 import Strength from "../../helpers/strength"
 import StringHelper from "../../helpers/string"
 import { useAuthorizationSlice } from "../../lib/stores/authorization"
 import { useNotificationSlice } from "../../lib/stores/notification"
-import { ReadWriteDatabaseEntry } from "../../types/common"
-import Button from "../form/Button"
-import Input from "../form/Input"
-import PassphraseSuggestion from "../form/PassphraseSuggestion"
-import TextArea from "../form/TextArea"
-import Meter from "../statistics/Meter"
 import { updateEntry } from "../../services/passphraseServices"
+import { ReadWriteDatabaseEntry } from "../../types/common"
+import { formFields } from "../add-passphrase/AddPassphraseForm"
+import Button from "../formElements/Button"
+import Input from "../formElements/Input"
+import PassphraseSuggestion from "../formElements/PassphraseSuggestion"
+import TextArea from "../formElements/TextArea"
+import Meter from "../statistics/Meter"
 
 interface IPassphraseDetailsFormProps {
   id: ReadWriteDatabaseEntry["id"]
@@ -29,9 +29,7 @@ interface IPassphraseDetailsFormProps {
 const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
   id, platform, identity, url, passphrase, notes
 }) => {
-
   const navigate = useNavigate()
-
   const accessToken = useAuthorizationSlice(state => state.accessToken)
   const addNotification = useNotificationSlice(state => state.addNotification)
 
