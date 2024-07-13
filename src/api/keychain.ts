@@ -1,4 +1,5 @@
 import { invoke } from "@tauri-apps/api/tauri"
+import { Maybe } from "yup"
 
 class KeyRing {
 
@@ -19,7 +20,7 @@ class KeyRing {
     }
   }
 
-  public static read = async (username: string): Promise<string | null> => {
+  public static read = async (username: string): Promise<Maybe<string>> => {
     try {
       return await invoke(
         "get_key",

@@ -4,4 +4,4 @@ type MutableKeysOf<T> = {
 
 export type Mutable<T> = Pick<T, MutableKeysOf<T>>;
 export type SingleOrMore<T> = T | T[]
-export type Maybe<T> = T | null | undefined
+export type Maybe<T> = T | null
