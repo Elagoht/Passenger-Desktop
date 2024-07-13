@@ -1,7 +1,7 @@
+import ConstantPairForm from "@/components/forms/ConstantPairForm"
+import GoBackHeader from "@/components/layout/GoBackHeader"
+import Window from "@/components/layout/Window"
 import { FC } from "react"
-import GoBackHeader from "../../../../components/layout/GoBackHeader"
-import Window from "../../../../components/layout/Window"
-import ConstantPairDeclareForm from "../../../../components/settings/ConsantPairs/ConstantPairDeclareForm"
 
 const WinNewConstantPair: FC = () => {
   return <Window compact>
@@ -10,7 +10,7 @@ const WinNewConstantPair: FC = () => {
       title="New Constant Pair"
     />
 
-    <ConstantPairDeclareForm />
+    <ConstantPairForm mode="declare" />
   </Window>
 }
 

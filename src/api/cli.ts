@@ -1,5 +1,5 @@
 import { ChildProcess, Command } from "@tauri-apps/api/shell"
-import StringHelper from "../helpers/string"
+import StringHelper from "@/helpers/string"
 
 export type Output = {
   status: number

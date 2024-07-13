@@ -1,16 +1,16 @@
 import { IconArrowLeft, IconExternalLink } from "@tabler/icons-react"
 import { FC, useEffect, useState } from "react"
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
-import PassphraseDeleteButton from "../../../components/passphrases/PassphraseDeleteButton"
-import PassphraseDetailsForm from "../../../components/passphrases/PassphraseDetailsForm"
-import Loading from "../../../components/layout/Loading"
-import Window from "../../../components/layout/Window"
-import StringHelper from "../../../helpers/string"
-import { useAuthorizationSlice } from "../../../lib/stores/authorization"
-import { useNotificationSlice } from "../../../lib/stores/notification"
-import { DatabaseEntry } from "../../../types/common"
-import { Maybe } from "../../../types/utility"
-import { fetchEntry } from "../../../services/passphraseServices"
+import Loading from "@/components/layout/Loading"
+import Window from "@/components/layout/Window"
+import StringHelper from "@/helpers/string"
+import { useAuthorizationSlice } from "@/lib/stores/authorization"
+import { useNotificationSlice } from "@/lib/stores/notification"
+import { fetchEntry } from "@/services/passphraseServices"
+import { DatabaseEntry } from "@/types/common"
+import { Maybe } from "@/types/utility"
+import PassphraseDeleteButton from "@/components/windows/passphrases/PassphraseDeleteButton"
+import PassphraseEntryForm from "@/components/forms/PassphraseEntryForm"
 
 const WinPassphraseDetails: FC = () => {
   const params = useParams<{ id: string }>()
@@ -78,13 +78,9 @@ const WinPassphraseDetails: FC = () => {
       </a>
     </div>
 
-    <PassphraseDetailsForm
-      id={entry.id}
-      platform={entry.platform}
-      identity={entry.identity}
-      url={entry.url}
-      passphrase={entry.passphrase}
-      notes={entry.notes}
+    <PassphraseEntryForm
+      mode="edit"
+      existing={entry}
     />
 
     <div className="grow flex items-end">

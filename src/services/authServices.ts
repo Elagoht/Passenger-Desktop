@@ -1,4 +1,4 @@
-import getResponse, { type Output } from "../api/cli"
+import getResponse, { type Output } from "@/api/cli"
 
 /**
  * Generates a JWT to use other Service.

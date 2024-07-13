@@ -1,6 +1,6 @@
 import { FC } from "react"
-import Window from "../../components/layout/Window"
-import PassphraseList from "../../components/passphrases/PassphraseList"
+import Window from "@/components/layout/Window"
+import PassphraseList from "@/components/windows/passphrases/PassphraseList"
 
 const WinPassphrases: FC = () => {
   return <Window>

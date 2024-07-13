@@ -1,7 +1,7 @@
 import { FC } from "react"
-import Window from "../../../components/layout/Window"
-import GoBackHeader from "../../../components/layout/GoBackHeader"
-import ExportToCSVForm from "../../../components/settings/ExportToCSVForm"
+import Window from "@/components/layout/Window"
+import GoBackHeader from "@/components/layout/GoBackHeader"
+import ExportToCSVForm from "@/components/forms/ExportToCSVForm"
 
 const WinExportToCSV: FC = () => {
   return <Window compact>

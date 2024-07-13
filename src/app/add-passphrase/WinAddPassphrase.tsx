@@ -1,6 +1,6 @@
+import PassphraseEntryForm from "@/components/forms/PassphraseEntryForm"
+import Window from "@/components/layout/Window"
 import { FC } from "react"
-import Window from "../../components/layout/Window"
-import AddPassphraseForm from "../../components/add-passphrase/AddPassphraseForm"
 
 const WinAddPassphrase: FC = () =>
   <Window compact>
@@ -8,7 +8,7 @@ const WinAddPassphrase: FC = () =>
       New Passphrase
     </h1>
 
-    <AddPassphraseForm />
+    <PassphraseEntryForm mode="new" />
   </Window>
 
 export default WinAddPassphrase
