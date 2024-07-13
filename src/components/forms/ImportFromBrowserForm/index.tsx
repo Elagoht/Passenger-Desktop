@@ -13,6 +13,7 @@ import Select from "@/components/formElements/Select"
 import EditImportDataModal from "./EditImportDataModal"
 import { Maybe } from "yup"
 import { importFromBrowser } from "@/services/dataTransferServices"
+import { Output } from "@/api/cli"
 
 const browserIcons = {
   "": IconSelector,
@@ -30,6 +31,35 @@ const ImportFromBrowserForm: FC = () => {
 
   const navigate = useNavigate()
 
+  const tryToImport = (response: Output) => {
+    // Loop until successful import
+    if (response.status === 0) {
+      addNotification({
+        message: response.stdout
+      })
+      return navigate("/passphrases")
+    }
+    /**
+     * If unsuccessful, core CLI will not accept even
+     * the acceptable entries and will return the bad
+     * entries on the stderr and acceptable entries on
+     * the stdout. We will show the bad entries to the
+     * user and ask them to edit the entries.
+     */
+    const badEntries = Papa.parse<CSVLineEntry>(
+      response.stderr,
+      { skipEmptyLines: true }
+    ).data
+    badEntries.shift() // Remove first description
+    badEntries.pop() // Remove second description
+    setBadEntries(badEntries)
+    setAcceptableEntries(Papa.parse<CSVLineEntry>(
+      response.stdout,
+      { skipEmptyLines: true }
+    ).data)
+    setEditModal(true)
+  }
+
   return <Formik
     initialValues={{
       browser: "",
@@ -44,32 +74,8 @@ const ImportFromBrowserForm: FC = () => {
         accessToken,
         values.browser,
         await values.file!.text()
-      ).then((response) => {
-        if (response.status === 0) {
-          addNotification({
-            message: response.stdout
-          })
-          return navigate("/passphrases")
-        }
-        /**
-         * If unsuccessful, there should be an stderr that contains bad entries,
-         * and an stdout that contains the accaptable entries.
-         * Acceptable entries will NOT be saved to the database.
-         * Outputs will be in formatted as CSV with headers.
-         */
-        const badEntries = Papa.parse<CSVLineEntry>(
-          response.stderr,
-          { skipEmptyLines: true }
-        ).data
-        badEntries.shift() // Remove first description
-        badEntries.pop() // Remove second description
-        setBadEntries(badEntries)
-        setAcceptableEntries(Papa.parse<CSVLineEntry>(
-          response.stdout,
-          { skipEmptyLines: true }
-        ).data)
-        setEditModal(true)
-      }).then(() =>
+      ).then(tryToImport
+      ).finally(() =>
         setSubmitting(false)
       )
     }
@@ -141,33 +147,12 @@ const ImportFromBrowserForm: FC = () => {
                 ...acceptableEntries,
                 ...editedBadEntries
               ])
-            ).then((response) => {
-              // Loop until successful import
-              if (response.status === 0) {
-                addNotification({
-                  message: response.stdout
-                })
-                return navigate("/passphrases")
-              }
-              // If unsuccessful, set the new bad entries
-              const badEntries = Papa.parse<CSVLineEntry>(
-                response.stderr,
-                { skipEmptyLines: true }
-              ).data
-              badEntries.shift() // Remove first description
-              badEntries.pop() // Remove second description
-              setBadEntries(badEntries)
-              setAcceptableEntries(Papa.parse<CSVLineEntry>(
-                response.stdout,
-                { skipEmptyLines: true }
-              ).data)
-              /*
-               * Then open the modal again.
-               * This will create a loop
-               * until successful import.
-               */
-              setEditModal(true)
-            })
+            ).then(tryToImport)
+            /**
+             * This will create a loop until
+             * the import is successful or
+             * the user cancels the import
+             */
           }}
         />
       </Form>
