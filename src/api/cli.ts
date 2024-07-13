@@ -45,7 +45,7 @@ class CLI {
    * @returns The output of the process.
    * @see Output
    */
-  public static readOutput = (process: ChildProcess): Output => ({
+  public static readOutput = (process: ChildProcess): Awaited<Promise<Output>> => ({
     status: process.code ?? 1, // 1 is the default error code
     stdout: process.stdout.trim(),
     stderr: process.stderr.trim()
