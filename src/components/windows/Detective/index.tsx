@@ -6,6 +6,10 @@ import { getDetectiveReports } from "@/services/reportServices"
 import { DetectiveReport } from "@/types/reports"
 import { Maybe } from "@/types/utility"
 import { useEffect, useState } from "react"
+import DetectiveCommonPassphrases from "./detectiveReports/DetectiveCommonPassphrases"
+import DetectiveSimilarWithUsername from "./detectiveReports/DetectiveSimilarWithUsername"
+import DetectiveWeakPassphrases from "./detectiveReports/DetectiveWeakPassphrases"
+import DetectiveOldPassphrases from "./detectiveReports/DetectiveOldPassphrases"
 
 const Detective = () => {
   const accessToken = useAuthorizationSlice(store => store.accessToken)
@@ -28,9 +32,15 @@ const Detective = () => {
 
   if (!detectiveReports) return <Loading />
 
-  return <pre>
-    {JSON.stringify(detectiveReports, null, 2)}
-  </pre>
+  return <>
+    <DetectiveCommonPassphrases commonPassphrases={detectiveReports.commonPassphrases} />
+
+    <DetectiveSimilarWithUsername similarWithUsername={detectiveReports.similarWithUsername} />
+
+    <DetectiveWeakPassphrases weakPassphrases={detectiveReports.weakPassphrases} />
+
+    <DetectiveOldPassphrases oldPassphrases={detectiveReports.oldPassphrases} />
+  </>
 }
 
 export default Detective

@@ -3,7 +3,7 @@ import Detective from "@/components/windows/Detective"
 
 const WinDetective = () => {
   return <Window compact>
-    <h1 className="text-2xl font-bold text-center">
+    <h1 className="text-3xl font-medium text-center mt-4">
       Detective
     </h1>
 
