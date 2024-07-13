@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react"
-import Service from "../../services"
+import Service from "../../services/generationServices"
 import MostAccessed from "../../components/dashboard/MostAccessed"
 import StrengthMeter from "../../components/dashboard/StrengtMeter"
 import TotalCounts from "../../components/dashboard/TotalCounts"

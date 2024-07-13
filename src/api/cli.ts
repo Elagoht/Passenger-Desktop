@@ -10,7 +10,7 @@ export type Output = {
 /**
  * Core API for interacting with the CLI.
  */
-export class CLI {
+class CLI {
   /**
    * The path to the CLI executable.
    */
@@ -51,3 +51,9 @@ export class CLI {
     stderr: process.stderr.trim()
   })
 }
+
+const getResponse = async (
+  command: string, args: string[], piped: string = ""
+): Promise<Output> => CLI.readOutput(await CLI.execute(command, args, piped))
+
+export default getResponse

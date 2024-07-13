@@ -1,7 +1,7 @@
 import { IconArrowLeft, IconExternalLink } from "@tabler/icons-react"
 import { FC, useEffect, useState } from "react"
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
-import Service from "../../../services"
+import Service from "../../../services/generationServices"
 import PassphraseDeleteButton from "../../../components/passphrases/PassphraseDeleteButton"
 import PassphraseDetailsForm from "../../../components/passphrases/PassphraseDetailsForm"
 import Loading from "../../../components/layout/Loading"

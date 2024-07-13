@@ -2,7 +2,7 @@ import { IconCheck, IconKey, IconLockCog, IconMoodAnnoyed, IconMoodLookDown, Ico
 import { Form, Formik } from "formik"
 import { FC } from "react"
 import { Link } from "react-router-dom"
-import Service from "../../services"
+import Service from "../../services/generationServices"
 import Button from "../../components/form/Button"
 import Input from "../../components/form/Input"
 import Window from "../../components/layout/Window"

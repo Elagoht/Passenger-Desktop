@@ -2,7 +2,7 @@ import { IconKey, IconLockOpen, IconMoodBoy, IconMoodEmpty, IconMoodHappy, IconM
 import { Form, Formik } from "formik"
 import { FC, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import Service from "../../services"
+import Service from "../../services/generationServices"
 import Button from "../../components/form/Button"
 import Input from "../../components/form/Input"
 import Window from "../../components/layout/Window"

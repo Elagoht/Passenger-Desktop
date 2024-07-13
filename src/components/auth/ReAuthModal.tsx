@@ -1,7 +1,7 @@
 import { IconKey, IconLock, IconLockOpen, IconMoodLookDown, IconMoodSmile } from "@tabler/icons-react"
 import { Form, Formik } from "formik"
 import { FC } from "react"
-import Service from "../../services"
+import Service from "../../services/generationServices"
 import StringHelper from "../../helpers/string"
 import { useAuthorizationSlice } from "../../lib/stores/authorization"
 import { useNotificationSlice } from "../../lib/stores/notification"

@@ -1,7 +1,7 @@
 import { FC } from "react"
 import Button from "../Button"
 import { IconRotate } from "@tabler/icons-react"
-import Service from "../../../services"
+import Service from "../../../services/generationServices"
 import { useNotificationSlice } from "../../../lib/stores/notification"
 import StringHelper from "../../../helpers/string"
 

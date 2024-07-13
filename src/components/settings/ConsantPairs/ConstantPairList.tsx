@@ -1,7 +1,7 @@
 import { IconDatabaseExclamation } from "@tabler/icons-react"
 import { FC, useEffect, useState } from "react"
 import StringHelper from "../../../helpers/string"
-import Service from "../../../services"
+import Service from "../../../services/generationServices"
 import { useAuthorizationSlice } from "../../../lib/stores/authorization"
 import { useNotificationSlice } from "../../../lib/stores/notification"
 import { ConstantPair } from "../../../types/common"

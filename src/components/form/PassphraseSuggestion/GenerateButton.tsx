@@ -1,7 +1,7 @@
 import { IconDice1, IconDice2, IconDice3, IconDice4, IconDice5, IconDice6 } from "@tabler/icons-react"
 import { FC, createElement, useState } from "react"
 import Button from "../Button"
-import Service from "../../../services"
+import Service from "../../../services/generationServices"
 import { useNotificationSlice } from "../../../lib/stores/notification"
 import StringHelper from "../../../helpers/string"
 
