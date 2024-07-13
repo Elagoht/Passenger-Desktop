@@ -19,7 +19,7 @@ const menuItems = [
     "floating": true
   },
   {
-    "path": "/actions-and-news",
+    "path": "/detective",
     "title": "Actions & News",
     "icon": IconExclamationCircle
   },
