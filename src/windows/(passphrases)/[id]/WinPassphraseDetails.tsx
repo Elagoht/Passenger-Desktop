@@ -54,7 +54,7 @@ const WinPassphraseDetails: FC = () => {
             : `http://${entry.url}`
         ).hostname}`}
         onError={(event) => { (event.target as HTMLImageElement).src = "/icon.png" }}
-        alt={entry?.platform}
+        alt={entry.platform}
         width={48}
         height={48}
         draggable="false"
@@ -66,7 +66,10 @@ const WinPassphraseDetails: FC = () => {
       </h1>
 
       <a
-        href={entry?.url}
+        href={new URL(entry.url.startsWith("http")
+          ? entry.url
+          : `https://${entry.url}`
+        ).toString()}
         target="_blank"
         rel="noreferrer"
       >
