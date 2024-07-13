@@ -2,7 +2,7 @@ import { IconDice1, IconDice2, IconDice3, IconDice4, IconDice5, IconDice6 } from
 import { FC, createElement, useState } from "react"
 import Button from "../Button"
 import Service from "../../../services"
-import { useNotificationSlice } from "../../../stores/notification"
+import { useNotificationSlice } from "../../../lib/stores/notification"
 import StringHelper from "../../../helpers/string"
 
 interface IGenerateButtonProps {
