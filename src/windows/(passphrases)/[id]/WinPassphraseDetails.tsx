@@ -87,7 +87,7 @@ const WinPassphraseDetails: FC = () => {
     />
 
     <div className="grow flex items-end">
-      <PassphraseDeleteButton id={entry.id!} />
+      <PassphraseDeleteButton id={entry.id} />
     </div>
   </Window>
 }
