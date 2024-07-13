@@ -1,36 +1,27 @@
 "use client"
 
-import { Icon, IconAlertCircle, IconCheck, IconProps } from "@tabler/icons-react"
+import { ICustomInputProps } from "@/types/inputs"
 import classNames from "classnames"
-import { FC, ForwardRefExoticComponent, ReactNode, SelectHTMLAttributes, createElement, useEffect, useState } from "react"
+import { FC, SelectHTMLAttributes, createElement, useEffect, useState } from "react"
+import InputErrorMessages from "./partial/InputErrorMessages"
+import InputLeftIcon from "./partial/InputLeftIcon"
 
-export interface ISelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
-  label: string
-  optional?: boolean
-  error?: ReactNode | boolean | string[]
-  success?: ReactNode | boolean
-  message?: ReactNode
-  iconLeft?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & React.RefAttributes<Icon>>
-  iconRight?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & React.RefAttributes<Icon>>
-  validityIcons?: boolean
-}
+export type ISelectProps =
+  SelectHTMLAttributes<HTMLSelectElement> &
+  Omit<ICustomInputProps, "validityIcons">
 
 const Select: FC<ISelectProps> = ({
   optional = true,
   label, error, success, message,
-  iconLeft, iconRight, validityIcons,
-  ...props
+  iconLeft, iconRight, ...props
 }) => {
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [isFilled, setIsFilled] = useState<boolean>(Boolean(props.value))
 
-  useEffect(
-    () => setIsFilled(
-      Boolean(props.value) ||
-      Boolean(props.defaultValue)
-    ),
-    [props.value, props.defaultValue]
-  )
+  useEffect(() => setIsFilled(
+    Boolean(props.value) ||
+    Boolean(props.defaultValue)
+  ), [props.value, props.defaultValue])
 
   return <div className={classNames({
     "flex flex-col gap-0.5": true,
@@ -53,10 +44,7 @@ const Select: FC<ISelectProps> = ({
         {label}
       </span>
 
-      {iconLeft && createElement(iconLeft, {
-        size: 32,
-        className: "traansition-all duration-300 ease-in-out"
-      })}
+      <InputLeftIcon iconLeft={iconLeft} />
 
       <select
         {...props}
@@ -83,32 +71,17 @@ const Select: FC<ISelectProps> = ({
         {props.children}
       </select>
 
-      {validityIcons
-        ? error
-          ? <IconAlertCircle size="32" />
-          : success
-            ? <IconCheck size="32" />
-            : iconRight && createElement(iconRight, {
-              size: 32,
-              className: "transition-all duration-300 ease-in-out"
-            })
-        : iconRight && createElement(iconRight, {
-          size: 32,
-          className: "transition-all duration-300 ease-in-out"
-        })
-      }
+      {iconRight && createElement(iconRight, {
+        size: 32,
+        className: "transition-all duration-300 ease-in-out"
+      })}
     </label>
 
-    {(error || success || message) &&
-      <small className="ml-2 text-xs">
-        {typeof error === "string"
-          ? error
-          : typeof success === "string"
-            ? success
-            : message
-        }
-      </small>
-    }
+    <InputErrorMessages
+      error={error}
+      success={success}
+      message={message}
+    />
   </div>
 }
 

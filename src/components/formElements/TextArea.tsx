@@ -1,17 +1,13 @@
-import { IconAlertCircle, IconCheck } from "@tabler/icons-react"
+import { ICustomInputProps } from "@/types/inputs"
 import classNames from "classnames"
-import { FC, ReactNode, TextareaHTMLAttributes, useEffect, useRef, useState } from "react"
+import { FC, TextareaHTMLAttributes, useEffect, useRef, useState } from "react"
+import InputErrorMessages from "./partial/InputErrorMessages"
+import InputLeftIcon from "./partial/InputLeftIcon"
+import InputValidityIcons from "./partial/InputValidityIcons"
 
-interface ITextAreaProps extends TextareaHTMLAttributes<HTMLTextAreaElement> {
-  label: string
-  optional?: boolean
-  error?: string | boolean | string[]
-  success?: string | boolean
-  message?: string
-  iconLeft?: ReactNode
-  iconRight?: ReactNode
-  validityIcons?: boolean
-}
+type ITextAreaProps =
+  TextareaHTMLAttributes<HTMLTextAreaElement>
+  & ICustomInputProps
 
 const TextArea: FC<ITextAreaProps> = ({
   optional = false, label, error, success,
@@ -56,7 +52,7 @@ const TextArea: FC<ITextAreaProps> = ({
           {label}
         </span>
 
-        {iconLeft}
+        <InputLeftIcon iconLeft={iconLeft} />
 
         <textarea
           {...props}
@@ -80,21 +76,19 @@ const TextArea: FC<ITextAreaProps> = ({
           }}
         />
 
-        {validityIcons
-          ? error
-            ? <IconAlertCircle size="32" />
-            : success
-              ? <IconCheck size="32" />
-              : iconRight
-          : iconRight
-        }
+        <InputValidityIcons
+          error={Boolean(error)}
+          success={Boolean(success)}
+          validityIcons={validityIcons ?? true}
+          iconRight={iconRight}
+        />
       </label>
 
-      {(error ?? success ?? message) && (
-        <small className="ml-2 text-xs">
-          {error ?? success ?? message}
-        </small>
-      )}
+      <InputErrorMessages
+        error={error}
+        success={success}
+        message={message}
+      />
     </div>
   )
 }

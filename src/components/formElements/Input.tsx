@@ -1,15 +1,18 @@
 "use client"
 
-import { Icon, IconAlertCircle, IconCheck, IconEye, IconEyeOff, IconProps } from "@tabler/icons-react"
-import classNames from "classnames"
-import { FC, ForwardRefExoticComponent, InputHTMLAttributes, ReactNode, createElement, useEffect, useRef, useState } from "react"
 import Pretty from "@/helpers/prettiers"
+import { ICustomInputProps } from "@/types/inputs"
+import { IconEye, IconEyeOff } from "@tabler/icons-react"
+import classNames from "classnames"
+import { FC, InputHTMLAttributes, useEffect, useRef, useState } from "react"
+import InputErrorMessages from "./partial/InputErrorMessages"
+import InputLeftIcon from "./partial/InputLeftIcon"
+import InputValidityIcons from "./partial/InputValidityIcons"
 
-export interface IInputProps extends Omit<
+export type IInputProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
   "type"
-> {
-  label: string
+> & ICustomInputProps & {
   type?:
   | "text"
   | "password"
@@ -23,13 +26,6 @@ export interface IInputProps extends Omit<
   | "tel"
   | "url"
   | "search"
-  optional?: boolean
-  error?: ReactNode | boolean | string[]
-  success?: ReactNode | boolean
-  message?: ReactNode
-  iconLeft?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & React.RefAttributes<Icon>>
-  iconRight?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & React.RefAttributes<Icon>>
-  validityIcons?: boolean
 }
 
 const Input: FC<IInputProps> = ({
@@ -78,10 +74,7 @@ const Input: FC<IInputProps> = ({
         {label}
       </span>
 
-      {iconLeft && createElement(iconLeft, {
-        size: 32,
-        className: "traansition-all duration-300 ease-in-out"
-      })}
+      <InputLeftIcon iconLeft={iconLeft} />
 
       <input
         {...props}
@@ -150,32 +143,20 @@ const Input: FC<IInputProps> = ({
             ? <IconEye size="32" />
             : <IconEyeOff size="32" />}
         </button>
-        : validityIcons
-          ? error
-            ? <IconAlertCircle size="32" />
-            : success
-              ? <IconCheck size="32" />
-              : iconRight && createElement(iconRight, {
-                size: 32,
-                className: "transition-all duration-300 ease-in-out"
-              })
-          : iconRight && createElement(iconRight, {
-            size: 32,
-            className: "transition-all duration-300 ease-in-out"
-          })
+        : <InputValidityIcons
+          error={Boolean(error)}
+          success={Boolean(success)}
+          validityIcons={validityIcons ?? true}
+          iconRight={iconRight}
+        />
       }
     </label>
 
-    {(error || success || message) &&
-      <small className="ml-2 text-xs">
-        {typeof error === "string"
-          ? error
-          : typeof success === "string"
-            ? success
-            : message
-        }
-      </small>
-    }
+    <InputErrorMessages
+      error={error}
+      success={success}
+      message={message}
+    />
   </div>
 }
 

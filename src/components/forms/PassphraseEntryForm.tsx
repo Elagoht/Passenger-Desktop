@@ -132,7 +132,7 @@ const PassphraseEntryForm: FC<IPassphraseDetailsFormProps> = ({ mode, existing }
 
         <TextArea
           label="Notes"
-          iconLeft={<IconNote />}
+          iconLeft={IconNote}
           name="notes"
           value={values.notes}
           onChange={handleChange}

@@ -1,22 +1,16 @@
 "use client"
 
-import { Icon, IconAlertCircle, IconCheck, IconProps } from "@tabler/icons-react"
+import { ICustomInputProps } from "@/types/inputs"
 import classNames from "classnames"
-import { FC, ForwardRefExoticComponent, InputHTMLAttributes, ReactNode, createElement } from "react"
+import { FC, InputHTMLAttributes } from "react"
+import InputErrorMessages from "./partial/InputErrorMessages"
+import InputLeftIcon from "./partial/InputLeftIcon"
+import InputValidityIcons from "./partial/InputValidityIcons"
 
-export interface IInputProps extends Omit<
+export type IInputProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
   "type"
-> {
-  label: string
-  optional?: boolean
-  error?: ReactNode | boolean | string[]
-  success?: ReactNode | boolean
-  message?: ReactNode
-  iconLeft?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & React.RefAttributes<Icon>>
-  iconRight?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & React.RefAttributes<Icon>>
-  validityIcons?: boolean
-}
+> & ICustomInputProps
 
 const Input: FC<IInputProps> = ({
   optional = false,
@@ -38,10 +32,7 @@ const Input: FC<IInputProps> = ({
     }
 
     <label className="flex items-center gap-2 rounded-md transition-all duration-300 ease-in-out px-2 border border-current">
-      {iconLeft && createElement(iconLeft, {
-        size: 32,
-        className: "transition-all duration-300 ease-in-out"
-      })}
+      <InputLeftIcon iconLeft={iconLeft} />
 
       <div className="flex flex-col py-1">
         <span className={classNames({
@@ -59,34 +50,20 @@ const Input: FC<IInputProps> = ({
           })}
         />
 
-        {validityIcons
-          ? error
-            ? <IconAlertCircle size="32" />
-            : success
-              ? <IconCheck size="32" />
-              : iconRight && createElement(iconRight, {
-                size: 32,
-                className: "transition-all duration-300 ease-in-out"
-              })
-          : iconRight && createElement(iconRight, {
-            size: 32,
-            className: "transition-all duration-300 ease-in-out"
-          })
-        }
+        <InputValidityIcons
+          error={Boolean(error)}
+          success={Boolean(success)}
+          validityIcons={validityIcons ?? true}
+          iconRight={iconRight}
+        />
       </div>
     </label>
 
-    {
-      (error || success || message) &&
-      <small className="ml-2 text-xs">
-        {typeof error === "string"
-          ? error
-          : typeof success === "string"
-            ? success
-            : message
-        }
-      </small>
-    }
+    <InputErrorMessages
+      error={error}
+      success={success}
+      message={message}
+    />
   </div>
 }
 
