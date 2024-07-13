@@ -1,4 +1,3 @@
-import { Output } from "@/api/cli"
 import Meter from "@/components/charts/Meter"
 import Button from "@/components/formElements/Button"
 import Input from "@/components/formElements/Input"
@@ -18,8 +17,8 @@ import { FC } from "react"
 import { Link, useNavigate } from "react-router-dom"
 
 type IPassphraseDetailsFormProps = {
-  existing: ReadWriteDatabaseEntry
   mode: "edit"
+  existing: ReadWriteDatabaseEntry
 } | {
   mode: "new"
   existing?: undefined
@@ -30,15 +29,12 @@ const PassphraseEntryForm: FC<IPassphraseDetailsFormProps> = ({ mode, existing }
   const accessToken = useAuthorizationSlice(state => state.accessToken)
   const addNotification = useNotificationSlice(state => state.addNotification)
 
-  const { id, platform, identity, url, passphrase, notes } = existing || { id: "" }
+  const formAction = (values: Record<string, string>) =>
+    mode === "edit"
+      ? updateEntry(accessToken, existing.id, values)
+      : createEntry(accessToken, values)
 
-  const formActions: Record<
-    IPassphraseDetailsFormProps["mode"],
-    (values: Record<string, string>) => Promise<Output>
-  > = {
-    edit: (values: Record<string, string>) => updateEntry(accessToken, id, values),
-    new: (values: Record<string, string>) => createEntry(accessToken, values)
-  }
+  const { platform, identity, url, passphrase, notes } = existing || {}
 
   return <Formik
     initialValues={{
@@ -49,7 +45,7 @@ const PassphraseEntryForm: FC<IPassphraseDetailsFormProps> = ({ mode, existing }
       notes: notes || ""
     }}
     onSubmit={(values, { setSubmitting }) => {
-      formActions[mode](values)
+      formAction(values)
         .then((response) => {
           if (response.status !== 0) return addNotification({
             type: "error",
