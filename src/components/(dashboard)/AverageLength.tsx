@@ -38,7 +38,7 @@ const AverageLength: FC<IAverateLengthProps> = ({ averageLength }) => {
                   ? `hsl(${120 - (index - 8) * 15}, 100%, 50%)`
                   : index <= 24
                     ? `hsl(${60 - (index - 12) * 5}, 100%, 50%)`
-                    : `hsl(${0}, 100%, ${50 - (index - 24) * 2}%)`
+                    : `hsl(0, 100%, ${50 - (index - 24) * 2}%)`
             }}
           >
             •
