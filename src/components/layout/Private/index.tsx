@@ -2,8 +2,8 @@ import { FC } from "react"
 import { Outlet } from "react-router-dom"
 import NavBar from "../NavBar"
 import { useAuthorizationSlice } from "../../../lib/stores/authorization"
-import GuideSwiper from "../../guide/GuideSwiper"
-import ReAuthModal from "../../auth/ReAuthModal"
+import ReAuthModal from "../../ReAuthModal"
+import GuideSwiper from "../../GuideSwiper"
 
 const Private: FC = () => {
   const isGuideDone = useAuthorizationSlice(state => state.isGuideDone)

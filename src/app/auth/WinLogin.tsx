@@ -1,5 +1,5 @@
 import { FC } from "react"
-import AuthForm from "../../components/auth/AuthForm"
+import AuthForm from "../../components/forms/AuthForm"
 import Window from "../../components/layout/Window"
 
 const WinLogin: FC = () => {

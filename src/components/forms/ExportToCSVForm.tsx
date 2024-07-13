@@ -3,12 +3,12 @@ import { save } from "@tauri-apps/api/dialog"
 import { writeTextFile } from "@tauri-apps/api/fs"
 import { Form, Formik } from "formik"
 import { FC } from "react"
-import StringHelper from "../../../helpers/string"
-import { useAuthorizationSlice } from "../../../lib/stores/authorization"
-import { useNotificationSlice } from "../../../lib/stores/notification"
-import Button from "../../formElements/Button"
-import Select from "../../formElements/Select"
-import { exportToCSV } from "../../../services/dataTransferServices"
+import StringHelper from "../../helpers/string"
+import { useAuthorizationSlice } from "../../lib/stores/authorization"
+import { useNotificationSlice } from "../../lib/stores/notification"
+import Button from "../formElements/Button"
+import Select from "../formElements/Select"
+import { exportToCSV } from "../../services/dataTransferServices"
 
 const ExportTypeIcons = {
   bare: IconLockOpen,
