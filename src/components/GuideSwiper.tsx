@@ -8,7 +8,7 @@ import { Swiper, SwiperSlide } from "swiper/react"
 import classNames from "classnames"
 import { useAuthorizationSlice } from "@/lib/stores/authorization"
 import guideSlides from "@/data/guide"
-import { settings } from "@/App"
+import { settings } from "@/app/App"
 
 const GuideSwiper: FC = () => {
   const setIsGuideDone = useAuthorizationSlice(state => state.setIsGuideDone)

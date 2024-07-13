@@ -1,24 +1,25 @@
 import { AnimatePresence } from "framer-motion"
 import { FC, Suspense, useEffect } from "react"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
-import Storage from "./api/storage"
-import Private from "./components/layout/Private"
-import Public from "./components/layout/Public"
-import Window from "./components/layout/Window"
-import AnimatedRoutes from "./lib/router/AnimatedRoutes"
-import { useAuthorizationSlice } from "./lib/stores/authorization"
-import WinAddPassphrase from "./app/add-passphrase/WinAddPassphrase"
-import WinLogin from "./app/auth/WinLogin"
-import WinRegister from "./app/auth/WinRegister"
-import WinDashboard from "./app/dashboard/WinDashboard"
-import WinPassphraseDetails from "./app/passphrases/[id]/WinPassphraseDetails"
-import WinPassphrases from "./app/passphrases/WinPassphrases"
-import WinSettings from "./app/settings/WinSettings"
-import WinConstantPairs from "./app/settings/constant-pairs/WinConstantPairs"
-import WinConstantPairForm from "./app/settings/constant-pairs/[key]/WinConstantPairForm"
-import WinNewConstantPair from "./app/settings/constant-pairs/new-constant-pair/WinNewConstantPair"
-import WinImportFromBrowser from "./app/settings/import-from-browser/WinImportFromBrowser"
-import WinExportToCSV from "./app/settings/export-to-csv/WinExportToCSV"
+import Storage from "../api/storage"
+import Private from "../components/layout/Private"
+import Public from "../components/layout/Public"
+import Window from "../components/layout/Window"
+import AnimatedRoutes from "../lib/router/AnimatedRoutes"
+import { useAuthorizationSlice } from "../lib/stores/authorization"
+import WinAddPassphrase from "./add-passphrase/WinAddPassphrase"
+import WinLogin from "./auth/WinLogin"
+import WinRegister from "./auth/WinRegister"
+import WinDashboard from "./dashboard/WinDashboard"
+import WinPassphraseDetails from "./passphrases/[id]/WinPassphraseDetails"
+import WinPassphrases from "./passphrases/WinPassphrases"
+import WinSettings from "./settings/WinSettings"
+import WinConstantPairs from "./settings/constant-pairs/WinConstantPairs"
+import WinConstantPairForm from "./settings/constant-pairs/[key]/WinConstantPairForm"
+import WinNewConstantPair from "./settings/constant-pairs/new-constant-pair/WinNewConstantPair"
+import WinImportFromBrowser from "./settings/import-from-browser/WinImportFromBrowser"
+import WinExportToCSV from "./settings/export-to-csv/WinExportToCSV"
+import WinDetective from "./detective/WinDetective"
 
 export const settings = new Storage(".settings.dat")
 
@@ -61,7 +62,7 @@ const App: FC = () => {
                   { path: "/passphrases", element: <WinPassphrases /> },
                   { path: "/passphrases/:id", element: <WinPassphraseDetails /> },
                   { path: "/add-passphrase", element: <WinAddPassphrase /> },
-                  { path: "/actions-and-news", element: <Window> Actions </Window> },
+                  { path: "/detective", element: <WinDetective /> },
                   { path: "/settings", element: <WinSettings /> },
                   { path: "/settings/constant-pairs", element: <WinConstantPairs /> },
                   { path: "/settings/constant-pairs/:key", element: <WinConstantPairForm /> },
