@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { Statistics } from "@/types/statistics"
 import Strength from "@/helpers/strength"
-import BarChart from "@/components/Charts/BarChart"
+import BarChart from "@/components/charts/BarChart"
 
 interface IStrengthDistributionChartProps {
   strengths: Statistics["strengths"]

@@ -15,7 +15,7 @@ import Button from "@/components/formElements/Button"
 import Input from "@/components/formElements/Input"
 import PassphraseSuggestion from "@/components/formElements/PassphraseSuggestion"
 import TextArea from "@/components/formElements/TextArea"
-import Meter from "@/components/Charts/Meter"
+import Meter from "@/components/charts/Meter"
 
 interface IPassphraseDetailsFormProps {
   id: ReadWriteDatabaseEntry["id"]
