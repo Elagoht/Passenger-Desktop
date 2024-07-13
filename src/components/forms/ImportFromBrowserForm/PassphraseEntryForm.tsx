@@ -1,37 +1,44 @@
-import { IconDeviceFloppy, IconLoader, IconNote } from "@tabler/icons-react"
-import classNames from "classnames"
-import { Form, Formik } from "formik"
-import { FC } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { Output } from "@/api/cli"
+import Meter from "@/components/charts/Meter"
+import Button from "@/components/formElements/Button"
+import Input from "@/components/formElements/Input"
+import PassphraseSuggestion from "@/components/formElements/PassphraseSuggestion"
+import TextArea from "@/components/formElements/TextArea"
 import FormikHelper from "@/helpers/formik"
 import Strength from "@/helpers/strength"
 import StringHelper from "@/helpers/string"
 import { useAuthorizationSlice } from "@/lib/stores/authorization"
 import { useNotificationSlice } from "@/lib/stores/notification"
-import { updateEntry } from "@/services/passphraseServices"
+import { createEntry, updateEntry } from "@/services/passphraseServices"
 import { ReadWriteDatabaseEntry } from "@/types/common"
-import { formFields } from "./AddPassphraseForm"
-import Button from "@/components/formElements/Button"
-import Input from "@/components/formElements/Input"
-import PassphraseSuggestion from "@/components/formElements/PassphraseSuggestion"
-import TextArea from "@/components/formElements/TextArea"
-import Meter from "@/components/charts/Meter"
+import { IconDeviceFloppy, IconKey, IconLoader, IconNote, IconTag, IconUserCircle, IconWorld } from "@tabler/icons-react"
+import classNames from "classnames"
+import { Form, Formik } from "formik"
+import { FC } from "react"
+import { Link, useNavigate } from "react-router-dom"
 
-interface IPassphraseDetailsFormProps {
-  id: ReadWriteDatabaseEntry["id"]
-  platform: ReadWriteDatabaseEntry["platform"]
-  identity: ReadWriteDatabaseEntry["identity"]
-  url: ReadWriteDatabaseEntry["url"]
-  passphrase: ReadWriteDatabaseEntry["passphrase"]
-  notes: ReadWriteDatabaseEntry["notes"]
+type IPassphraseDetailsFormProps = {
+  existing: ReadWriteDatabaseEntry
+  mode: "edit"
+} | {
+  mode: "new"
+  existing?: undefined
 }
 
-const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
-  id, platform, identity, url, passphrase, notes
-}) => {
+const PassphraseEntryForm: FC<IPassphraseDetailsFormProps> = ({ mode, existing }) => {
   const navigate = useNavigate()
   const accessToken = useAuthorizationSlice(state => state.accessToken)
   const addNotification = useNotificationSlice(state => state.addNotification)
+
+  const { id, platform, identity, url, passphrase, notes } = existing || { id: "" }
+
+  const formActions: Record<
+    IPassphraseDetailsFormProps["mode"],
+    (values: Record<string, string>) => Promise<Output>
+  > = {
+    edit: (values: Record<string, string>) => updateEntry(accessToken, id, values),
+    new: (values: Record<string, string>) => createEntry(accessToken, values)
+  }
 
   return <Formik
     initialValues={{
@@ -42,25 +49,31 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
       notes: notes || ""
     }}
     onSubmit={(values, { setSubmitting }) => {
-      updateEntry(
-        accessToken,
-        id, // If null, the form already not shown
-        values
-      ).then((response) => {
-        if (response.status !== 0) return addNotification({
-          type: "error",
-          title: "Failed to update passphrase",
-          message: StringHelper.removeUnixErrorPrefix(response.stderr)
-        })
-        addNotification({
-          type: "success",
-          title: "Passphrase updated",
-          message: "The passphrase was successfully updated."
-        })
-        return navigate("/passphrases")
-      }).finally(() =>
-        setSubmitting(false)
-      )
+      formActions[mode](values)
+        .then((response) => {
+          if (response.status !== 0) return addNotification({
+            type: "error",
+            title: `Failed to ${mode === "edit"
+              ? "update"
+              : "add"
+              } passphrase`,
+            message: StringHelper.removeUnixErrorPrefix(response.stderr)
+          })
+          addNotification({
+            type: "success",
+            title: `Passphrase ${mode === "edit"
+              ? "updated"
+              : "added"
+              }!`,
+            message: `The passphrase was successfully ${mode === "edit"
+              ? "updated"
+              : "added"
+              }.`
+          })
+          return navigate("/passphrases")
+        }).finally(() =>
+          setSubmitting(false)
+        )
     }}
   >
     {({
@@ -110,7 +123,7 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
               ? !errors[key as keyof typeof errors]
               : false
             }
-            formNoValidate // Will be handled by Formik
+            formNoValidate // Dynamic validation will be handled by Formik
           />
         )}
 
@@ -149,7 +162,14 @@ const PassphraseDetailsForm: FC<IPassphraseDetailsFormProps> = ({
         </Button>
       </Form>
     }
-  </Formik>
+  </Formik >
 }
 
-export default PassphraseDetailsForm
+const formFields = {
+  platform: IconTag,
+  identity: IconUserCircle,
+  url: IconWorld,
+  passphrase: IconKey
+}
+
+export default PassphraseEntryForm

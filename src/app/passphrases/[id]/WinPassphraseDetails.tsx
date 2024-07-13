@@ -1,7 +1,6 @@
 import { IconArrowLeft, IconExternalLink } from "@tabler/icons-react"
 import { FC, useEffect, useState } from "react"
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
-import PassphraseDetailsForm from "@/components/forms/PassphraseDetailsForm"
 import Loading from "@/components/layout/Loading"
 import Window from "@/components/layout/Window"
 import StringHelper from "@/helpers/string"
@@ -11,6 +10,7 @@ import { fetchEntry } from "@/services/passphraseServices"
 import { DatabaseEntry } from "@/types/common"
 import { Maybe } from "@/types/utility"
 import PassphraseDeleteButton from "@/components/windows/passphrases/PassphraseDeleteButton"
+import PassphraseEntryForm from "@/components/forms/ImportFromBrowserForm/PassphraseEntryForm"
 
 const WinPassphraseDetails: FC = () => {
   const params = useParams<{ id: string }>()
@@ -78,13 +78,9 @@ const WinPassphraseDetails: FC = () => {
       </a>
     </div>
 
-    <PassphraseDetailsForm
-      id={entry.id}
-      platform={entry.platform}
-      identity={entry.identity}
-      url={entry.url}
-      passphrase={entry.passphrase}
-      notes={entry.notes}
+    <PassphraseEntryForm
+      mode="edit"
+      existing={entry}
     />
 
     <div className="grow flex items-end">
