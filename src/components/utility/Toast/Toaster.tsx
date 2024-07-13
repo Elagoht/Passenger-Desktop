@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion"
 import { FC } from "react"
-import { useNotificationSlice } from "../../../lib/stores/notification"
+import { useNotificationSlice } from "@/lib/stores/notification"
 import Toast from "."
 
 

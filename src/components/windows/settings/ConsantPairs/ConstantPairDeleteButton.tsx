@@ -1,13 +1,13 @@
 import { FC, useState } from "react"
-import Button from "../../formElements/Button"
 import { IconBox, IconDatabaseExclamation, IconTrash } from "@tabler/icons-react"
-import { ConstantPair } from "../../../types/common"
-import { useAuthorizationSlice } from "../../../lib/stores/authorization"
-import { useNotificationSlice } from "../../../lib/stores/notification"
+import { ConstantPair } from "@/types/common"
 import { useNavigate } from "react-router-dom"
-import StringHelper from "../../../helpers/string"
-import Modal from "../../utility/Modal"
-import { forgetConstantPair } from "../../../services/constantPairServices"
+import { useAuthorizationSlice } from "@/lib/stores/authorization"
+import { useNotificationSlice } from "@/lib/stores/notification"
+import Button from "@/components/formElements/Button"
+import Modal from "@/components/utility/Modal"
+import { forgetConstantPair } from "@/services/constantPairServices"
+import StringHelper from "@/helpers/string"
 
 interface IConstantPairDeleteButtonProps {
   constantKey: ConstantPair["key"]

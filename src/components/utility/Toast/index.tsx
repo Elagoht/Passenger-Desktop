@@ -2,7 +2,7 @@ import { IconCircleX } from "@tabler/icons-react"
 import classNames from "classnames"
 import { motion } from "framer-motion"
 import { FC, useEffect } from "react"
-import { IToast, useNotificationSlice } from "../../../lib/stores/notification"
+import { IToast, useNotificationSlice } from "@/lib/stores/notification"
 
 const Toast: FC<IToast> = ({
   message, type, buttons, clickToClose,

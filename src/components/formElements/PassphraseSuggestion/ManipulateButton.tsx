@@ -1,9 +1,9 @@
 import { FC } from "react"
-import Button from "../Button"
+import Button from "@/components/formElements/Button"
 import { IconRotate } from "@tabler/icons-react"
-import { useNotificationSlice } from "../../../lib/stores/notification"
-import StringHelper from "../../../helpers/string"
-import { manipulatePassphrase } from "../../../services/generationServices"
+import { useNotificationSlice } from "@/lib/stores/notification"
+import StringHelper from "@/helpers/string"
+import { manipulatePassphrase } from "@/services/generationServices"
 
 interface IManipulateButtonProps {
   currentPassphrase: string

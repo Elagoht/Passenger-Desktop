@@ -1,10 +1,10 @@
 import { IconCopyCheck, IconKey } from "@tabler/icons-react"
 import { FC } from "react"
-import StringHelper from "../../../helpers/string"
-import { useAuthorizationSlice } from "../../../lib/stores/authorization"
-import { useNotificationSlice } from "../../../lib/stores/notification"
-import { ListableDatabaseEntry, ReadWriteDatabaseEntry } from "../../../types/common"
-import { fetchEntry } from "../../../services/passphraseServices"
+import { useAuthorizationSlice } from "@/lib/stores/authorization"
+import { useNotificationSlice } from "@/lib/stores/notification"
+import { fetchEntry } from "@/services/passphraseServices"
+import StringHelper from "@/helpers/string"
+import { ListableDatabaseEntry, ReadWriteDatabaseEntry } from "@/types/common"
 
 interface IPassphraseCopyButtonProps {
   id: ListableDatabaseEntry["id"]

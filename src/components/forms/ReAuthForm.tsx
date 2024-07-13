@@ -1,13 +1,12 @@
 import { FC } from "react"
 import { IconKey, IconLock, IconLockOpen, IconMoodLookDown, IconMoodSmile } from "@tabler/icons-react"
 import { Form, Formik } from "formik"
-import { useAuthorizationSlice } from "../../lib/stores/authorization"
-import { useNotificationSlice } from "../../lib/stores/notification"
-import { loginToPassenger } from "../../services/authServices"
-import StringHelper from "../../helpers/string"
-import Input from "../formElements/Input"
-import Button from "../formElements/Button"
-
+import { useAuthorizationSlice } from "@/lib/stores/authorization"
+import { useNotificationSlice } from "@/lib/stores/notification"
+import { loginToPassenger } from "@/services/authServices"
+import StringHelper from "@/helpers/string"
+import Button from "@/components/formElements/Button"
+import Input from "@/components/formElements/Input"
 const ReAuthForm: FC = () => {
   const setDoesRequireReAuth = useAuthorizationSlice(state => state.setDoesRequireReAuth)
   const setAccessToken = useAuthorizationSlice(state => state.setAccessToken)

@@ -1,6 +1,6 @@
 import { FC } from "react"
-import GenerateButton from "./GenerateButton"
-import ManipulateButton from "./ManipulateButton"
+import GenerateButton from "@/components/formElements/PassphraseSuggestion/GenerateButton"
+import ManipulateButton from "@/components/formElements/PassphraseSuggestion/ManipulateButton"
 
 interface IPassphraseSuggestionProps {
   currentPassphrase: string

@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { useAuthorizationSlice } from "../lib/stores/authorization"
+import { useAuthorizationSlice } from "@/lib/stores/authorization"
 import Modal from "./utility/Modal"
 import ReAuthForm from "./forms/ReAuthForm"
 

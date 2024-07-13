@@ -1,14 +1,14 @@
 import { FC, createElement, useState } from "react"
-import "../design/swiper.css"
+import "@/design/swiper.css"
 import "swiper/css"
 import "swiper/css/effect-cards"
 import "swiper/css/pagination"
 import { A11y, EffectCards, Keyboard, Pagination } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import classNames from "classnames"
-import { useAuthorizationSlice } from "../lib/stores/authorization"
-import guideSlides from "../data/guide"
-import { settings } from "../App"
+import { useAuthorizationSlice } from "@/lib/stores/authorization"
+import guideSlides from "@/data/guide"
+import { settings } from "@/App"
 
 const GuideSwiper: FC = () => {
   const setIsGuideDone = useAuthorizationSlice(state => state.setIsGuideDone)

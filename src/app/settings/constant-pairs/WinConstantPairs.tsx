@@ -1,10 +1,10 @@
 import { IconPlus } from "@tabler/icons-react"
 import { FC } from "react"
 import { Link } from "react-router-dom"
-import ConstantPairList from "../../../components/settings/ConsantPairs/ConstantPairList"
-import Button from "../../../components/formElements/Button"
-import GoBackHeader from "../../../components/layout/GoBackHeader"
-import Window from "../../../components/layout/Window"
+import Button from "@/components/formElements/Button"
+import GoBackHeader from "@/components/layout/GoBackHeader"
+import Window from "@/components/layout/Window"
+import ConstantPairList from "@/components/windows/settings/ConsantPairs/ConstantPairList"
 
 const WinConstantPairs: FC = () => {
   return <Window compact>

@@ -1,12 +1,12 @@
-import { FC, useState } from "react"
-import Modal from "../utility/Modal"
-import Button from "../formElements/Button"
-import { useAuthorizationSlice } from "../../lib/stores/authorization"
-import { useNotificationSlice } from "../../lib/stores/notification"
+import Button from "@/components/formElements/Button"
+import Modal from "@/components/utility/Modal"
+import StringHelper from "@/helpers/string"
+import { useAuthorizationSlice } from "@/lib/stores/authorization"
+import { useNotificationSlice } from "@/lib/stores/notification"
+import { deleteEntry } from "@/services/passphraseServices"
 import { IconBox, IconFlame, IconTrash } from "@tabler/icons-react"
+import { FC, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import StringHelper from "../../helpers/string"
-import { deleteEntry } from "../../services/passphraseServices"
 
 interface IPassphraseDeleteButtonProps {
   id: string

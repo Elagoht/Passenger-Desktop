@@ -1,5 +1,5 @@
 import React, { FC } from "react"
-import Window from "../Window"
+import Window from "@/components/layout/Window"
 import { IconLoader } from "@tabler/icons-react"
 
 const Loading: FC = () => {

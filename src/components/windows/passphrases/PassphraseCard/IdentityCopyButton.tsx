@@ -1,11 +1,11 @@
 import { IconCopyCheck, IconUser } from "@tabler/icons-react"
 import { FC } from "react"
-import StringHelper from "../../../helpers/string"
-import { useAuthorizationSlice } from "../../../lib/stores/authorization"
-import { useNotificationSlice } from "../../../lib/stores/notification"
-import { ConstantPair, ListableDatabaseEntry, ReadWriteDatabaseEntry } from "../../../types/common"
-import { fetchEntry } from "../../../services/passphraseServices"
-import { rememberConstantPair } from "../../../services/constantPairServices"
+import { useAuthorizationSlice } from "@/lib/stores/authorization"
+import { useNotificationSlice } from "@/lib/stores/notification"
+import { ConstantPair, ListableDatabaseEntry, ReadWriteDatabaseEntry } from "@/types/common"
+import { fetchEntry } from "@/services/passphraseServices"
+import StringHelper from "@/helpers/string"
+import { rememberConstantPair } from "@/services/constantPairServices"
 
 interface IIdentityCopyButtonProps {
   id: ListableDatabaseEntry["id"]

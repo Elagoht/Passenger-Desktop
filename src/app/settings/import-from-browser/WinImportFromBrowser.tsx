@@ -1,7 +1,7 @@
 import { FC } from "react"
-import Window from "../../../components/layout/Window"
-import GoBackHeader from "../../../components/layout/GoBackHeader"
-import ImportFromBrowserForm from "../../../components/forms/ImportFromBrowserForm"
+import Window from "@/components/layout/Window"
+import GoBackHeader from "@/components/layout/GoBackHeader"
+import ImportFromBrowserForm from "@/components/forms/ImportFromBrowserForm"
 
 const WinImportFromBrowser: FC = () => {
   return <Window compact>

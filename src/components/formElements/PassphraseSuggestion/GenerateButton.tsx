@@ -1,9 +1,9 @@
 import { IconDice1, IconDice2, IconDice3, IconDice4, IconDice5, IconDice6 } from "@tabler/icons-react"
 import { FC, createElement, useState } from "react"
-import Button from "../Button"
-import { useNotificationSlice } from "../../../lib/stores/notification"
-import StringHelper from "../../../helpers/string"
-import { generatePassphrase } from "../../../services/generationServices"
+import Button from "@/components/formElements/Button"
+import { useNotificationSlice } from "@/lib/stores/notification"
+import StringHelper from "@/helpers/string"
+import { generatePassphrase } from "@/services/generationServices"
 
 interface IGenerateButtonProps {
   setFieldValue: (field: string, value: string) => void

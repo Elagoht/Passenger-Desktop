@@ -1,7 +1,7 @@
 import { IconGlobe, IconKey, IconLockSquareRounded } from "@tabler/icons-react"
 import classNames from "classnames"
 import { FC, createElement } from "react"
-import { Statistics } from "../../types/statistics"
+import { Statistics } from "@/types/statistics"
 
 interface ITotalCountsProps {
   totalCount: Statistics["totalCount"]

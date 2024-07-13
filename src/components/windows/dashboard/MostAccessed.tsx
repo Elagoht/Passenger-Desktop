@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { Statistics } from "../../types/statistics"
+import { Statistics } from "@/types/statistics"
 import classNames from "classnames"
 import { Link } from "react-router-dom"
 

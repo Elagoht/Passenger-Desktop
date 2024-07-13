@@ -1,7 +1,7 @@
 import { IconChevronRight } from "@tabler/icons-react"
 import { FC } from "react"
 import { Link } from "react-router-dom"
-import { ConstantPair } from "../../../types/common"
+import { ConstantPair } from "@/types/common"
 
 interface IConstantPairItemProps {
   constant: ConstantPair

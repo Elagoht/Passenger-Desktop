@@ -1,6 +1,6 @@
 import { FC } from "react"
 import { Link } from "react-router-dom"
-import { ListableDatabaseEntry } from "../../../types/common"
+import { ListableDatabaseEntry } from "@/types/common"
 import EntryEditLink from "./EntryEditLink"
 import IdentityCopyButton from "./IdentityCopyButton"
 import PassphraseCopyButton from "./PassphraseCopyButton"

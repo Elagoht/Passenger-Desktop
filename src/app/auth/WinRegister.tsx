@@ -1,6 +1,6 @@
 import { FC } from "react"
-import AuthForm from "../../components/forms/AuthForm"
-import Window from "../../components/layout/Window"
+import AuthForm from "@/components/forms/AuthForm"
+import Window from "@/components/layout/Window"
 
 const WinRegister: FC = () => {
 

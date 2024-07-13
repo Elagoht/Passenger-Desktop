@@ -3,7 +3,7 @@
 import { Icon, IconAlertCircle, IconCheck, IconEye, IconEyeOff, IconProps } from "@tabler/icons-react"
 import classNames from "classnames"
 import { FC, ForwardRefExoticComponent, InputHTMLAttributes, ReactNode, createElement, useEffect, useRef, useState } from "react"
-import Pretty from "../../helpers/prettiers"
+import Pretty from "@/helpers/prettiers"
 
 export interface IInputProps extends Omit<
   InputHTMLAttributes<HTMLInputElement>,

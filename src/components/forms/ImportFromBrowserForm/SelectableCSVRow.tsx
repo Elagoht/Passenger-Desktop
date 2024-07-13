@@ -1,6 +1,6 @@
 import classNames from "classnames"
 import { FC } from "react"
-import { CSVLineEntry } from "../../../types/common"
+import { CSVLineEntry } from "@/types/common"
 
 interface ISelectableCSVRowProps {
   entry: CSVLineEntry
