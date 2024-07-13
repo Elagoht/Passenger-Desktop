@@ -1,7 +1,7 @@
 import { IconBrowser, IconDatabaseExport, IconFileExport, IconKey, IconVariable } from "@tabler/icons-react"
 import { FC } from "react"
-import SettingsGroup from "../../components/settings/SettingsGroup"
-import Window from "../../components/layout/Window"
+import Window from "@/components/layout/Window"
+import SettingsGroup from "@/components/windows/settings/SettingsGroup"
 
 const WinSettings: FC = () => {
 

@@ -32,6 +32,7 @@
     "swiper": "^11.1.1",
     "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#v1",
     "use-debounce": "^10.0.0",
+    "vite-tsconfig-paths": "^4.3.2",
     "yup": "^1.4.0",
     "zustand": "^4.5.2"
   },
