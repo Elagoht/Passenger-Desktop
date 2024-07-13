@@ -17,9 +17,9 @@ const EditImportDataModal: FC<EditImportDataModalProps> = ({
   acceptableCount, badEntries, setBadEntries,
   closeModal, isOpen, onContinue
 }) => {
-  const [selectedEntries, setSelectedEntries] = useState<{
-    [index: number]: boolean
-  }>({
+  const [selectedEntries, setSelectedEntries] = useState<Record<
+    number, boolean
+  >>({
     0: true
   })
 
