@@ -33,14 +33,12 @@ const Window: FC<IWindowProps> = ({ children, className, compact }) => {
       duration: 0.25
     }}
     className={classNames({
-      "grow overflow-y-auto p-2 md:p-4": true,
-      "max-w-2xl mx-auto w-full": compact,
+      "flex flex-col p-2 md:p-4": true,
+      "max-w-2xl mx-auto": compact,
       [className!]: className
     })}
   >
-    <div className="flex flex-col min-h-full">
-      {children}
-    </div>
+    {children}
   </motion.main>
 }
 
