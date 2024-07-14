@@ -1,9 +1,8 @@
+import Button from "@/components/formElements/Button"
+import handleResponse from "@/helpers/services"
+import { generatePassphrase } from "@/services/generationServices"
 import { IconDice1, IconDice2, IconDice3, IconDice4, IconDice5, IconDice6 } from "@tabler/icons-react"
 import { FC, createElement, useState } from "react"
-import Button from "@/components/formElements/Button"
-import { useNotificationSlice } from "@/lib/stores/notification"
-import StringHelper from "@/helpers/string"
-import { generatePassphrase } from "@/services/generationServices"
 
 interface IGenerateButtonProps {
   setFieldValue: (field: string, value: string) => void
@@ -26,8 +25,6 @@ const changedDiceIcon = (currentIcon: number) => {
 }
 
 const GenerateButton: FC<IGenerateButtonProps> = ({ setFieldValue }) => {
-  const addNotification = useNotificationSlice(state => state.addNotification)
-
   const [diceIcon, setDiceIcon] = useState<number>(
     Math.floor(Math.random() * 6)
   )
@@ -39,14 +36,13 @@ const GenerateButton: FC<IGenerateButtonProps> = ({ setFieldValue }) => {
     color="secondary"
     onClick={() => generatePassphrase(
       32
-    ).then((response) => {
-      if (response.status !== 0) return addNotification({
-        type: "error",
-        title: "Failed to generate passphrase",
-        message: StringHelper.removeUnixErrorPrefix(response.stderr)
-      })
-      setFieldValue("passphrase", response.stdout)
-    }).finally(() =>
+    ).then((response) => handleResponse(
+      response,
+      [() => setFieldValue("passphrase", response.stdout)],
+      [() => void 0, {
+        errorTitle: "Failed to generate passphrase"
+      }]
+    )).finally(() =>
       setDiceIcon(changedDiceIcon(diceIcon))
     )}
   >

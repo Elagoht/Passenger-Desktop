@@ -1,33 +1,33 @@
 import Loading from "@/components/layout/Loading"
-import StringHelper from "@/helpers/string"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
-import { useNotificationSlice } from "@/lib/stores/notification"
+import handleResponse from "@/helpers/services"
+import { authStore } from "@/lib/stores/authorization"
 import { getDetectiveReports } from "@/services/reportServices"
 import { DetectiveReport } from "@/types/reports"
 import { Maybe } from "@/types/utility"
 import { useEffect, useState } from "react"
 import DetectiveCommonPassphrases from "./detectiveReports/DetectiveCommonPassphrases"
+import DetectiveOldPassphrases from "./detectiveReports/DetectiveOldPassphrases"
 import DetectiveSimilarWithUsername from "./detectiveReports/DetectiveSimilarWithUsername"
 import DetectiveWeakPassphrases from "./detectiveReports/DetectiveWeakPassphrases"
-import DetectiveOldPassphrases from "./detectiveReports/DetectiveOldPassphrases"
+import StringHelper from "@/helpers/string"
+import { IconZoomCancel } from "@tabler/icons-react"
 
 const Detective = () => {
-  const accessToken = useAuthorizationSlice(store => store.accessToken)
-  const addNotification = useNotificationSlice(store => store.addNotification)
+  const accessToken = authStore(store => store.accessToken)
 
   const [detectiveReports, setDetectiveReports] = useState<Maybe<DetectiveReport>>(null)
 
   useEffect(() => {
     getDetectiveReports(
       accessToken
-    ).then((response) => {
-      if (response.status !== 0) return addNotification({
-        title: "Error",
-        message: StringHelper.removeUnixErrorPrefix(response.stderr),
-        type: "error"
-      })
-      setDetectiveReports(StringHelper.deserialize<DetectiveReport>(response.stdout))
-    })
+    ).then((response) => handleResponse(
+      response,
+      [() => setDetectiveReports(StringHelper.deserialize<DetectiveReport>(response.stdout))],
+      [() => void 0, {
+        errorTitle: "Error",
+        errorIcon: IconZoomCancel,
+      }]
+    ))
   }, [])
 
   if (!detectiveReports) return <Loading />

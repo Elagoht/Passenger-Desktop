@@ -1,21 +1,19 @@
-import { FC, useEffect, useState } from "react"
-import { getStatistics } from "@/services/reportServices"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
-import { useNotificationSlice } from "@/lib/stores/notification"
-import { Statistics } from "@/types/statistics"
-import StringHelper from "@/helpers/string"
 import Window from "@/components/layout/Window"
-import TotalCounts from "@/components/windows/dashboard/TotalCounts"
-import StrengthMeter from "@/components/windows/dashboard/StrengtMeter"
 import AverageLength from "@/components/windows/dashboard/AverageLength"
 import MostAccessed from "@/components/windows/dashboard/MostAccessed"
-import StrengthDistributionChart from "@/components/windows/dashboard/StrengthDistributionChart"
 import MostUsedPassphrase from "@/components/windows/dashboard/MostUsedPassphrase"
+import StrengthDistributionChart from "@/components/windows/dashboard/StrengthDistributionChart"
+import StrengthMeter from "@/components/windows/dashboard/StrengtMeter"
+import TotalCounts from "@/components/windows/dashboard/TotalCounts"
+import handleResponse from "@/helpers/services"
+import StringHelper from "@/helpers/string"
+import { authStore } from "@/lib/stores/authorization"
+import { getStatistics } from "@/services/reportServices"
+import { Statistics } from "@/types/statistics"
+import { FC, useEffect, useState } from "react"
 
 const WinDashboard: FC = () => {
-  const accessToken = useAuthorizationSlice(state => state.accessToken)
-  const addNotification = useNotificationSlice(state => state.addNotification)
-
+  const accessToken = authStore(state => state.accessToken)
   const [statistics, setStatistics] = useState<Statistics>({
     totalCount: 0, // Used
     averageLength: 0, // Used
@@ -36,14 +34,14 @@ const WinDashboard: FC = () => {
   useEffect(() => {
     getStatistics(
       accessToken
-    ).then((response) => response.status === 0
-      ? setStatistics(StringHelper.deserialize<Statistics>(response.stdout))
-      : addNotification({
-        type: "error",
-        title: "Unsuccessful Request",
-        message: StringHelper.removeUnixErrorPrefix(response.stderr)
-      })
-    )
+    ).then((response) => handleResponse(
+      response,
+      [() => setStatistics(StringHelper.deserialize<Statistics>(response.stdout))],
+      [() => void 0, {
+        errorTitle: "Couldn't fetch statistics at the moment",
+        errorMessage: StringHelper.removeUnixErrorPrefix(response.stderr)
+      }],
+    ))
   }, [])
 
   return <Window wide>

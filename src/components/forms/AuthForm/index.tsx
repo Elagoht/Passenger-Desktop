@@ -1,8 +1,7 @@
 import Button from "@/components/formElements/Button"
 import Input from "@/components/formElements/Input"
-import StringHelper from "@/helpers/string"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
-import { useNotificationSlice } from "@/lib/stores/notification"
+import handleResponse from "@/helpers/services"
+import { authStore } from "@/lib/stores/authorization"
 import { validationAuthLoginForm, validationAuthRegisterForm } from "@/lib/validations/authForms"
 import { loginToPassenger, registerToPassenger } from "@/services/authServices"
 import { IconKey, IconLockOpen, IconMoodBoy, IconMoodEmpty, IconMoodHappy, IconMoodLookDown, IconMoodLookLeft, IconMoodLookRight, IconMoodLookUp, IconMoodSmileBeam, IconMoodTongue, IconMoodTongueWink, IconMoodUnamused, IconMoodWink } from "@tabler/icons-react"
@@ -18,10 +17,9 @@ interface IAuthFormProps {
 const AuthForm: FC<IAuthFormProps> = ({ mode }) => {
   const navigate = useNavigate()
 
-  const setIsAuthorizated = useAuthorizationSlice((state) => state.setIsAuthorizated)
-  const setAccessToken = useAuthorizationSlice((state) => state.setAccessToken)
-  const setDoesRequireReAuth = useAuthorizationSlice((state) => state.setDoesRequireReAuth)
-  const addNotification = useNotificationSlice((state) => state.addNotification)
+  const setIsAuthorizated = authStore((state) => state.setIsAuthorizated)
+  const setAccessToken = authStore((state) => state.setAccessToken)
+  const setDoesRequireReAuth = authStore((state) => state.setDoesRequireReAuth)
   const [mood, setMood] = useState<number>(Math.floor(Math.random() * moods.length))
 
   return <section className="h-screen items-center justify-center flex flex-col p-4 gap-4">
@@ -70,49 +68,45 @@ const AuthForm: FC<IAuthFormProps> = ({ mode }) => {
         localStorage.setItem("SECRET_KEY", "A VERY STRONG SECRET KEY")
 
         let continueToLogin = true
-        if (mode === "register")
+        if (mode === "register") handleResponse(
           await registerToPassenger(
             values.username,
             values.passphrase
-          ).then((output) => {
-            if (output.status === 0) return addNotification({
-              icon: <IconMoodSmileBeam size={32} />,
-              title: "Register successful",
-              type: "success",
-              message: "Your vault has been created successfully."
-            })
-            addNotification({
-              icon: <IconMoodLookDown size={32} />,
-              title: "Register failed",
-              type: "error",
-              message: StringHelper.removeUnixErrorPrefix(output.stderr)
-            })
-            continueToLogin = false
-          })
+          ),
+          [() => { continueToLogin = true }
+            , {
+            successTitle: "Register successful",
+            successMessage: "Your vault has been created successfully.",
+            successIcon: IconMoodSmileBeam
+          }],
+          [() => void 0, {
+            errorTitle: "Register failed",
+            errorIcon: IconMoodLookDown
+          }]
+        )
         if (!continueToLogin) return
 
         await loginToPassenger(
           values.username,
           values.passphrase
-        ).then((response) => {
-          if (response.status !== 0) return addNotification({
-            icon: <IconMoodLookDown size={32} />,
-            title: "Could't open the vault",
-            type: "error",
-            message: StringHelper.removeUnixErrorPrefix(response.stderr)
-          })
-
-          const { stdout: jwt } = response // Extract the JWT from the response.
-          setAccessToken(jwt)
-
-          // Start a 10 minutes interval to show re-authentication modal.
-          window.setInterval(
-            () => setDoesRequireReAuth(true),
-            60 * 10 * 1000 // This is the expiration time of the JWT.
-          )
-          navigate("/dashboard")
-          setIsAuthorizated(true)
-        }).then(() =>
+        ).then((response) => handleResponse(
+          response,
+          [() => {
+            setAccessToken(response.stdout)
+            setDoesRequireReAuth(false)
+            navigate("/dashboard")
+            setIsAuthorizated(true)
+          },
+          {
+            successTitle: "Access granted!",
+            successMessage: "Welcome back to your vault.",
+            successIcon: IconMoodHappy
+          }],
+          [() => void 0, {
+            errorTitle: "Access denied",
+            errorIcon: IconMoodLookDown
+          }]
+        )).then(() =>
           setMood(Math.floor(Math.random() * moods.length))
         ).finally(() =>
           setSubmitting(false)
@@ -188,7 +182,7 @@ const AuthForm: FC<IAuthFormProps> = ({ mode }) => {
         </Form>
       }
     </Formik>
-  </section>
+  </section >
 }
 
 const moods = [

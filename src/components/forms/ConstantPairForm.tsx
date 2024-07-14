@@ -2,9 +2,9 @@ import Button from "@/components/formElements/Button"
 import Input from "@/components/formElements/Input"
 import ConstantPairDeleteButton from "@/components/windows/settings/ConsantPairs/ConstantPairDeleteButton"
 import FormikHelper from "@/helpers/formik"
+import handleResponse from "@/helpers/services"
 import StringHelper from "@/helpers/string"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
-import { useNotificationSlice } from "@/lib/stores/notification"
+import { authStore } from "@/lib/stores/authorization"
 import { validationConstantPairForms } from "@/lib/validations/constantPairForms"
 import { declareConstantPair, modifyConstantPair } from "@/services/constantPairServices"
 import { ConstantPair } from "@/types/common"
@@ -24,8 +24,7 @@ type IConstantPairFormProps = {
 const ConstantPairForm: FC<IConstantPairFormProps> = ({ mode, existing }) => {
   const navigate = useNavigate()
 
-  const accessToken = useAuthorizationSlice((state) => state.accessToken)
-  const addNotification = useNotificationSlice((state) => state.addNotification)
+  const accessToken = authStore((state) => state.accessToken)
 
   const formAction = (values: Record<string, string>) =>
     mode === "declare"
@@ -40,30 +39,21 @@ const ConstantPairForm: FC<IConstantPairFormProps> = ({ mode, existing }) => {
     }
     validationSchema={validationConstantPairForms}
     onSubmit={(values, { setSubmitting }) => formAction(values)
-      .then((response) => {
-        if (response.status !== 0) return addNotification({
-          type: "error",
-          message: StringHelper.removeUnixErrorPrefix(response.stdout),
-          title: `Couldn't ${mode === "declare"
-            ? "declare"
-            : "modify"
-            } at the moment`,
-          icon: <IconDatabaseExclamation />
-        })
-        addNotification({
-          type: "success",
-          message: `Constant pair is ${mode === "declare"
-            ? "ready to use"
-            : "modified"
-            }`,
-          title: `${mode === "declare"
-            ? "Declared"
-            : "Modified"
-            } Constant Pair`,
-          icon: <IconDeviceFloppy />
-        })
-        navigate("/settings/constant-pairs")
-      }).finally(() =>
+      .then((response) =>
+        handleResponse(
+          response,
+          [() => navigate("/settings/constant-pairs"), {
+            successTitle: `${mode === "declare" ? "Declared" : "Modified"} Constant Pair`,
+            successMessage: `Constant pair is ${mode === "declare" ? "ready to use" : "modified"}`,
+            successIcon: IconDeviceFloppy
+          }],
+          [() => void 0, {
+            errorTitle: `Couldn't ${mode === "declare" ? "declare" : "modify"} at the moment`,
+            errorMessage: StringHelper.removeUnixErrorPrefix(response.stderr),
+            errorIcon: IconDatabaseExclamation
+          }]
+        )
+      ).finally(() =>
         setSubmitting(false)
       )
     }

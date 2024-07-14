@@ -1,14 +1,15 @@
-import { IconLoader, IconLock, IconLockOpen, IconTableExport } from "@tabler/icons-react"
+import Button from "@/components/formElements/Button"
+import Select from "@/components/formElements/Select"
+import Toast from "@/helpers/notifications"
+import handleResponse from "@/helpers/services"
+import StringHelper from "@/helpers/string"
+import { authStore } from "@/lib/stores/authorization"
+import { exportToCSV } from "@/services/dataTransferServices"
+import { IconFileAlert, IconLoader, IconLock, IconLockOpen, IconTableExport } from "@tabler/icons-react"
 import { save } from "@tauri-apps/api/dialog"
 import { writeTextFile } from "@tauri-apps/api/fs"
 import { Form, Formik } from "formik"
 import { FC } from "react"
-import StringHelper from "@/helpers/string"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
-import { useNotificationSlice } from "@/lib/stores/notification"
-import Button from "@/components/formElements/Button"
-import Select from "@/components/formElements/Select"
-import { exportToCSV } from "@/services/dataTransferServices"
 
 const ExportTypeIcons = {
   bare: IconLockOpen,
@@ -16,8 +17,7 @@ const ExportTypeIcons = {
 }
 
 const ExportToCSVForm: FC = () => {
-  const accessToken = useAuthorizationSlice((state) => state.accessToken)
-  const addNotification = useNotificationSlice((state) => state.addNotification)
+  const accessToken = authStore((state) => state.accessToken)
 
   return <Formik
     initialValues={{ exportType: "bare" }}
@@ -25,29 +25,33 @@ const ExportToCSVForm: FC = () => {
       exportToCSV( // Get the export data from the CLI
         accessToken,
         values.exportType
-      ).then((response) => {
-        if (response.status !== 0) return addNotification({
-          type: "error", // If unsuccessful, show an error notification
-          message: StringHelper.removeUnixErrorPrefix(response.stderr)
-        })
-        save({ // Open a save file selection dialog
+      ).then((response) => handleResponse(
+        response,
+        [() => save({
           filters: [{
             name: "passphrases",
             extensions: ["csv"]
           }]
         }).then((path) => {
-          if (!path) return addNotification({
-            type: "error", // If no file selected, show an error notification
-            message: "No file selected"
+          if (!path) return Toast.error({
+            title: "No file selected",
+            message: "Please select a file path to export the data",
+            icon: IconFileAlert
           })
           writeTextFile( // Write the export data to the selected file
             path,
             response.stdout
-          ).then(() => addNotification({ // Show a success notification
-            type: "success", message: "Exported successfully"
+          ).then(() => Toast.success({ // Show a success notification
+            title: "Exported successfully",
+            message: "Do not share this file with anyone!",
+            icon: IconTableExport
           }))
-        })
-      }).finally(() => // Re-enable the form
+        })],
+        [() => void 0, {
+          errorTitle: "Couldn't export data at the moment",
+          errorMessage: StringHelper.removeUnixErrorPrefix(response.stderr)
+        }],
+      )).finally(() =>
         setSubmitting(false)
       )
     }}

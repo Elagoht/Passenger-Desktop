@@ -1,16 +1,15 @@
-import { FC } from "react"
-import { IconKey, IconLock, IconLockOpen, IconMoodLookDown, IconMoodSmile } from "@tabler/icons-react"
-import { Form, Formik } from "formik"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
-import { useNotificationSlice } from "@/lib/stores/notification"
-import { loginToPassenger } from "@/services/authServices"
-import StringHelper from "@/helpers/string"
 import Button from "@/components/formElements/Button"
 import Input from "@/components/formElements/Input"
+import handleResponse from "@/helpers/services"
+import StringHelper from "@/helpers/string"
+import { authStore } from "@/lib/stores/authorization"
+import { loginToPassenger } from "@/services/authServices"
+import { IconKey, IconLock, IconLockOpen, IconMoodLookDown, IconMoodSmile } from "@tabler/icons-react"
+import { Form, Formik } from "formik"
+import { FC } from "react"
 const ReAuthForm: FC = () => {
-  const setDoesRequireReAuth = useAuthorizationSlice(state => state.setDoesRequireReAuth)
-  const setAccessToken = useAuthorizationSlice(state => state.setAccessToken)
-  const addNotification = useNotificationSlice(state => state.addNotification)
+  const setDoesRequireReAuth = authStore(state => state.setDoesRequireReAuth)
+  const setAccessToken = authStore(state => state.setAccessToken)
 
   return <Formik
     initialValues={{
@@ -21,25 +20,25 @@ const ReAuthForm: FC = () => {
       loginToPassenger(
         values.username,
         values.passphrase
-      ).then((response) => {
-        if (response.status !== 0) return addNotification({
-          title: "Access denied",
-          type: "error",
-          icon: <IconMoodLookDown size={32} />,
-          message: StringHelper.removeUnixErrorPrefix(response.stderr)
-        })
-        setAccessToken(response.stdout)
-        setDoesRequireReAuth(false)
-        addNotification({
-          type: "success",
-          icon: <IconMoodSmile size={32} />,
-          message: "Access granted, again!"
-        })
-        setValues({ // Clear the form for next time
-          username: "",
-          passphrase: ""
-        })
-      }).finally(
+      ).then((response) => handleResponse(
+        response,
+        [() => {
+          setAccessToken(response.stdout)
+          setDoesRequireReAuth(false)
+        }, {
+          successTitle: "Access granted, again!",
+          successMessage: "Continue where you left off.",
+          successIcon: IconMoodSmile
+        }],
+        [() => void 0, {
+          errorTitle: "Access denied",
+          errorMessage: StringHelper.removeUnixErrorPrefix(response.stderr),
+          errorIcon: IconMoodLookDown
+        }]
+      )).then(() => setValues({
+        username: "",
+        passphrase: ""
+      })).finally(
         () => setSubmitting(false)
       )
     }

@@ -1,20 +1,18 @@
 import Input from "@/components/formElements/Input"
-import StringHelper from "@/helpers/string"
-import { useNotificationSlice } from "@/lib/stores/notification"
+import handleResponse from "@/helpers/services"
+import { authStore } from "@/lib/stores/authorization"
 import { validationResetMasterPassphraseForm } from "@/lib/validations/authForms"
 import { resetMasterPassphrase } from "@/services/authServices"
-import { IconExclamationCircle, IconKey, IconLoader } from "@tabler/icons-react"
+import { IconKey, IconLoader } from "@tabler/icons-react"
 import { Form, Formik } from "formik"
 import { FC } from "react"
+import { useNavigate } from "react-router-dom"
 import Button from "../formElements/Button"
 import MasterPassphraseChecker from "./AuthForm/MasterPassphraseChecker"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
-import { useNavigate } from "react-router-dom"
 
 const ResetMasterPassphraseForm: FC = () => {
   const navigate = useNavigate()
-  const accessToken = useAuthorizationSlice((state) => state.accessToken)
-  const addNotification = useNotificationSlice((state) => state.addNotification)
+  const accessToken = authStore((state) => state.accessToken)
 
   return <Formik
     initialValues={{
@@ -28,21 +26,18 @@ const ResetMasterPassphraseForm: FC = () => {
         accessToken,
         values.currentPassphrase,
         values.newPassphrase
-      ).then((response) => {
-        if (response.status !== 0) return addNotification({
-          type: "error",
-          title: "An error occurred!",
-          icon: <IconExclamationCircle />,
-          message: StringHelper.removeUnixErrorPrefix(response.stderr)
-        })
-        addNotification({
-          type: "success",
-          title: "Success!",
-          icon: <IconKey />,
-          message: "Master passphrase updated successfully"
-        })
-        navigate("/settings")
-      }).then(() => setTouched({
+      ).then((response) => handleResponse(
+        response,
+        [() =>
+          navigate("/settings"), {
+          successTitle: "A Fresh Look",
+          successMessage: "Master passphrase has been reset successfully",
+          successIcon: IconKey
+        }],
+        [() => void 0, {
+          errorTitle: "Failed to reset"
+        }]
+      )).then(() => setTouched({
         currentPassphrase: true,
         newPassphrase: true,
         confirmPassphrase: true
@@ -112,7 +107,7 @@ const ResetMasterPassphraseForm: FC = () => {
         </Button>
       </Form>
     }
-  </Formik >
+  </Formik>
 }
 
 export default ResetMasterPassphraseForm
