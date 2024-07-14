@@ -66,7 +66,7 @@ const PassphraseEntryForm: FC<IPassphraseDetailsFormProps> = ({ mode, existing }
               : "added"
               }.`
           })
-          return navigate("/passphrases")
+          navigate("/passphrases")
         }).finally(() =>
           setSubmitting(false)
         )
