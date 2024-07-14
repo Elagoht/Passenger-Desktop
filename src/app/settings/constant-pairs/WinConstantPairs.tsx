@@ -1,12 +1,37 @@
-import { IconPlus } from "@tabler/icons-react"
-import { FC } from "react"
+import { IconDatabaseExclamation, IconPlus } from "@tabler/icons-react"
+import { FC, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
 import Button from "@/components/formElements/Button"
 import GoBackHeader from "@/components/layout/GoBackHeader"
 import Window from "@/components/layout/Window"
 import ConstantPairList from "@/components/windows/settings/ConsantPairs/ConstantPairList"
+import Loading from "@/components/layout/Loading"
+import { authStore } from "@/lib/stores/authorization"
+import { ConstantPair } from "@/types/common"
+import { fetchAllConstantPairs } from "@/services/constantPairServices"
+import handleResponse from "@/helpers/services"
+import StringHelper from "@/helpers/string"
 
 const WinConstantPairs: FC = () => {
+  const accessToken = authStore((state) => state.accessToken)
+
+  const [constants, setConstants] = useState<ConstantPair[]>()
+
+  useEffect(() => {
+    fetchAllConstantPairs(
+      accessToken
+    ).then((response) => handleResponse(
+      response,
+      [() => setConstants(StringHelper.deserialize<ConstantPair[]>(response.stdout) ?? undefined)],
+      [() => void 0, {
+        errorTitle: "Failed to fetch constant pairs",
+        errorIcon: IconDatabaseExclamation
+      }]
+    ))
+  }, [])
+
+  if (!constants) return <Loading />
+
   return <Window>
     <GoBackHeader
       href="/settings"
@@ -36,7 +61,7 @@ const WinConstantPairs: FC = () => {
       </Button>
     </Link>
 
-    <ConstantPairList />
+    <ConstantPairList constants={constants} />
   </Window>
 }
 

@@ -1,39 +1,16 @@
 import FancyInput from "@/components/formElements/FancyInput"
-import Loading from "@/components/layout/Loading"
-import handleResponse from "@/helpers/services"
-import StringHelper from "@/helpers/string"
-import { authStore } from "@/lib/stores/authorization"
-import { fetchAllEntries } from "@/services/passphraseServices"
 import { ListableDatabaseEntry } from "@/types/common"
-import { Maybe } from "@/types/utility"
-import { IconMoodLookDown, IconSearch } from "@tabler/icons-react"
+import { IconSearch } from "@tabler/icons-react"
 import { AnimatePresence, motion } from "framer-motion"
-import { FC, useEffect, useState } from "react"
+import { FC, useState } from "react"
 import PassphraseCard from "./PassphraseCard"
 
-const PassphraseList: FC = () => {
+interface IPassphraseListProps {
+  passphrases: ListableDatabaseEntry[]
+}
 
-  const accessToken = authStore((state) => state.accessToken)
-  const [passphrases, setPassphrases] = useState<Maybe<ListableDatabaseEntry[]>>(null)
-
+const PassphraseList: FC<IPassphraseListProps> = ({ passphrases }) => {
   const [searchTerm, setSearchTerm] = useState<string>("")
-
-  useEffect(() => {
-    fetchAllEntries(
-      accessToken
-    ).then((response) => handleResponse(
-      response,
-      [() => setPassphrases(
-        StringHelper.deserialize<ListableDatabaseEntry[]>(response.stdout)
-      )],
-      [() => void 0, {
-        errorTitle: "Couldn't fetch passphrases",
-        errorIcon: IconMoodLookDown,
-      }]
-    ))
-  }, [])
-
-  if (passphrases === null) return <Loading />
 
   const filteredPassphrases = passphrases.filter((passphrase: ListableDatabaseEntry) => {
     const search = searchTerm.toLowerCase()

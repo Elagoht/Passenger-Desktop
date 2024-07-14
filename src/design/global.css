@@ -36,8 +36,8 @@ input[type="number"] {
   );
 }
 
-.fade-in {
-  animation: fade-in 0.5s ease-in-out;
+.loading {
+  animation: fade-in 0.5s ease-in-out, spin 1.5s infinite linear;
 }
 
 @keyframes fade-in {
@@ -46,5 +46,14 @@ input[type="number"] {
   }
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

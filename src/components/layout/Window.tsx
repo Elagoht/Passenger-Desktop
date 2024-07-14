@@ -44,14 +44,14 @@ const Window: FC<IWindowProps> = ({ children, title, description, className, wid
     })}
   >
     {title &&
-      <h1 className="text-3xl font-medium text-center mt-4">
+      <h1 className="text-3xl font-medium text-center my-4">
         {title}
       </h1>
     }
 
     {
       description &&
-      <p className="my-2">
+      <p className="mb-2">
         {description}
       </p>
     }

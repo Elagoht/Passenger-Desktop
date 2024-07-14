@@ -1,17 +1,16 @@
-import { IconArrowLeft, IconExternalLink } from "@tabler/icons-react"
-import { FC, useEffect, useState } from "react"
-import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
+import PassphraseEntryForm from "@/components/forms/PassphraseEntryForm"
 import Loading from "@/components/layout/Loading"
 import Window from "@/components/layout/Window"
+import PassphraseDeleteButton from "@/components/windows/passphrases/PassphraseDeleteButton"
+import handleResponse from "@/helpers/services"
 import StringHelper from "@/helpers/string"
 import { authStore } from "@/lib/stores/authorization"
-import { toastStore } from "@/lib/stores/notification"
 import { fetchEntry } from "@/services/passphraseServices"
 import { DatabaseEntry } from "@/types/common"
 import { Maybe } from "@/types/utility"
-import PassphraseDeleteButton from "@/components/windows/passphrases/PassphraseDeleteButton"
-import PassphraseEntryForm from "@/components/forms/PassphraseEntryForm"
-import handleResponse from "@/helpers/services"
+import { IconArrowLeft, IconExternalLink } from "@tabler/icons-react"
+import { FC, useEffect, useState } from "react"
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
 
 const WinPassphraseDetails: FC = () => {
   const params = useParams<{ id: string }>()
