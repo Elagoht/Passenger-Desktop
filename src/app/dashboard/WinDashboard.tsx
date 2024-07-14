@@ -5,7 +5,7 @@ import MostUsedPassphrase from "@/components/windows/dashboard/MostUsedPassphras
 import StrengthDistributionChart from "@/components/windows/dashboard/StrengthDistributionChart"
 import StrengthMeter from "@/components/windows/dashboard/StrengtMeter"
 import TotalCounts from "@/components/windows/dashboard/TotalCounts"
-import handleResponse from "@/helpers/requests"
+import handleResponse from "@/helpers/services"
 import StringHelper from "@/helpers/string"
 import { authStore } from "@/lib/stores/authorization"
 import { getStatistics } from "@/services/reportServices"
@@ -37,7 +37,7 @@ const WinDashboard: FC = () => {
     ).then((response) => handleResponse(
       response,
       () => setStatistics(StringHelper.deserialize<Statistics>(response.stdout)),
-      "Unsuccessful Request",
+      { errorTitle: "Failed to fetch statistics" }
     ))
   }, [])
 

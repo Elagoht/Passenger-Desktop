@@ -7,9 +7,15 @@ import StringHelper from "./string"
 const handleResponse = (
   response: Awaited<Promise<Output>>,
   successAction?: CallableFunction,
-  errorTitle?: string,
-  errorMessage?: string,
-  errorIcon?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & RefAttributes<Icon>>
+  {
+    errorTitle,
+    errorMessage,
+    errorIcon
+  }: {
+    errorTitle?: string,
+    errorMessage?: string,
+    errorIcon?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & RefAttributes<Icon>>
+  } = {}
 ) => {
   if (response.status !== 0) return Toast.error({
     title: errorTitle,
