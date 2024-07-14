@@ -32,7 +32,7 @@ const Detective = () => {
 
   if (!detectiveReports) return <Loading />
 
-  return <>
+  return <div className="grid gap-4 xl:grid-cols-2">
     <DetectiveCommonPassphrases commonPassphrases={detectiveReports.commonPassphrases} />
 
     <DetectiveSimilarWithUsername similarWithUsername={detectiveReports.similarWithUsername} />
@@ -40,7 +40,7 @@ const Detective = () => {
     <DetectiveWeakPassphrases weakPassphrases={detectiveReports.weakPassphrases} />
 
     <DetectiveOldPassphrases oldPassphrases={detectiveReports.oldPassphrases} />
-  </>
+  </div>
 }
 
 export default Detective

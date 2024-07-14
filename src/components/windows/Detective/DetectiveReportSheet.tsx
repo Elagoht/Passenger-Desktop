@@ -10,7 +10,7 @@ interface IDetectiveReportSheetProps {
 const DetectiveReportSheet: FC<IDetectiveReportSheetProps> = ({
   title, isEmpty, subtitle, children
 }) =>
-  !isEmpty && <fieldset className="p-2 bg-tuatara-50 dark:bg-tuatara-900 rounded-lg mt-4 shadow-md">
+  !isEmpty && <fieldset className="p-2 bg-tuatara-50 dark:bg-tuatara-900 rounded-lg mt-4 shadow-md self-start">
     <legend
       className="text-xl font-medium text-leaf-500 px-2 bg-tuatara-50 dark:bg-tuatara-900 rounded-lg"
     >{title}</legend>
