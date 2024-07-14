@@ -9,8 +9,10 @@ import { FC } from "react"
 import Button from "../formElements/Button"
 import MasterPassphraseChecker from "./AuthForm/MasterPassphraseChecker"
 import { useAuthorizationSlice } from "@/lib/stores/authorization"
+import { useNavigate } from "react-router-dom"
 
 const ResetMasterPassphraseForm: FC = () => {
+  const navigate = useNavigate()
   const accessToken = useAuthorizationSlice((state) => state.accessToken)
   const addNotification = useNotificationSlice((state) => state.addNotification)
 
@@ -39,6 +41,7 @@ const ResetMasterPassphraseForm: FC = () => {
           icon: <IconKey />,
           message: "Master passphrase updated successfully"
         })
+        navigate("/settings")
       }).then(() => setTouched({
         currentPassphrase: true,
         newPassphrase: true,
