@@ -5,7 +5,7 @@ import { Link } from "react-router-dom"
 const DetectiveSheetItem: FC<ListableDatabaseEntry> = (props) => {
   return <Link
     draggable={false}
-    to={`/passphrases/${props.id}`}
+    to={`/passphrases/${props.id}?cameFrom=/detective`}
     className="flex justify-start items-center shadow rounded-lg bg-white dark:bg-tuatara-800 dark:text-white text-tuatara-900 p-2 gap-2"
   >
     <img
