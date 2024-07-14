@@ -7,12 +7,12 @@ import InputErrorMessages from "./partial/InputErrorMessages"
 import InputLeftIcon from "./partial/InputLeftIcon"
 import InputValidityIcons from "./partial/InputValidityIcons"
 
-export type IInputProps = Omit<
+export type IFileInputProps = Omit<
   InputHTMLAttributes<HTMLInputElement>,
   "type"
 > & ICustomInputProps
 
-const Input: FC<IInputProps> = ({
+const FileInput: FC<IFileInputProps> = ({
   optional = false,
   label, error, success, message,
   iconLeft, iconRight, validityIcons,
@@ -34,7 +34,7 @@ const Input: FC<IInputProps> = ({
     <label className="flex items-center gap-2 rounded-md transition-all duration-300 ease-in-out px-2 border border-current">
       <InputLeftIcon iconLeft={iconLeft} />
 
-      <div className="flex flex-col py-1">
+      <div className="flex flex-col py-1 grow">
         <span className={classNames({
           "transition-all duration-300 leading-5 ease-in-out select-none line-clamp-1": true,
         })}>
@@ -49,14 +49,14 @@ const Input: FC<IInputProps> = ({
             [props.className ?? ""]: true,
           })}
         />
-
-        <InputValidityIcons
-          error={Boolean(error)}
-          success={Boolean(success)}
-          validityIcons={validityIcons ?? true}
-          iconRight={iconRight}
-        />
       </div>
+
+      <InputValidityIcons
+        error={Boolean(error)}
+        success={Boolean(success)}
+        validityIcons={validityIcons ?? true}
+        iconRight={iconRight}
+      />
     </label>
 
     <InputErrorMessages
@@ -67,4 +67,4 @@ const Input: FC<IInputProps> = ({
   </div>
 }
 
-export default Input
+export default FileInput
