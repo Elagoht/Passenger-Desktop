@@ -1,19 +1,19 @@
+import { Output } from "@/api/cli"
+import Button from "@/components/formElements/Button"
+import FileInput from "@/components/formElements/FileInput"
+import Select from "@/components/formElements/Select"
+import { authStore } from "@/lib/stores/authorization"
+import { validationImportFromBrowserForm } from "@/lib/validations/importExportForms"
+import { importFromBrowser } from "@/services/dataTransferServices"
+import { CSVLineEntry } from "@/types/common"
 import { IconBrandChrome, IconBrandFirefox, IconBrandSafari, IconFileImport, IconLoader, IconSelector } from "@tabler/icons-react"
 import { Form, Formik } from "formik"
 import Papa from "papaparse"
 import { FC, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { validationImportFromBrowserForm } from "@/lib/validations/importExportForms"
-import { authStore } from "@/lib/stores/authorization"
-import { toastStore } from "@/lib/stores/notification"
-import { CSVLineEntry } from "@/types/common"
-import Button from "@/components/formElements/Button"
-import FileInput from "@/components/formElements/FileInput"
-import Select from "@/components/formElements/Select"
-import EditImportDataModal from "./EditImportDataModal"
 import { Maybe } from "yup"
-import { importFromBrowser } from "@/services/dataTransferServices"
-import { Output } from "@/api/cli"
+import EditImportDataModal from "./EditImportDataModal"
+import handleResponse from "@/helpers/services"
 
 const browserIcons = {
   "": IconSelector,
@@ -24,41 +24,40 @@ const browserIcons = {
 
 const ImportFromBrowserForm: FC = () => {
   const accessToken = authStore((state) => state.accessToken)
-  const addNotification = toastStore((state) => state.addToast)
   const [editModal, setEditModal] = useState<boolean>(false)
   const [acceptableEntries, setAcceptableEntries] = useState<CSVLineEntry[]>([])
   const [badEntries, setBadEntries] = useState<CSVLineEntry[]>([])
-
   const navigate = useNavigate()
 
-  const tryToImport = (response: Output) => {
-    // Loop until successful import
-    if (response.status === 0) {
-      addNotification({
-        message: response.stdout
-      })
-      return navigate("/passphrases")
-    }
-    /**
-     * If unsuccessful, core CLI will not accept even
-     * the acceptable entries and will return the bad
-     * entries on the stderr and acceptable entries on
-     * the stdout. We will show the bad entries to the
-     * user and ask them to edit the entries.
-     */
-    const badEntries = Papa.parse<CSVLineEntry>(
-      response.stderr,
-      { skipEmptyLines: true }
-    ).data
-    badEntries.shift() // Remove first description
-    badEntries.pop() // Remove second description
-    setBadEntries(badEntries)
-    setAcceptableEntries(Papa.parse<CSVLineEntry>(
-      response.stdout,
-      { skipEmptyLines: true }
-    ).data)
-    setEditModal(true)
-  }
+  // Loop until the import is successful
+  const tryToImport = (response: Awaited<Promise<Output>>) => handleResponse(
+    response,
+    [() => navigate("/passphrases"), {
+      successTitle: "Success",
+      successMessage: response.stdout
+    }],
+    [() => {
+      /**
+       * If unsuccessful, core CLI will not accept even
+       * the acceptable entries and will return the bad
+       * entries on the stderr and acceptable entries on
+       * the stdout. We will show the bad entries to the
+       * user and ask them to edit the entries.
+       */
+      const badEntries = Papa.parse<CSVLineEntry>(
+        response.stderr,
+        { skipEmptyLines: true }
+      ).data
+      badEntries.shift() // Remove first description
+      badEntries.pop() // Remove second description
+      setBadEntries(badEntries)
+      setAcceptableEntries(Papa.parse<CSVLineEntry>(
+        response.stdout,
+        { skipEmptyLines: true }
+      ).data)
+      setEditModal(true)
+    }]
+  )
 
   return <Formik
     initialValues={{

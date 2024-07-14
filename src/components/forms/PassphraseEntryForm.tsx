@@ -4,10 +4,10 @@ import Input from "@/components/formElements/Input"
 import PassphraseSuggestion from "@/components/formElements/PassphraseSuggestion"
 import TextArea from "@/components/formElements/TextArea"
 import FormikHelper from "@/helpers/formik"
+import handleResponse from "@/helpers/services"
 import Strength from "@/helpers/strength"
 import StringHelper from "@/helpers/string"
 import { authStore } from "@/lib/stores/authorization"
-import { toastStore } from "@/lib/stores/notification"
 import { createEntry, updateEntry } from "@/services/passphraseServices"
 import { ReadWriteDatabaseEntry } from "@/types/common"
 import { IconDeviceFloppy, IconKey, IconLoader, IconNote, IconTag, IconUserCircle, IconWorld } from "@tabler/icons-react"
@@ -27,7 +27,6 @@ type IPassphraseDetailsFormProps = {
 const PassphraseEntryForm: FC<IPassphraseDetailsFormProps> = ({ mode, existing }) => {
   const navigate = useNavigate()
   const accessToken = authStore(state => state.accessToken)
-  const addNotification = toastStore(state => state.addToast)
 
   const formAction = (values: Record<string, string>) =>
     mode === "edit"
@@ -45,31 +44,22 @@ const PassphraseEntryForm: FC<IPassphraseDetailsFormProps> = ({ mode, existing }
       notes: notes || ""
     }}
     onSubmit={(values, { setSubmitting }) => {
-      formAction(values)
-        .then((response) => {
-          if (response.status !== 0) return addNotification({
-            type: "error",
-            title: `Failed to ${mode === "edit"
-              ? "update"
-              : "add"
-              } passphrase`,
-            message: StringHelper.removeUnixErrorPrefix(response.stderr)
-          })
-          addNotification({
-            type: "success",
-            title: `Passphrase ${mode === "edit"
-              ? "updated"
-              : "added"
-              }!`,
-            message: `The passphrase was successfully ${mode === "edit"
-              ? "updated"
-              : "added"
-              }.`
-          })
-          navigate("/passphrases")
-        }).finally(() =>
-          setSubmitting(false)
-        )
+      formAction(
+        values
+      ).then((response) => handleResponse(
+        response,
+        [() => navigate("/passphrases"), {
+          successTitle: `Passphrase ${mode === "edit" ? "updated" : "added"}!`,
+          successMessage: `The passphrase was successfully ${mode === "edit" ? "updated" : "added"}.`,
+          successIcon: IconDeviceFloppy
+        }],
+        [() => void 0, {
+          errorTitle: `Failed to ${mode === "edit" ? "update" : "add"} passphrase`,
+          errorMessage: StringHelper.removeUnixErrorPrefix(response.stderr)
+        }],
+      )).finally(() =>
+        setSubmitting(false)
+      )
     }}
   >
     {({

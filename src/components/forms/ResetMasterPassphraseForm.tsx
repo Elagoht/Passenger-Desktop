@@ -1,5 +1,5 @@
 import Input from "@/components/formElements/Input"
-import FormikHelper from "@/helpers/formik"
+import handleResponse from "@/helpers/services"
 import { authStore } from "@/lib/stores/authorization"
 import { validationResetMasterPassphraseForm } from "@/lib/validations/authForms"
 import { resetMasterPassphrase } from "@/services/authServices"
@@ -9,7 +9,6 @@ import { FC } from "react"
 import { useNavigate } from "react-router-dom"
 import Button from "../formElements/Button"
 import MasterPassphraseChecker from "./AuthForm/MasterPassphraseChecker"
-import Toast from "@/helpers/notifications"
 
 const ResetMasterPassphraseForm: FC = () => {
   const navigate = useNavigate()
@@ -27,16 +26,17 @@ const ResetMasterPassphraseForm: FC = () => {
         accessToken,
         values.currentPassphrase,
         values.newPassphrase
-      ).then((response) => FormikHelper.handleApiResponse(
+      ).then((response) => handleResponse(
         response,
-        () => {
-          Toast.success({
-            title: "Master passphrase updated",
-            icon: IconKey
-          })
-          navigate("/settings")
-        },
-        "Failed to reset master passphrase",
+        [() =>
+          navigate("/settings"), {
+          successTitle: "A Fresh Look",
+          successMessage: "Master passphrase has been reset successfully",
+          successIcon: IconKey
+        }],
+        [() => void 0, {
+          errorTitle: "Failed to reset"
+        }]
       )).then(() => setTouched({
         currentPassphrase: true,
         newPassphrase: true,

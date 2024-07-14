@@ -1,22 +1,21 @@
-import { FC, useEffect, useState } from "react"
-import GoBackHeader from "@/components/layout/GoBackHeader"
-import Window from "@/components/layout/Window"
 import ConstantPairForm from "@/components/forms/ConstantPairForm"
-import { ConstantPair } from "@/types/common"
-import { rememberConstantPair } from "@/services/constantPairServices"
-import StringHelper from "@/helpers/string"
-import { IconDatabaseExclamation } from "@tabler/icons-react"
+import GoBackHeader from "@/components/layout/GoBackHeader"
 import Loading from "@/components/layout/Loading"
-import { useNavigate, useParams } from "react-router-dom"
-import { toastStore } from "@/lib/stores/notification"
+import Window from "@/components/layout/Window"
+import handleResponse from "@/helpers/services"
+import StringHelper from "@/helpers/string"
 import { authStore } from "@/lib/stores/authorization"
+import { rememberConstantPair } from "@/services/constantPairServices"
+import { ConstantPair } from "@/types/common"
+import { IconDatabaseExclamation } from "@tabler/icons-react"
+import { FC, useEffect, useState } from "react"
+import { useNavigate, useParams } from "react-router-dom"
 
 const WinConstantPairForm: FC = () => {
   const navigate = useNavigate()
   const params = useParams<{ key: string }>()
 
   const accessToken = authStore((state) => state.accessToken)
-  const addNotification = toastStore((state) => state.addToast)
 
   const [constant, setConstant] = useState<ConstantPair>()
 
@@ -24,16 +23,14 @@ const WinConstantPairForm: FC = () => {
     rememberConstantPair(
       accessToken,
       params.key!
-    ).then((response) => {
-      if (response.status === 0) return
-      setConstant(StringHelper.deserialize<ConstantPair>(response.stdout))
-      addNotification({
-        type: "error",
-        message: StringHelper.removeUnixErrorPrefix(response.stderr),
-        icon: <IconDatabaseExclamation />
-      })
-      navigate("/settings/constant-pairs")
-    })
+    ).then((response) => handleResponse(
+      response,
+      [() => setConstant(StringHelper.deserialize<ConstantPair>(response.stdout))],
+      [() => navigate("/settings/constant-pairs"), {
+        errorTitle: "Failed to fetch constant pair",
+        errorIcon: IconDatabaseExclamation
+      }]
+    ))
   }, [])
 
   if (!constant) return <Loading />

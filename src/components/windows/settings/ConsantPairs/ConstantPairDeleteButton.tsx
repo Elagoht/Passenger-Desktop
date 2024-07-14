@@ -1,13 +1,12 @@
-import { FC, useState } from "react"
-import { IconBox, IconDatabaseExclamation, IconTrash } from "@tabler/icons-react"
-import { ConstantPair } from "@/types/common"
-import { useNavigate } from "react-router-dom"
-import { authStore } from "@/lib/stores/authorization"
-import { toastStore } from "@/lib/stores/notification"
 import Button from "@/components/formElements/Button"
 import Modal from "@/components/utility/Modal"
+import handleResponse from "@/helpers/services"
+import { authStore } from "@/lib/stores/authorization"
 import { forgetConstantPair } from "@/services/constantPairServices"
-import StringHelper from "@/helpers/string"
+import { ConstantPair } from "@/types/common"
+import { IconBox, IconDatabaseExclamation, IconTrash } from "@tabler/icons-react"
+import { FC, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 interface IConstantPairDeleteButtonProps {
   constantKey: ConstantPair["key"]
@@ -17,7 +16,6 @@ const ConstantPairDeleteButton: FC<IConstantPairDeleteButtonProps> = ({ constant
   const navigate = useNavigate()
 
   const accessToken = authStore((state) => state.accessToken)
-  const addNotification = toastStore((state) => state.addToast)
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
@@ -48,23 +46,19 @@ const ConstantPairDeleteButton: FC<IConstantPairDeleteButtonProps> = ({ constant
           onClick: () => forgetConstantPair(
             accessToken,
             constantKey
-          ).then((response) => {
-            if (response.status !== 0) return addNotification({
-              type: "error",
-              title: "I can't forget it 😩",
-              message: StringHelper.removeUnixErrorPrefix(response.stderr),
-              icon: <IconDatabaseExclamation />
-            })
-
-            addNotification({
-              icon: <IconTrash />,
-              type: "success",
-              title: "I forgot it 🤔",
-              message: "Constant pair deleted successfully"
-            })
-
-            navigate("/settings/constant-pairs")
-          })
+          ).then((response) => handleResponse(
+            response,
+            [() => navigate("/settings/constant-pairs"), {
+              successTitle: "Vault forgotten",
+              successMessage: "Constant pair deleted successfully",
+              successIcon: IconTrash
+            }],
+            [() => void 0, {
+              errorTitle: "Deletion failed",
+              errorMessage: "An error occurred while deleting the constant pair.",
+              errorIcon: IconDatabaseExclamation
+            }]
+          ))
         }, {
           type: "button",
           children: "No, Keep It",

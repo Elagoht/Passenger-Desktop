@@ -1,8 +1,7 @@
 import Button from "@/components/formElements/Button"
 import Modal from "@/components/utility/Modal"
-import StringHelper from "@/helpers/string"
+import handleResponse from "@/helpers/services"
 import { authStore } from "@/lib/stores/authorization"
-import { toastStore } from "@/lib/stores/notification"
 import { deleteEntry } from "@/services/passphraseServices"
 import { IconBox, IconFlame, IconTrash } from "@tabler/icons-react"
 import { FC, useState } from "react"
@@ -16,7 +15,6 @@ const PassphraseDeleteButton: FC<IPassphraseDeleteButtonProps> = ({ id }) => {
   const navigate = useNavigate()
 
   const accessToken = authStore(state => state.accessToken)
-  const addNotification = toastStore(state => state.addToast)
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
@@ -46,18 +44,17 @@ const PassphraseDeleteButton: FC<IPassphraseDeleteButtonProps> = ({ id }) => {
           onClick: () => deleteEntry(
             accessToken,
             id
-          ).then((response) => addNotification({
-            title: response.status === 0
-              ? "Passphrase Deleted"
-              : "Failed to Delete Passphrase",
-            message: response.status === 0
-              ? "Lost forever."
-              : StringHelper.removeUnixErrorPrefix(response.stderr),
-            type: response.status === 0
-              ? "success"
-              : "error"
-          })
-          ).then(() =>
+          ).then((response) => handleResponse(
+            response,
+            [() => void 0, {
+              successTitle: "Passphrase Deleted",
+              successIcon: IconTrash,
+            }],
+            [() => void 0, {
+              errorTitle: "Failed to Delete Passphrase",
+              errorIcon: IconTrash,
+            }],
+          )).then(() =>
             navigate("/passphrases")
           ).finally(() =>
             setIsModalOpen(false)

@@ -6,23 +6,39 @@ import StringHelper from "./string"
 
 const handleResponse = (
   response: Awaited<Promise<Output>>,
-  successAction?: CallableFunction,
-  {
-    errorTitle,
-    errorMessage,
-    errorIcon
-  }: {
-    errorTitle?: string,
-    errorMessage?: string,
-    errorIcon?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & RefAttributes<Icon>>
-  } = {}
+  onSuccess: [
+    CallableFunction,
+    {
+      successTitle?: string,
+      successMessage?: string,
+      successIcon?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & RefAttributes<Icon>>
+    }?
+  ],
+  onError: [
+    CallableFunction,
+    {
+      errorTitle?: string,
+      errorMessage?: string,
+      errorIcon?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & RefAttributes<Icon>>
+    }?
+  ],
 ) => {
-  if (response.status !== 0) return Toast.error({
-    title: errorTitle,
-    message: errorMessage || StringHelper.removeUnixErrorPrefix(response.stderr),
-    icon: errorIcon
+  if (response.status === 0) {
+    onSuccess?.[1] && Toast.success({
+      title: onSuccess[1].successTitle,
+      message: onSuccess[1].successMessage || response.stdout,
+      icon: onSuccess[1].successIcon
+    })
+    return onSuccess?.[0]()
+  }
+
+  onError?.[1] && Toast.error({
+    title: onError[1].errorTitle,
+    message: onError[1].errorMessage || StringHelper.removeUnixErrorPrefix(response.stderr),
+    icon: onError[1].errorIcon
   })
-  return successAction?.()
+  return onError?.[0]()
 }
+
 
 export default handleResponse

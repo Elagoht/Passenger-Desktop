@@ -11,29 +11,27 @@ import { DatabaseEntry } from "@/types/common"
 import { Maybe } from "@/types/utility"
 import PassphraseDeleteButton from "@/components/windows/passphrases/PassphraseDeleteButton"
 import PassphraseEntryForm from "@/components/forms/PassphraseEntryForm"
+import handleResponse from "@/helpers/services"
 
 const WinPassphraseDetails: FC = () => {
   const params = useParams<{ id: string }>()
   const searchParams = useSearchParams()[0]
   const navigate = useNavigate()
   const accessToken = authStore((state) => state.accessToken)
-  const addNotification = toastStore((state) => state.addToast)
   const [entry, setEntry] = useState<Maybe<DatabaseEntry>>(null)
 
   useEffect(() => {
     fetchEntry(
       accessToken,
       params.id!
-    ).then((response) => {
-      if (response.status === 0)
-        return setEntry(JSON.parse(response.stdout))
-      addNotification({
-        title: "Passphrase not found",
-        message: StringHelper.removeUnixErrorPrefix(response.stderr),
-        type: "error"
-      })
-      navigate("/passphrases")
-    })
+    ).then((response) => handleResponse(
+      response,
+      [() => setEntry(StringHelper.deserialize<DatabaseEntry>(response.stdout))],
+      [() => navigate("/passphrases"), {
+        errorTitle: "Passphrase not found",
+        errorMessage: StringHelper.removeUnixErrorPrefix(response.stderr)
+      }],
+    ))
   }, [])
 
   if (!entry) return <Loading />

@@ -36,8 +36,11 @@ const WinDashboard: FC = () => {
       accessToken
     ).then((response) => handleResponse(
       response,
-      () => setStatistics(StringHelper.deserialize<Statistics>(response.stdout)),
-      { errorTitle: "Failed to fetch statistics" }
+      [() => setStatistics(StringHelper.deserialize<Statistics>(response.stdout))],
+      [() => void 0, {
+        errorTitle: "Couldn't fetch statistics at the moment",
+        errorMessage: StringHelper.removeUnixErrorPrefix(response.stderr)
+      }],
     ))
   }, [])
 

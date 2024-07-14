@@ -1,30 +1,29 @@
-import { IconDatabaseExclamation } from "@tabler/icons-react"
-import { FC, useEffect, useState } from "react"
+import Loading from "@/components/layout/Loading"
 import StringHelper from "@/helpers/string"
 import { authStore } from "@/lib/stores/authorization"
-import { toastStore } from "@/lib/stores/notification"
-import { ConstantPair } from "@/types/common"
-import ConstantPairItem from "./ConstantPairItem"
-import Loading from "@/components/layout/Loading"
 import { fetchAllConstantPairs } from "@/services/constantPairServices"
+import { ConstantPair } from "@/types/common"
+import { IconDatabaseExclamation } from "@tabler/icons-react"
+import { FC, useEffect, useState } from "react"
+import ConstantPairItem from "./ConstantPairItem"
+import handleResponse from "@/helpers/services"
 
 const ConstantPairList: FC = () => {
   const accessToken = authStore((state) => state.accessToken)
-  const addNotification = toastStore((state) => state.addToast)
 
   const [constants, setConstants] = useState<ConstantPair[]>()
 
   useEffect(() => {
     fetchAllConstantPairs(
       accessToken
-    ).then((response) => {
-      if (response.status !== 0) return addNotification({
-        type: "error",
-        message: StringHelper.removeUnixErrorPrefix(response.stderr),
-        icon: <IconDatabaseExclamation />
-      })
-      setConstants(StringHelper.deserialize<ConstantPair[]>(response.stdout) ?? undefined)
-    })
+    ).then((response) => handleResponse(
+      response,
+      [() => setConstants(StringHelper.deserialize<ConstantPair[]>(response.stdout) ?? undefined)],
+      [() => void 0, {
+        errorTitle: "Failed to fetch constant pairs",
+        errorIcon: IconDatabaseExclamation
+      }]
+    ))
   }, [])
 
   if (!constants) return <Loading />

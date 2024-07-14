@@ -1,23 +1,19 @@
-import { useAutoAnimate } from "@formkit/auto-animate/react"
+import FancyInput from "@/components/formElements/FancyInput"
+import Loading from "@/components/layout/Loading"
+import handleResponse from "@/helpers/services"
+import StringHelper from "@/helpers/string"
+import { authStore } from "@/lib/stores/authorization"
+import { fetchAllEntries } from "@/services/passphraseServices"
+import { ListableDatabaseEntry } from "@/types/common"
+import { Maybe } from "@/types/utility"
 import { IconMoodLookDown, IconSearch } from "@tabler/icons-react"
 import { AnimatePresence, motion } from "framer-motion"
 import { FC, useEffect, useState } from "react"
-import { authStore } from "@/lib/stores/authorization"
-import { toastStore } from "@/lib/stores/notification"
-import { ListableDatabaseEntry } from "@/types/common"
-import { fetchAllEntries } from "@/services/passphraseServices"
-import StringHelper from "@/helpers/string"
-import Loading from "@/components/layout/Loading"
-import { Maybe } from "@/types/utility"
-import FancyInput from "@/components/formElements/FancyInput"
 import PassphraseCard from "./PassphraseCard"
 
 const PassphraseList: FC = () => {
 
-  const [autoAnimateRef] = useAutoAnimate()
-
   const accessToken = authStore((state) => state.accessToken)
-  const addNotification = toastStore((state) => state.addToast)
   const [passphrases, setPassphrases] = useState<Maybe<ListableDatabaseEntry[]>>(null)
 
   const [searchTerm, setSearchTerm] = useState<string>("")
@@ -25,18 +21,16 @@ const PassphraseList: FC = () => {
   useEffect(() => {
     fetchAllEntries(
       accessToken
-    ).then((response) => {
-      if (response.status === 0) return setPassphrases(
+    ).then((response) => handleResponse(
+      response,
+      [() => setPassphrases(
         StringHelper.deserialize<ListableDatabaseEntry[]>(response.stdout)
-      )
-      addNotification({
-        icon: <IconMoodLookDown size={32} />,
-        title: "Could't fetch passphrases",
-        type: "error",
-        message: StringHelper.removeUnixErrorPrefix(response.stderr)
-      })
-      setPassphrases([])
-    })
+      )],
+      [() => void 0, {
+        errorTitle: "Couldn't fetch passphrases",
+        errorIcon: IconMoodLookDown,
+      }]
+    ))
   }, [])
 
   if (passphrases === null) return <Loading />
@@ -81,10 +75,7 @@ const PassphraseList: FC = () => {
       }
     </AnimatePresence>
 
-    <ul
-      ref={autoAnimateRef}
-      className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2"
-    >
+    <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
       {filteredPassphrases
         .map((passphrase) =>
           <PassphraseCard

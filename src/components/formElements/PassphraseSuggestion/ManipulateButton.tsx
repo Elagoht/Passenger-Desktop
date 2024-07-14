@@ -1,35 +1,30 @@
-import { FC } from "react"
 import Button from "@/components/formElements/Button"
-import { IconRotate } from "@tabler/icons-react"
-import { toastStore } from "@/lib/stores/notification"
-import StringHelper from "@/helpers/string"
+import handleResponse from "@/helpers/services"
 import { manipulatePassphrase } from "@/services/generationServices"
+import { IconRotate } from "@tabler/icons-react"
+import { FC } from "react"
 
 interface IManipulateButtonProps {
   currentPassphrase: string
   setFieldValue: (field: string, value: string) => void
 }
 
-const ManipulateButton: FC<IManipulateButtonProps> = ({ currentPassphrase, setFieldValue }) => {
-  const addNotification = toastStore(state => state.addToast)
-
-  return <Button
+const ManipulateButton: FC<IManipulateButtonProps> = ({ currentPassphrase, setFieldValue }) =>
+  <Button
     rightIcon={<IconRotate />}
     type="button"
     color="secondary"
     onClick={() => manipulatePassphrase(
       currentPassphrase
-    ).then((response) => {
-      if (response.status !== 0) return addNotification({
-        type: "error",
-        title: "Failed to manipulate passphrase",
-        message: StringHelper.removeUnixErrorPrefix(response.stderr)
-      })
-      setFieldValue("passphrase", response.stdout)
-    })}
+    ).then((response) => handleResponse(
+      response,
+      [() => setFieldValue("passphrase", response.stdout)],
+      [() => void 0, {
+        errorTitle: "Failed to manipulate passphrase"
+      }]
+    ))}
   >
     Manipulate
   </Button>
-}
 
 export default ManipulateButton
