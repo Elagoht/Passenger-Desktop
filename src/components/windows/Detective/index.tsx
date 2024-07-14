@@ -1,7 +1,7 @@
 import Loading from "@/components/layout/Loading"
 import StringHelper from "@/helpers/string"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
-import { useNotificationSlice } from "@/lib/stores/notification"
+import { authStore } from "@/lib/stores/authorization"
+import { toastStore } from "@/lib/stores/notification"
 import { getDetectiveReports } from "@/services/reportServices"
 import { DetectiveReport } from "@/types/reports"
 import { Maybe } from "@/types/utility"
@@ -12,8 +12,8 @@ import DetectiveWeakPassphrases from "./detectiveReports/DetectiveWeakPassphrase
 import DetectiveOldPassphrases from "./detectiveReports/DetectiveOldPassphrases"
 
 const Detective = () => {
-  const accessToken = useAuthorizationSlice(store => store.accessToken)
-  const addNotification = useNotificationSlice(store => store.addNotification)
+  const accessToken = authStore(store => store.accessToken)
+  const addNotification = toastStore(store => store.addToast)
 
   const [detectiveReports, setDetectiveReports] = useState<Maybe<DetectiveReport>>(null)
 

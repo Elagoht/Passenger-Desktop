@@ -6,7 +6,7 @@ import Private from "../components/layout/Private"
 import Public from "../components/layout/Public"
 import Window from "../components/layout/Window"
 import AnimatedRoutes from "../lib/router/AnimatedRoutes"
-import { useAuthorizationSlice } from "../lib/stores/authorization"
+import { authStore } from "../lib/stores/authorization"
 import WinAddPassphrase from "./add-passphrase/WinAddPassphrase"
 import WinLogin from "./auth/WinLogin"
 import WinRegister from "./auth/WinRegister"
@@ -25,8 +25,8 @@ import WinResetMasterPassphrase from "./settings/reset-master-passphrase/WinRese
 export const settings = new Storage(".settings.dat")
 
 const App: FC = () => {
-  const isAuthorized = useAuthorizationSlice((state) => state.isAuthorized)
-  const setIsGuideDone = useAuthorizationSlice((state) => state.setIsGuideDone)
+  const isAuthorized = authStore((state) => state.isAuthorized)
+  const setIsGuideDone = authStore((state) => state.setIsGuideDone)
 
   useEffect(() => {
     (async () => setIsGuideDone(

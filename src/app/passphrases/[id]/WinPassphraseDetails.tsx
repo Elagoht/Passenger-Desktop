@@ -4,8 +4,8 @@ import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
 import Loading from "@/components/layout/Loading"
 import Window from "@/components/layout/Window"
 import StringHelper from "@/helpers/string"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
-import { useNotificationSlice } from "@/lib/stores/notification"
+import { authStore } from "@/lib/stores/authorization"
+import { toastStore } from "@/lib/stores/notification"
 import { fetchEntry } from "@/services/passphraseServices"
 import { DatabaseEntry } from "@/types/common"
 import { Maybe } from "@/types/utility"
@@ -16,8 +16,8 @@ const WinPassphraseDetails: FC = () => {
   const params = useParams<{ id: string }>()
   const searchParams = useSearchParams()[0]
   const navigate = useNavigate()
-  const accessToken = useAuthorizationSlice((state) => state.accessToken)
-  const addNotification = useNotificationSlice((state) => state.addNotification)
+  const accessToken = authStore((state) => state.accessToken)
+  const addNotification = toastStore((state) => state.addToast)
   const [entry, setEntry] = useState<Maybe<DatabaseEntry>>(null)
 
   useEffect(() => {

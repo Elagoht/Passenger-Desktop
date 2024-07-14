@@ -1,16 +1,16 @@
 import { IconDatabaseExclamation } from "@tabler/icons-react"
 import { FC, useEffect, useState } from "react"
 import StringHelper from "@/helpers/string"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
-import { useNotificationSlice } from "@/lib/stores/notification"
+import { authStore } from "@/lib/stores/authorization"
+import { toastStore } from "@/lib/stores/notification"
 import { ConstantPair } from "@/types/common"
 import ConstantPairItem from "./ConstantPairItem"
 import Loading from "@/components/layout/Loading"
 import { fetchAllConstantPairs } from "@/services/constantPairServices"
 
 const ConstantPairList: FC = () => {
-  const accessToken = useAuthorizationSlice((state) => state.accessToken)
-  const addNotification = useNotificationSlice((state) => state.addNotification)
+  const accessToken = authStore((state) => state.accessToken)
+  const addNotification = toastStore((state) => state.addToast)
 
   const [constants, setConstants] = useState<ConstantPair[]>()
 

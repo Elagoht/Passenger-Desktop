@@ -1,5 +1,6 @@
+import { Icon, IconProps } from "@tabler/icons-react"
 import { nanoid } from "nanoid"
-import { ReactNode } from "react"
+import { ForwardRefExoticComponent, ReactNode, RefAttributes } from "react"
 import { create } from "zustand"
 
 export interface IToast {
@@ -9,7 +10,7 @@ export interface IToast {
   persistant?: boolean
   clickToClose?: boolean
   duration?: number
-  icon?: ReactNode
+  icon?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & RefAttributes<Icon>>
   title?: string
   buttons?: Array<{
     type: "info" | "success" | "warning" | "error"
@@ -19,19 +20,19 @@ export interface IToast {
   }>
 }
 
-interface INotificationSlice {
-  notifications: IToast[]
-  addNotification: (notification: Omit<IToast, "id">) => void
-  removeNotification: (id: IToast["id"]) => void
-  clearNotifications: () => void
+interface INotificationStore {
+  toasts: IToast[]
+  addToast: (notification: Omit<IToast, "id">) => void
+  removeToast: (id: IToast["id"]) => void
+  clearToasts: () => void
 }
 
-export const useNotificationSlice = create<INotificationSlice>((set) => ({
-  notifications: [],
+export const toastStore = create<INotificationStore>((set) => ({
+  toasts: [],
 
-  addNotification: (notification) => set((state) => ({
-    notifications: [
-      ...state.notifications,
+  addToast: (notification) => set((state) => ({
+    toasts: [
+      ...state.toasts,
       {
         id: nanoid(),
         // Default values
@@ -44,12 +45,12 @@ export const useNotificationSlice = create<INotificationSlice>((set) => ({
     ]
   })),
 
-  removeNotification: (id) => set((state) => ({
-    notifications: state.notifications
+  removeToast: (id) => set((state) => ({
+    toasts: state.toasts
       .filter((notification) => notification.id !== id)
   })),
 
-  clearNotifications: () => set({
-    notifications: []
+  clearToasts: () => set({
+    toasts: []
   })
 }))

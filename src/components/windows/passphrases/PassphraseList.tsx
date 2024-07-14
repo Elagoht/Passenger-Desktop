@@ -2,8 +2,8 @@ import { useAutoAnimate } from "@formkit/auto-animate/react"
 import { IconMoodLookDown, IconSearch } from "@tabler/icons-react"
 import { AnimatePresence, motion } from "framer-motion"
 import { FC, useEffect, useState } from "react"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
-import { useNotificationSlice } from "@/lib/stores/notification"
+import { authStore } from "@/lib/stores/authorization"
+import { toastStore } from "@/lib/stores/notification"
 import { ListableDatabaseEntry } from "@/types/common"
 import { fetchAllEntries } from "@/services/passphraseServices"
 import StringHelper from "@/helpers/string"
@@ -16,8 +16,8 @@ const PassphraseList: FC = () => {
 
   const [autoAnimateRef] = useAutoAnimate()
 
-  const accessToken = useAuthorizationSlice((state) => state.accessToken)
-  const addNotification = useNotificationSlice((state) => state.addNotification)
+  const accessToken = authStore((state) => state.accessToken)
+  const addNotification = toastStore((state) => state.addToast)
   const [passphrases, setPassphrases] = useState<Maybe<ListableDatabaseEntry[]>>(null)
 
   const [searchTerm, setSearchTerm] = useState<string>("")

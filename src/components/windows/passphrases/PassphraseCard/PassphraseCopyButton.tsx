@@ -1,7 +1,7 @@
 import { IconCopyCheck, IconKey } from "@tabler/icons-react"
 import { FC } from "react"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
-import { useNotificationSlice } from "@/lib/stores/notification"
+import { authStore } from "@/lib/stores/authorization"
+import { toastStore } from "@/lib/stores/notification"
 import { fetchEntry } from "@/services/passphraseServices"
 import StringHelper from "@/helpers/string"
 import { ListableDatabaseEntry, ReadWriteDatabaseEntry } from "@/types/common"
@@ -11,8 +11,8 @@ interface IPassphraseCopyButtonProps {
 }
 
 const PassphraseCopyButton: FC<IPassphraseCopyButtonProps> = ({ id }) => {
-  const accessToken = useAuthorizationSlice(state => state.accessToken)
-  const addNotification = useNotificationSlice(state => state.addNotification)
+  const accessToken = authStore(state => state.accessToken)
+  const addNotification = toastStore(state => state.addToast)
 
   return <button
     onClick={() => fetchEntry(

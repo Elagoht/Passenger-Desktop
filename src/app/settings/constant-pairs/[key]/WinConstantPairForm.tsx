@@ -8,15 +8,15 @@ import StringHelper from "@/helpers/string"
 import { IconDatabaseExclamation } from "@tabler/icons-react"
 import Loading from "@/components/layout/Loading"
 import { useNavigate, useParams } from "react-router-dom"
-import { useNotificationSlice } from "@/lib/stores/notification"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
+import { toastStore } from "@/lib/stores/notification"
+import { authStore } from "@/lib/stores/authorization"
 
 const WinConstantPairForm: FC = () => {
   const navigate = useNavigate()
   const params = useParams<{ key: string }>()
 
-  const accessToken = useAuthorizationSlice((state) => state.accessToken)
-  const addNotification = useNotificationSlice((state) => state.addNotification)
+  const accessToken = authStore((state) => state.accessToken)
+  const addNotification = toastStore((state) => state.addToast)
 
   const [constant, setConstant] = useState<ConstantPair>()
 

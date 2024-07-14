@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react"
 import { getStatistics } from "@/services/reportServices"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
-import { useNotificationSlice } from "@/lib/stores/notification"
+import { authStore } from "@/lib/stores/authorization"
+import { toastStore } from "@/lib/stores/notification"
 import { Statistics } from "@/types/statistics"
 import StringHelper from "@/helpers/string"
 import Window from "@/components/layout/Window"
@@ -13,8 +13,8 @@ import StrengthDistributionChart from "@/components/windows/dashboard/StrengthDi
 import MostUsedPassphrase from "@/components/windows/dashboard/MostUsedPassphrase"
 
 const WinDashboard: FC = () => {
-  const accessToken = useAuthorizationSlice(state => state.accessToken)
-  const addNotification = useNotificationSlice(state => state.addNotification)
+  const accessToken = authStore(state => state.accessToken)
+  const addNotification = toastStore(state => state.addToast)
 
   const [statistics, setStatistics] = useState<Statistics>({
     totalCount: 0, // Used

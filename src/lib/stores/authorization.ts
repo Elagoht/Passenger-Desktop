@@ -1,6 +1,6 @@
 import { create } from "zustand"
 
-interface IAuthorizationSlice {
+interface IAuthStore {
   isAuthorized: boolean
   accessToken: string
   isGuideDone: boolean
@@ -11,7 +11,7 @@ interface IAuthorizationSlice {
   setDoesRequireReAuth: (state: boolean) => void
 }
 
-export const useAuthorizationSlice = create<IAuthorizationSlice>((set) => ({
+export const authStore = create<IAuthStore>((set) => ({
   isAuthorized: false,
 
   accessToken: "",

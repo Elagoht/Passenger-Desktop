@@ -6,8 +6,8 @@ import TextArea from "@/components/formElements/TextArea"
 import FormikHelper from "@/helpers/formik"
 import Strength from "@/helpers/strength"
 import StringHelper from "@/helpers/string"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
-import { useNotificationSlice } from "@/lib/stores/notification"
+import { authStore } from "@/lib/stores/authorization"
+import { toastStore } from "@/lib/stores/notification"
 import { createEntry, updateEntry } from "@/services/passphraseServices"
 import { ReadWriteDatabaseEntry } from "@/types/common"
 import { IconDeviceFloppy, IconKey, IconLoader, IconNote, IconTag, IconUserCircle, IconWorld } from "@tabler/icons-react"
@@ -26,8 +26,8 @@ type IPassphraseDetailsFormProps = {
 
 const PassphraseEntryForm: FC<IPassphraseDetailsFormProps> = ({ mode, existing }) => {
   const navigate = useNavigate()
-  const accessToken = useAuthorizationSlice(state => state.accessToken)
-  const addNotification = useNotificationSlice(state => state.addNotification)
+  const accessToken = authStore(state => state.accessToken)
+  const addNotification = toastStore(state => state.addToast)
 
   const formAction = (values: Record<string, string>) =>
     mode === "edit"

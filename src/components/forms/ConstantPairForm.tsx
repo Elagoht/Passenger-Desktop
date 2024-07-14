@@ -3,8 +3,8 @@ import Input from "@/components/formElements/Input"
 import ConstantPairDeleteButton from "@/components/windows/settings/ConsantPairs/ConstantPairDeleteButton"
 import FormikHelper from "@/helpers/formik"
 import StringHelper from "@/helpers/string"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
-import { useNotificationSlice } from "@/lib/stores/notification"
+import { authStore } from "@/lib/stores/authorization"
+import { toastStore } from "@/lib/stores/notification"
 import { validationConstantPairForms } from "@/lib/validations/constantPairForms"
 import { declareConstantPair, modifyConstantPair } from "@/services/constantPairServices"
 import { ConstantPair } from "@/types/common"
@@ -24,8 +24,8 @@ type IConstantPairFormProps = {
 const ConstantPairForm: FC<IConstantPairFormProps> = ({ mode, existing }) => {
   const navigate = useNavigate()
 
-  const accessToken = useAuthorizationSlice((state) => state.accessToken)
-  const addNotification = useNotificationSlice((state) => state.addNotification)
+  const accessToken = authStore((state) => state.accessToken)
+  const addNotification = toastStore((state) => state.addToast)
 
   const formAction = (values: Record<string, string>) =>
     mode === "declare"

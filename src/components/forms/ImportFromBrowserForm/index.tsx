@@ -4,8 +4,8 @@ import Papa from "papaparse"
 import { FC, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { validationImportFromBrowserForm } from "@/lib/validations/importExportForms"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
-import { useNotificationSlice } from "@/lib/stores/notification"
+import { authStore } from "@/lib/stores/authorization"
+import { toastStore } from "@/lib/stores/notification"
 import { CSVLineEntry } from "@/types/common"
 import Button from "@/components/formElements/Button"
 import FileInput from "@/components/formElements/FileInput"
@@ -23,8 +23,8 @@ const browserIcons = {
 }
 
 const ImportFromBrowserForm: FC = () => {
-  const accessToken = useAuthorizationSlice((state) => state.accessToken)
-  const addNotification = useNotificationSlice((state) => state.addNotification)
+  const accessToken = authStore((state) => state.accessToken)
+  const addNotification = toastStore((state) => state.addToast)
   const [editModal, setEditModal] = useState<boolean>(false)
   const [acceptableEntries, setAcceptableEntries] = useState<CSVLineEntry[]>([])
   const [badEntries, setBadEntries] = useState<CSVLineEntry[]>([])

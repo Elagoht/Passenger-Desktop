@@ -1,7 +1,7 @@
 import { FC } from "react"
 import Button from "@/components/formElements/Button"
 import { IconRotate } from "@tabler/icons-react"
-import { useNotificationSlice } from "@/lib/stores/notification"
+import { toastStore } from "@/lib/stores/notification"
 import StringHelper from "@/helpers/string"
 import { manipulatePassphrase } from "@/services/generationServices"
 
@@ -11,7 +11,7 @@ interface IManipulateButtonProps {
 }
 
 const ManipulateButton: FC<IManipulateButtonProps> = ({ currentPassphrase, setFieldValue }) => {
-  const addNotification = useNotificationSlice(state => state.addNotification)
+  const addNotification = toastStore(state => state.addToast)
 
   return <Button
     rightIcon={<IconRotate />}

@@ -1,14 +1,14 @@
 import { IconCircleX } from "@tabler/icons-react"
 import classNames from "classnames"
 import { motion } from "framer-motion"
-import { FC, useEffect } from "react"
-import { IToast, useNotificationSlice } from "@/lib/stores/notification"
+import { FC, createElement, useEffect } from "react"
+import { IToast, toastStore } from "@/lib/stores/notification"
 
 const Toast: FC<IToast> = ({
   message, type, buttons, clickToClose,
   icon, title, duration, persistant, id
 }) => {
-  const removeNotification = useNotificationSlice(state => state.removeNotification)
+  const removeNotification = toastStore(state => state.removeToast)
 
   useEffect(() => {
     if (!duration || persistant) return
@@ -48,7 +48,7 @@ const Toast: FC<IToast> = ({
   >
     {icon &&
       <figure className="flex-shrink-0">
-        {icon}
+        {icon && createElement(icon, { size: 32 })}
       </figure>
     }
 
@@ -57,7 +57,9 @@ const Toast: FC<IToast> = ({
         <h1 className="font-semibold">{title}</h1>
       }
 
-      <p>{message}</p>
+      {message &&
+        <p>{message}</p>
+      }
 
       {buttons &&
         <div className="flex justify-end mt-2">

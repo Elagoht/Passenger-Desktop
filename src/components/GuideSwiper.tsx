@@ -6,12 +6,12 @@ import "swiper/css/pagination"
 import { A11y, EffectCards, Keyboard, Pagination } from "swiper/modules"
 import { Swiper, SwiperSlide } from "swiper/react"
 import classNames from "classnames"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
+import { authStore } from "@/lib/stores/authorization"
 import guideSlides from "@/data/guide"
 import { settings } from "@/app/App"
 
 const GuideSwiper: FC = () => {
-  const setIsGuideDone = useAuthorizationSlice(state => state.setIsGuideDone)
+  const setIsGuideDone = authStore(state => state.setIsGuideDone)
 
   const [isOnLastSlide, setIsOnLastSlide] = useState<boolean>(false)
 

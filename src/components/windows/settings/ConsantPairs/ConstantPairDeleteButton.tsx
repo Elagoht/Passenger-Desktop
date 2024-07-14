@@ -2,8 +2,8 @@ import { FC, useState } from "react"
 import { IconBox, IconDatabaseExclamation, IconTrash } from "@tabler/icons-react"
 import { ConstantPair } from "@/types/common"
 import { useNavigate } from "react-router-dom"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
-import { useNotificationSlice } from "@/lib/stores/notification"
+import { authStore } from "@/lib/stores/authorization"
+import { toastStore } from "@/lib/stores/notification"
 import Button from "@/components/formElements/Button"
 import Modal from "@/components/utility/Modal"
 import { forgetConstantPair } from "@/services/constantPairServices"
@@ -16,8 +16,8 @@ interface IConstantPairDeleteButtonProps {
 const ConstantPairDeleteButton: FC<IConstantPairDeleteButtonProps> = ({ constantKey }) => {
   const navigate = useNavigate()
 
-  const accessToken = useAuthorizationSlice((state) => state.accessToken)
-  const addNotification = useNotificationSlice((state) => state.addNotification)
+  const accessToken = authStore((state) => state.accessToken)
+  const addNotification = toastStore((state) => state.addToast)
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 

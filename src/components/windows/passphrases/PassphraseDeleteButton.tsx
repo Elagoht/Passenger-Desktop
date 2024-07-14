@@ -1,8 +1,8 @@
 import Button from "@/components/formElements/Button"
 import Modal from "@/components/utility/Modal"
 import StringHelper from "@/helpers/string"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
-import { useNotificationSlice } from "@/lib/stores/notification"
+import { authStore } from "@/lib/stores/authorization"
+import { toastStore } from "@/lib/stores/notification"
 import { deleteEntry } from "@/services/passphraseServices"
 import { IconBox, IconFlame, IconTrash } from "@tabler/icons-react"
 import { FC, useState } from "react"
@@ -15,8 +15,8 @@ interface IPassphraseDeleteButtonProps {
 const PassphraseDeleteButton: FC<IPassphraseDeleteButtonProps> = ({ id }) => {
   const navigate = useNavigate()
 
-  const accessToken = useAuthorizationSlice(state => state.accessToken)
-  const addNotification = useNotificationSlice(state => state.addNotification)
+  const accessToken = authStore(state => state.accessToken)
+  const addNotification = toastStore(state => state.addToast)
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 

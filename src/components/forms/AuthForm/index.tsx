@@ -1,8 +1,8 @@
 import Button from "@/components/formElements/Button"
 import Input from "@/components/formElements/Input"
 import StringHelper from "@/helpers/string"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
-import { useNotificationSlice } from "@/lib/stores/notification"
+import { authStore } from "@/lib/stores/authorization"
+import { toastStore } from "@/lib/stores/notification"
 import { validationAuthLoginForm, validationAuthRegisterForm } from "@/lib/validations/authForms"
 import { loginToPassenger, registerToPassenger } from "@/services/authServices"
 import { IconKey, IconLockOpen, IconMoodBoy, IconMoodEmpty, IconMoodHappy, IconMoodLookDown, IconMoodLookLeft, IconMoodLookRight, IconMoodLookUp, IconMoodSmileBeam, IconMoodTongue, IconMoodTongueWink, IconMoodUnamused, IconMoodWink } from "@tabler/icons-react"
@@ -18,10 +18,10 @@ interface IAuthFormProps {
 const AuthForm: FC<IAuthFormProps> = ({ mode }) => {
   const navigate = useNavigate()
 
-  const setIsAuthorizated = useAuthorizationSlice((state) => state.setIsAuthorizated)
-  const setAccessToken = useAuthorizationSlice((state) => state.setAccessToken)
-  const setDoesRequireReAuth = useAuthorizationSlice((state) => state.setDoesRequireReAuth)
-  const addNotification = useNotificationSlice((state) => state.addNotification)
+  const setIsAuthorizated = authStore((state) => state.setIsAuthorizated)
+  const setAccessToken = authStore((state) => state.setAccessToken)
+  const setDoesRequireReAuth = authStore((state) => state.setDoesRequireReAuth)
+  const addNotification = toastStore((state) => state.addToast)
   const [mood, setMood] = useState<number>(Math.floor(Math.random() * moods.length))
 
   return <section className="h-screen items-center justify-center flex flex-col p-4 gap-4">

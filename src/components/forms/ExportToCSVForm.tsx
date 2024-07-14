@@ -4,8 +4,8 @@ import { writeTextFile } from "@tauri-apps/api/fs"
 import { Form, Formik } from "formik"
 import { FC } from "react"
 import StringHelper from "@/helpers/string"
-import { useAuthorizationSlice } from "@/lib/stores/authorization"
-import { useNotificationSlice } from "@/lib/stores/notification"
+import { authStore } from "@/lib/stores/authorization"
+import { toastStore } from "@/lib/stores/notification"
 import Button from "@/components/formElements/Button"
 import Select from "@/components/formElements/Select"
 import { exportToCSV } from "@/services/dataTransferServices"
@@ -16,8 +16,8 @@ const ExportTypeIcons = {
 }
 
 const ExportToCSVForm: FC = () => {
-  const accessToken = useAuthorizationSlice((state) => state.accessToken)
-  const addNotification = useNotificationSlice((state) => state.addNotification)
+  const accessToken = authStore((state) => state.accessToken)
+  const addNotification = toastStore((state) => state.addToast)
 
   return <Formik
     initialValues={{ exportType: "bare" }}
