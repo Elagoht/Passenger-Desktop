@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion"
-import { FC, Suspense, useEffect } from "react"
+import { FC, Suspense } from "react"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
 import Storage from "../api/storage"
 import Private from "../components/layout/Private"
@@ -11,28 +11,21 @@ import WinAddPassphrase from "./add-passphrase/WinAddPassphrase"
 import WinLogin from "./auth/WinLogin"
 import WinRegister from "./auth/WinRegister"
 import WinDashboard from "./dashboard/WinDashboard"
-import WinPassphraseDetails from "./passphrases/[id]/WinPassphraseDetails"
+import WinDetective from "./detective/WinDetective"
 import WinPassphrases from "./passphrases/WinPassphrases"
+import WinPassphraseDetails from "./passphrases/[id]/WinPassphraseDetails"
 import WinSettings from "./settings/WinSettings"
 import WinConstantPairs from "./settings/constant-pairs/WinConstantPairs"
 import WinConstantPairForm from "./settings/constant-pairs/[key]/WinConstantPairForm"
 import WinNewConstantPair from "./settings/constant-pairs/new-constant-pair/WinNewConstantPair"
-import WinImportFromBrowser from "./settings/import-from-browser/WinImportFromBrowser"
 import WinExportToCSV from "./settings/export-to-csv/WinExportToCSV"
-import WinDetective from "./detective/WinDetective"
+import WinImportFromBrowser from "./settings/import-from-browser/WinImportFromBrowser"
 import WinResetMasterPassphrase from "./settings/reset-master-passphrase/WinResetMasterPassphrase"
 
 export const settings = new Storage(".settings.dat")
 
 const App: FC = () => {
   const isAuthorized = authStore((state) => state.isAuthorized)
-  const setIsGuideDone = authStore((state) => state.setIsGuideDone)
-
-  useEffect(() => {
-    (async () => setIsGuideDone(
-      await settings.read("isGuideDone") === "true"
-    ))()
-  }, [])
 
   return <BrowserRouter>
     <AnimatePresence mode="wait">
