@@ -22,7 +22,7 @@ const AuthForm: FC<IAuthFormProps> = ({ mode }) => {
   const setDoesRequireReAuth = authStore((state) => state.setDoesRequireReAuth)
   const [mood, setMood] = useState<number>(Math.floor(Math.random() * moods.length))
 
-  return <section className="h-screen items-center justify-center flex flex-col p-4 gap-4">
+  return <section className="flex flex-col gap-4 items-center">
     <img
       src="/icon.png"
       alt="Passenger"

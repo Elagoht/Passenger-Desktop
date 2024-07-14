@@ -4,7 +4,7 @@ import Window from "@/components/layout/Window"
 
 const WinRegister: FC = () => {
 
-  return <Window>
+  return <Window center>
     <AuthForm mode="register" />
   </Window>
 }

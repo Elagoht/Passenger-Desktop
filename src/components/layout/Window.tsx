@@ -8,9 +8,10 @@ interface IWindowProps {
   description?: string
   children: ReactNode
   wide?: boolean
+  center?: boolean
 }
 
-const Window: FC<IWindowProps> = ({ children, title, description, className, wide }) => {
+const Window: FC<IWindowProps> = ({ children, title, description, className, wide, center }) => {
   return <motion.main
     initial="initial"
     animate="in"
@@ -35,7 +36,9 @@ const Window: FC<IWindowProps> = ({ children, title, description, className, wid
       duration: 0.25
     }}
     className={classNames({
-      "flex flex-col p-2 md:p-4": true,
+      "flex flex-col": true,
+      "p-2 md:p-4": !center,
+      "justify-center h-screen": center,
       "max-w-2xl mx-auto": !wide,
       [className!]: className
     })}
@@ -46,14 +49,15 @@ const Window: FC<IWindowProps> = ({ children, title, description, className, wid
       </h1>
     }
 
-    {description &&
+    {
+      description &&
       <p className="my-2">
         {description}
       </p>
     }
 
     {children}
-  </motion.main>
+  </motion.main >
 }
 
 export default Window

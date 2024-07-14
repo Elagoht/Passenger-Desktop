@@ -4,7 +4,7 @@ import Window from "@/components/layout/Window"
 
 const WinLogin: FC = () => {
 
-  return <Window>
+  return <Window center>
     <AuthForm mode="login" />
   </Window>
 }
