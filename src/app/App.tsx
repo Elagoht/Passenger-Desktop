@@ -20,6 +20,7 @@ import WinNewConstantPair from "./settings/constant-pairs/new-constant-pair/WinN
 import WinImportFromBrowser from "./settings/import-from-browser/WinImportFromBrowser"
 import WinExportToCSV from "./settings/export-to-csv/WinExportToCSV"
 import WinDetective from "./detective/WinDetective"
+import WinResetMasterPassphrase from "./settings/reset-master-passphrase/WinResetMasterPassphrase"
 
 export const settings = new Storage(".settings.dat")
 
@@ -69,7 +70,8 @@ const App: FC = () => {
                   { path: "/settings/new-constant-pair", element: <WinNewConstantPair /> },
                   { path: "/settings/import-from-browser", element: <WinImportFromBrowser /> },
                   { path: "/settings/export-to-csv", element: <WinExportToCSV /> },
-                  { path: "*", element: <Window>404 Not Found</Window> }
+                  { path: "/settings/reset-master-passphrase", element: <WinResetMasterPassphrase /> },
+                  { path: "*", element: <Window>404 Not Found</Window> },
                 ].map((route, index) =>
                   <Route
                     key={index}
