@@ -26,12 +26,14 @@ export const registerToPassenger = async (
 
 /**
  * Resets the user's passphrase from the old passphrase to the new passphrase.
+ * @param jwt - The JWT of the user.
  * @param oldPassphrase - The old passphrase.
  * @param newPassphrase - The new passphrase.
  * @returns A promise that resolves to the output of the command.
  */
 export const resetMasterPassphrase = async (
+  jwt: string,
   oldPassphrase: string,
   newPassphrase: string
 ): Promise<Output> =>
-  await getResponse("reset", [oldPassphrase, newPassphrase])
+  await getResponse("reset", [jwt, oldPassphrase, newPassphrase])

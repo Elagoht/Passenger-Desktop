@@ -13,8 +13,8 @@ const WinSettings: FC = () => {
       title="Security"
       items={[{
         icon: IconKey,
-        label: "Change Master Passphrase",
-        action: () => void 0
+        label: "Reset Master Passphrase",
+        link: "/settings/reset-master-passphrase"
       }, {
         icon: IconFileExport,
         label: "Export Secret Key",

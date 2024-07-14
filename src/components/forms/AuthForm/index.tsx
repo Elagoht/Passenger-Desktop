@@ -1,15 +1,15 @@
-import { IconCheck, IconKey, IconLockOpen, IconMoodBoy, IconMoodEmpty, IconMoodHappy, IconMoodLookDown, IconMoodLookLeft, IconMoodLookRight, IconMoodLookUp, IconMoodSmileBeam, IconMoodTongue, IconMoodTongueWink, IconMoodUnamused, IconMoodWink, IconX } from "@tabler/icons-react"
-import { Form, Formik } from "formik"
-import { FC, useState } from "react"
-import { validationAuthLoginForm, validationAuthRegisterForm } from "@/lib/validations/authForms"
-import { useNavigate } from "react-router-dom"
+import Button from "@/components/formElements/Button"
+import Input from "@/components/formElements/Input"
+import StringHelper from "@/helpers/string"
 import { useAuthorizationSlice } from "@/lib/stores/authorization"
 import { useNotificationSlice } from "@/lib/stores/notification"
-import StringHelper from "@/helpers/string"
+import { validationAuthLoginForm, validationAuthRegisterForm } from "@/lib/validations/authForms"
 import { loginToPassenger, registerToPassenger } from "@/services/authServices"
-import Input from "@/components/formElements/Input"
-import Button from "@/components/formElements/Button"
-import { Link } from "react-router-dom"
+import { IconKey, IconLockOpen, IconMoodBoy, IconMoodEmpty, IconMoodHappy, IconMoodLookDown, IconMoodLookLeft, IconMoodLookRight, IconMoodLookUp, IconMoodSmileBeam, IconMoodTongue, IconMoodTongueWink, IconMoodUnamused, IconMoodWink } from "@tabler/icons-react"
+import { Form, Formik } from "formik"
+import { FC, useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import MasterPassphraseChecker from "./MasterPassphraseChecker"
 
 interface IAuthFormProps {
   mode: "login" | "register"
@@ -152,32 +152,7 @@ const AuthForm: FC<IAuthFormProps> = ({ mode }) => {
             success={touched.passphrase && !errors.passphrase}
           />
 
-          {mode === "register" && <>
-            <p className="text-sm -mb-4">
-              Must have criterias:
-            </p>
-
-            <ul className="text-sm">
-              {criterias.map((criteria, index) =>
-                <li
-                  key={index}
-                  className="flex items-center gap-1"
-                >
-                  {criteria.regex.test(values.passphrase)
-                    ? <IconCheck
-                      size={16}
-                      color="green" />
-                    : <IconX
-                      size={16}
-                      color="red"
-                    />
-                  }
-
-                  {criteria.message}
-                </li>
-              )}
-            </ul>
-          </>}
+          {mode === "register" && <MasterPassphraseChecker passphrase={values.passphrase} />}
 
           <Button
             rightIcon={<IconLockOpen size={24} />}
@@ -235,23 +210,6 @@ const validationSchemas: Record<IAuthFormProps["mode"], unknown> = {
   login: validationAuthLoginForm,
   register: validationAuthRegisterForm
 }
-
-const criterias = [{
-  regex: /.{12,}/,
-  message: "At least 12 characters"
-}, {
-  regex: /[A-Z]/,
-  message: "At least one uppercase letter"
-}, {
-  regex: /[a-z]/,
-  message: "At least one lowercase letter"
-}, {
-  regex: /\d/,
-  message: "At least one digit"
-}, {
-  regex: /[^A-Za-z0-9]/,
-  message: "At least one special character"
-}]
 
 export default AuthForm
 
