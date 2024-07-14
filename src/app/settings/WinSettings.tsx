@@ -6,7 +6,7 @@ import SettingsGroup from "@/components/windows/settings/SettingsGroup"
 const WinSettings: FC = () => {
 
   return <Window
-    compact
+    title="Settings"
     className="flex flex-col gap-4"
   >
     <SettingsGroup

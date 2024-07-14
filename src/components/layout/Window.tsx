@@ -4,11 +4,13 @@ import { FC, ReactNode } from "react"
 
 interface IWindowProps {
   className?: string
+  title?: string
+  description?: string
   children: ReactNode
-  compact?: boolean
+  wide?: boolean
 }
 
-const Window: FC<IWindowProps> = ({ children, className, compact }) => {
+const Window: FC<IWindowProps> = ({ children, title, description, className, wide }) => {
   return <motion.main
     initial="initial"
     animate="in"
@@ -34,10 +36,22 @@ const Window: FC<IWindowProps> = ({ children, className, compact }) => {
     }}
     className={classNames({
       "flex flex-col p-2 md:p-4": true,
-      "max-w-2xl mx-auto": compact,
+      "max-w-2xl mx-auto": !wide,
       [className!]: className
     })}
   >
+    {title &&
+      <h1 className="text-3xl font-medium text-center mt-4">
+        {title}
+      </h1>
+    }
+
+    {description &&
+      <p className="my-2">
+        {description}
+      </p>
+    }
+
     {children}
   </motion.main>
 }

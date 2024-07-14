@@ -7,7 +7,7 @@ import Window from "@/components/layout/Window"
 import ConstantPairList from "@/components/windows/settings/ConsantPairs/ConstantPairList"
 
 const WinConstantPairs: FC = () => {
-  return <Window compact>
+  return <Window>
     <GoBackHeader
       href="/settings"
       title="Constant Pairs"

@@ -46,7 +46,7 @@ const WinDashboard: FC = () => {
     )
   }, [])
 
-  return <Window>
+  return <Window wide>
     <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-2 md:gap-4">
       <TotalCounts
         totalCount={statistics.totalCount}

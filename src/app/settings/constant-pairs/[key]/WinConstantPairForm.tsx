@@ -38,7 +38,7 @@ const WinConstantPairForm: FC = () => {
 
   if (!constant) return <Loading />
 
-  return <Window compact>
+  return <Window>
     <GoBackHeader
       href="/settings/constant-pairs"
       title="Constant Pair Details"

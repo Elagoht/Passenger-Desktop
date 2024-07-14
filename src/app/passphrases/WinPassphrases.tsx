@@ -3,7 +3,7 @@ import Window from "@/components/layout/Window"
 import PassphraseList from "@/components/windows/passphrases/PassphraseList"
 
 const WinPassphrases: FC = () => {
-  return <Window>
+  return <Window wide>
     <div className="flex flex-col gap-6">
       <img
         src="/safe.webp"

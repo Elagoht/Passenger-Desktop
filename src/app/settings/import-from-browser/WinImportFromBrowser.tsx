@@ -4,7 +4,7 @@ import GoBackHeader from "@/components/layout/GoBackHeader"
 import ImportFromBrowserForm from "@/components/forms/ImportFromBrowserForm"
 
 const WinImportFromBrowser: FC = () => {
-  return <Window compact>
+  return <Window>
     <GoBackHeader
       href="/settings"
       title="Import from browser"

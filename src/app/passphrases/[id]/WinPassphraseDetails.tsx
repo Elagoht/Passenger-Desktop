@@ -38,7 +38,7 @@ const WinPassphraseDetails: FC = () => {
 
   if (!entry) return <Loading />
 
-  return <Window compact>
+  return <Window>
     <div className="flex gap-2 items-center mb-4">
       <Link
         to={searchParams.get("cameFrom") || "/passphrases"}

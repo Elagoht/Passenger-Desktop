@@ -4,7 +4,7 @@ import GoBackHeader from "@/components/layout/GoBackHeader"
 import ExportToCSVForm from "@/components/forms/ExportToCSVForm"
 
 const WinExportToCSV: FC = () => {
-  return <Window compact>
+  return <Window>
     <GoBackHeader
       title="Export to CSV"
       href="/settings"

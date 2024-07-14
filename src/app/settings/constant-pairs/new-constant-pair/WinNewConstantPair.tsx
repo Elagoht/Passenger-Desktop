@@ -4,7 +4,7 @@ import Window from "@/components/layout/Window"
 import { FC } from "react"
 
 const WinNewConstantPair: FC = () => {
-  return <Window compact>
+  return <Window>
     <GoBackHeader
       href="/settings/constant-pairs"
       title="New Constant Pair"
