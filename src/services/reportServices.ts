@@ -9,3 +9,13 @@ export const getStatistics = async (
   jwt: string
 ): Promise<Output> =>
   await getResponse("stats", [jwt])
+
+/**
+ * Retrieves the report as a JSON object.
+ * @param jwt - The JWT for authentication.
+ * @returns A promise that resolves to the output of the command.
+ */
+export const getDetectiveReports = async (
+  jwt: string
+): Promise<Output> =>
+  await getResponse("detect", [jwt])

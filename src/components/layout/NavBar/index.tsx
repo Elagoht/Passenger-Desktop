@@ -6,7 +6,8 @@ import { Link, useLocation } from "react-router-dom"
 const NavBar: FC = () => {
   const { pathname } = useLocation()
 
-  return <nav className="grid max-md:grid-cols-5 md:flex md:flex-col bg-tuatara-50 dark:bg-tuatara-900 max-md:w-full md:h-screen p-1 md:p-2 md:min-w-56 shadow-modal shadow-tuatara-200 dark:shadow-tuatara-950 z-10">
+  return <nav className="p-1 md:p-2 z-10 shadow-modal shadow-tuatara-200 dark:shadow-tuatara-950 bg-tuatara-50 dark:bg-tuatara-900 md:flex md:flex-col md:h-screen md:top-0 md:sticky md:w-56 max-md:grid max-md:w-full max-md:grid-cols-5 max-md:fixed max-md:bottom-0"
+  >
     <header className="flex items-center justify-center gap-2 p-2 mb-2 max-md:hidden">
       <img
         src="/icon.png"

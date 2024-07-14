@@ -1,4 +1,4 @@
-import { IconChartPie, IconChartPieFilled, IconExclamationCircle, IconListSearch, IconPlus, IconSettings } from "@tabler/icons-react"
+import { IconBellSearch, IconChartPie, IconChartPieFilled, IconListSearch, IconPlus, IconSettings } from "@tabler/icons-react"
 
 const menuItems = [
   {
@@ -19,9 +19,9 @@ const menuItems = [
     "floating": true
   },
   {
-    "path": "/actions-and-news",
-    "title": "Actions & News",
-    "icon": IconExclamationCircle
+    "path": "/detective",
+    "title": "Detective",
+    "icon": IconBellSearch
   },
   {
     "path": "/settings",
