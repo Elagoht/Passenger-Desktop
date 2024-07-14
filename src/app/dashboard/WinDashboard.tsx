@@ -1,3 +1,4 @@
+import Loading from "@/components/layout/Loading"
 import Window from "@/components/layout/Window"
 import AverageLength from "@/components/windows/dashboard/AverageLength"
 import MostAccessed from "@/components/windows/dashboard/MostAccessed"
@@ -11,25 +12,11 @@ import { authStore } from "@/lib/stores/authorization"
 import { getStatistics } from "@/services/reportServices"
 import { Statistics } from "@/types/statistics"
 import { FC, useEffect, useState } from "react"
+import { Maybe } from "@/types/utility"
 
 const WinDashboard: FC = () => {
   const accessToken = authStore(state => state.accessToken)
-  const [statistics, setStatistics] = useState<Statistics>({
-    totalCount: 0, // Used
-    averageLength: 0, // Used
-    uniquePlatforms: [],
-    uniquePlatformsCount: 0, // Used
-    uniquePassphrases: 0, // Used
-    mostAccessed: [], // Used
-    commonByPlatform: [],
-    percentageOfCommon: 0, // Used
-    mostCommon: "", // Used
-    strengths: {},
-    averageStrength: -2, // Used
-    weakPassphrases: [],
-    mediumPassphrases: [],
-    strongPassphrases: []
-  }) // This is a placeholder for initial state
+  const [statistics, setStatistics] = useState<Maybe<Statistics>>(null)
 
   useEffect(() => {
     getStatistics(
@@ -43,6 +30,8 @@ const WinDashboard: FC = () => {
       }],
     ))
   }, [])
+
+  if (!statistics) return <Loading />
 
   return <Window wide>
     <div className="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-2 md:gap-4">
