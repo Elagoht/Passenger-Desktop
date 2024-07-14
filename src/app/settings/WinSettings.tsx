@@ -6,15 +6,15 @@ import SettingsGroup from "@/components/windows/settings/SettingsGroup"
 const WinSettings: FC = () => {
 
   return <Window
-    compact
+    title="Settings"
     className="flex flex-col gap-4"
   >
     <SettingsGroup
       title="Security"
       items={[{
         icon: IconKey,
-        label: "Change Master Passphrase",
-        action: () => void 0
+        label: "Reset Master Passphrase",
+        link: "/settings/reset-master-passphrase"
       }, {
         icon: IconFileExport,
         label: "Export Secret Key",
