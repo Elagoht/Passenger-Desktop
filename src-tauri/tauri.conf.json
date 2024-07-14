@@ -35,7 +35,7 @@
     },
     "windows": [
       {
-        "title": "passenger-ui",
+        "title": "Passenger: Passphrase Manager",
         "width": 392,
         "height": 697,
         "minHeight": 697,
