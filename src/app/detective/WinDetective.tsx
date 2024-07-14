@@ -3,8 +3,8 @@ import Detective from "@/components/windows/Detective"
 
 const WinDetective = () => {
   return <Window
-    wide
     title="Detective"
+    description="Detective is your personal assistant to help you find potential security issues in your vault."
   >
     <Detective />
   </Window>
