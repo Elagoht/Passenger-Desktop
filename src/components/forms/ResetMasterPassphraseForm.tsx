@@ -1,6 +1,5 @@
 import Input from "@/components/formElements/Input"
 import handleResponse from "@/helpers/services"
-import { authStore } from "@/lib/stores/authorization"
 import { validationResetMasterPassphraseForm } from "@/lib/validations/authForms"
 import { resetMasterPassphrase } from "@/services/authServices"
 import { IconKey, IconLoader } from "@tabler/icons-react"
@@ -9,10 +8,10 @@ import { FC } from "react"
 import { useNavigate } from "react-router-dom"
 import Button from "../formElements/Button"
 import MasterPassphraseChecker from "./AuthForm/MasterPassphraseChecker"
+import { useAuth } from "@/hooks/authorization"
 
 const ResetMasterPassphraseForm: FC = () => {
   const navigate = useNavigate()
-  const accessToken = authStore((state) => state.accessToken)
 
   return <Formik
     initialValues={{
@@ -23,7 +22,7 @@ const ResetMasterPassphraseForm: FC = () => {
     validationSchema={validationResetMasterPassphraseForm}
     onSubmit={(values, { setSubmitting, setTouched }) =>
       resetMasterPassphrase(
-        accessToken,
+        useAuth(),
         values.currentPassphrase,
         values.newPassphrase
       ).then((response) => handleResponse(

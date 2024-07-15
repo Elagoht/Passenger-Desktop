@@ -2,7 +2,8 @@ import { Output } from "@/api/cli"
 import Button from "@/components/formElements/Button"
 import FileInput from "@/components/formElements/FileInput"
 import Select from "@/components/formElements/Select"
-import { authStore } from "@/lib/stores/authorization"
+import handleResponse from "@/helpers/services"
+import { useAuth } from "@/hooks/authorization"
 import { validationImportFromBrowserForm } from "@/lib/validations/importExportForms"
 import { importFromBrowser } from "@/services/dataTransferServices"
 import { CSVLineEntry } from "@/types/common"
@@ -13,7 +14,6 @@ import { FC, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Maybe } from "yup"
 import EditImportDataModal from "./EditImportDataModal"
-import handleResponse from "@/helpers/services"
 
 const browserIcons = {
   "": IconSelector,
@@ -23,11 +23,11 @@ const browserIcons = {
 }
 
 const ImportFromBrowserForm: FC = () => {
-  const accessToken = authStore((state) => state.accessToken)
+  const navigate = useNavigate()
+
   const [editModal, setEditModal] = useState<boolean>(false)
   const [acceptableEntries, setAcceptableEntries] = useState<CSVLineEntry[]>([])
   const [badEntries, setBadEntries] = useState<CSVLineEntry[]>([])
-  const navigate = useNavigate()
 
   // Loop until the import is successful
   const tryToImport = (response: Awaited<Promise<Output>>) => handleResponse(
@@ -70,7 +70,7 @@ const ImportFromBrowserForm: FC = () => {
     validationSchema={validationImportFromBrowserForm}
     onSubmit={async (values, { setSubmitting }) =>
       importFromBrowser( // Import passwords from the browser
-        accessToken,
+        useAuth(),
         values.browser,
         await values.file!.text()
       ).then(tryToImport
@@ -140,7 +140,7 @@ const ImportFromBrowserForm: FC = () => {
             setEditModal(false)
             // Continue with the edited entries
             importFromBrowser(
-              accessToken,
+              useAuth(),
               values.browser,
               Papa.unparse([
                 ...acceptableEntries,

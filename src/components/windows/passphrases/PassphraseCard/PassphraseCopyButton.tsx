@@ -1,7 +1,7 @@
 import Toast from "@/helpers/notifications"
 import handleResponse from "@/helpers/services"
 import StringHelper from "@/helpers/string"
-import { authStore } from "@/lib/stores/authorization"
+import { useAuth } from "@/hooks/authorization"
 import { fetchEntry } from "@/services/passphraseServices"
 import { ListableDatabaseEntry, ReadWriteDatabaseEntry } from "@/types/common"
 import { IconCopyCheck, IconKey } from "@tabler/icons-react"
@@ -11,12 +11,10 @@ interface IPassphraseCopyButtonProps {
   id: ListableDatabaseEntry["id"]
 }
 
-const PassphraseCopyButton: FC<IPassphraseCopyButtonProps> = ({ id }) => {
-  const accessToken = authStore(state => state.accessToken)
-
-  return <button
+const PassphraseCopyButton: FC<IPassphraseCopyButtonProps> = ({ id }) =>
+  <button
     onClick={() => fetchEntry(
-      accessToken,
+      useAuth(),
       id
     ).then((response) => handleResponse(
       response,
@@ -42,6 +40,5 @@ const PassphraseCopyButton: FC<IPassphraseCopyButtonProps> = ({ id }) => {
   >
     <IconKey /> Passphrase
   </button>
-}
 
 export default PassphraseCopyButton

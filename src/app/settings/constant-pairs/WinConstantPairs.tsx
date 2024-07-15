@@ -1,25 +1,23 @@
+import Button from "@/components/formElements/Button"
+import GoBackHeader from "@/components/layout/GoBackHeader"
+import Loading from "@/components/layout/Loading"
+import Window from "@/components/layout/Window"
+import ConstantPairList from "@/components/windows/settings/ConsantPairs/ConstantPairList"
+import handleResponse from "@/helpers/services"
+import StringHelper from "@/helpers/string"
+import { useAuth } from "@/hooks/authorization"
+import { fetchAllConstantPairs } from "@/services/constantPairServices"
+import { ConstantPair } from "@/types/common"
 import { IconDatabaseExclamation, IconPlus } from "@tabler/icons-react"
 import { FC, useEffect, useState } from "react"
 import { Link } from "react-router-dom"
-import Button from "@/components/formElements/Button"
-import GoBackHeader from "@/components/layout/GoBackHeader"
-import Window from "@/components/layout/Window"
-import ConstantPairList from "@/components/windows/settings/ConsantPairs/ConstantPairList"
-import Loading from "@/components/layout/Loading"
-import { authStore } from "@/lib/stores/authorization"
-import { ConstantPair } from "@/types/common"
-import { fetchAllConstantPairs } from "@/services/constantPairServices"
-import handleResponse from "@/helpers/services"
-import StringHelper from "@/helpers/string"
 
 const WinConstantPairs: FC = () => {
-  const accessToken = authStore((state) => state.accessToken)
-
   const [constants, setConstants] = useState<ConstantPair[]>()
 
   useEffect(() => {
     fetchAllConstantPairs(
-      accessToken
+      useAuth()
     ).then((response) => handleResponse(
       response,
       [() => setConstants(StringHelper.deserialize<ConstantPair[]>(response.stdout) ?? undefined)],

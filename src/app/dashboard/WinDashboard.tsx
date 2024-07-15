@@ -8,19 +8,18 @@ import StrengthMeter from "@/components/windows/dashboard/StrengtMeter"
 import TotalCounts from "@/components/windows/dashboard/TotalCounts"
 import handleResponse from "@/helpers/services"
 import StringHelper from "@/helpers/string"
-import { authStore } from "@/lib/stores/authorization"
 import { getStatistics } from "@/services/reportServices"
 import { Statistics } from "@/types/statistics"
 import { FC, useEffect, useState } from "react"
 import { Maybe } from "@/types/utility"
+import { useAuth } from "@/hooks/authorization"
 
 const WinDashboard: FC = () => {
-  const accessToken = authStore(state => state.accessToken)
   const [statistics, setStatistics] = useState<Maybe<Statistics>>(null)
 
   useEffect(() => {
     getStatistics(
-      accessToken
+      useAuth()
     ).then((response) => handleResponse(
       response,
       [() => setStatistics(StringHelper.deserialize<Statistics>(response.stdout))],

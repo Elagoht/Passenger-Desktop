@@ -1,5 +1,6 @@
 import Button from "@/components/formElements/Button"
 import Input from "@/components/formElements/Input"
+import Cookie from "@/helpers/cookies"
 import handleResponse from "@/helpers/services"
 import StringHelper from "@/helpers/string"
 import { authStore } from "@/lib/stores/authorization"
@@ -8,8 +9,8 @@ import { IconKey, IconLock, IconLockOpen, IconMoodLookDown, IconMoodSmile } from
 import { Form, Formik } from "formik"
 import { FC } from "react"
 const ReAuthForm: FC = () => {
-  const setDoesRequireReAuth = authStore(state => state.setDoesRequireReAuth)
-  const setAccessToken = authStore(state => state.setAccessToken)
+
+  const closeReAuthModal = authStore((state) => state.closeReAuthModal)
 
   return <Formik
     initialValues={{
@@ -23,8 +24,8 @@ const ReAuthForm: FC = () => {
       ).then((response) => handleResponse(
         response,
         [() => {
-          setAccessToken(response.stdout)
-          setDoesRequireReAuth(false)
+          Cookie.set("accessToken", response.stdout)
+          closeReAuthModal()
         }, {
           successTitle: "Access granted, again!",
           successMessage: "Continue where you left off.",

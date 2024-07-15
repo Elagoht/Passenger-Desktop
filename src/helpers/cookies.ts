@@ -1,10 +1,10 @@
 import { Maybe } from "@/types/utility"
 
 class Cookie {
-  public static set(name: string, value: string, seconds: number = 1): void {
+  public static set(name: string, value: string, seconds: number = 600): void {
     const date = new Date()
     date.setTime(date.getTime() + (seconds * 1000))
-    document.cookie = `${name}=${value}; Expires=${date.toUTCString()}; Secure; SameSite=Strict; Path=/`
+    document.cookie = `${name}=${value}; Expires=${date.toUTCString()}; Path=/`
   }
 
   public static get(cookieName: string): Maybe<string> {

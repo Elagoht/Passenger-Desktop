@@ -3,7 +3,7 @@ import Window from "@/components/layout/Window"
 import Detective from "@/components/windows/Detective"
 import handleResponse from "@/helpers/services"
 import StringHelper from "@/helpers/string"
-import { authStore } from "@/lib/stores/authorization"
+import { useAuth } from "@/hooks/authorization"
 import { getDetectiveReports } from "@/services/reportServices"
 import { DetectiveReport } from "@/types/reports"
 import { IconZoomCancel } from "@tabler/icons-react"
@@ -11,13 +11,12 @@ import { useEffect, useState } from "react"
 import { Maybe } from "yup"
 
 const WinDetective = () => {
-  const accessToken = authStore(store => store.accessToken)
 
   const [detectiveReports, setDetectiveReports] = useState<Maybe<DetectiveReport>>(null)
 
   useEffect(() => {
     getDetectiveReports(
-      accessToken
+      useAuth()
     ).then((response) => handleResponse(
       response,
       [() => setDetectiveReports(StringHelper.deserialize<DetectiveReport>(response.stdout))],

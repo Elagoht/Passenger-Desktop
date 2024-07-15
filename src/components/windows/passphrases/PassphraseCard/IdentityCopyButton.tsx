@@ -1,7 +1,7 @@
 import Toast from "@/helpers/notifications"
 import handleResponse from "@/helpers/services"
 import StringHelper from "@/helpers/string"
-import { authStore } from "@/lib/stores/authorization"
+import { useAuth } from "@/hooks/authorization"
 import { rememberConstantPair } from "@/services/constantPairServices"
 import { fetchEntry } from "@/services/passphraseServices"
 import { ConstantPair, ListableDatabaseEntry, ReadWriteDatabaseEntry } from "@/types/common"
@@ -12,12 +12,10 @@ interface IIdentityCopyButtonProps {
   id: ListableDatabaseEntry["id"]
 }
 
-const IdentityCopyButton: FC<IIdentityCopyButtonProps> = ({ id }) => {
-  const accessToken = authStore(state => state.accessToken)
-
-  return <button
+const IdentityCopyButton: FC<IIdentityCopyButtonProps> = ({ id }) =>
+  <button
     onClick={() => fetchEntry(
-      accessToken,
+      useAuth(),
       id
     ).then((response) => handleResponse(
       response,
@@ -26,7 +24,7 @@ const IdentityCopyButton: FC<IIdentityCopyButtonProps> = ({ id }) => {
 
         const result = identity.startsWith("_$")
           ? await rememberConstantPair(
-            accessToken,
+            useAuth(),
             identity.substring(2)
           ).then((response) => handleResponse(
             response,
@@ -58,7 +56,6 @@ const IdentityCopyButton: FC<IIdentityCopyButtonProps> = ({ id }) => {
     className="transition-all hover:bg-leaf-500 flex flex-col items-center justify-center leading-snug rounded-l-lg h-14 flex-1 hover:flex-[1.5] hover:text-white px-2"
   >
     <IconUser /> Identity
-  </button >
-}
+  </button>
 
 export default IdentityCopyButton

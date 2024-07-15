@@ -1,12 +1,10 @@
 import { AnimatePresence } from "framer-motion"
 import { FC, Suspense } from "react"
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom"
-import Storage from "../api/storage"
 import Private from "../components/layout/Private"
 import Public from "../components/layout/Public"
 import Window from "../components/layout/Window"
 import AnimatedRoutes from "../lib/router/AnimatedRoutes"
-import { authStore } from "../lib/stores/authorization"
 import WinAddPassphrase from "./add-passphrase/WinAddPassphrase"
 import WinLogin from "./auth/WinLogin"
 import WinRegister from "./auth/WinRegister"
@@ -21,11 +19,10 @@ import WinNewConstantPair from "./settings/constant-pairs/new-constant-pair/WinN
 import WinExportToCSV from "./settings/export-to-csv/WinExportToCSV"
 import WinImportFromBrowser from "./settings/import-from-browser/WinImportFromBrowser"
 import WinResetMasterPassphrase from "./settings/reset-master-passphrase/WinResetMasterPassphrase"
-
-export const settings = new Storage(".settings.dat")
+import { authStore } from "@/lib/stores/authorization"
 
 const App: FC = () => {
-  const isAuthorized = authStore((state) => state.isAuthorized)
+  const { isAuthorized } = authStore()
 
   return <BrowserRouter>
     <AnimatePresence mode="wait">
