@@ -13,12 +13,10 @@ const DetectiveCommonPassphrases: FC<IDetectiveCommonPassphrasesProps> = ({
   <DetectiveReportSheet
     title="Shared Passphrases"
     isEmpty={!commonPassphrases.length}
+    subtitle="These group of entries share the same passphrase between each other:"
   >
     {commonPassphrases.map((passphraseList) =>
-      <DetectiveSheetGrid
-        title="These are sharing same passphrase:"
-        passphrases={passphraseList}
-      />
+      <DetectiveSheetGrid passphrases={passphraseList} />
     )}
   </DetectiveReportSheet>
 
