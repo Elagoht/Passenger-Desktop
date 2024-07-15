@@ -54,6 +54,7 @@ const PassphraseList: FC<IPassphraseListProps> = ({ passphrases }) => {
 
     <ul className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-2">
       {filteredPassphrases
+        .sort((a, b) => a.platform.localeCompare(b.platform))
         .map((passphrase) =>
           <PassphraseCard
             key={passphrase.id}
