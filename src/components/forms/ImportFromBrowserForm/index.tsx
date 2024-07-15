@@ -14,6 +14,8 @@ import { FC, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { Maybe } from "yup"
 import EditImportDataModal from "./EditImportDataModal"
+import Toast from "@/helpers/notifications"
+import StringHelper from "@/helpers/string"
 
 const browserIcons = {
   "": IconSelector,
@@ -37,12 +39,19 @@ const ImportFromBrowserForm: FC = () => {
       successMessage: response.stdout
     }],
     [() => {
+      if (
+        response.stderr.startsWith("passenger:")
+      ) return Toast.error({
+        title: "Could not import",
+        message: StringHelper.removeUnixErrorPrefix(response.stderr)
+      })
       /**
-       * If unsuccessful, core CLI will not accept even
-       * the acceptable entries and will return the bad
-       * entries on the stderr and acceptable entries on
-       * the stdout. We will show the bad entries to the
-       * user and ask them to edit the entries.
+       * If unsuccessful but file has an acceptable format,
+       * core CLI will not accept even the acceptable entries
+       * and will return the bad entries on the stderr and
+       * acceptable entries on the stdout. We will show the
+       * bad entries to the user and ask them to edit the
+       * entries.
        */
       const badEntries = Papa.parse<CSVLineEntry>(
         response.stderr,
