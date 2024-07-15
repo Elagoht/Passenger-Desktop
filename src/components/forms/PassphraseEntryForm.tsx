@@ -7,7 +7,7 @@ import FormikHelper from "@/helpers/formik"
 import handleResponse from "@/helpers/services"
 import Strength from "@/helpers/strength"
 import StringHelper from "@/helpers/string"
-import { authStore } from "@/lib/stores/authorization"
+import { useAuth } from "@/hooks/authorization"
 import { createEntry, updateEntry } from "@/services/passphraseServices"
 import { ReadWriteDatabaseEntry } from "@/types/common"
 import { IconDeviceFloppy, IconKey, IconLoader, IconNote, IconTag, IconUserCircle, IconWorld } from "@tabler/icons-react"
@@ -26,12 +26,11 @@ type IPassphraseDetailsFormProps = {
 
 const PassphraseEntryForm: FC<IPassphraseDetailsFormProps> = ({ mode, existing }) => {
   const navigate = useNavigate()
-  const accessToken = authStore(state => state.accessToken)
 
   const formAction = (values: Record<string, string>) =>
     mode === "edit"
-      ? updateEntry(accessToken, existing.id, values)
-      : createEntry(accessToken, values)
+      ? updateEntry(useAuth(), existing.id, values)
+      : createEntry(useAuth(), values)
 
   const { platform, identity, url, passphrase, notes } = existing || {}
 

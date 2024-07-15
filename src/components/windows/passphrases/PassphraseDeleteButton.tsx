@@ -1,7 +1,7 @@
 import Button from "@/components/formElements/Button"
 import Modal from "@/components/utility/Modal"
 import handleResponse from "@/helpers/services"
-import { authStore } from "@/lib/stores/authorization"
+import { useAuth } from "@/hooks/authorization"
 import { deleteEntry } from "@/services/passphraseServices"
 import { IconBox, IconFlame, IconTrash } from "@tabler/icons-react"
 import { FC, useState } from "react"
@@ -13,8 +13,6 @@ interface IPassphraseDeleteButtonProps {
 
 const PassphraseDeleteButton: FC<IPassphraseDeleteButtonProps> = ({ id }) => {
   const navigate = useNavigate()
-
-  const accessToken = authStore(state => state.accessToken)
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
@@ -42,7 +40,7 @@ const PassphraseDeleteButton: FC<IPassphraseDeleteButtonProps> = ({ id }) => {
           rightIcon: <IconTrash size={24} />,
           color: "danger",
           onClick: () => deleteEntry(
-            accessToken,
+            useAuth(),
             id
           ).then((response) => handleResponse(
             response,

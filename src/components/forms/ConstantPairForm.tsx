@@ -4,7 +4,7 @@ import ConstantPairDeleteButton from "@/components/windows/settings/ConsantPairs
 import FormikHelper from "@/helpers/formik"
 import handleResponse from "@/helpers/services"
 import StringHelper from "@/helpers/string"
-import { authStore } from "@/lib/stores/authorization"
+import { useAuth } from "@/hooks/authorization"
 import { validationConstantPairForms } from "@/lib/validations/constantPairForms"
 import { declareConstantPair, modifyConstantPair } from "@/services/constantPairServices"
 import { ConstantPair } from "@/types/common"
@@ -24,12 +24,10 @@ type IConstantPairFormProps = {
 const ConstantPairForm: FC<IConstantPairFormProps> = ({ mode, existing }) => {
   const navigate = useNavigate()
 
-  const accessToken = authStore((state) => state.accessToken)
-
   const formAction = (values: Record<string, string>) =>
     mode === "declare"
-      ? declareConstantPair(accessToken, values.key, values.value)
-      : modifyConstantPair(accessToken, existing.key, values.key, values.value)
+      ? declareConstantPair(useAuth(), values.key, values.value)
+      : modifyConstantPair(useAuth(), existing.key, values.key, values.value)
 
   return <Formik
     initialValues={

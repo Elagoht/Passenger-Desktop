@@ -1,38 +1,32 @@
 import { create } from "zustand"
 
-interface IAuthStore {
+interface AuthorizationStore {
   isAuthorized: boolean
-  accessToken: string
-  isGuideDone: boolean
-  doesRequireReAuth: boolean
-  setIsAuthorizated: (state: boolean) => void
-  setAccessToken: (token: string) => void
-  setIsGuideDone: (state: boolean) => void
-  setDoesRequireReAuth: (state: boolean) => void
+  isReAuthModalOpen: boolean
+  openReAuthModal: () => void
+  closeReAuthModal: () => void
+  logInUser: () => void
+  logOutUser: () => void
 }
 
-export const authStore = create<IAuthStore>((set) => ({
+export const authStore = create<AuthorizationStore>((set) => ({
   isAuthorized: false,
 
-  accessToken: "",
+  isReAuthModalOpen: false,
 
-  isGuideDone: false,
-
-  doesRequireReAuth: false,
-
-  setIsAuthorizated: (state) => set({
-    isAuthorized: state
+  openReAuthModal: () => set({
+    isReAuthModalOpen: true
   }),
 
-  setAccessToken: (token) => set({
-    accessToken: token
+  closeReAuthModal: () => set({
+    isReAuthModalOpen: false
   }),
 
-  setIsGuideDone: (state) => set({
-    isGuideDone: state
+  logInUser: () => set({
+    isAuthorized: true
   }),
 
-  setDoesRequireReAuth: (state) => set({
-    doesRequireReAuth: state
+  logOutUser: () => set({
+    isAuthorized: false
   })
 }))

@@ -3,7 +3,7 @@ import Select from "@/components/formElements/Select"
 import Toast from "@/helpers/notifications"
 import handleResponse from "@/helpers/services"
 import StringHelper from "@/helpers/string"
-import { authStore } from "@/lib/stores/authorization"
+import { useAuth } from "@/hooks/authorization"
 import { exportToCSV } from "@/services/dataTransferServices"
 import { IconFileAlert, IconLoader, IconLock, IconLockOpen, IconTableExport } from "@tabler/icons-react"
 import { save } from "@tauri-apps/api/dialog"
@@ -17,13 +17,12 @@ const ExportTypeIcons = {
 }
 
 const ExportToCSVForm: FC = () => {
-  const accessToken = authStore((state) => state.accessToken)
 
   return <Formik
     initialValues={{ exportType: "bare" }}
     onSubmit={(values, { setSubmitting }) => {
       exportToCSV( // Get the export data from the CLI
-        accessToken,
+        useAuth(),
         values.exportType
       ).then((response) => handleResponse(
         response,

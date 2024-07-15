@@ -1,5 +1,6 @@
 import Button from "@/components/formElements/Button"
 import Input from "@/components/formElements/Input"
+import Cookie from "@/helpers/cookies"
 import handleResponse from "@/helpers/services"
 import { authStore } from "@/lib/stores/authorization"
 import { validationAuthLoginForm, validationAuthRegisterForm } from "@/lib/validations/authForms"
@@ -17,9 +18,8 @@ interface IAuthFormProps {
 const AuthForm: FC<IAuthFormProps> = ({ mode }) => {
   const navigate = useNavigate()
 
-  const setIsAuthorizated = authStore((state) => state.setIsAuthorizated)
-  const setAccessToken = authStore((state) => state.setAccessToken)
-  const setDoesRequireReAuth = authStore((state) => state.setDoesRequireReAuth)
+  const { logInUser } = authStore()
+
   const [mood, setMood] = useState<number>(Math.floor(Math.random() * moods.length))
 
   return <section className="flex flex-col gap-4 p-4 items-center">
@@ -73,12 +73,7 @@ const AuthForm: FC<IAuthFormProps> = ({ mode }) => {
             values.username,
             values.passphrase
           ),
-          [() => { continueToLogin = true }
-            , {
-            successTitle: "Register successful",
-            successMessage: "Your vault has been created successfully.",
-            successIcon: IconMoodSmileBeam
-          }],
+          [() => { continueToLogin = true }],
           [() => void 0, {
             errorTitle: "Register failed",
             errorIcon: IconMoodLookDown
@@ -92,15 +87,17 @@ const AuthForm: FC<IAuthFormProps> = ({ mode }) => {
         ).then((response) => handleResponse(
           response,
           [() => {
-            setAccessToken(response.stdout)
-            setDoesRequireReAuth(false)
+            Cookie.set("accessToken", response.stdout)
+            logInUser()
             navigate("/dashboard")
-            setIsAuthorizated(true)
-          },
-          {
+          }, mode === "login" ? {
             successTitle: "Access granted!",
             successMessage: "Welcome back to your vault.",
             successIcon: IconMoodHappy
+          } : {
+            successTitle: "Register successful",
+            successMessage: "Your vault has been created successfully.",
+            successIcon: IconMoodSmileBeam
           }],
           [() => void 0, {
             errorTitle: "Access denied",
@@ -182,7 +179,7 @@ const AuthForm: FC<IAuthFormProps> = ({ mode }) => {
         </Form>
       }
     </Formik>
-  </section >
+  </section>
 }
 
 const moods = [

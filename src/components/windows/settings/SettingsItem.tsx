@@ -21,7 +21,7 @@ const SettingsItem: FC<ISettingsItemProps> = ({ icon, label, action, link }) =>
       to: link
         ? link
         : undefined as unknown as string,
-      className: "flex gap-2 items-center p-2 bg-tuatara-100 dark:bg-tuatara-900 hover:brightness-110 transition-all ease-in-out cursor-pointer first:rounded-t-md last:rounded-b-md",
+      className: "flex gap-2 items-center p-2 bg-tuatara-50 dark:bg-tuatara-900 hover:brightness-110 transition-all ease-in-out cursor-pointer first:rounded-t-md last:rounded-b-md",
       onClick: action
         ? action
         : undefined

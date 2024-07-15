@@ -1,5 +1,6 @@
-import { ChildProcess, Command } from "@tauri-apps/api/shell"
 import StringHelper from "@/helpers/string"
+import { authStore } from "@/lib/stores/authorization"
+import { ChildProcess, Command } from "@tauri-apps/api/shell"
 
 export type Output = {
   status: number
@@ -54,6 +55,18 @@ class CLI {
 
 const getResponse = async (
   command: string, args: string[], piped: string = ""
-): Promise<Output> => CLI.readOutput(await CLI.execute(command, args, piped))
+): Promise<Output> => {
+  const output = CLI.readOutput(await CLI.execute(command, args, piped))
+  /**
+   * Exit code 41 represents HTTP 401 Unauthorized.
+   * This means that the user's access token is invalid.
+   * Even though we do not redirect the user to the login page,
+   * instead we open a dialog to re-authenticate the user
+   * to make user be able to continue current operation.
+   */
+  if (output.status === 41) authStore.getState().openReAuthModal()
+
+  return output
+}
 
 export default getResponse

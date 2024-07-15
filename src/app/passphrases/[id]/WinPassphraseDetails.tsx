@@ -4,7 +4,7 @@ import Window from "@/components/layout/Window"
 import PassphraseDeleteButton from "@/components/windows/passphrases/PassphraseDeleteButton"
 import handleResponse from "@/helpers/services"
 import StringHelper from "@/helpers/string"
-import { authStore } from "@/lib/stores/authorization"
+import { useAuth } from "@/hooks/authorization"
 import { fetchEntry } from "@/services/passphraseServices"
 import { DatabaseEntry } from "@/types/common"
 import { Maybe } from "@/types/utility"
@@ -14,14 +14,15 @@ import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom"
 
 const WinPassphraseDetails: FC = () => {
   const params = useParams<{ id: string }>()
-  const searchParams = useSearchParams()[0]
   const navigate = useNavigate()
-  const accessToken = authStore((state) => state.accessToken)
+
+  const searchParams = useSearchParams()[0]
+
   const [entry, setEntry] = useState<Maybe<DatabaseEntry>>(null)
 
   useEffect(() => {
     fetchEntry(
-      accessToken,
+      useAuth(),
       params.id!
     ).then((response) => handleResponse(
       response,

@@ -1,13 +1,13 @@
 import { FC } from "react"
-import { authStore } from "@/lib/stores/authorization"
-import Modal from "./utility/Modal"
 import ReAuthForm from "./forms/ReAuthForm"
+import Modal from "./utility/Modal"
+import { authStore } from "@/lib/stores/authorization"
 
 const ReAuthModal: FC = () => {
-  const doesRequireReAuth = authStore(state => state.doesRequireReAuth)
+  const isReAuthModalOpen = authStore((state) => state.isReAuthModalOpen)
 
   return <Modal
-    isOpen={doesRequireReAuth}
+    isOpen={isReAuthModalOpen}
     persist
     size="sm"
     close={() => void 0}

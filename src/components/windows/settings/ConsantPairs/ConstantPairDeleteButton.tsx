@@ -1,7 +1,7 @@
 import Button from "@/components/formElements/Button"
 import Modal from "@/components/utility/Modal"
 import handleResponse from "@/helpers/services"
-import { authStore } from "@/lib/stores/authorization"
+import { useAuth } from "@/hooks/authorization"
 import { forgetConstantPair } from "@/services/constantPairServices"
 import { ConstantPair } from "@/types/common"
 import { IconBox, IconDatabaseExclamation, IconTrash } from "@tabler/icons-react"
@@ -14,8 +14,6 @@ interface IConstantPairDeleteButtonProps {
 
 const ConstantPairDeleteButton: FC<IConstantPairDeleteButtonProps> = ({ constantKey }) => {
   const navigate = useNavigate()
-
-  const accessToken = authStore((state) => state.accessToken)
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
@@ -44,7 +42,7 @@ const ConstantPairDeleteButton: FC<IConstantPairDeleteButtonProps> = ({ constant
           rightIcon: <IconTrash size={24} />,
           color: "danger",
           onClick: () => forgetConstantPair(
-            accessToken,
+            useAuth(),
             constantKey
           ).then((response) => handleResponse(
             response,

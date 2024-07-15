@@ -7,16 +7,15 @@ import StringHelper from "@/helpers/string"
 import { ListableDatabaseEntry } from "@/types/common"
 import handleResponse from "@/helpers/services"
 import { fetchAllEntries } from "@/services/passphraseServices"
-import { authStore } from "@/lib/stores/authorization"
 import { Maybe } from "@/types/utility"
+import { useAuth } from "@/hooks/authorization"
 
 const WinPassphrases: FC = () => {
-  const accessToken = authStore((state) => state.accessToken)
   const [passphrases, setPassphrases] = useState<Maybe<ListableDatabaseEntry[]>>(null)
 
   useEffect(() => {
     fetchAllEntries(
-      accessToken
+      useAuth()
     ).then((response) => handleResponse(
       response,
       [() => setPassphrases(
