@@ -73,12 +73,7 @@ const AuthForm: FC<IAuthFormProps> = ({ mode }) => {
             values.username,
             values.passphrase
           ),
-          [() => { continueToLogin = true }
-            , {
-            successTitle: "Register successful",
-            successMessage: "Your vault has been created successfully.",
-            successIcon: IconMoodSmileBeam
-          }],
+          [() => { continueToLogin = true }],
           [() => void 0, {
             errorTitle: "Register failed",
             errorIcon: IconMoodLookDown
@@ -95,10 +90,14 @@ const AuthForm: FC<IAuthFormProps> = ({ mode }) => {
             Cookie.set("accessToken", response.stdout)
             logInUser()
             navigate("/dashboard")
-          }, {
+          }, mode === "login" ? {
             successTitle: "Access granted!",
             successMessage: "Welcome back to your vault.",
             successIcon: IconMoodHappy
+          } : {
+            successTitle: "Register successful",
+            successMessage: "Your vault has been created successfully.",
+            successIcon: IconMoodSmileBeam
           }],
           [() => void 0, {
             errorTitle: "Access denied",
