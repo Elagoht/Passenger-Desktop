@@ -2363,7 +2363,6 @@ dependencies = [
  "tauri",
  "tauri-build",
  "tauri-plugin-single-instance",
- "tauri-plugin-store",
 ]
 
 [[package]]
@@ -3570,18 +3569,6 @@ dependencies = [
  "thiserror",
  "windows-sys 0.52.0",
  "zbus 3.15.2",
-]
-
-[[package]]
-name = "tauri-plugin-store"
-version = "0.0.0"
-source = "git+https://github.com/tauri-apps/plugins-workspace?branch=v1#cef6526caf4a340590f4c89eb375703fcc985957"
-dependencies = [
- "log",
- "serde",
- "serde_json",
- "tauri",
- "thiserror",
 ]
 
 [[package]]
