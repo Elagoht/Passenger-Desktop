@@ -1,13 +1,25 @@
-export const apiCaller = ({
+import { Body, Response, getClient } from "@tauri-apps/api/http"
+
+export const apiCaller = async <Type>({
   url,
+  headers,
   body,
-  method = "GET"
+  method = "get"
 }: {
   url: `https://${string}` // Force HTTPS
-  body?: unknown
-  method?: "GET" | "POST" | "PUT" | "DELETE"
-}) => fetch(url, {
-  method,
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify(body)
-})
+  headers?: Record<string, string>
+} & ({
+  body?: Record<string, string>
+  method?: "post" | "put"
+} | {
+  body: never
+  method?: "get" | "delete"
+})): Promise<Response<Type>> => await (
+  await getClient() // Create a new HTTP client
+)[method]<Type>( // Call the specified method
+  url,
+  ["get", "delete"].includes(method)
+    ? undefined
+    : Body.json(body!),
+  headers
+)
