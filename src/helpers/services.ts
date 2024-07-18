@@ -1,9 +1,9 @@
 import { Output } from "@/api/cli"
-import { Icon, IconProps } from "@tabler/icons-react"
+import { Icon, IconNetworkOff, IconProps } from "@tabler/icons-react"
+import { Response } from "@tauri-apps/api/http"
 import { ForwardRefExoticComponent, RefAttributes } from "react"
 import Toast from "./notifications"
 import StringHelper from "./string"
-import { Response } from "@tauri-apps/api/http"
 
 const handleResponse = (
   response: Awaited<Promise<Output>>,
@@ -71,8 +71,8 @@ export const handleHTTPResponse = (
 
   onError?.[1] && Toast.error({
     title: onError[1].errorTitle,
-    message: onError[1].errorMessage || "Error",
-    icon: onError[1].errorIcon
+    message: onError[1].errorMessage || "An unexpected error occurred",
+    icon: onError[1].errorIcon || IconNetworkOff
   })
   return onError?.[0]()
 }
