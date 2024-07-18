@@ -1,10 +1,12 @@
 import Loading from "@/components/layout/Loading"
 import Window from "@/components/layout/Window"
 import Detective from "@/components/windows/detective"
-import handleResponse from "@/helpers/services"
+import handleResponse, { handleHTTPResponse } from "@/helpers/services"
 import StringHelper from "@/helpers/string"
 import { useAuth } from "@/hooks/authorization"
+import { getNews } from "@/services/newsServices"
 import { getDetectiveReports } from "@/services/reportServices"
+import { LeakedData } from "@/types/leakes"
 import { DetectiveReport } from "@/types/reports"
 import { IconZoomCancel } from "@tabler/icons-react"
 import { useEffect, useState } from "react"
@@ -13,6 +15,7 @@ import { Maybe } from "yup"
 const WinDetective = () => {
 
   const [detectiveReports, setDetectiveReports] = useState<Maybe<DetectiveReport>>(null)
+  const [leakedData, setLeakedData] = useState<Maybe<LeakedData[]>>(null)
 
   useEffect(() => {
     getDetectiveReports(
@@ -25,16 +28,30 @@ const WinDetective = () => {
         errorIcon: IconZoomCancel,
       }]
     ))
+    getNews().then((response) => handleHTTPResponse(
+      response,
+      [() => setLeakedData(response.data)],
+      [() => void 0, {
+        errorTitle: "Error",
+        errorIcon: IconZoomCancel,
+      }]
+    ))
   }, [])
 
-  if (!detectiveReports) return <Loading />
+  if (
+    !detectiveReports
+    // || !leakedData
+  ) return <Loading />
 
   return <Window
     title="Detective"
     description="Detective is your personal assistant to help you find potential security issues in your vault."
   >
-
     <Detective detectiveReports={detectiveReports} />
+
+    <pre>
+      {JSON.stringify(leakedData, null, 2)}
+    </pre>
   </Window>
 }
 
