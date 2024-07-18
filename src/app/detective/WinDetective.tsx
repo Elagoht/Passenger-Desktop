@@ -1,6 +1,6 @@
 import Loading from "@/components/layout/Loading"
 import Window from "@/components/layout/Window"
-import Detective from "@/components/windows/Detective"
+import Detective from "@/components/windows/detective"
 import handleResponse from "@/helpers/services"
 import StringHelper from "@/helpers/string"
 import { useAuth } from "@/hooks/authorization"
