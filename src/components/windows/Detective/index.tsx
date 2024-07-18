@@ -11,10 +11,22 @@ interface IDetectiveProps {
 
 const Detective: FC<IDetectiveProps> = ({ detectiveReports }) => {
   const reports: Record<keyof DetectiveReport, ReactElement> = {
-    commonPassphrases: <DetectiveCommonPassphrases commonPassphrases={detectiveReports.commonPassphrases} />,
-    similarWithUsername: <DetectiveSimilarWithUsername similarWithUsername={detectiveReports.similarWithUsername} />,
-    weakPassphrases: <DetectiveWeakPassphrases weakPassphrases={detectiveReports.weakPassphrases} />,
-    oldPassphrases: <DetectiveOldPassphrases oldPassphrases={detectiveReports.oldPassphrases} />
+    commonPassphrases: <DetectiveCommonPassphrases
+      key="commonPassphrases"
+      commonPassphrases={detectiveReports.commonPassphrases}
+    />,
+    similarWithUsername: <DetectiveSimilarWithUsername
+      key="similarWithUsername"
+      similarWithUsername={detectiveReports.similarWithUsername}
+    />,
+    weakPassphrases: <DetectiveWeakPassphrases
+      key="weakPassphrases"
+      weakPassphrases={detectiveReports.weakPassphrases}
+    />,
+    oldPassphrases: <DetectiveOldPassphrases
+      key="oldPassphrases"
+      oldPassphrases={detectiveReports.oldPassphrases}
+    />
   }
 
   return Object.entries({ // Show the least entries first to fit more reports in the screen

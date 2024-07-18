@@ -16,7 +16,10 @@ const DetectiveCommonPassphrases: FC<IDetectiveCommonPassphrasesProps> = ({
     subtitle="These group of entries share the same passphrase between each other:"
   >
     {commonPassphrases.map((passphraseList) =>
-      <DetectiveSheetGrid passphrases={passphraseList} />
+      <DetectiveSheetGrid
+        key={passphraseList[0].id}
+        passphrases={passphraseList}
+      />
     )}
   </DetectiveReportSheet>
 
