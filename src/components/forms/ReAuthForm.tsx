@@ -8,11 +8,8 @@ import { loginToPassenger } from "@/services/authServices"
 import { IconKey, IconLock, IconLockOpen, IconMoodLookDown, IconMoodSmile } from "@tabler/icons-react"
 import { Form, Formik } from "formik"
 import { FC } from "react"
-const ReAuthForm: FC = () => {
-
-  const closeReAuthModal = authStore((state) => state.closeReAuthModal)
-
-  return <Formik
+const ReAuthForm: FC = () =>
+  <Formik
     initialValues={{
       username: "",
       passphrase: ""
@@ -25,7 +22,7 @@ const ReAuthForm: FC = () => {
         response,
         [() => {
           Cookie.set("accessToken", response.stdout)
-          closeReAuthModal()
+          authStore((state) => state.closeReAuthModal)()
         }, {
           successTitle: "Access granted, again!",
           successMessage: "Continue where you left off.",
@@ -100,6 +97,5 @@ const ReAuthForm: FC = () => {
       </Form>
     }
   </Formik>
-}
 
 export default ReAuthForm
