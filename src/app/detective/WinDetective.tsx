@@ -1,6 +1,7 @@
 import Loading from "@/components/layout/Loading"
 import Window from "@/components/layout/Window"
 import Detective from "@/components/windows/detective"
+import Newspaper from "@/components/windows/detective/Newspaper"
 import handleResponse, { handleHTTPResponse } from "@/helpers/services"
 import StringHelper from "@/helpers/string"
 import { useAuth } from "@/hooks/authorization"
@@ -31,27 +32,25 @@ const WinDetective = () => {
     getNews().then((response) => handleHTTPResponse(
       response,
       [() => setLeakedData(response.data)],
-      [() => void 0, {
-        errorTitle: "Error",
-        errorIcon: IconZoomCancel,
+      [() => setLeakedData([]), {
+        errorTitle: "Couldn't get leaked data",
       }]
     ))
   }, [])
 
   if (
     !detectiveReports
-    // || !leakedData
+    || !leakedData
   ) return <Loading />
 
   return <Window
+    wide
     title="Detective"
     description="Detective is your personal assistant to help you find potential security issues in your vault."
   >
     <Detective detectiveReports={detectiveReports} />
 
-    <pre>
-      {JSON.stringify(leakedData, null, 2)}
-    </pre>
+    <Newspaper content={leakedData} />
   </Window>
 }
 
