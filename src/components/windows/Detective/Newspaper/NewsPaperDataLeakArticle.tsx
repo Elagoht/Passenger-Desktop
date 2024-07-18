@@ -28,17 +28,21 @@ const NewsPaperDataLeakArticle: FC<LeakedData> = ({
     </div>
 
     <dl className="flex flex-wrap m-0">
-      {[
-        {
-          key: "Domain", value: Domain.startsWith("http")
-            ? new URL(Domain).toString()
-            : Domain
-              ? new URL(`https://${Domain}`).toString()
-              : "N/A"
-        },
-        { key: "Leak Count", value: PwnCount || "N/A" },
-        { key: "Leak Date", value: new Date(BreachDate).toLocaleDateString() || "N/A" },
-      ].map((item) =>
+      {[{
+        key: "Domain",
+        value: Domain.startsWith("http")
+          ? new URL(Domain).toString()
+          : Domain
+            ? new URL(`https://${Domain}`).toString()
+            : "N/A"
+      },
+      {
+        key: "Leak Count",
+        value: PwnCount || "N/A"
+      }, {
+        key: "Leak Date",
+        value: new Date(BreachDate).toLocaleDateString() || "N/A"
+      }].map((item) =>
         <div
           key={item.key}
           className="grow bg-tuatara-200 dark:bg-tuatara-900 p-2 m-1 rounded-lg border-2 border-tuatara-300 dark:border-tuatara-800 text-center"
