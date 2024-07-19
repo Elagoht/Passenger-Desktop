@@ -8,3 +8,11 @@ export type LeakedData = {
   readonly LogoPath: string
   readonly DataClasses: string[]
 }
+
+export type Paginated<DataType> = {
+  readonly data: DataType[]
+  readonly got: number
+  readonly page: number
+  readonly take: number
+  readonly total: number
+}

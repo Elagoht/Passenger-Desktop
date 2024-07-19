@@ -31,7 +31,7 @@ const WinDetective = () => {
     ))
     getNews().then((response) => handleHTTPResponse(
       response,
-      [() => setLeakedData(response.data)],
+      [() => setLeakedData(response.data.data)],
       [() => setLeakedData([]), {
         errorTitle: "Couldn't get leaked data",
       }]
