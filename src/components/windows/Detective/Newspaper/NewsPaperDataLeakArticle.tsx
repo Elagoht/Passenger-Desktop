@@ -1,11 +1,15 @@
 import { LeakedData } from "@/types/leakes"
-import { FC } from "react"
+import { IconChevronDown, IconChevronUp } from "@tabler/icons-react"
+import classNames from "classnames"
+import { FC, useState } from "react"
 
 const NewsPaperDataLeakArticle: FC<LeakedData> = ({
   Title, Name, Domain, LogoPath, PwnCount,
   BreachDate, Description, DataClasses
-}) =>
-  <article className="p-4 bg-tuatara-100 dark:bg-tuatara-950 rounded-lg prose dark:prose-invert prose-a:text-leaf-500 max-w-none prose-p:m-2 prose-p:text-justify flex flex-col">
+}) => {
+  const [expanded, setExpanded] = useState<boolean>(false)
+
+  return <article className="p-4 bg-tuatara-100 dark:bg-tuatara-950 rounded-lg prose dark:prose-invert prose-a:text-leaf-500 max-w-none prose-p:m-2 prose-p:text-justify flex flex-col">
     <h3 className="text-creamcan-500">{Title}</h3>
 
     {Title.replaceAll(" ", "") !== Name.replaceAll(" ", "") &&
@@ -22,7 +26,28 @@ const NewsPaperDataLeakArticle: FC<LeakedData> = ({
         className="float-left m-0 mr-4 aspect-square object-contain"
       />
 
-      <p dangerouslySetInnerHTML={{ __html: Description }} />
+      <p
+        className={classNames({
+          "hyphens-auto transition-all duration-300 ease-in-out": true,
+          "line-clamp-2": !expanded,
+          "": expanded,
+        })}
+        dangerouslySetInnerHTML={{ __html: Description }}
+      />
+
+      <button
+        className="text-tuatara-500 flex items-center justify-end w-full text-right hover:text-creamcan-500 transition-all ease-in-out"
+        onClick={() => setExpanded(!expanded)}
+      >
+        {expanded
+          ? "Show less"
+          : "Show more"
+        } {expanded
+          ? <IconChevronUp />
+          : <IconChevronDown />
+        }
+      </button>
+
 
       <div className="clear-both" />
     </div>
@@ -64,5 +89,6 @@ const NewsPaperDataLeakArticle: FC<LeakedData> = ({
       )}
     </ul>
   </article>
+}
 
 export default NewsPaperDataLeakArticle
