@@ -1,31 +1,31 @@
-export type MicroDatabaseEntry = {
+type MicroDatabaseEntry = {
   readonly id: string
   platform: string
   url: string
 }
 
-export type CountableDatabaseEntry = MicroDatabaseEntry & {
+type CountableDatabaseEntry = MicroDatabaseEntry & {
   readonly totalAccesses: number
 }
 
-export type ListableDatabaseEntry = CountableDatabaseEntry & {
+type ListableDatabaseEntry = CountableDatabaseEntry & {
   identity: string
   readonly createdAt: string
   readonly updatedAt: string
 }
 
-export type ReadWriteDatabaseEntry = ListableDatabaseEntry & {
+type ReadWriteDatabaseEntry = ListableDatabaseEntry & {
   passphrase: string
   notes?: string
 }
 
-export type DatabaseEntry = ReadWriteDatabaseEntry & {
+type DatabaseEntry = ReadWriteDatabaseEntry & {
   readonly passphraseHistory: TrackablePassphrase[]
 }
 
-export type CSVLineEntry = [string, string, string, string, string]
+type CSVLineEntry = [string, string, string, string, string]
 
-export type TrackablePassphrase = {
+type TrackablePassphrase = {
   strength: number
   length: number
   created: string

@@ -1,6 +1,4 @@
-import { ListableDatabaseEntry } from "./common"
-
-export type Statistics = {
+type Statistics = {
   totalCount: number
   averageLength: number
   uniquePlatforms: string[]

@@ -1,6 +1,4 @@
-import { ListableDatabaseEntry } from "./common"
-
-export type DetectiveReport = {
+type DetectiveReport = {
   readonly commonPassphrases: ListableDatabaseEntry[][]
   readonly similarWithUsername: ListableDatabaseEntry[]
   readonly weakPassphrases: ListableDatabaseEntry[]
