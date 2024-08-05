@@ -13,7 +13,7 @@ const ManipulateButton: FC<IManipulateButtonProps> = ({ currentPassphrase, setFi
   <Button
     rightIcon={<IconRotate />}
     type="button"
-    color="secondary"
+    variant="ghost"
     onClick={() => manipulatePassphrase(
       currentPassphrase
     ).then((response) => handleResponse(
