@@ -1,4 +1,5 @@
-import getResponse, { type Output } from "../api/cli"
+import { Output } from "@/types/api"
+import getResponse from "../api/cli"
 
 /**
  * Generates a new passphrase.
@@ -8,7 +9,10 @@ import getResponse, { type Output } from "../api/cli"
 export const generatePassphrase = async (
   length: number
 ): Promise<Output> =>
-  await getResponse("generate", [length.toString()])
+  await getResponse(
+    "generate", [
+    length.toString()
+  ])
 
 /**
  * Manipulates the passphrase by changing similar looking characters.
@@ -18,4 +22,7 @@ export const generatePassphrase = async (
 export const manipulatePassphrase = async (
   passphrase: string
 ): Promise<Output> =>
-  await getResponse("manipulate", [passphrase])
+  await getResponse(
+    "manipulate", [
+    passphrase
+  ])

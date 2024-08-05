@@ -1,4 +1,5 @@
-import getResponse, { type Output } from "../api/cli"
+import { Output } from "@/types/api"
+import getResponse from "../api/cli"
 
 /**
  * Retrieves the statistics as a JSON object.
@@ -8,7 +9,12 @@ import getResponse, { type Output } from "../api/cli"
 export const getStatistics = async (
   jwt: string
 ): Promise<Output> =>
-  await getResponse("stats", [jwt])
+  await getResponse(
+    "stats", [], {
+    headers: {
+      JWT: jwt
+    }
+  })
 
 /**
  * Retrieves the report as a JSON object.
@@ -18,4 +24,9 @@ export const getStatistics = async (
 export const getDetectiveReports = async (
   jwt: string
 ): Promise<Output> =>
-  await getResponse("detect", [jwt])
+  await getResponse(
+    "detect", [], {
+    headers: {
+      JWT: jwt
+    }
+  })
