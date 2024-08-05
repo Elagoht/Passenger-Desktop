@@ -3,7 +3,6 @@ import handleResponse from "@/helpers/services"
 import StringHelper from "@/helpers/string"
 import { useAuth } from "@/hooks/authorization"
 import { fetchEntry } from "@/services/passphraseServices"
-import { ListableDatabaseEntry, ReadWriteDatabaseEntry } from "@/types/common"
 import { IconCopyCheck, IconCopyOff, IconLineScan, IconUser } from "@tabler/icons-react"
 import { FC } from "react"
 

@@ -9,9 +9,7 @@ import TotalCounts from "@/components/windows/dashboard/TotalCounts"
 import handleResponse from "@/helpers/services"
 import StringHelper from "@/helpers/string"
 import { getStatistics } from "@/services/reportServices"
-import { Statistics } from "@/types/statistics"
 import { FC, useEffect, useState } from "react"
-import { Maybe } from "@/types/utility"
 import { useAuth } from "@/hooks/authorization"
 
 const WinDashboard: FC = () => {

@@ -1,4 +1,3 @@
-import { ICustomInputProps } from "@/types/inputs"
 import classNames from "classnames"
 import { FC, TextareaHTMLAttributes, useEffect, useRef, useState } from "react"
 import InputErrorMessages from "./partial/InputErrorMessages"

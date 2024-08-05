@@ -2,7 +2,6 @@ import classNames from "classnames"
 import { FC, useEffect, useState } from "react"
 import Modal from "@/components/utility/Modal"
 import SelectableCSVRow from "./SelectableCSVRow"
-import { CSVLineEntry } from "@/components/../types/common"
 
 interface EditImportDataModalProps {
   acceptableCount: number

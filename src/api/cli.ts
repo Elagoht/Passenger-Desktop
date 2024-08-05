@@ -1,6 +1,5 @@
 import StringHelper from "@/helpers/string"
 import { authStore } from "@/lib/stores/authorization"
-import { CLICommandOptions, Output } from "@/types/api"
 import { ChildProcess, Command } from "@tauri-apps/api/shell"
 
 /**

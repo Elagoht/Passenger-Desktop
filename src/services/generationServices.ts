@@ -1,4 +1,3 @@
-import { Output } from "@/types/api"
 import getResponse from "../api/cli"
 
 /**

@@ -1,7 +1,6 @@
 "use client"
 
 import Pretty from "@/helpers/prettiers"
-import { ICustomInputProps } from "@/types/inputs"
 import { IconEye, IconEyeOff } from "@tabler/icons-react"
 import classNames from "classnames"
 import { FC, InputHTMLAttributes, useEffect, useRef, useState } from "react"

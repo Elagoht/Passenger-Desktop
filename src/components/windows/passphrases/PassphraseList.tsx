@@ -1,5 +1,4 @@
 import FancyInput from "@/components/formElements/FancyInput"
-import { ListableDatabaseEntry } from "@/types/common"
 import { IconSearch } from "@tabler/icons-react"
 import { AnimatePresence, motion } from "framer-motion"
 import { FC, useState } from "react"

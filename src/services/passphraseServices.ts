@@ -1,7 +1,4 @@
-import { Output } from "@/types/api"
 import getResponse from "../api/cli"
-import { ReadWriteDatabaseEntry } from "../types/common"
-import { Mutable } from "../types/utility"
 
 /**
  * Fetches all data using the provided JWT.

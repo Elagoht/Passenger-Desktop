@@ -1,4 +1,3 @@
-import { DetectiveReport } from "@/types/reports"
 import { FC, ReactElement } from "react"
 import DetectiveCommonPassphrases from "./detectiveReports/DetectiveCommonPassphrases"
 import DetectiveOldPassphrases from "./detectiveReports/DetectiveOldPassphrases"

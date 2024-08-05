@@ -1,4 +1,3 @@
-import { LeakedData } from "@/types/leakes"
 import { FC } from "react"
 import NewsPaperDataLeakArticle from "./NewsPaperDataLeakArticle"
 import DetectiveReportSheet from "../DetectiveReportSheet"

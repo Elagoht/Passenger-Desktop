@@ -1,4 +1,3 @@
-import { Output } from "@/api/cli"
 import { Icon, IconNetworkOff, IconProps } from "@tabler/icons-react"
 import { Response } from "@tauri-apps/api/http"
 import { ForwardRefExoticComponent, RefAttributes } from "react"
