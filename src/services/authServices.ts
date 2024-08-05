@@ -1,4 +1,5 @@
-import getResponse, { type Output } from "@/api/cli"
+import getResponse from "@/api/cli"
+import { Output } from "@/types/api"
 
 /**
  * Generates a JWT to use other Service.
@@ -10,7 +11,11 @@ export const loginToPassenger = async (
   username: string,
   passphrase: string
 ): Promise<Output> =>
-  await getResponse("login", [username, passphrase])
+  await getResponse(
+    "login", [
+    username,
+    passphrase
+  ])
 
 /**
  * Registers a new user with the provided passphrase.
@@ -22,7 +27,11 @@ export const registerToPassenger = async (
   username: string,
   passphrase: string
 ): Promise<Output> =>
-  await getResponse("register", [username, passphrase])
+  await getResponse(
+    "register", [
+    username,
+    passphrase
+  ])
 
 /**
  * Resets the user's passphrase from the old passphrase to the new passphrase.
@@ -36,4 +45,12 @@ export const resetMasterPassphrase = async (
   oldPassphrase: string,
   newPassphrase: string
 ): Promise<Output> =>
-  await getResponse("reset", [jwt, oldPassphrase, newPassphrase])
+  await getResponse(
+    "reset", [
+    oldPassphrase,
+    newPassphrase
+  ], {
+    headers: {
+      JWT: jwt
+    }
+  })

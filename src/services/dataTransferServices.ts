@@ -1,4 +1,5 @@
-import getResponse, { type Output } from "../api/cli"
+import { Output } from "@/types/api"
+import getResponse from "../api/cli"
 
 /**
  * Imports data using the provided csv content and JWT according
@@ -12,7 +13,14 @@ export const importFromBrowser = async (
   browser: string,
   content: string
 ): Promise<Output> =>
-  await getResponse("import", [jwt, browser], content)
+  await getResponse("import", [
+    browser
+  ], {
+    headers: {
+      JWT: jwt
+    },
+    piped: content
+  })
 
 /**
  * Exports data using the provided JWT in bare or encrypted csv format.
@@ -23,4 +31,12 @@ export const exportToCSV = async (
   jwt: string,
   exportType: string
 ): Promise<Output> =>
-  await getResponse("export", [jwt, exportType])
+  await getResponse(
+    "export", [
+    jwt,
+    exportType
+  ], {
+    headers: {
+      JWT: jwt
+    }
+  })

@@ -13,9 +13,6 @@ import WinDetective from "./detective/WinDetective"
 import WinPassphrases from "./passphrases/WinPassphrases"
 import WinPassphraseDetails from "./passphrases/[id]/WinPassphraseDetails"
 import WinSettings from "./settings/WinSettings"
-import WinConstantPairs from "./settings/constant-pairs/WinConstantPairs"
-import WinConstantPairForm from "./settings/constant-pairs/[key]/WinConstantPairForm"
-import WinNewConstantPair from "./settings/constant-pairs/new-constant-pair/WinNewConstantPair"
 import WinExportToCSV from "./settings/export-to-csv/WinExportToCSV"
 import WinImportFromBrowser from "./settings/import-from-browser/WinImportFromBrowser"
 import WinResetMasterPassphrase from "./settings/reset-master-passphrase/WinResetMasterPassphrase"
@@ -55,9 +52,6 @@ const App: FC = () => {
                   { path: "/add-passphrase", element: <WinAddPassphrase /> },
                   { path: "/detective", element: <WinDetective /> },
                   { path: "/settings", element: <WinSettings /> },
-                  { path: "/settings/constant-pairs", element: <WinConstantPairs /> },
-                  { path: "/settings/constant-pairs/:key", element: <WinConstantPairForm /> },
-                  { path: "/settings/new-constant-pair", element: <WinNewConstantPair /> },
                   { path: "/settings/import-from-browser", element: <WinImportFromBrowser /> },
                   { path: "/settings/export-to-csv", element: <WinExportToCSV /> },
                   { path: "/settings/reset-master-passphrase", element: <WinResetMasterPassphrase /> },
