@@ -31,6 +31,13 @@
             "sidecar": false
           }
         ]
+      },
+      "http": {
+        "all": false,
+        "request": true,
+        "scope": [
+          "https://passenger-landing.vercel.app/api/*"
+        ]
       }
     },
     "windows": [

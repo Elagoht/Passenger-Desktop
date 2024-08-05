@@ -1,5 +1,6 @@
 import { Output } from "@/api/cli"
-import { Icon, IconProps } from "@tabler/icons-react"
+import { Icon, IconNetworkOff, IconProps } from "@tabler/icons-react"
+import { Response } from "@tauri-apps/api/http"
 import { ForwardRefExoticComponent, RefAttributes } from "react"
 import Toast from "./notifications"
 import StringHelper from "./string"
@@ -40,5 +41,40 @@ const handleResponse = (
   return onError?.[0]()
 }
 
+export const handleHTTPResponse = (
+  response: Response<unknown>,
+  onSuccess: [
+    CallableFunction,
+    {
+      successTitle?: string,
+      successMessage?: string,
+      successIcon?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & RefAttributes<Icon>>
+    }?
+  ],
+  onError: [
+    CallableFunction,
+    {
+      errorTitle?: string,
+      errorMessage?: string,
+      errorIcon?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & RefAttributes<Icon>>
+    }?
+  ],
+) => {
+  if (response.ok) {
+    onSuccess?.[1] && Toast.success({
+      title: onSuccess[1].successTitle,
+      message: onSuccess[1].successMessage || "Success",
+      icon: onSuccess[1].successIcon
+    })
+    return onSuccess?.[0]()
+  }
+
+  onError?.[1] && Toast.error({
+    title: onError[1].errorTitle,
+    message: onError[1].errorMessage || "An unexpected error occurred",
+    icon: onError[1].errorIcon || IconNetworkOff
+  })
+  return onError?.[0]()
+}
 
 export default handleResponse
