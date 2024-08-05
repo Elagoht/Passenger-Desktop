@@ -1,12 +1,7 @@
 import StringHelper from "@/helpers/string"
 import { authStore } from "@/lib/stores/authorization"
+import { CLICommandOptions, Output } from "@/types/api"
 import { ChildProcess, Command } from "@tauri-apps/api/shell"
-
-export type Output = {
-  status: number
-  stdout: string
-  stderr: string
-}
 
 /**
  * Core API for interacting with the CLI.
@@ -24,10 +19,10 @@ class CLI {
    * @returns A promise that resolves to the child process.
    */
   public static execute = async (
-    command: string, args: string[], piped: string = ""
+    command: string, args: string[], { piped, headers }: CLICommandOptions
   ): Promise<ChildProcess> => await new Command("sh", [
     "-c", // Empty pipe will no effect, so we can safely use it here.
-    `echo ${StringHelper.convertToShellString(piped)} |
+    `echo ${StringHelper.convertToShellString(piped ?? "")} |
     ${CLI.executable
     } ${command
     } ${args.map((argument) =>
@@ -36,7 +31,8 @@ class CLI {
     }`
   ], {
     env: {
-      "SECRET_KEY": localStorage.getItem("SECRET_KEY") ?? ""
+      "SECRET_KEY": localStorage.getItem("SECRET_KEY") ?? "",
+      ...headers
     }
   }).execute()
 
@@ -54,9 +50,11 @@ class CLI {
 }
 
 const getResponse = async (
-  command: string, args: string[], piped: string = ""
+  command: string,
+  args: string[],
+  { piped, headers }: CLICommandOptions = {}
 ): Promise<Output> => {
-  const output = CLI.readOutput(await CLI.execute(command, args, piped))
+  const output = CLI.readOutput(await CLI.execute(command, args, { piped, headers }))
   /**
    * Exit code 41 represents HTTP 401 Unauthorized.
    * This means that the user's access token is invalid.
