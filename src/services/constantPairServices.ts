@@ -1,4 +1,5 @@
-import getResponse, { type Output } from "../api/cli"
+import { Output } from "@/types/api"
+import getResponse from "../api/cli"
 
 /**
  * Declare a constant pair using the provided JWT and key-value pair.
@@ -11,7 +12,15 @@ export const declareConstantPair = async (
   key: string,
   value: string
 ): Promise<Output> =>
-  await getResponse("declare", [jwt, key, value])
+  await getResponse(
+    "declare", [
+    key,
+    value
+  ], {
+    headers: {
+      JWT: jwt
+    }
+  })
 
 /**
  * Modify a constant pair using the provided JWT and key-value pair.
@@ -27,7 +36,16 @@ export const modifyConstantPair = async (
   newKey: string,
   newValue: string
 ): Promise<Output> =>
-  await getResponse("modify", [jwt, key, newKey, newValue])
+  await getResponse(
+    "modify", [
+    key,
+    newKey,
+    newValue
+  ], {
+    headers: {
+      JWT: jwt
+    }
+  })
 
 /**
  * Fetches a constant pair using the provided JWT and key.
@@ -39,7 +57,14 @@ export const rememberConstantPair = async (
   jwt: string,
   key: string
 ): Promise<Output> =>
-  await getResponse("remember", [jwt, key])
+  await getResponse(
+    "remember", [
+    key
+  ], {
+    headers: {
+      JWT: jwt
+    }
+  })
 
 /**
  * Removes a constant pair using the provided JWT and key.
@@ -50,7 +75,14 @@ export const forgetConstantPair = async (
   jwt: string,
   key: string
 ): Promise<Output> =>
-  await getResponse("forget", [jwt, key])
+  await getResponse(
+    "forget", [
+    key
+  ], {
+    headers: {
+      JWT: jwt
+    }
+  })
 
 /**
  * Retrieves all the constant pairs as a JSON object.
@@ -60,4 +92,9 @@ export const forgetConstantPair = async (
 export const fetchAllConstantPairs = async (
   jwt: string
 ): Promise<Output> =>
-  await getResponse("constants", [jwt])
+  await getResponse(
+    "constants", [], {
+    headers: {
+      JWT: jwt
+    }
+  })

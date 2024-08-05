@@ -1,4 +1,5 @@
-import getResponse, { type Output } from "../api/cli"
+import { Output } from "@/types/api"
+import getResponse from "../api/cli"
 import { ReadWriteDatabaseEntry } from "../types/common"
 import { Mutable } from "../types/utility"
 
@@ -10,7 +11,12 @@ import { Mutable } from "../types/utility"
 export const fetchAllEntries = async (
   jwt: string
 ): Promise<Output> =>
-  await getResponse("fetchAll", [jwt])
+  await getResponse(
+    "fetchAll", [], {
+    headers: {
+      JWT: jwt
+    }
+  })
 
 /**
  * Queries data using the provided JWT and keyword.
@@ -22,7 +28,14 @@ export const queryEntries = async (
   jwt: string,
   keyword: string
 ): Promise<Output> =>
-  await getResponse("query", [jwt, keyword])
+  await getResponse(
+    "query", [
+    keyword
+  ], {
+    headers: {
+      JWT: jwt
+    }
+  })
 
 /**
  * Fetches data using the provided JWT and UUID.
@@ -34,7 +47,14 @@ export const fetchEntry = async (
   jwt: string,
   uuid: string
 ): Promise<Output> =>
-  await getResponse("fetch", [jwt, uuid])
+  await getResponse(
+    "fetch", [
+    uuid
+  ], {
+    headers: {
+      JWT: jwt
+    }
+  })
 
 /**
  * Creates new data using the provided JWT and data.
@@ -46,7 +66,14 @@ export const createEntry = async (
   jwt: string,
   passphrase: Mutable<ReadWriteDatabaseEntry>
 ): Promise<Output> =>
-  await getResponse("create", [jwt, JSON.stringify(passphrase)])
+  await getResponse(
+    "create", [
+    JSON.stringify(passphrase)
+  ], {
+    headers: {
+      JWT: jwt
+    }
+  })
 
 /**
  * Updates data using the provided JWT, UUID, and JSON.
@@ -60,7 +87,15 @@ export const updateEntry = async (
   uuid: string,
   passphrase: Mutable<ReadWriteDatabaseEntry>
 ): Promise<Output> =>
-  await getResponse("update", [jwt, uuid, JSON.stringify(passphrase)])
+  await getResponse(
+    "update", [
+    uuid,
+    JSON.stringify(passphrase)
+  ], {
+    headers: {
+      JWT: jwt
+    }
+  })
 
 /**
  * Deletes data using the provided JWT and UUID.
@@ -72,4 +107,11 @@ export const deleteEntry = async (
   jwt: string,
   uuid: string
 ): Promise<Output> =>
-  await getResponse("delete", [jwt, uuid])
+  await getResponse(
+    "delete", [
+    uuid
+  ], {
+    headers: {
+      JWT: jwt
+    }
+  })
