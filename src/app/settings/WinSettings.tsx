@@ -1,7 +1,7 @@
-import { IconBrowser, IconDatabaseExport, IconFileExport, IconKey, IconVariable } from "@tabler/icons-react"
-import { FC } from "react"
 import Window from "@/components/layout/Window"
 import SettingsGroup from "@/components/windows/settings/SettingsGroup"
+import { IconBrowser, IconDatabaseExport, IconFileExport, IconKey } from "@tabler/icons-react"
+import { FC } from "react"
 
 const WinSettings: FC = () => {
 
@@ -32,15 +32,6 @@ const WinSettings: FC = () => {
         icon: IconBrowser,
         label: "Import from Browser/CSV",
         link: "/settings/import-from-browser"
-      }]}
-    />
-
-    <SettingsGroup
-      title="Utilities"
-      items={[{
-        icon: IconVariable,
-        label: "Constant Pairs",
-        link: "/settings/constant-pairs"
       }]}
     />
   </Window>

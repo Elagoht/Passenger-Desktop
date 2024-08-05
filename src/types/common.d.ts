@@ -25,11 +25,6 @@ export type DatabaseEntry = ReadWriteDatabaseEntry & {
 
 export type CSVLineEntry = [string, string, string, string, string]
 
-export type ConstantPair = {
-  key: string
-  value: string
-}
-
 export type TrackablePassphrase = {
   strength: number
   length: number
