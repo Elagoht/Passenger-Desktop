@@ -1,5 +1,4 @@
 import { apiCaller } from "@/helpers/apiCaller"
-import { LeakedData, Paginated } from "@/types/leakes"
 
 /**
  * Get news from Passenger Landing's API

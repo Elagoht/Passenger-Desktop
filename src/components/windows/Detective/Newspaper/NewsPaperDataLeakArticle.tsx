@@ -1,4 +1,3 @@
-import { LeakedData } from "@/types/leakes"
 import { IconChevronDown, IconChevronUp } from "@tabler/icons-react"
 import classNames from "classnames"
 import { FC, useState } from "react"

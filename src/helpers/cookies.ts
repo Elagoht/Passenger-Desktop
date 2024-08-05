@@ -1,4 +1,3 @@
-import { Maybe } from "@/types/utility"
 
 class Cookie {
   public static set(name: string, value: string, seconds: number = 600): void {

@@ -1,6 +1,5 @@
 import { IconEye, IconEyeOff } from "@tabler/icons-react"
 import { FC, createElement, useEffect, useState } from "react"
-import { Statistics } from "@/types/statistics"
 
 interface IMostUsedPassphraseProps {
   mostCommon: Statistics["mostCommon"]

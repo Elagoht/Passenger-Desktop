@@ -1,7 +1,4 @@
-import { Icon, IconProps } from "@tabler/icons-react"
-import { ForwardRefExoticComponent, ReactNode, RefAttributes } from "react"
-
-export interface ICustomInputProps {
+interface ICustomInputProps {
   label: string
   optional?: boolean
   error?: ReactNode | boolean | string[]

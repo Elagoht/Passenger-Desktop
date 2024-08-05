@@ -1,4 +1,4 @@
-export type LeakedData = {
+type LeakedData = {
   readonly Name: string
   readonly Title: string
   readonly Domain: string
@@ -9,7 +9,7 @@ export type LeakedData = {
   readonly DataClasses: string[]
 }
 
-export type Paginated<DataType> = {
+type Paginated<DataType> = {
   readonly data: DataType[]
   readonly got: number
   readonly page: number

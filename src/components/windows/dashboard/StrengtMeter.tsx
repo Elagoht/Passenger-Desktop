@@ -2,7 +2,6 @@ import { IconBarbell } from "@tabler/icons-react"
 import "chart.js/auto"
 import { FC } from "react"
 import Strength from "@/helpers/strength"
-import { Statistics } from "@/types/statistics"
 import GaugeChart from "@/components/charts/GauceChart"
 
 interface IStrengthMeterProps {

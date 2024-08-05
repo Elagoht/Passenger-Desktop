@@ -1,6 +1,5 @@
 import classNames from "classnames"
 import { FC, ReactNode } from "react"
-import { SingleOrMore } from "@/types/utility"
 import Button, { IButtonProps } from "@/components/formElements/Button"
 import ModalCloseButton from "./ModalCloseButton"
 

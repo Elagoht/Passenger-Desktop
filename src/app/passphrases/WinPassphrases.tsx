@@ -4,10 +4,8 @@ import PassphraseList from "@/components/windows/passphrases/PassphraseList"
 import Loading from "@/components/layout/Loading"
 import { IconMoodLookDown } from "@tabler/icons-react"
 import StringHelper from "@/helpers/string"
-import { ListableDatabaseEntry } from "@/types/common"
 import handleResponse from "@/helpers/services"
 import { fetchAllEntries } from "@/services/passphraseServices"
-import { Maybe } from "@/types/utility"
 import { useAuth } from "@/hooks/authorization"
 
 const WinPassphrases: FC = () => {

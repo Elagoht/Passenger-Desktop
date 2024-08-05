@@ -1,4 +1,3 @@
-import { ListableDatabaseEntry } from "@/types/common"
 import { FC } from "react"
 import DetectiveReportSheet from "../DetectiveReportSheet"
 import DetectiveSheetGrid from "../DetectiveSheetGrid"

@@ -1,4 +1,3 @@
-import { ListableDatabaseEntry } from "@/types/common"
 import { FC } from "react"
 import DetectiveSheetItem from "./DetectiveSheetItem"
 

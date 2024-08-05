@@ -1,6 +1,5 @@
 "use client"
 
-import { ICustomInputProps } from "@/types/inputs"
 import classNames from "classnames"
 import { FC, InputHTMLAttributes } from "react"
 import InputErrorMessages from "./partial/InputErrorMessages"
