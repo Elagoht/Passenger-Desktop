@@ -9,7 +9,6 @@ import { getNews } from "@/services/newsServices"
 import { getDetectiveReports } from "@/services/reportServices"
 import { IconZoomCancel } from "@tabler/icons-react"
 import { useEffect, useState } from "react"
-import { Maybe } from "yup"
 
 const WinDetective = () => {
 

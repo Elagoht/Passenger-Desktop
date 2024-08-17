@@ -1,7 +1,9 @@
 import Button from "@/components/formElements/Button"
 import FileInput from "@/components/formElements/FileInput"
 import Select from "@/components/formElements/Select"
+import Toast from "@/helpers/notifications"
 import handleResponse from "@/helpers/services"
+import StringHelper from "@/helpers/string"
 import { useAuth } from "@/hooks/authorization"
 import { validationImportFromBrowserForm } from "@/lib/validations/importExportForms"
 import { importFromBrowser } from "@/services/dataTransferServices"
@@ -10,10 +12,7 @@ import { Form, Formik } from "formik"
 import Papa from "papaparse"
 import { FC, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { Maybe } from "yup"
 import EditImportDataModal from "./EditImportDataModal"
-import Toast from "@/helpers/notifications"
-import StringHelper from "@/helpers/string"
 
 const browserIcons = {
   "": IconSelector,
