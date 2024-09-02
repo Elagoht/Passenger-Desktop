@@ -9,7 +9,9 @@ export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 const Button: FC<IButtonProps> = ({
-  leftIcon, rightIcon, variant = "default", color = "primary", ...props }) => {
+  leftIcon, rightIcon, variant = "default",
+  color = "primary", ...props
+}) => {
   return (
     <button {...props}
       className={classNames({
@@ -39,12 +41,12 @@ const Button: FC<IButtonProps> = ({
     >
       {leftIcon}
 
-      < span className="flex-1" >
+      <span className="flex-1" >
         {props.children}
-      </ span >
+      </span>
 
       {rightIcon}
-    </button >
+    </button>
   )
 }
 

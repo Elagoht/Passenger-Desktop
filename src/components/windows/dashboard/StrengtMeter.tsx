@@ -1,8 +1,10 @@
+import GaugeChart from "@/components/charts/GauceChart"
+import Strength from "@/helpers/strength"
 import { IconBarbell } from "@tabler/icons-react"
 import "chart.js/auto"
 import { FC } from "react"
-import Strength from "@/helpers/strength"
-import GaugeChart from "@/components/charts/GauceChart"
+
+export const LENGTH_PENALTY = -2
 
 interface IStrengthMeterProps {
   averageStrength: Statistics["averageStrength"]
@@ -11,7 +13,7 @@ interface IStrengthMeterProps {
 const StrengthMeter: FC<IStrengthMeterProps> = ({ averageStrength }) => {
   const average = !isNaN(averageStrength)
     ? averageStrength
-    : -2
+    : LENGTH_PENALTY
 
   return <figure className="flex flex-col items-center justify-center rounded-xl p-4 shadow shadow-tuatara-300 dark:shadow-tuatara-950 bg-tuatara-50 dark:bg-tuatara-900 relative overflow-clip gap-4">
     <IconBarbell className="text-tuatara-500 absolute top-2 left-2 w-full h-full opacity-10" />

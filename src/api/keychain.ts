@@ -1,7 +1,6 @@
 import { invoke } from "@tauri-apps/api/tauri"
 
 class KeyRing {
-
   public static write = async (username: string, key: string): Promise<void> => {
     try {
       await invoke(

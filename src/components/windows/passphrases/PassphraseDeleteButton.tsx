@@ -34,35 +34,33 @@ const PassphraseDeleteButton: FC<IPassphraseDeleteButtonProps> = ({ id }) => {
       title="Delete Passphrase"
       size="sm"
       persist
-      buttons={[
-        {
-          children: "Yes, Delete",
-          rightIcon: <IconTrash size={24} />,
-          color: "danger",
-          onClick: () => deleteEntry(
-            useAuth(),
-            id
-          ).then((response) => handleResponse(
-            response,
-            [() => void 0, {
-              successTitle: "Passphrase Deleted",
-              successIcon: IconTrash,
-            }],
-            [() => void 0, {
-              errorTitle: "Failed to Delete Passphrase",
-              errorIcon: IconTrash,
-            }],
-          )).then(() =>
-            navigate("/passphrases")
-          ).finally(() =>
-            setIsModalOpen(false)
-          )
-        }, {
-          children: "No, Keep It",
-          rightIcon: <IconBox size={24} />,
-          onClick: () => setIsModalOpen(false)
-        },
-      ]}>
+      buttons={[{
+        children: "Yes, Delete",
+        rightIcon: <IconTrash size={24} />,
+        color: "danger",
+        onClick: () => deleteEntry(
+          useAuth(),
+          id
+        ).then((response) => handleResponse(
+          response,
+          [() => void 0, {
+            successTitle: "Passphrase Deleted",
+            successIcon: IconTrash,
+          }],
+          [() => void 0, {
+            errorTitle: "Failed to Delete Passphrase",
+            errorIcon: IconTrash,
+          }],
+        )).then(() =>
+          navigate("/passphrases")
+        ).finally(() =>
+          setIsModalOpen(false)
+        )
+      }, {
+        children: "No, Keep It",
+        rightIcon: <IconBox size={24} />,
+        onClick: () => setIsModalOpen(false)
+      }]}>
       <p>Are you sure you want to delete this passphrase?</p>
     </Modal>
   </>

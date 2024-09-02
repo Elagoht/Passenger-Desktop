@@ -23,14 +23,14 @@ const WinDetective = () => {
       [() => setDetectiveReports(StringHelper.deserialize<DetectiveReport>(response.stdout))],
       [() => void 0, {
         errorTitle: "Error",
-        errorIcon: IconZoomCancel,
+        errorIcon: IconZoomCancel
       }]
     ))
     getNews().then((response) => handleHTTPResponse(
       response,
       [() => setLeakedData(response.data.data)],
       [() => setLeakedData([]), {
-        errorTitle: "Couldn't get leaked data",
+        errorTitle: "Couldn't get leaked data"
       }]
     ))
   }, [])

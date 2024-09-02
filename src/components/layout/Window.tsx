@@ -49,15 +49,14 @@ const Window: FC<IWindowProps> = ({ children, title, description, className, wid
       </h1>
     }
 
-    {
-      description &&
+    {description &&
       <p className="mb-2">
         {description}
       </p>
     }
 
     {children}
-  </motion.main >
+  </motion.main>
 }
 
 export default Window

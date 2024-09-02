@@ -1,6 +1,6 @@
+import { toastStore } from "@/lib/stores/notification"
 import { AnimatePresence } from "framer-motion"
 import { FC } from "react"
-import { toastStore } from "@/lib/stores/notification"
 import Toast from "."
 
 
@@ -22,7 +22,7 @@ const Toaster: FC = () => {
         />
       )}
     </AnimatePresence>
-  </div >
+  </div>
 }
 
 export default Toaster

@@ -29,22 +29,20 @@ const GaugeChart: FC<IGaugeChartProps> = ({
   >
     <Doughnut
       data={{
-        datasets: [
-          {
-            data: [filledValue, emptyValue],
-            backgroundColor: [fillColor, emptyColor],
-            borderWidth: 0,
-            circumference: 220,
-            rotation: 250
-          }
-        ]
+        datasets: [{
+          data: [filledValue, emptyValue],
+          backgroundColor: [fillColor, emptyColor],
+          borderWidth: 0,
+          circumference: 220,
+          rotation: 250
+        }]
       }}
       options={{
         responsive: true,
         cutout: "85%",
         plugins: {
           legend: { display: false },
-          tooltip: { enabled: false },
+          tooltip: { enabled: false }
         }
       }}
     />

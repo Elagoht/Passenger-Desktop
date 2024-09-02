@@ -1,6 +1,6 @@
+import Button, { IButtonProps } from "@/components/formElements/Button"
 import classNames from "classnames"
 import { FC, ReactNode } from "react"
-import Button, { IButtonProps } from "@/components/formElements/Button"
 import ModalCloseButton from "./ModalCloseButton"
 
 interface IModalProps {
@@ -51,6 +51,7 @@ const Modal: FC<IModalProps> = ({
           className="absolute top-2 right-2"
         />
       }
+
       <article className="p-2 grow overflow-auto">
         {children}
       </article>
@@ -63,7 +64,7 @@ const Modal: FC<IModalProps> = ({
                 .map((button, index) =>
                   <Button
                     key={index}
-                    type="button" // Prevent form submission by default 
+                    type="button" // Prevent form submission by default
                     {...button}
                   />
                 )

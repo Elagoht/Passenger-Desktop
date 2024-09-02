@@ -58,7 +58,7 @@ const AverageLength: FC<IAverateLengthProps> = ({ averageLength }) => {
         }
       </small>
     </div>
-  </article >
+  </article>
 }
 
 export default AverageLength

@@ -48,6 +48,9 @@ class CLI {
   })
 }
 
+/**
+ * Options for a CLI command.
+ */
 const getResponse = async (
   command: string,
   args: string[],

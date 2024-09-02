@@ -59,8 +59,7 @@ const NewsPaperDataLeakArticle: FC<LeakedData> = ({
           : Domain
             ? new URL(`https://${Domain}`).toString()
             : "N/A"
-      },
-      {
+      }, {
         key: "Leak Count",
         value: PwnCount || "N/A"
       }, {

@@ -8,9 +8,9 @@ import StrengthMeter from "@/components/windows/dashboard/StrengtMeter"
 import TotalCounts from "@/components/windows/dashboard/TotalCounts"
 import handleResponse from "@/helpers/services"
 import StringHelper from "@/helpers/string"
+import { useAuth } from "@/hooks/authorization"
 import { getStatistics } from "@/services/reportServices"
 import { FC, useEffect, useState } from "react"
-import { useAuth } from "@/hooks/authorization"
 
 const WinDashboard: FC = () => {
   const [statistics, setStatistics] = useState<Maybe<Statistics>>(null)
@@ -24,7 +24,7 @@ const WinDashboard: FC = () => {
       [() => void 0, {
         errorTitle: "Couldn't fetch statistics at the moment",
         errorMessage: StringHelper.removeUnixErrorPrefix(response.stderr)
-      }],
+      }]
     ))
   }, [])
 

@@ -146,7 +146,7 @@ const PassphraseEntryForm: FC<IPassphraseDetailsFormProps> = ({ mode, existing }
         </Button>
       </Form>
     }
-  </Formik >
+  </Formik>
 }
 
 const formFields = {

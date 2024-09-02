@@ -1,8 +1,8 @@
+import { IToast, toastStore } from "@/lib/stores/notification"
 import { IconCircleX } from "@tabler/icons-react"
 import classNames from "classnames"
 import { motion } from "framer-motion"
 import { FC, createElement, useEffect } from "react"
-import { IToast, toastStore } from "@/lib/stores/notification"
 
 const Toast: FC<IToast> = ({
   message, type, buttons, clickToClose,
@@ -84,8 +84,7 @@ const Toast: FC<IToast> = ({
       }
     </article>
 
-    {
-      persistant &&
+    {persistant &&
       <button onClick={() => removeNotification(id)}>
         <IconCircleX size={24} />
       </button>

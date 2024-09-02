@@ -1,6 +1,6 @@
+import Modal from "@/components/utility/Modal"
 import classNames from "classnames"
 import { FC, useEffect, useState } from "react"
-import Modal from "@/components/utility/Modal"
 import SelectableCSVRow from "./SelectableCSVRow"
 
 interface EditImportDataModalProps {
@@ -45,24 +45,22 @@ const EditImportDataModal: FC<EditImportDataModalProps> = ({
     size="lg"
     persist
     title="Unacceptable Entries Found"
-    buttons={
-      [{
-        type: "button",
-        children: "Cancel",
-        color: "danger",
-        onClick: closeModal
-      }, {
-        type: "button",
-        children: `Go with ${Object
-          .values(selectedEntries)
-          .filter(Boolean).length
-          + acceptableCount
-          } entries`,
-        onClick: () => onContinue(badEntries.filter((_, index) =>
-          selectedEntries[index - 1]
-        ))
-      }]
-    }
+    buttons={[{
+      type: "button",
+      children: "Cancel",
+      color: "danger",
+      onClick: closeModal
+    }, {
+      type: "button",
+      children: `Go with ${Object
+        .values(selectedEntries)
+        .filter(Boolean).length
+        + acceptableCount
+        } entries`,
+      onClick: () => onContinue(badEntries.filter((_, index) =>
+        selectedEntries[index - 1]
+      ))
+    }]}
   >
     <p className="font-bold">
       {acceptableCount} acceptable entr{

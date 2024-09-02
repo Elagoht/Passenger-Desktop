@@ -11,27 +11,22 @@ interface ITotalCountsProps {
 const TotalCounts: FC<ITotalCountsProps> = ({
   totalCount, uniqueCount, uniquePlatformsCount
 }) => {
-  const summaryData = [
-    {
-      icon: IconLockSquareRounded,
-      label: "Total Count",
-      value: totalCount,
-      colSpan: 2,
-    },
-    {
-      icon: IconKey,
-      label: "Unique Passphrases",
-      value: uniqueCount,
-      colSpan: 1
-    },
-    {
-      icon: IconGlobe,
-      label: "Unique Platforms",
-      value: uniquePlatformsCount,
-      colSpan: 1
-    }
-  ]
-
+  const summaryData = [{
+    icon: IconLockSquareRounded,
+    label: "Total Count",
+    value: totalCount,
+    colSpan: 2
+  }, {
+    icon: IconKey,
+    label: "Unique Passphrases",
+    value: uniqueCount,
+    colSpan: 1
+  }, {
+    icon: IconGlobe,
+    label: "Unique Platforms",
+    value: uniquePlatformsCount,
+    colSpan: 1
+  }]
 
   return <article className="grid grid-rows-2 grid-cols-2 gap-2 md:gap-4">
     {summaryData.map((data, index) =>

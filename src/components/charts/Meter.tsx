@@ -20,7 +20,7 @@ const Meter: FC<IMeterProps> = ({ percentage, className, colors = [
       height: "100%",
       width: "100%",
       background: `linear-gradient(to right, ${colors.join(", ")})`,
-      clipPath: `inset(0% ${100 - percentage}% 0% 0% round 10px)`,
+      clipPath: `inset(0% ${100 - percentage}% 0% 0% round 10px)`
     }} />
   </div>
 
