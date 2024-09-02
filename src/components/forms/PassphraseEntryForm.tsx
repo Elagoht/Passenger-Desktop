@@ -13,7 +13,7 @@ import { IconDeviceFloppy, IconKey, IconLoader, IconNote, IconTag, IconUserCircl
 import classNames from "classnames"
 import { Form, Formik } from "formik"
 import { FC } from "react"
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 type IPassphraseDetailsFormProps = {
   mode: "edit"
@@ -91,14 +91,6 @@ const PassphraseEntryForm: FC<IPassphraseDetailsFormProps> = ({ mode, existing }
             className={classNames({
               "!text-creamcan-500": key === "identity" && values.identity.startsWith("_$"),
             })}
-            message={key === "identity" && values.identity.startsWith("_$")
-              ? values.identity === identity
-                ? <>Your identity is connected to a <Link className="underline" to="/constant-pairs">
-                  constant pair.</Link></>
-                : <>Your identity will be connected to a <Link className="underline" to="/constant-pairs">
-                  constant pair.</Link></>
-              : undefined
-            }
             error={touched[key as keyof typeof errors]
               ? errors[key as keyof typeof errors]
               : false
