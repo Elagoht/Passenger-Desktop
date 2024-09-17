@@ -29,6 +29,16 @@ The Passenger User Interface represents a contemporary and feature-rich frontend
 - Swiper enables seamless slideshow presentations.
 - Interaction with CLI application facilitated through the Tauri API.
 
+## How It Works
+
+<div align="center">
+  
+![How It Works](https://raw.githubusercontent.com/Elagoht/Passenger-Landing/main/public/docs/how-it-works/project-structure.svg)
+
+</div>
+
+Passenger Desktop uses Passenger CLI as a core and creates a desktop frontend for Passenger product. Here are more about this project: <https://passenger-landing.vercel.app/docs>
+
 ##  Running the Project
 
 You MUST have the Passenger CLI on the `src-tauri` directory to run the project. The CLI is not included in this repository, but you can build from the source code or download the latest release from the [Passenger CLI repository](https://github.com/Elagoht/Passenger-CLI).
