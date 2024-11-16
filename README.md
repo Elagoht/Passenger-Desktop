@@ -67,7 +67,7 @@ npm install
 ```
 4. Start the development server with:
 ```sh
-npm run taui dev
+npm run tauri dev
 ```
 This will start a compilation process and open the Tauri window.
 
