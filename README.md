@@ -50,6 +50,13 @@ You MUST have the Passenger CLI on the `src-tauri` directory to run the project.
 export SECRET_KEY="A VERY STRONG SECRET KEY"
 ```
 
+> [!WARNING]
+> Because of a simple issue with Core CLI, create database directory manually:
+
+```sh
+mkdir ~/.passenger
+```
+
 ###  Requirements
 
 - Node.js
