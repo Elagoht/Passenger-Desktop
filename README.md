@@ -41,7 +41,7 @@ Passenger Desktop uses Passenger CLI as a core and creates a desktop frontend fo
 
 ##  Running the Project
 
-You MUST have the Passenger CLI on the `src-tauri` directory to run the project. The CLI is not included in this repository, but you can build from the source code or download the latest release from the [Passenger CLI repository](https://github.com/Elagoht/Passenger-CLI).
+You MUST have the Passenger CLI on the `src-tauri` directory to run the project. The CLI is not included in this repository, but you can build from the source code or download the latest release from the [Passenger CLI repository](https://github.com/Elagoht/Passenger-CLI). The executable file must be renamed to `passenger`.
 
 > [!NOTE]
 > For now, before implementations, export a secret key manually to create and access to your database:
@@ -69,13 +69,17 @@ mkdir ~/.passenger
 1. Clone the repository to your local machine.
 2. Navigate to the project directory.
 3. Install the dependencies by running
+
 ```sh
 npm install
 ```
+
 4. Start the development server with:
+
 ```sh
 npm run tauri dev
 ```
+
 This will start a compilation process and open the Tauri window.
 
 ## License
