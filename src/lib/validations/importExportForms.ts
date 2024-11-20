@@ -3,7 +3,7 @@ import { mixed, object, string } from "yup"
 export const validationImportFromBrowserForm = object().shape({
   browser: string().required("Browser is required"),
   file: mixed()
-    .required("Bir dosya seçmelisiniz.")
+    .required("Please select a file")
     .test(
       "fileSize",
       "File must be smaller than 10MB.",
