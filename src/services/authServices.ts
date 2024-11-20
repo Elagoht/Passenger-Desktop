@@ -18,7 +18,7 @@ export const loginToPassenger = async (
 
 /**
  * Registers a new user with the provided passphrase.
- * @param passphrase - The passphrase for registration.
+ * @param username - The username for registration.
  * @param passphrase - The passphrase for registration.
  * @returns A promise that resolves to the output of the command.
  */
