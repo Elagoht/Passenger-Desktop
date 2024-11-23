@@ -1,7 +1,7 @@
 import getResponse from "@/api/cli"
 import { getDetectiveReports, getStatistics } from "@/services/reportServices"
 
-jest.mock("../api/cli")
+jest.mock("@/api/cli")
 
 describe("reportServices", () => {
   const jwt = "test-jwt"

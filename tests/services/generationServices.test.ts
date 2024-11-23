@@ -1,7 +1,7 @@
 import getResponse from "@/api/cli"
 import { generatePassphrase, manipulatePassphrase } from "@/services/generationServices"
 
-jest.mock("../api/cli")
+jest.mock("@/api/cli")
 
 describe("generationServices", () => {
   const mockGetResponse = getResponse as jest.MockedFunction<

@@ -1,7 +1,7 @@
 import getResponse from "@/api/cli"
 import { exportToCSV, importFromBrowser } from "@/services/dataTransferServices"
 
-jest.mock("../api/cli")
+jest.mock("@/api/cli")
 
 describe("dataTransferServices", () => {
   const jwt = "test-jwt"

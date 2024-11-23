@@ -1,7 +1,7 @@
-import { createEntry, deleteEntry, fetchAllEntries, fetchEntry, queryEntries, updateEntry } from "./passphraseServices"
-import getResponse from "../api/cli"
+import getResponse from "@/api/cli"
+import { createEntry, deleteEntry, fetchAllEntries, fetchEntry, queryEntries, updateEntry } from "@/services/passphraseServices"
 
-jest.mock("../api/cli")
+jest.mock("@/api/cli")
 
 describe("passphraseServices", () => {
   const jwt = "test-jwt"

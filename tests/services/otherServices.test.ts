@@ -1,7 +1,7 @@
-import { versionNumber } from "./otherServices"
-import getResponse from "../api/cli"
+import getResponse from "@/api/cli"
+import { versionNumber } from "@/services/otherServices"
 
-jest.mock("../api/cli")
+jest.mock("@/api/cli")
 
 describe("versionNumber", () => {
   const mockGetResponse = getResponse as jest.MockedFunction<
