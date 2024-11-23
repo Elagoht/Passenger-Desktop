@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "tauri:dev": "NODE_ENV=dev tauri",
     "tauri": "tauri",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "test": "jest"
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.2",
@@ -39,16 +40,22 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.13",
     "@tauri-apps/cli": "^1.6.0",
+    "@types/jest": "^29.5.14",
     "@types/react": "^18.2.15",
     "@types/react-dom": "^18.2.7",
     "@typescript-eslint/eslint-plugin": "^6.12.0",
     "@typescript-eslint/parser": "^6.12.0",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
+    "dotenv": "^16.4.5",
     "eslint": "^8.57.0",
     "eslint-config-react-app": "^7.0.1",
+    "jest": "^29.7.0",
+    "jsdom": "^25.0.1",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
+    "ts-jest": "^29.2.5",
+    "ts-node": "^10.9.2",
     "typescript": "5.3.3",
     "vite": "^5.0.0"
   }
