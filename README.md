@@ -4,7 +4,7 @@
 # Passenger Desktop
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/b948d943dd8f4de987e1fa3e03a035f4)](https://app.codacy.com/gh/Elagoht/Passenger-UI/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
-![Passenger](https://img.shields.io/badge/Core_Version-0.3.1_beta.1-F2970D)
+![Passenger](https://img.shields.io/badge/Core_Version-1.0.1-F2970D)
 ![React.js](https://img.shields.io/badge/React.js-UI-61DAFB?logo=react)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-06B6D4?logo=tailwind)
 ![Tauri](https://img.shields.io/badge/Tauri-Desktop-24C8D8?logo=tauri)
@@ -48,13 +48,6 @@ You MUST have the Passenger CLI on the `src-tauri` directory to run the project.
 
 ```sh
 export SECRET_KEY="A VERY STRONG SECRET KEY"
-```
-
-> [!WARNING]
-> Because of a simple issue with Core CLI, create database directory manually:
-
-```sh
-mkdir ~/.passenger
 ```
 
 ###  Requirements
