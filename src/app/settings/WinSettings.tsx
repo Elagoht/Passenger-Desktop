@@ -1,6 +1,7 @@
 import Window from "@/components/layout/Window"
 import SettingsGroup from "@/components/windows/settings/SettingsGroup"
-import { IconBrowser, IconDatabaseExport, IconFileExport, IconKey } from "@tabler/icons-react"
+import Toast from "@/helpers/notifications"
+import { IconBrowser, IconClipboardCheck, IconDatabaseExport, IconFileExport, IconKey, IconSkull } from "@tabler/icons-react"
 import { FC } from "react"
 
 const WinSettings: FC = () => {
@@ -18,7 +19,24 @@ const WinSettings: FC = () => {
       }, {
         icon: IconFileExport,
         label: "Export Secret Key",
-        action: () => void 0
+        action: () => {
+          const secretKey = localStorage.getItem("SECRET_KEY")
+          if (!secretKey) return Toast.error({
+            title: "Secret key not found",
+            message: "Failed to export the secret key.",
+            icon: IconSkull
+          })
+          navigator.clipboard.writeText(secretKey).then(() =>
+            Toast.success({
+              title: "Secret key copied",
+              message: "Do not share this key with anyone.",
+              icon: IconClipboardCheck
+            })
+          ).catch(() => Toast.error({
+            title: "Failed to copy secret key",
+            message: "An error occurred while copying the secret key."
+          }))
+        }
       }]}
     />
 

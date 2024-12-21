@@ -22,6 +22,7 @@ const ReAuthForm: FC = () =>
         response,
         [() => {
           Cookie.set("accessToken", response.stdout)
+          authStore((state) => state.logInUser)()
           authStore((state) => state.closeReAuthModal)()
         }, {
           successTitle: "Access granted, again!",

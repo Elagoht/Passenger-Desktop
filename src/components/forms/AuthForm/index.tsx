@@ -10,6 +10,8 @@ import { Form, Formik } from "formik"
 import { FC, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import MasterPassphraseChecker from "./MasterPassphraseChecker"
+import KeyRing from "@/api/keychain"
+import Toast from "@/helpers/notifications"
 
 interface IAuthFormProps {
   mode: "login" | "register"
@@ -47,25 +49,24 @@ const AuthForm: FC<IAuthFormProps> = ({ mode }) => {
       }}
       validationSchema={validationSchemas[mode]}
       onSubmit={async (values, { setSubmitting }) => {
-        /**
-         * TODO: This logic is working well,
-         * TODO: but for development purposes,
-         * TODO: we bypass the keyring and set
-         * TODO: the secret key directly.
-         *
-         * KeyRing
-         *   .read(values.username)
-         *   .then((key) => localStorage.setItem("SECRET_KEY", key))
-         *   .catch(() => {
-         *     const key = KeyRing.generate()
-         *     KeyRing
-         *       .write(values.username, key)
-         *       .then(() => localStorage.setItem("SECRET_KEY", key))
-         *       .catch(() => console.error("Failed to communicate with keyring.")
-         *       )
-         *   })
-         */
-        localStorage.setItem("SECRET_KEY", "A VERY STRONG SECRET KEY")
+        KeyRing
+          .read(values.username)
+          .then((key) => key
+            ? localStorage.setItem("SECRET_KEY", key)
+            : Toast.error({
+              title: "Keychain error",
+              message: "Failed to read key from keyring."
+            })
+          ).catch(() => {
+            const key = KeyRing.generate()
+            KeyRing
+              .write(values.username, key)
+              .then(() => localStorage.setItem("SECRET_KEY", key))
+              .catch(() => Toast.error({
+                title: "Keychain error",
+                message: "Failed to communicate with keyring."
+              }))
+          })
 
         let continueToLogin = true
         if (mode === "register") handleResponse(
