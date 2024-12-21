@@ -23,23 +23,31 @@ const MostUsedPassphrase: FC<IMostUsedPassphraseProps> = ({ mostCommon }) => {
       Most Used Passphrase
     </h2>
 
-    <button
-      onMouseDown={() => setReveal(true)}
-      className="flex items-center w-full gap-2 bg-tuatara-100 dark:bg-tuatara-800 rounded-md p-2">
-      <span className="text-lg font-medium line-clamp-1 grow text-center">
-        {reveal
-          ? mostCommon
-          : "Reveal the secret"
-        }
-      </span>
+    {mostCommon === "Not available" &&
+      <p className="text-center text-tuatara-500">
+        There are no passphrases yet to analyze.
+      </p>
+    }
 
-      {createElement(
-        reveal
-          ? IconEyeOff
-          : IconEye,
-        { className: "text-leaf-500 shrink-0", size: 32 }
-      )}
-    </button>
+    {mostCommon !== "Not available" &&
+      <button
+        onMouseDown={() => setReveal(true)}
+        className="flex items-center w-full gap-2 bg-tuatara-100 dark:bg-tuatara-800 rounded-md p-2">
+        <span className="text-lg font-medium line-clamp-1 grow text-center">
+          {reveal
+            ? mostCommon
+            : "Reveal the secret"
+          }
+        </span>
+
+        {createElement(
+          reveal
+            ? IconEyeOff
+            : IconEye,
+          { className: "text-leaf-500 shrink-0", size: 32 }
+        )}
+      </button>
+    }
   </article>
 }
 

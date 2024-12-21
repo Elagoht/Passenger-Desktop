@@ -18,6 +18,7 @@ const NewsPaperDataLeakArticle: FC<LeakedData> = ({
 
     <div className="flex-1">
       <img
+        draggable="false"
         src={LogoPath}
         alt={Name}
         width="88"

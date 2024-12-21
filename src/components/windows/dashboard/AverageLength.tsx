@@ -7,6 +7,7 @@ interface IAverateLengthProps {
 const AverageLength: FC<IAverateLengthProps> = ({ averageLength }) => {
   return <article className="rounded-xl p-4 shadow shadow-tuatara-300 dark:shadow-tuatara-950 bg-tuatara-50 dark:bg-tuatara-900 relative overflow-clip">
     <img
+      draggable="false"
       src="/hacker.webp"
       alt="Hacker evaluating your passphrase length"
       className="absolute bottom-0 right-0 opacity-25 dark:opacity-100"
