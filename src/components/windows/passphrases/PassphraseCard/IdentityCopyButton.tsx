@@ -24,7 +24,7 @@ const IdentityCopyButton: FC<IIdentityCopyButtonProps> = ({ id }) =>
           ).identity
         ).then(() => Toast.success({
           icon: IconCopyCheck,
-          message: "I know who you are 😉"
+          message: "Identity copied to clipboard.",
         })).catch(() => Toast.error({
           title: "Failed to copy identity",
           message: "An error occurred while copying the identity.",
