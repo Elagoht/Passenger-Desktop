@@ -8,14 +8,14 @@ interface IDetectiveSimilarWithUsernameProps {
 
 const DetectiveSimilarWithUsername: FC<IDetectiveSimilarWithUsernameProps> = ({
   similarWithUsername
-}) =>
-  <DetectiveReportSheet
+}) => {
+  return <DetectiveReportSheet
     title="Similar With Username"
     isEmpty={!similarWithUsername.length}
     subtitle="These passphrases are similar with usernames:"
   >
     <DetectiveSheetGrid passphrases={similarWithUsername} />
   </DetectiveReportSheet>
-
+}
 
 export default DetectiveSimilarWithUsername

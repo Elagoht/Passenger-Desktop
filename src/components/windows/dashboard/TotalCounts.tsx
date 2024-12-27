@@ -1,4 +1,6 @@
-import { IconGlobe, IconKey, IconLockSquareRounded } from "@tabler/icons-react"
+import {
+  IconGlobe, IconKey, IconLockSquareRounded
+} from "@tabler/icons-react"
 import classNames from "classnames"
 import { FC, createElement } from "react"
 
@@ -8,6 +10,7 @@ interface ITotalCountsProps {
   uniquePlatformsCount: Statistics["uniquePlatformsCount"]
   percentageOfCommon: Statistics["percentageOfCommon"]
 }
+
 const TotalCounts: FC<ITotalCountsProps> = ({
   totalCount, uniqueCount, uniquePlatformsCount
 }) => {
@@ -32,8 +35,11 @@ const TotalCounts: FC<ITotalCountsProps> = ({
     {summaryData.map((data, index) =>
       <section
         key={index}
-        className={classNames({
-          "flex py-2 px-3 rounded-lg shadow shadow-tuatara-300 dark:shadow-tuatara-950 bg-tuatara-50 dark:bg-tuatara-900 text-creamcan-500 relative items-center justify-center flex-col text-center overflow-clip": true,
+        className={classNames(
+          "flex py-2 px-3 rounded-lg shadow shadow-tuatara-300",
+          "dark:shadow-tuatara-950 bg-tuatara-50 dark:bg-tuatara-900",
+          "text-creamcan-500 relative items-center justify-center flex-col",
+          "text-center overflow-clip", {
           "col-span-2": data.colSpan === 2
         })}
       >

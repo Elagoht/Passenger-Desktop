@@ -1,11 +1,13 @@
 import Window from "@/components/layout/Window"
 import SettingsGroup from "@/components/windows/settings/SettingsGroup"
 import Toast from "@/helpers/notifications"
-import { IconBrowser, IconClipboardCheck, IconDatabaseExport, IconFileExport, IconKey, IconSkull } from "@tabler/icons-react"
+import {
+  IconBrowser, IconClipboardCheck, IconDatabaseExport,
+  IconFileExport, IconKey, IconSkull
+} from "@tabler/icons-react"
 import { FC } from "react"
 
 const WinSettings: FC = () => {
-
   return <Window
     title="Settings"
     className="flex flex-col gap-4"

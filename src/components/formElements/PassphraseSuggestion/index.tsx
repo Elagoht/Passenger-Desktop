@@ -18,8 +18,6 @@ const PassphraseSuggestion: FC<IPassphraseSuggestionProps> = ({
       setFieldValue={setFieldValue}
     />
   </div>
-
-
 }
 
 export default PassphraseSuggestion

@@ -1,11 +1,19 @@
-import { Icon, IconAlertCircle, IconCheck, IconProps } from "@tabler/icons-react"
-import { FC, ForwardRefExoticComponent, RefAttributes, createElement } from "react"
+import {
+  Icon, IconAlertCircle,
+  IconCheck, IconProps
+} from "@tabler/icons-react"
+import {
+  FC, ForwardRefExoticComponent,
+  RefAttributes, createElement
+} from "react"
 
 interface IInputValidityIconsProps {
   validityIcons: boolean
   error: boolean
   success: boolean
-  iconRight?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & RefAttributes<Icon>>
+  iconRight?: ForwardRefExoticComponent<Omit<
+    IconProps, "ref"
+  > & RefAttributes<Icon>>
 }
 
 const InputValidityIcons: FC<IInputValidityIconsProps> = ({

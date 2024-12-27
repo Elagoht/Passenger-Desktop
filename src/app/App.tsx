@@ -27,11 +27,7 @@ const App: FC = () => {
         <Routes>
           <Route element={<Public />}>
             <Route element={<AnimatedRoutes />}>
-              {[
-                { path: "/auth/login", element: <WinLogin /> },
-                { path: "/auth/register", element: <WinRegister /> },
-                // { path: "/auth/reset-password", element: <ResetPassword /> }
-              ].map((route, index) =>
+              {publicRoutes.map((route, index) =>
                 <Route
                   key={index}
                   path={route.path}
@@ -45,18 +41,7 @@ const App: FC = () => {
 
             <Route element={<Private />}>
               <Route element={<AnimatedRoutes />}>
-                {[
-                  { path: "/dashboard", element: <WinDashboard /> },
-                  { path: "/passphrases", element: <WinPassphrases /> },
-                  { path: "/passphrases/:id", element: <WinPassphraseDetails /> },
-                  { path: "/add-passphrase", element: <WinAddPassphrase /> },
-                  { path: "/detective", element: <WinDetective /> },
-                  { path: "/settings", element: <WinSettings /> },
-                  { path: "/settings/import-from-browser", element: <WinImportFromBrowser /> },
-                  { path: "/settings/export-to-csv", element: <WinExportToCSV /> },
-                  { path: "/settings/reset-master-passphrase", element: <WinResetMasterPassphrase /> },
-                  { path: "*", element: <Window>404 Not Found</Window> },
-                ].map((route, index) =>
+                {privateRoutes.map((route, index) =>
                   <Route
                     key={index}
                     path={route.path}
@@ -74,5 +59,49 @@ const App: FC = () => {
     </AnimatePresence>
   </BrowserRouter>
 }
+
+const publicRoutes = [
+  {
+    path: "/auth/login",
+    element: <WinLogin />
+  }, {
+    path: "/auth/register",
+    element: <WinRegister />
+  }
+]
+
+const privateRoutes = [
+  {
+    path: "/dashboard",
+    element: <WinDashboard />
+  }, {
+    path: "/passphrases",
+    element: <WinPassphrases />
+  }, {
+    path: "/passphrases/:id",
+    element: <WinPassphraseDetails />
+  }, {
+    path: "/add-passphrase",
+    element: <WinAddPassphrase />
+  }, {
+    path: "/detective",
+    element: <WinDetective />
+  }, {
+    path: "/settings",
+    element: <WinSettings />
+  }, {
+    path: "/settings/import-from-browser",
+    element: <WinImportFromBrowser />
+  }, {
+    path: "/settings/export-to-csv",
+    element: <WinExportToCSV />
+  }, {
+    path: "/settings/reset-master-passphrase",
+    element: <WinResetMasterPassphrase />
+  }, {
+    path: "*",
+    element: <Window>404 Not Found</Window>
+  }
+]
 
 export default App

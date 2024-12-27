@@ -8,13 +8,14 @@ interface IDetectiveOldPassphrasesProps {
 
 const DetectiveOldPassphrases: FC<IDetectiveOldPassphrasesProps> = ({
   oldPassphrases
-}) =>
-  <DetectiveReportSheet
+}) => {
+  return <DetectiveReportSheet
     title="Old Passphrases"
     isEmpty={!oldPassphrases.length}
     subtitle="These entries have old passphrases:"
   >
     <DetectiveSheetGrid passphrases={oldPassphrases} />
   </DetectiveReportSheet>
+}
 
 export default DetectiveOldPassphrases

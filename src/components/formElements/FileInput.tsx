@@ -30,23 +30,26 @@ const FileInput: FC<IFileInputProps> = ({
       </small>
     }
 
-    <label className="flex items-center gap-2 rounded-md transition-all duration-300 ease-in-out px-2 border border-current">
+    <label className="flex items-center gap-2 rounded-md transition-all
+      duration-300 ease-in-out px-2 border border-current"
+    >
       <InputLeftIcon iconLeft={iconLeft} />
 
       <div className="flex flex-col py-1 grow">
-        <span className={classNames({
-          "transition-all duration-300 leading-5 ease-in-out select-none line-clamp-1": true,
-        })}>
+        <span className="transition-all duration-300 leading-5
+          ease-in-outselect-none line-clamp-1"
+        >
           {label}
         </span>
 
         <input
           {...props}
           type="file"
-          className={classNames({
-            "bg-transparent w-full text-gray-900 dark:text-gray-100 rounded-md outline-none max-w-none min-w-0 transition-all duration-300 ease-in-out": true,
-            [props.className ?? ""]: true,
-          })}
+          className={classNames(
+            "bg-transparent w-full text-gray-900 dark:text-gray-100",
+            "rounded-md outline-none max-w-none min-w-0 transition-all",
+            "duration-300 ease-in-out", props.className
+          )}
         />
       </div>
 

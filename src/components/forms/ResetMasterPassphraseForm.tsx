@@ -1,6 +1,8 @@
 import Input from "@/components/formElements/Input"
 import handleResponse from "@/helpers/services"
-import { validationResetMasterPassphraseForm } from "@/lib/validations/authForms"
+import {
+  validationResetMasterPassphraseForm
+} from "@/lib/validations/authForms"
 import { resetMasterPassphrase } from "@/services/authServices"
 import { IconKey, IconLoader } from "@tabler/icons-react"
 import { Form, Formik } from "formik"

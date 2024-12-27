@@ -3,8 +3,8 @@ import GoBackHeader from "@/components/layout/GoBackHeader"
 import Window from "@/components/layout/Window"
 import { FC } from "react"
 
-const WinResetMasterPassphrase: FC = () =>
-  <Window>
+const WinResetMasterPassphrase: FC = () => {
+  return <Window>
     <GoBackHeader
       href="/settings"
       title="Reset Master Passphrase"
@@ -12,5 +12,6 @@ const WinResetMasterPassphrase: FC = () =>
 
     <ResetMasterPassphraseForm />
   </Window>
+}
 
 export default WinResetMasterPassphrase

@@ -1,8 +1,14 @@
-import { BarElement, CategoryScale, Chart as ChartJS, Legend, LinearScale, Title, Tooltip } from "chart.js"
+import {
+  BarElement, CategoryScale, Chart as ChartJS,
+  Legend, LinearScale, Title, Tooltip
+} from "chart.js"
 import { FC } from "react"
 import { Bar } from "react-chartjs-2"
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
+ChartJS.register(
+  CategoryScale, LinearScale, BarElement,
+  Title, Tooltip, Legend
+)
 
 interface IBarChartProps {
   data: Array<{
@@ -13,26 +19,22 @@ interface IBarChartProps {
   axisNames: [string, string]
 }
 
-const BarChart: FC<IBarChartProps> = ({ data, colors, axisNames = ["x", "y"] }) => {
+const BarChart: FC<IBarChartProps> = ({
+  data, colors, axisNames = ["x", "y"]
+}) => {
   const chartData = {
     labels: data.map(item => item.label),
-    datasets: [
-      {
-        data: data.map(item => item.value),
-        backgroundColor: colors.slice(0, data.length)
-      }
-    ]
+    datasets: [{
+      data: data.map(item => item.value),
+      backgroundColor: colors.slice(0, data.length)
+    }]
   }
 
   const options = {
     responsive: true,
     plugins: {
-      title: {
-        display: false
-      },
-      legend: {
-        display: false
-      }
+      title: { display: false },
+      legend: { display: false }
     },
     scales: {
       x: {

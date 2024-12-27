@@ -6,15 +6,18 @@ interface IInputErrorMessagesProps {
   message?: ReactNode
 }
 
-const InputErrorMessages: FC<IInputErrorMessagesProps> = ({ error, message, success }) =>
-  (error || success || message) &&
-  <small className="ml-2 text-xs">
-    {typeof error === "string"
-      ? error
-      : typeof success === "string"
-        ? success
-        : message
-    }
-  </small>
+const InputErrorMessages: FC<IInputErrorMessagesProps> = ({
+  error, message, success
+}) => {
+  return (error || success || message) &&
+    <small className="ml-2 text-xs">
+      {typeof error === "string"
+        ? error
+        : typeof success === "string"
+          ? success
+          : message
+      }
+    </small>
+}
 
 export default InputErrorMessages

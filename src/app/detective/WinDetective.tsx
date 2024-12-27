@@ -12,12 +12,16 @@ import { IconZoomCancel } from "@tabler/icons-react"
 import { useEffect, useState } from "react"
 
 const WinDetective = () => {
-  const [detectiveReports, setDetectiveReports] = useState<Maybe<DetectiveReport>>(null)
+  const [detectiveReports, setDetectiveReports] = useState<
+    Maybe<DetectiveReport>
+  >(null)
   const [leakedData, setLeakedData] = useState<Maybe<LeakedData[]>>(null)
   const [totalPages, setTotalPages] = useState<number>(0)
   const [currentPage, setCurrentPage] = useState<number>(1)
 
-  const handleNewsPagination = (page: number = 1) => getNews(page).then((response) => handleHTTPResponse(
+  const handleNewsPagination = (page: number = 1) => getNews(
+    page
+  ).then((response) => handleHTTPResponse(
     response,
     [() => {
       setLeakedData(response.data.data)
@@ -35,7 +39,9 @@ const WinDetective = () => {
       useAuth()
     ).then((response) => handleResponse(
       response,
-      [() => setDetectiveReports(StringHelper.deserialize<DetectiveReport>(response.stdout))],
+      [() => setDetectiveReports(StringHelper.deserialize<DetectiveReport>(
+        response.stdout
+      ))],
       [() => void 0, {
         errorTitle: "Error",
         errorIcon: IconZoomCancel
@@ -52,7 +58,10 @@ const WinDetective = () => {
   return <Window
     wide
     title="Detective"
-    description="Detective is your personal assistant to help you find potential security issues in your vault."
+    description={
+      "Detective is your personal assistant to help you"
+      + " find potential security issues in your vault."
+    }
   >
     <Detective detectiveReports={detectiveReports} />
 
@@ -63,7 +72,7 @@ const WinDetective = () => {
       currentPage={currentPage}
       onPageChange={handleNewsPagination}
     />
-  </Window>
+  </Window >
 }
 
 export default WinDetective

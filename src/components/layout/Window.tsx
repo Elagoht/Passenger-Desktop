@@ -11,7 +11,10 @@ interface IWindowProps {
   center?: boolean
 }
 
-const Window: FC<IWindowProps> = ({ children, title, description, className, wide, center }) => {
+const Window: FC<IWindowProps> = ({
+  children, title, description,
+  className, wide, center
+}) => {
   return <motion.main
     initial="initial"
     animate="in"

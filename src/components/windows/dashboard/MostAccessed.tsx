@@ -7,8 +7,12 @@ interface IMostAccessedProps {
 }
 
 const MostAccessed: FC<IMostAccessedProps> = ({ mostAccessed }) => {
-  return <article className="rounded-xl p-4 shadow shadow-tuatara-300 dark:shadow-tuatara-950 bg-tuatara-50 dark:bg-tuatara-900">
-    <h2 className="text-lg font-semibold text-creamcan-500 mb-3">Most Accessed</h2>
+  return <article className="rounded-xl p-4 shadow shadow-tuatara-300
+    dark:shadow-tuatara-950 bg-tuatara-50 dark:bg-tuatara-900"
+  >
+    <h2 className="text-lg font-semibold text-creamcan-500 mb-3">
+      Most Accessed
+    </h2>
 
     {mostAccessed.length === 0 &&
       <p className="text-center text-tuatara-500">
@@ -23,7 +27,10 @@ const MostAccessed: FC<IMostAccessedProps> = ({ mostAccessed }) => {
             key={passphrase.id}
             to={`/passphrases/${passphrase.id}?cameFrom=/dashboard`}
           >
-            <li className="flex items-center gap-4 p-1 pr-3 hover:bg-tuatara-100 dark:hover:bg-tuatara-800 rounded-full transition duration">
+            <li className="flex items-center gap-4 p-1 pr-3
+              hover:bg-tuatara-100 dark:hover:bg-tuatara-800 rounded-full
+              transition duration"
+            >
               <img
                 src={`https://icon.horse/icon/${new URL(
                   passphrase.url.startsWith("http")
@@ -31,7 +38,9 @@ const MostAccessed: FC<IMostAccessedProps> = ({ mostAccessed }) => {
                     : `http://${passphrase.url}`
                 ).hostname}`}
                 draggable="false"
-                onError={(event) => { (event.target as HTMLImageElement).src = "/icon.png" }}
+                onError={(event) => {
+                  (event.target as HTMLImageElement).src = "/icon.png"
+                }}
                 alt={passphrase.platform}
                 width={32}
                 height={32}
@@ -40,13 +49,13 @@ const MostAccessed: FC<IMostAccessedProps> = ({ mostAccessed }) => {
 
               <h3 className="font-medium grow">{passphrase.platform}</h3>
 
-              <span className={classNames({
-                "drop-shadow-md": true,
+              <span className={classNames(
+                "drop-shadow-md", {
                 "text-creamcan-400 text-xl": index === 0,
                 "text-creamcan-500 text-lg": index === 1,
                 "text-creamcan-600": index === 2,
                 "text-creamcan-700 text-sm": index === 3,
-                "text-creamcan-800 text-sm": index === 4,
+                "text-creamcan-800 text-sm": index === 4
               })}>{passphrase.totalAccesses}</span>
             </li>
           </Link>

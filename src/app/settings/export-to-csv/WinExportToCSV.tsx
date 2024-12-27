@@ -12,8 +12,8 @@ const WinExportToCSV: FC = () => {
 
     <article className="prose dark:prose-invert">
       <p>
-        {/* TODO: Place a link to the Passenger documentation here */}
-        Are you moving passenger? Or you plan to use a "unique✨ Passenger client"?
+        Are you moving passenger? Or you plan to use a "unique✨
+        Passenger client"?
       </p>
 
       <p>
@@ -31,7 +31,8 @@ const WinExportToCSV: FC = () => {
           <div><strong>Encrypted</strong> - not human-readable</div>
 
           <small className="text-creamcan-500">
-            Each line will encrypt with base64. Human eye can't read it, <span className="text-red-500">but computer can!</span>
+            Each line will encrypt with base64. Human eye can't read it,
+            <span className="text-red-500"> but computer can!</span>
           </small>
         </li>
       </ul>

@@ -41,7 +41,9 @@ class CLI {
    * @returns The output of the process.
    * @see Output
    */
-  public static readOutput = (process: ChildProcess): Awaited<Promise<Output>> => ({
+  public static readOutput = (
+    process: ChildProcess
+  ): Awaited<Promise<Output>> => ({
     status: process.code ?? 1, // 1 is the default error code
     stdout: process.stdout.trim(),
     stderr: process.stderr.trim()
@@ -56,7 +58,9 @@ const getResponse = async (
   args: string[],
   { piped, headers }: CLICommandOptions = {}
 ): Promise<Output> => {
-  const output = CLI.readOutput(await CLI.execute(command, args, { piped, headers }))
+  const output = CLI.readOutput(await CLI.execute(command, args, {
+    piped, headers
+  }))
   /**
    * Exit code 41 represents HTTP 401 Unauthorized.
    * This means that the user's access token is invalid.

@@ -47,7 +47,9 @@ const GaugeChart: FC<IGaugeChartProps> = ({
       }}
     />
 
-    <div className="absolute inset-0 flex items-center justify-center flex-col pt-12">
+    <div className="absolute inset-0 flex items-center justify-center
+      flex-col pt-12"
+    >
       {title}
 
       {subtitle}

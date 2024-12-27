@@ -5,32 +5,36 @@ interface IMasterPassphraseCheckerProps {
   passphrase: string
 }
 
-const MasterPassphraseChecker: FC<IMasterPassphraseCheckerProps> = ({ passphrase }) => <>
-  <p className="text-sm -mb-4">
-    Must have criterias:
-  </p>
+const MasterPassphraseChecker: FC<IMasterPassphraseCheckerProps> = ({
+  passphrase
+}) => {
+  return <>
+    <p className="text-sm -mb-4">
+      Must have criterias:
+    </p>
 
-  <ul className="text-sm">
-    {criterias.map((criteria, index) =>
-      <li
-        key={index}
-        className="flex items-center gap-1"
-      >
-        {criteria.regex.test(passphrase)
-          ? <IconCheck
-            size={16}
-            color="green" />
-          : <IconX
-            size={16}
-            color="red"
-          />
-        }
+    <ul className="text-sm">
+      {criterias.map((criteria, index) =>
+        <li
+          key={index}
+          className="flex items-center gap-1"
+        >
+          {criteria.regex.test(passphrase)
+            ? <IconCheck
+              size={16}
+              color="green" />
+            : <IconX
+              size={16}
+              color="red"
+            />
+          }
 
-        {criteria.message}
-      </li>
-    )}
-  </ul>
-</>
+          {criteria.message}
+        </li>
+      )}
+    </ul>
+  </>
+}
 
 const criterias = [{
   regex: /.{12,}/,

@@ -28,6 +28,7 @@ export const authStore = create<AuthorizationStore>((set) => ({
   }),
 
   logOutUser: () => set({
-    isAuthorized: false
+    isAuthorized: false,
+    isReAuthModalOpen: true
   })
 }))

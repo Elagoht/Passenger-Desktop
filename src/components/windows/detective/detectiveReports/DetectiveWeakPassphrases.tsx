@@ -8,14 +8,14 @@ interface IDetectiveWeakPassphrasesProps {
 
 const DetectiveWeakPassphrases: FC<IDetectiveWeakPassphrasesProps> = ({
   weakPassphrases
-}) =>
-  <DetectiveReportSheet
+}) => {
+  return <DetectiveReportSheet
     title="Weak Passphrases"
     isEmpty={!weakPassphrases.length}
     subtitle="These entries have weak passphrases:"
   >
     <DetectiveSheetGrid passphrases={weakPassphrases} />
   </DetectiveReportSheet>
-
+}
 
 export default DetectiveWeakPassphrases

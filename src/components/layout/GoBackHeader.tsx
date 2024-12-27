@@ -12,12 +12,15 @@ const GoBackHeader: FC<IGoBackHeaderProps> = ({ href, title }) => {
     <Link
       draggable="false"
       to={href}
-      className="hover:bg-tuatara-200 dark:hover:bg-tuatara-800 p-2 hover:rounded-3xl transition-all duration-300"
+      className="hover:bg-tuatara-200 dark:hover:bg-tuatara-800
+      p-2 hover:rounded-3xl transition-all duration-300"
     >
       <IconArrowLeft size={32} />
     </Link>
 
-    <h1 className="text-xl font-medium text-tuatara-900 dark:text-tuatara-50">
+    <h1 className="text-xl font-medium text-tuatara-90
+      dark:text-tuatara-50"
+    >
       {title}
     </h1>
   </div>

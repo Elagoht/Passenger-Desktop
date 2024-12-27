@@ -3,7 +3,10 @@
 import Pretty from "@/helpers/prettiers"
 import { IconEye, IconEyeOff } from "@tabler/icons-react"
 import classNames from "classnames"
-import { FC, InputHTMLAttributes, useEffect, useRef, useState } from "react"
+import {
+  FC, InputHTMLAttributes, useEffect,
+  useRef, useState
+} from "react"
 import InputErrorMessages from "./partial/InputErrorMessages"
 import InputLeftIcon from "./partial/InputLeftIcon"
 import InputValidityIcons from "./partial/InputValidityIcons"
@@ -13,18 +16,10 @@ export type IInputProps = Omit<
   "type"
 > & ICustomInputProps & {
   type?:
-  | "text"
-  | "password"
-  | "date"
-  | "time"
-  | "datetime-local"
-  | "month"
-  | "week"
-  | "number"
-  | "email"
-  | "tel"
-  | "url"
-  | "search"
+  | "text" | "password" | "date"
+  | "time" | "datetime-local" | "month"
+  | "week" | "number" | "email"
+  | "tel" | "url" | "search"
 }
 
 const Input: FC<IInputProps> = ({
@@ -48,11 +43,16 @@ const Input: FC<IInputProps> = ({
 
   return <div className={classNames({
     "flex flex-col gap-0.5": true,
-    "text-gray-500": !isFocused && !error && !success,
-    "text-blue-500": isFocused && !error && !success && !props.disabled && !props.readOnly,
-    "text-green-500": success && !error && !props.disabled && !props.readOnly,
-    "text-red-500": error && !props.disabled && !props.readOnly,
-    "opacity-75": props.disabled || props.readOnly,
+    "text-gray-500":
+      !isFocused && !error && !success,
+    "text-blue-500":
+      isFocused && !error && !success && !props.disabled && !props.readOnly,
+    "text-green-500":
+      success && !error && !props.disabled && !props.readOnly,
+    "text-red-500":
+      error && !props.disabled && !props.readOnly,
+    "opacity-75":
+      props.disabled || props.readOnly,
   })}>
     {optional &&
       <small className="text-xs text-blue-500 ml-2">
@@ -60,9 +60,12 @@ const Input: FC<IInputProps> = ({
       </small>
     }
 
-    <label className="flex items-center gap-2 relative rounded-md transition-all duration-300 ease-in-out px-2 border border-current">
-      <span className={classNames({
-        "absolute transition-all duration-300 ease-in-out select-none line-clamp-1": true,
+    <label className="flex items-center gap-2 relative rounded-md
+      transition-all duration-300 ease-in-out px-2 border border-current"
+    >
+      <span className={classNames(
+        "absolute transition-all duration-300",
+        "ease-in-out select-none line-clamp-1", {
         "left-2": !iconLeft,
         "left-10": iconLeft,
         "right-2": !iconRight && !validityIcons && type !== "password",
@@ -82,15 +85,20 @@ const Input: FC<IInputProps> = ({
           ? "text"
           : type
         }
-        className={classNames({
-          "bg-transparent pt-3.5 pb-0.5 w-full text-gray-900 dark:text-gray-100 rounded-md outline-none max-w-none min-w-0 h-10 transition-all duration-300 ease-in-out": true,
+        className={classNames(
+          "bg-transparent pt-3.5 pb-0.5 w-full text-gray-900",
+          "dark:text-gray-100 rounded-md outline-none max-w-none min-w-0",
+          "h-10 transition-all duration-300 ease-in-out",
+          props.className, {
           "opacity-0": !isFocused && !isFilled,
-          "pl-8 -ml-8": ["date", "time", "datetime-local", "month", "week"].includes(type),
-          [props.className ?? ""]: true,
+          "pl-8 -ml-8": [
+            "date", "time", "datetime-local",
+            "month", "week"
+          ].includes(type)
         })}
         defaultValue={props.defaultValue
           ? type === "tel"
-            ? Pretty.phoneNumber((props.defaultValue as string).slice(-10))
+            ? Pretty.phoneNumber(String(props.defaultValue).slice(-10))
             : props.defaultValue
           : undefined
         }
@@ -115,7 +123,8 @@ const Input: FC<IInputProps> = ({
         }}
         onChange={(event) => {
           setIsFilled(event.currentTarget.value.length > 0)
-          if (type === "tel") event.target.value = Pretty.phoneNumber(event.target.value)
+          if (type === "tel")
+            event.target.value = Pretty.phoneNumber(event.target.value)
           props.onChange?.({
             ...event,
             target: {

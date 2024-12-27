@@ -1,4 +1,7 @@
-import { IconBellSearch, IconChartPie, IconChartPieFilled, IconListSearch, IconPlus, IconSettings } from "@tabler/icons-react"
+import {
+  IconBellSearch, IconChartPie, IconChartPieFilled,
+  IconListSearch, IconPlus, IconSettings
+} from "@tabler/icons-react"
 
 const menuItems = [
   {

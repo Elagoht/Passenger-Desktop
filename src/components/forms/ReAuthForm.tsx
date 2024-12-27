@@ -5,11 +5,15 @@ import handleResponse from "@/helpers/services"
 import StringHelper from "@/helpers/string"
 import { authStore } from "@/lib/stores/authorization"
 import { loginToPassenger } from "@/services/authServices"
-import { IconKey, IconLock, IconLockOpen, IconMoodLookDown, IconMoodSmile } from "@tabler/icons-react"
+import {
+  IconKey, IconLock, IconLockOpen,
+  IconMoodLookDown, IconMoodSmile
+} from "@tabler/icons-react"
 import { Form, Formik } from "formik"
 import { FC } from "react"
-const ReAuthForm: FC = () =>
-  <Formik
+
+const ReAuthForm: FC = () => {
+  return <Formik
     initialValues={{
       username: "",
       passphrase: ""
@@ -23,6 +27,7 @@ const ReAuthForm: FC = () =>
         [() => {
           Cookie.set("accessToken", response.stdout)
           authStore((state) => state.logInUser)()
+          authStore((state) => state.closeReAuthModal)()
         }, {
           successTitle: "Access granted, again!",
           successMessage: "Continue where you left off.",
@@ -60,7 +65,8 @@ const ReAuthForm: FC = () =>
         </h1>
 
         <p>
-          Sessions are limited to 10 minutes. Unlock the vault again to continue.
+          Sessions are limited to 10 minutes.
+          Unlock the vault again to continue.
         </p>
 
         <Input
@@ -97,5 +103,6 @@ const ReAuthForm: FC = () =>
       </Form>
     }
   </Formik>
+}
 
 export default ReAuthForm

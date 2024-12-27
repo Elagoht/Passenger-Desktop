@@ -9,8 +9,10 @@ interface IManipulateButtonProps {
   setFieldValue: (field: string, value: string) => void
 }
 
-const ManipulateButton: FC<IManipulateButtonProps> = ({ currentPassphrase, setFieldValue }) =>
-  <Button
+const ManipulateButton: FC<IManipulateButtonProps> = ({
+  currentPassphrase, setFieldValue
+}) => {
+  return <Button
     rightIcon={<IconRotate />}
     type="button"
     variant="ghost"
@@ -26,5 +28,6 @@ const ManipulateButton: FC<IManipulateButtonProps> = ({ currentPassphrase, setFi
   >
     Manipulate
   </Button>
+}
 
 export default ManipulateButton

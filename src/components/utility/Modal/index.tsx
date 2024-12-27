@@ -15,22 +15,27 @@ interface IModalProps {
 
 const Modal: FC<IModalProps> = ({
   children, close, persist, title, isOpen, size = "md", buttons
-}) =>
-  <div
-    className={classNames({
-      "fixed inset-0 z-50 flex md:items-center items-end justify-center bg-black bg-opacity-50 backdrop-blur-3xl md:p-8 transition-all ease-in-out duration-300": true,
-      "opacity-0 pointer-events-none": !isOpen,
+}) => {
+  return <div
+    className={classNames(
+      "fixed inset-0 z-50 flex md:items-center items-end justify-center",
+      "bg-black bg-opacity-50 backdrop-blur-3xl md:p-8 transition-all",
+      "ease-in-out duration-300", {
+      "opacity-0 pointer-events-none": !isOpen
     })}
-    onClick={persist
-      ? undefined
-      : close
+    onClick={
+      persist
+        ? undefined
+        : close
     }
   >
     <div
       role="dialog"
       aria-modal="true"
-      className={classNames({
-        "bg-tuatara-100 dark:bg-tuatara-900 sm:rounded-lg rounded-t-lg shadow-lg flex flex-col transition-all ease-in-out duration-300 w-full": true,
+      className={classNames(
+        "bg-tuatara-100 dark:bg-tuatara-900 sm:rounded-lg",
+        "shadow-lg flex flex-col transition-all rounded-t-lg",
+        "ease-in-out duration-300 w-full", {
         "translate-y-full": !isOpen,
         "max-sm:delay-200": isOpen,
         "max-w-screen-sm": size === "sm",
@@ -41,12 +46,17 @@ const Modal: FC<IModalProps> = ({
       onClick={(event) => event.stopPropagation()}
     >
       {title
-        ? <header className="p-2 text-lg font-medium flex justify-between items-center shadow-md">
+        ? <header className="p-2 text-lg font-medium flex justify-between
+          items-center shadow-md"
+        >
           <h2>{title}</h2>
 
-          {!persist && <ModalCloseButton close={close} />}
+          {!persist &&
+            <ModalCloseButton close={close} />
+          }
         </header>
-        : !persist && <ModalCloseButton
+        : !persist &&
+        <ModalCloseButton
           close={close}
           className="absolute top-2 right-2"
         />
@@ -75,5 +85,6 @@ const Modal: FC<IModalProps> = ({
       }
     </div>
   </div>
+}
 
 export default Modal

@@ -33,13 +33,15 @@ const Toast: FC<IToast> = ({
     aria-label="Notification"
     id={id}
     className={
-      classNames({
-        "md:p-2 p-1 bg-white dark:bg-tuatara-800 text-black dark:text-white flex md:gap-2 gap-1 items-start border-b-4 md:rounded-lg shadow-md pointer-events-auto md:max-w-72 w-full": true,
+      classNames(
+        "md:p-2 p-1 bg-white dark:bg-tuatara-800 text-black",
+        "dark:text-white flex md:gap-2 gap-1 items-start border-b-4",
+        "md:rounded-lg shadow-md pointer-events-auto md:max-w-72 w-full", {
         "border-leaf-500": type === "success",
         "border-creamcan-500": type === "warning",
         "border-rose-500": type === "error",
         "border-sky-500": type === "info",
-        "cursor-pointer": clickToClose,
+        "cursor-pointer": clickToClose
       })}
     onClick={clickToClose
       ? () => removeNotification(id)

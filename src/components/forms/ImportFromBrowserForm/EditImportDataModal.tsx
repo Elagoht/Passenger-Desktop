@@ -84,33 +84,50 @@ const EditImportDataModal: FC<EditImportDataModalProps> = ({
       <li>Must have a passphrase is not in the brute force list</li>
     </ul>
 
-    <hr className="my-4 h-px border-none bg-gradient-to-l from-transparent via-tuatara-500 to-transparent" />
+    <hr className="my-4 h-px border-none bg-gradient-to-l from-transparent
+      via-tuatara-500 to-transparent"
+    />
 
     <table className="table-auto w-full border-separate min-w-[36rem]">
       <thead>
         <tr>
           <th
-            className={classNames({
-              "rounded-tl-lg bg-tuatara-50 dark:bg-tuatara-800 w-8 h-8 cursor-pointer border-2": true,
-              "border-leaf-500": !Object.values(selectedEntries).includes(false),
-              "border-creamcan-500": Object.values(selectedEntries).includes(false) && Object.values(selectedEntries).includes(true),
-              "border-transparent": !Object.values(selectedEntries).includes(true)
+            className={classNames(
+              "rounded-tl-lg bg-tuatara-50 dark:bg-tuatara-800",
+              "w-8 h-8 cursor-pointer border-2", {
+              "border-leaf-500":
+                !Object.values(selectedEntries).includes(false),
+              "border-creamcan-500":
+                Object.values(selectedEntries).includes(false)
+                && Object.values(selectedEntries).includes(true),
+              "border-transparent":
+                !Object.values(selectedEntries).includes(true)
             })}
             tabIndex={0}
-            onKeyDown={(event) => ["Enter", " "].includes(event.key) && toggleAll()}
+            onKeyDown={(event) => [
+              "Enter",
+              " "
+            ].includes(event.key) && toggleAll()}
             onClick={toggleAll}
           >
             <div className={classNames({
-              "border-l-2 border-b-2 border-leaf-500 ml-1.5 -rotate-45 -mt-1 w-4 h-2": !Object.values(selectedEntries).includes(false),
-              "w-4 border-b-2 border-creamcan-500 ml-1.5": Object.values(selectedEntries).includes(false) && Object.values(selectedEntries).includes(true),
-              "opacity-0 scale-0": !Object.values(selectedEntries).includes(true),
+              "border-l-2 border-b-2 border-leaf-500 ml-1.5":
+                !Object.values(selectedEntries).includes(false),
+              "-rotate-45 -mt-1 w-4 h-2":
+                !Object.values(selectedEntries).includes(false),
+              "w-4 border-b-2 border-creamcan-500 ml-1.5":
+                Object.values(selectedEntries).includes(false)
+                && Object.values(selectedEntries).includes(true),
+              "opacity-0 scale-0":
+                !Object.values(selectedEntries).includes(true),
             })} />
           </th>
 
           {badEntries[0].map((entry, index) =>
             <th
               key={index}
-              className="bg-tuatara-50 dark:bg-tuatara-800 px-2 text-left last:rounded-tr-lg"
+              className="bg-tuatara-50 dark:bg-tuatara-800 px-2
+              text-left last:rounded-tr-lg"
             >
               {entry}
             </th>
@@ -122,7 +139,8 @@ const EditImportDataModal: FC<EditImportDataModalProps> = ({
         {badEntries
           .filter((_, index) => index !== 0)
           .map((entry, index) => {
-            if (selectedEntries[index] === undefined) // Register the entry as selected
+            // Register the entry as selected
+            if (selectedEntries[index] === undefined)
               setSelectedEntries({ ...selectedEntries, [index]: true })
             return <SelectableCSVRow
               key={index + 1}

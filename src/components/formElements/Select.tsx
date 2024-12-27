@@ -1,7 +1,10 @@
 "use client"
 
 import classNames from "classnames"
-import { FC, SelectHTMLAttributes, createElement, useEffect, useState } from "react"
+import {
+  FC, SelectHTMLAttributes, createElement,
+  useEffect, useState
+} from "react"
 import InputErrorMessages from "./partial/InputErrorMessages"
 import InputLeftIcon from "./partial/InputLeftIcon"
 
@@ -31,14 +34,16 @@ const Select: FC<ISelectProps> = ({
     "opacity-75": props.disabled,
   })}>
     <label
-      className="flex items-center gap-2 relative rounded-md transition-all duration-300 ease-in-out px-2 border border-current"
+      className="flex items-center gap-2 relative rounded-md transition-all
+      duration-300 ease-in-out px-2 border border-current"
     >
-      <span className={classNames({
-        "absolute transition-all duration-300 ease-in-out select-none line-clamp-1": true,
+      <span className={classNames(
+        "absolute transition-all duration-300",
+        "ease-in-out select-none line-clamp-1", {
         "left-2": !iconLeft,
         "left-10": iconLeft,
         "top-2": !isFocused && !isFilled,
-        "top-0.5 text-xs": isFocused || isFilled,
+        "top-0.5 text-xs": isFocused || isFilled
       })}>
         {label}
       </span>
@@ -47,10 +52,12 @@ const Select: FC<ISelectProps> = ({
 
       <select
         {...props}
-        className={classNames({
-          "bg-transparent pt-3.5 pb-0.5 w-full text-gray-900 dark:text-gray-100 rounded-md outline-none max-w-none min-w-0 h-10 transition-all duration-300 ease-in-out appearance-none": true,
+        className={classNames(
+          "bg-transparent pt-3.5 pb-0.5 w-full text-gray-900 appearance-none",
+          "dark:text-gray-100 rounded-md outline-none max-w-none",
+          "min-w-0 h-10 transition-all duration-300 ease-in-out",
+          props.className, {
           "opacity-0": !isFocused && !isFilled,
-          [props.className ?? ""]: true,
         })}
         onFocus={(event) => {
           props.disabled || setIsFocused(true)

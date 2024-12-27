@@ -24,7 +24,9 @@ const WinPassphraseDetails: FC = () => {
       params.id!
     ).then((response) => handleResponse(
       response,
-      [() => setEntry(StringHelper.deserialize<DatabaseEntry>(response.stdout))],
+      [() => setEntry(StringHelper.deserialize<DatabaseEntry>(
+        response.stdout
+      ))],
       [() => navigate("/passphrases"), {
         errorTitle: "Passphrase not found",
         errorMessage: StringHelper.removeUnixErrorPrefix(response.stderr)
@@ -39,7 +41,8 @@ const WinPassphraseDetails: FC = () => {
       <Link
         to={searchParams.get("cameFrom") || "/passphrases"}
         draggable="false"
-        className="hover:bg-tuatara-200 dark:hover:bg-tuatara-800 p-2 hover:rounded-3xl transition-all duration-300"
+        className="hover:bg-tuatara-200 dark:hover:bg-tuatara-800 p-2
+        hover:rounded-3xl transition-all duration-300"
       >
         <IconArrowLeft size={32} />
       </Link>
@@ -50,7 +53,11 @@ const WinPassphraseDetails: FC = () => {
             ? entry.url
             : `http://${entry.url}`
         ).hostname}`}
-        onError={(event) => { (event.target as HTMLImageElement).src = "/icon.png" }}
+        onError={(event) => {
+          (
+            event.target as HTMLImageElement
+          ).src = "/icon.png"
+        }}
         alt={entry.platform}
         width={48}
         height={48}
@@ -58,7 +65,9 @@ const WinPassphraseDetails: FC = () => {
         className="rounded-full"
       />
 
-      <h1 className="text-2xl font-medium text-tuatara-900 dark:text-tuatara-50">
+      <h1 className="text-2xl font-medium text-tuatara-900
+        dark:text-tuatara-50"
+      >
         {entry?.platform}
       </h1>
 
@@ -70,7 +79,9 @@ const WinPassphraseDetails: FC = () => {
         target="_blank"
         rel="noreferrer"
       >
-        <IconExternalLink className="stroke-tuatara-500 hover:stroke-tuatara-400" />
+        <IconExternalLink className="stroke-tuatara-500
+          hover:stroke-tuatara-400"
+        />
       </a>
     </div>
 

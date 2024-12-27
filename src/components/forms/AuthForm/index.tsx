@@ -3,9 +3,19 @@ import Input from "@/components/formElements/Input"
 import Cookie from "@/helpers/cookies"
 import handleResponse from "@/helpers/services"
 import { authStore } from "@/lib/stores/authorization"
-import { validationAuthLoginForm, validationAuthRegisterForm } from "@/lib/validations/authForms"
-import { loginToPassenger, registerToPassenger } from "@/services/authServices"
-import { IconKey, IconLockOpen, IconMoodBoy, IconMoodEmpty, IconMoodHappy, IconMoodLookDown, IconMoodLookLeft, IconMoodLookRight, IconMoodLookUp, IconMoodSmileBeam, IconMoodTongue, IconMoodTongueWink, IconMoodUnamused, IconMoodWink } from "@tabler/icons-react"
+import {
+  validationAuthLoginForm, validationAuthRegisterForm
+} from "@/lib/validations/authForms"
+import {
+  loginToPassenger, registerToPassenger
+} from "@/services/authServices"
+import {
+  IconKey, IconLockOpen, IconMoodBoy,
+  IconMoodEmpty, IconMoodHappy, IconMoodLookDown,
+  IconMoodLookLeft, IconMoodLookRight, IconMoodLookUp,
+  IconMoodSmileBeam, IconMoodTongue, IconMoodTongueWink,
+  IconMoodUnamused, IconMoodWink
+} from "@tabler/icons-react"
 import { Form, Formik } from "formik"
 import { FC, useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
@@ -144,7 +154,9 @@ const AuthForm: FC<IAuthFormProps> = ({ mode }) => {
             success={touched.passphrase && !errors.passphrase}
           />
 
-          {mode === "register" && <MasterPassphraseChecker passphrase={values.passphrase} />}
+          {mode === "register" &&
+            <MasterPassphraseChecker passphrase={values.passphrase} />
+          }
 
           <Button
             rightIcon={<IconLockOpen size={24} />}

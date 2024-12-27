@@ -5,7 +5,9 @@ interface IMostUsedPassphraseProps {
   mostCommon: Statistics["mostCommon"]
 }
 
-const MostUsedPassphrase: FC<IMostUsedPassphraseProps> = ({ mostCommon }) => {
+const MostUsedPassphrase: FC<IMostUsedPassphraseProps> = ({
+  mostCommon
+}) => {
   const [reveal, setReveal] = useState<boolean>(false)
 
   useEffect(() => {
@@ -18,7 +20,10 @@ const MostUsedPassphrase: FC<IMostUsedPassphraseProps> = ({ mostCommon }) => {
     return () => removeEventListener("mouseup", handleMouseDown)
   }, [])
 
-  return <article className="flex flex-col items-center justify-center rounded-xl p-4 shadow shadow-tuatara-300 dark:shadow-tuatara-950 bg-tuatara-50 dark:bg-tuatara-900">
+  return <article className="flex flex-col items-center justify-center
+    rounded-xl p-4 shadow shadow-tuatara-300 dark:shadow-tuatara-950
+    bg-tuatara-50 dark:bg-tuatara-900"
+  >
     <h2 className="text-lg font-semibold text-creamcan-500 mb-3">
       Most Used Passphrase
     </h2>
@@ -32,7 +37,9 @@ const MostUsedPassphrase: FC<IMostUsedPassphraseProps> = ({ mostCommon }) => {
     {mostCommon !== "Not available" &&
       <button
         onMouseDown={() => setReveal(true)}
-        className="flex items-center w-full gap-2 bg-tuatara-100 dark:bg-tuatara-800 rounded-md p-2">
+        className="flex items-center w-full gap-2 bg-tuatara-100
+          dark:bg-tuatara-800 rounded-md p-2"
+      >
         <span className="text-lg font-medium line-clamp-1 grow text-center">
           {reveal
             ? mostCommon

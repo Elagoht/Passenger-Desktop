@@ -5,7 +5,10 @@ import handleResponse from "@/helpers/services"
 import StringHelper from "@/helpers/string"
 import { useAuth } from "@/hooks/authorization"
 import { exportToCSV } from "@/services/dataTransferServices"
-import { IconFileAlert, IconLoader, IconLock, IconLockOpen, IconTableExport } from "@tabler/icons-react"
+import {
+  IconFileAlert, IconLoader, IconLock,
+  IconLockOpen, IconTableExport
+} from "@tabler/icons-react"
 import { save } from "@tauri-apps/api/dialog"
 import { writeTextFile } from "@tauri-apps/api/fs"
 import { Form, Formik } from "formik"
@@ -67,7 +70,9 @@ const ExportToCSVForm: FC = () => {
           value={values.exportType}
           onChange={handleChange}
           optional={false}
-          iconLeft={ExportTypeIcons[values.exportType as keyof typeof ExportTypeIcons]}
+          iconLeft={ExportTypeIcons[
+            values.exportType as keyof typeof ExportTypeIcons
+          ]}
         >
           <option value="bare">Bare</option>
           <option value="encrypted">Encrypted</option>
@@ -83,9 +88,9 @@ const ExportToCSVForm: FC = () => {
         >
           Export
         </Button>
-      </Form >
+      </Form>
     }
-  </Formik >
+  </Formik>
 }
 
 export default ExportToCSVForm

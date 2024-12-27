@@ -8,11 +8,13 @@ interface IDetectiveCommonPassphrasesProps {
 
 const DetectiveCommonPassphrases: FC<IDetectiveCommonPassphrasesProps> = ({
   commonPassphrases
-}) =>
-  <DetectiveReportSheet
+}) => {
+  return <DetectiveReportSheet
     title="Shared Passphrases"
     isEmpty={!commonPassphrases.length}
-    subtitle="These group of entries share the same passphrase between each other:"
+    subtitle={"These group of entries share the same"
+      + " passphrase between each other:"
+    }
   >
     {commonPassphrases.map((passphraseList) =>
       <DetectiveSheetGrid
@@ -21,5 +23,6 @@ const DetectiveCommonPassphrases: FC<IDetectiveCommonPassphrasesProps> = ({
       />
     )}
   </DetectiveReportSheet>
+}
 
 export default DetectiveCommonPassphrases

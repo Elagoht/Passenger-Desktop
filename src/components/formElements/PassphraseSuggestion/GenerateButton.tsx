@@ -1,7 +1,10 @@
 import Button from "@/components/formElements/Button"
 import handleResponse from "@/helpers/services"
 import { generatePassphrase } from "@/services/generationServices"
-import { IconDice1, IconDice2, IconDice3, IconDice4, IconDice5, IconDice6 } from "@tabler/icons-react"
+import {
+  IconDice1, IconDice2, IconDice3,
+  IconDice4, IconDice5, IconDice6
+} from "@tabler/icons-react"
 import { FC, createElement, useState } from "react"
 
 interface IGenerateButtonProps {
@@ -24,7 +27,9 @@ const changedDiceIcon = (currentIcon: number) => {
   return newIcon
 }
 
-const GenerateButton: FC<IGenerateButtonProps> = ({ setFieldValue }) => {
+const GenerateButton: FC<IGenerateButtonProps> = ({
+  setFieldValue
+}) => {
   const [diceIcon, setDiceIcon] = useState<number>(
     Math.floor(Math.random() * 6)
   )
@@ -48,7 +53,6 @@ const GenerateButton: FC<IGenerateButtonProps> = ({ setFieldValue }) => {
   >
     Generate
   </Button>
-
 }
 
 export default GenerateButton

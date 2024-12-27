@@ -9,7 +9,9 @@ import { fetchAllEntries } from "@/services/passphraseServices"
 import { useAuth } from "@/hooks/authorization"
 
 const WinPassphrases: FC = () => {
-  const [passphrases, setPassphrases] = useState<Maybe<ListableDatabaseEntry[]>>(null)
+  const [passphrases, setPassphrases] = useState<Maybe<
+    ListableDatabaseEntry[]
+  >>(null)
 
   useEffect(() => {
     fetchAllEntries(
@@ -36,7 +38,8 @@ const WinPassphrases: FC = () => {
         width={256}
         height={256}
         draggable="false"
-        className="mt-6 mx-auto max-h-[33%] aspect-square max-w-full object-contain"
+        className="mt-6 mx-auto max-h-[33%] aspect-square
+        max-w-full object-contain"
       />
 
       <PassphraseList passphrases={passphrases} />

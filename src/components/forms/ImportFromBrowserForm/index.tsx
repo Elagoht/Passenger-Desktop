@@ -5,9 +5,14 @@ import Toast from "@/helpers/notifications"
 import handleResponse from "@/helpers/services"
 import StringHelper from "@/helpers/string"
 import { useAuth } from "@/hooks/authorization"
-import { validationImportFromBrowserForm } from "@/lib/validations/importExportForms"
+import {
+  validationImportFromBrowserForm
+} from "@/lib/validations/importExportForms"
 import { importFromBrowser } from "@/services/dataTransferServices"
-import { IconBrandChrome, IconBrandFirefox, IconBrandSafari, IconFileImport, IconLoader, IconSelector } from "@tabler/icons-react"
+import {
+  IconBrandChrome, IconBrandFirefox, IconBrandSafari,
+  IconFileImport, IconLoader, IconSelector
+} from "@tabler/icons-react"
 import { Form, Formik } from "formik"
 import Papa from "papaparse"
 import { FC, useState } from "react"
@@ -25,7 +30,9 @@ const ImportFromBrowserForm: FC = () => {
   const navigate = useNavigate()
 
   const [editModal, setEditModal] = useState<boolean>(false)
-  const [acceptableEntries, setAcceptableEntries] = useState<CSVLineEntry[]>([])
+  const [acceptableEntries, setAcceptableEntries] = useState<
+    CSVLineEntry[]
+  >([])
   const [badEntries, setBadEntries] = useState<CSVLineEntry[]>([])
 
   // Loop until the import is successful
@@ -119,7 +126,10 @@ const ImportFromBrowserForm: FC = () => {
           size={10485760} // 10MB max size
           accept="text/csv"
           iconLeft={IconFileImport}
-          onChange={(event) => setFieldValue("file", event.currentTarget.files![0])}
+          onChange={(event) => setFieldValue(
+            "file",
+            event.currentTarget.files![0]
+          )}
           onBlur={handleBlur}
           error={values.file && errors.file}
           success={values.file && !errors.file}
