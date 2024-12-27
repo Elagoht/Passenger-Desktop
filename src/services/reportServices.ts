@@ -7,13 +7,14 @@ import getResponse from "../api/cli"
  */
 export const getStatistics = async (
   jwt: string
-): Promise<Output> =>
-  await getResponse(
+): Promise<Output> => {
+  return await getResponse(
     "stats", [], {
     headers: {
       JWT: jwt
     }
   })
+}
 
 /**
  * Retrieves the report as a JSON object.
@@ -22,10 +23,11 @@ export const getStatistics = async (
  */
 export const getDetectiveReports = async (
   jwt: string
-): Promise<Output> =>
-  await getResponse(
+): Promise<Output> => {
+  return await getResponse(
     "detect", [], {
     headers: {
       JWT: jwt
     }
   })
+}

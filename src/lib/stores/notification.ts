@@ -1,6 +1,9 @@
 import { Icon, IconProps } from "@tabler/icons-react"
 import { nanoid } from "nanoid"
-import { ForwardRefExoticComponent, ReactNode, RefAttributes } from "react"
+import {
+  ForwardRefExoticComponent,
+  ReactNode, RefAttributes
+} from "react"
 import { create } from "zustand"
 
 export interface IToast {
@@ -10,7 +13,10 @@ export interface IToast {
   persistant?: boolean
   clickToClose?: boolean
   duration?: number
-  icon?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & RefAttributes<Icon>>
+  icon?: ForwardRefExoticComponent<
+    Omit<IconProps, "ref">
+    & RefAttributes<Icon>
+  >
   title?: string
   buttons?: Array<{
     type: "info" | "success" | "warning" | "error"

@@ -9,12 +9,13 @@ import getResponse from "@/api/cli"
 export const loginToPassenger = async (
   username: string,
   passphrase: string
-): Promise<Output> =>
-  await getResponse(
+): Promise<Output> => {
+  return await getResponse(
     "login", [
     username,
     passphrase
   ])
+}
 
 /**
  * Registers a new user with the provided passphrase.
@@ -25,12 +26,13 @@ export const loginToPassenger = async (
 export const registerToPassenger = async (
   username: string,
   passphrase: string
-): Promise<Output> =>
-  await getResponse(
+): Promise<Output> => {
+  return await getResponse(
     "register", [
     username,
     passphrase
   ])
+}
 
 /**
  * Resets the user's passphrase from the old passphrase to the new passphrase.
@@ -43,8 +45,8 @@ export const resetMasterPassphrase = async (
   jwt: string,
   oldPassphrase: string,
   newPassphrase: string
-): Promise<Output> =>
-  await getResponse(
+): Promise<Output> => {
+  return await getResponse(
     "reset", [
     oldPassphrase,
     newPassphrase
@@ -53,3 +55,4 @@ export const resetMasterPassphrase = async (
       JWT: jwt
     }
   })
+}

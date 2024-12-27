@@ -7,11 +7,12 @@ import getResponse from "../api/cli"
  */
 export const generatePassphrase = async (
   length: number
-): Promise<Output> =>
-  await getResponse(
+): Promise<Output> => {
+  return await getResponse(
     "generate", [
     length.toString()
   ])
+}
 
 /**
  * Manipulates the passphrase by changing similar looking characters.
@@ -20,8 +21,9 @@ export const generatePassphrase = async (
  */
 export const manipulatePassphrase = async (
   passphrase: string
-): Promise<Output> =>
-  await getResponse(
+): Promise<Output> => {
+  return await getResponse(
     "manipulate", [
     passphrase
   ])
+}

@@ -1,4 +1,4 @@
-type StrengthCriteria = 
+type StrengthCriteria =
   | "lowercase"
   | "uppercase"
   | "numbers"
@@ -28,9 +28,20 @@ class Strength {
       numbers: /[0-9]/, // Numbers
       special: /[^a-zA-Z0-9]/, // Special characters
       repeated: /(.)\1{2,}/, // Do not allow more than 2 repeated characters
-      sequentialNumbers: /(012|123|234|345|456|567|678|789|987|876|765|654|543|432|321|210)/, // Do not allow sequential numbers
-      // Do not allow sequential letters and at least 8 characters
-      sequentialLetters: /(abc|bcd|cde|def|efg|fgh|ghi|hij|ijk|jkl|klm|lmn|mno|nop|opq|pqr|qrs|rst|stu|tuv|uvw|vwx|wxy|xyz|zyx|yxw|xwv|wvu|vut|uts|tsr|srq|rqo|qon|onm|nml|mlk|lkj|kji|jih|ihg|hgf|gfe|fed|edc|dcb|cba)/,
+      sequentialNumbers: // Do not allow sequential numbers
+        new RegExp(
+          Array.from({ length: 8 }, (_, i) =>
+            `${i}${i + 1}${i + 2}`
+          ).join("|")
+        ),
+      sequentialLetters: // Do not allow sequential letters
+        new RegExp(
+          Array.from({ length: 23 }, (_, i) =>
+            String.fromCharCode(97 + i) +
+            String.fromCharCode(98 + i) +
+            String.fromCharCode(99 + i)
+          ).join("|")
+        ),
       short: /^.{8,}$/, // At least 8 characters
       medium: /^.{12,}$/, // At least 12 characters
       long: /^.{16,}$/, // At least 16 characters

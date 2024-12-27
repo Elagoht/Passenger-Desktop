@@ -1,5 +1,8 @@
 import { toastStore } from "@/lib/stores/notification"
-import { Icon, IconCheck, IconExclamationCircle, IconProps } from "@tabler/icons-react"
+import {
+  Icon, IconCheck,
+  IconExclamationCircle, IconProps
+} from "@tabler/icons-react"
 import { ForwardRefExoticComponent, RefAttributes } from "react"
 
 class Toast {
@@ -12,7 +15,10 @@ class Toast {
   }: {
     title?: string,
     message?: string,
-    icon?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & RefAttributes<Icon>>
+    icon?: ForwardRefExoticComponent<
+      Omit<IconProps, "ref">
+      & RefAttributes<Icon>
+    >
   }) => this.addToast({
     type: "success",
     title: title || "Success!",
@@ -27,7 +33,10 @@ class Toast {
   }: {
     title?: string,
     message?: string,
-    icon?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & RefAttributes<Icon>>
+    icon?: ForwardRefExoticComponent<
+      Omit<IconProps, "ref">
+      & RefAttributes<Icon>
+    >
   }) => this.addToast({
     type: "error",
     title: title || "An error occurred",

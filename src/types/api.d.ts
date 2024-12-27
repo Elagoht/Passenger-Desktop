@@ -4,7 +4,7 @@ type CLICommandOptions = {
 }
 
 type Output = {
-  status: number
-  stdout: string
-  stderr: string
+  readonly status: number
+  readonly stdout: string
+  readonly stderr: string
 }

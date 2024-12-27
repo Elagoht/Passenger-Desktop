@@ -10,7 +10,10 @@ const Newspaper: FC<INewspaperProps> = ({ content }) =>
   <DetectiveReportSheet
     title="Latest Data Leaks"
     isEmpty={!content.length}
-    subtitle="Here are some of the latest data leaks. Data provided by the Have I Been Pwned API."
+    subtitle={
+      "Here are some of the latest data leaks. Data provided by the"
+      + " Have I Been Pwned API."
+    }
   >
     <div className="grid gap-2 grid-cols-1 lg:grid-cols-2">
       {content.map((leakedData, index) =>

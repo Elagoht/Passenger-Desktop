@@ -12,7 +12,7 @@ const NavBar: FC = () => {
     max-md:w-full max-md:grid-cols-5 max-md:fixed max-md:bottom-0"
   >
     <header className="flex items-center justify-center gap-2
-      p-2 mb-2max-md:hidden"
+      p-2 mb-2 max-md:hidden"
     >
       <img
         src="/icon.png"

@@ -8,12 +8,16 @@ const NewsPaperDataLeakArticle: FC<LeakedData> = ({
 }) => {
   const [expanded, setExpanded] = useState<boolean>(false)
 
-  return <article className="p-4 bg-tuatara-100 dark:bg-tuatara-950 rounded-lg prose dark:prose-invert prose-a:text-leaf-500 max-w-none prose-p:m-2 prose-p:text-justify flex flex-col">
+  return <article className="p-4 bg-tuatara-100 dark:bg-tuatara-950
+    rounded-lg prose dark:prose-invert prose-a:text-leaf-500 max-w-none
+    prose-p:m-2 prose-p:text-justify flex flex-col"
+  >
     <h3 className="text-creamcan-500">{Title}</h3>
 
     {Title.replaceAll(" ", "") !== Name.replaceAll(" ", "") &&
-      <h4 className="text-leaf-500"
-      >{Name}</h4>
+      <h4 className="text-leaf-500">
+        {Name}
+      </h4>
     }
 
     <div className="flex-1">
@@ -27,8 +31,8 @@ const NewsPaperDataLeakArticle: FC<LeakedData> = ({
       />
 
       <p
-        className={classNames({
-          "hyphens-auto transition-all duration-300 ease-in-out": true,
+        className={classNames(
+          "hyphens-auto transition-all duration-300 ease-in-out", {
           "line-clamp-2": !expanded,
           "": expanded,
         })}
@@ -36,7 +40,8 @@ const NewsPaperDataLeakArticle: FC<LeakedData> = ({
       />
 
       <button
-        className="text-tuatara-500 flex items-center justify-end w-full text-right hover:text-creamcan-500 transition-all ease-in-out"
+        className="text-tuatara-500 flex items-center justify-end w-full
+        text-right hover:text-creamcan-500 transition-all ease-in-out"
         onClick={() => setExpanded(!expanded)}
       >
         {expanded
@@ -47,7 +52,6 @@ const NewsPaperDataLeakArticle: FC<LeakedData> = ({
           : <IconChevronDown />
         }
       </button>
-
 
       <div className="clear-both" />
     </div>
@@ -69,9 +73,13 @@ const NewsPaperDataLeakArticle: FC<LeakedData> = ({
       }].map((item) =>
         <div
           key={item.key}
-          className="grow bg-tuatara-200 dark:bg-tuatara-900 p-2 m-1 rounded-lg border-2 border-tuatara-300 dark:border-tuatara-800 text-center"
+          className="grow bg-tuatara-200 dark:bg-tuatara-900 p-2 m-1 rounded-lg
+          border-2 border-tuatara-300 dark:border-tuatara-800 text-center"
         >
-          <dt className="m-0"><b>{item.key}</b></dt>
+          <dt className="m-0">
+            <b>{item.key}</b>
+          </dt>
+
           <dd className="m-0 p-0">{item.value}</dd>
         </div>
       )}
@@ -81,7 +89,8 @@ const NewsPaperDataLeakArticle: FC<LeakedData> = ({
       {DataClasses.map((dataClass, index) =>
         <li
           key={index}
-          className="px-2 py-1 m-1 rounded-lg border-2 border-tuatara-300 dark:border-tuatara-700 grow text-center"
+          className="px-2 py-1 m-1 rounded-lg border-2 border-tuatara-300
+          dark:border-tuatara-700 grow text-center"
         >
           {dataClass}
         </li>

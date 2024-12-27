@@ -8,7 +8,10 @@ interface IDetectiveSheetGridProps {
 
 const DetectiveSheetGrid: FC<IDetectiveSheetGridProps> = ({
   title, passphrases
-}) => <div className="p-2 flex flex-col gap-1 bg-tuatara-100 dark:bg-tuatara-950 rounded-lg">
+}) => {
+  return <div className="p-2 flex flex-col gap-1 bg-tuatara-100
+  dark:bg-tuatara-950 rounded-lg"
+  >
     {title &&
       <em>{title}</em>
     }
@@ -22,5 +25,6 @@ const DetectiveSheetGrid: FC<IDetectiveSheetGridProps> = ({
       )}
     </div>
   </div>
+}
 
 export default DetectiveSheetGrid

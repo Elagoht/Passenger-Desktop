@@ -7,13 +7,14 @@ import getResponse from "../api/cli"
  */
 export const fetchAllEntries = async (
   jwt: string
-): Promise<Output> =>
-  await getResponse(
+): Promise<Output> => {
+  return await getResponse(
     "fetchAll", [], {
     headers: {
       JWT: jwt
     }
   })
+}
 
 /**
  * Queries data using the provided JWT and keyword.
@@ -24,8 +25,8 @@ export const fetchAllEntries = async (
 export const queryEntries = async (
   jwt: string,
   keyword: string
-): Promise<Output> =>
-  await getResponse(
+): Promise<Output> => {
+  return await getResponse(
     "query", [
     keyword
   ], {
@@ -33,6 +34,7 @@ export const queryEntries = async (
       JWT: jwt
     }
   })
+}
 
 /**
  * Fetches data using the provided JWT and UUID.
@@ -43,8 +45,8 @@ export const queryEntries = async (
 export const fetchEntry = async (
   jwt: string,
   uuid: string
-): Promise<Output> =>
-  await getResponse(
+): Promise<Output> => {
+  return await getResponse(
     "fetch", [
     uuid
   ], {
@@ -52,6 +54,7 @@ export const fetchEntry = async (
       JWT: jwt
     }
   })
+}
 
 /**
  * Creates new data using the provided JWT and data.
@@ -62,8 +65,8 @@ export const fetchEntry = async (
 export const createEntry = async (
   jwt: string,
   passphrase: Mutable<ReadWriteDatabaseEntry>
-): Promise<Output> =>
-  await getResponse(
+): Promise<Output> => {
+  return await getResponse(
     "create", [
     JSON.stringify(passphrase)
   ], {
@@ -71,6 +74,7 @@ export const createEntry = async (
       JWT: jwt
     }
   })
+}
 
 /**
  * Updates data using the provided JWT, UUID, and JSON.
@@ -83,8 +87,8 @@ export const updateEntry = async (
   jwt: string,
   uuid: string,
   passphrase: Mutable<ReadWriteDatabaseEntry>
-): Promise<Output> =>
-  await getResponse(
+): Promise<Output> => {
+  return await getResponse(
     "update", [
     uuid,
     JSON.stringify(passphrase)
@@ -93,6 +97,7 @@ export const updateEntry = async (
       JWT: jwt
     }
   })
+}
 
 /**
  * Deletes data using the provided JWT and UUID.
@@ -103,8 +108,8 @@ export const updateEntry = async (
 export const deleteEntry = async (
   jwt: string,
   uuid: string
-): Promise<Output> =>
-  await getResponse(
+): Promise<Output> => {
+  return await getResponse(
     "delete", [
     uuid
   ], {
@@ -112,3 +117,4 @@ export const deleteEntry = async (
       JWT: jwt
     }
   })
+}

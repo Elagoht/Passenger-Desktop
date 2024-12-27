@@ -11,8 +11,8 @@ export const importFromBrowser = async (
   jwt: string,
   browser: string,
   content: string
-): Promise<Output> =>
-  await getResponse("import", [
+): Promise<Output> => {
+  return await getResponse("import", [
     browser
   ], {
     headers: {
@@ -20,6 +20,7 @@ export const importFromBrowser = async (
     },
     piped: content
   })
+}
 
 /**
  * Exports data using the provided JWT in bare or encrypted csv format.
@@ -29,8 +30,8 @@ export const importFromBrowser = async (
 export const exportToCSV = async (
   jwt: string,
   exportType: string
-): Promise<Output> =>
-  await getResponse(
+): Promise<Output> => {
+  return await getResponse(
     "export", [
     jwt,
     exportType
@@ -39,3 +40,4 @@ export const exportToCSV = async (
       JWT: jwt
     }
   })
+}

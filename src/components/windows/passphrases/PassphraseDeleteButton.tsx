@@ -11,7 +11,9 @@ interface IPassphraseDeleteButtonProps {
   id: string
 }
 
-const PassphraseDeleteButton: FC<IPassphraseDeleteButtonProps> = ({ id }) => {
+const PassphraseDeleteButton: FC<IPassphraseDeleteButtonProps> = ({
+  id
+}) => {
   const navigate = useNavigate()
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
@@ -60,8 +62,11 @@ const PassphraseDeleteButton: FC<IPassphraseDeleteButtonProps> = ({ id }) => {
         children: "No, Keep It",
         rightIcon: <IconBox size={24} />,
         onClick: () => setIsModalOpen(false)
-      }]}>
-      <p>Are you sure you want to delete this passphrase?</p>
+      }]}
+    >
+      <p>
+        Are you sure you want to delete this passphrase?
+      </p>
     </Modal>
   </>
 }

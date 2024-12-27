@@ -6,11 +6,16 @@ import PassphraseCopyButton from "./PassphraseCopyButton"
 
 interface IPassphraseCardProps extends ListableDatabaseEntry { }
 
-const PassphraseCard: FC<IPassphraseCardProps> = ({ id, platform, url }) => {
+const PassphraseCard: FC<IPassphraseCardProps> = ({
+  id, platform, url
+}) => {
   return <li
-    className="flex items-center rounded-lg transition-all w-full text-left bg-tuatara-50 dark:bg-tuatara-900 h-14 relative group">
+    className="flex items-center rounded-lg transition-all w-full text-left
+    bg-tuatara-50 dark:bg-tuatara-900 h-14 relative group"
+  >
     <nav className="absolute inset-0 flex group-hover:opacity-100 opacity-0
-    bg-tuatara-50 dark:bg-tuatara-900 rounded-lg transition-all ease-in-out">
+      bg-tuatara-50 dark:bg-tuatara-900 rounded-lg transition-all ease-in-out"
+    >
       <IdentityCopyButton id={id} />
 
       <EntryEditLink id={id} />
@@ -29,7 +34,9 @@ const PassphraseCard: FC<IPassphraseCardProps> = ({ id, platform, url }) => {
             ? url
             : `http://${url}`
         ).hostname}`}
-        onError={(event) => { (event.target as HTMLImageElement).src = "/icon.png" }}
+        onError={(event) => {
+          (event.target as HTMLImageElement).src = "/icon.png"
+        }}
         alt={platform}
         width={36}
         height={36}

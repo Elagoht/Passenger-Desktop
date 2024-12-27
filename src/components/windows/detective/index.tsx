@@ -28,7 +28,8 @@ const Detective: FC<IDetectiveProps> = ({ detectiveReports }) => {
     />
   }
 
-  return Object.entries({ // Show the least entries first to fit more reports in the screen
+  // Show the least entries first to fit more reports in the screen
+  return Object.entries({
     commonPassphrases: detectiveReports.commonPassphrases
       .reduce((total, group) => total + group.length, 0),
     similarWithUsername: detectiveReports.similarWithUsername
@@ -37,7 +38,8 @@ const Detective: FC<IDetectiveProps> = ({ detectiveReports }) => {
       .length,
     oldPassphrases: detectiveReports.oldPassphrases
       .length
-  }).sort((first, second) => first[1] - second[1]
+  }).sort((first, second) =>
+    first[1] - second[1]
   ).map(([reportKey]) =>
     reports[reportKey as keyof DetectiveReport]
   )

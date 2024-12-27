@@ -14,7 +14,9 @@ const Paginator: FC<IPaginatorProps> = ({
   const SEEK_DISTANCE = 2
 
   const pages = Array.from({ length: totalPages }).map((_, index) => index + 1)
-  const visiblePages = pages.filter((page) => Math.abs(page - currentPage) <= SEEK_DISTANCE)
+  const visiblePages = pages.filter((page) =>
+    Math.abs(page - currentPage) <= SEEK_DISTANCE
+  )
 
   const handlePageChange = (page: number) => {
     if (page < 1 || page > totalPages) return
@@ -24,7 +26,8 @@ const Paginator: FC<IPaginatorProps> = ({
   return <nav className="flex items-center justify-center gap-2 mt-4">
     <button
       className={classNames(
-        "grid place-items-center h-8 w-8 rounded-full bg-tuatara-500", {
+        "grid place-items-center h-8 w-8 rounded-full",
+        " bg-tuatara-200 dark:bg-tuatara-500", {
         "opacity-50 cursor-not-allowed": currentPage === 1
       })}
       onClick={() => handlePageChange(1)}
@@ -35,7 +38,8 @@ const Paginator: FC<IPaginatorProps> = ({
 
     <button
       className={classNames(
-        "grid place-items-center h-8 w-8 rounded-full bg-tuatara-500", {
+        "grid place-items-center h-8 w-8 rounded-full",
+        " bg-tuatara-200 dark:bg-tuatara-500", {
         "opacity-50 cursor-not-allowed": currentPage === 1
       })}
       onClick={() => handlePageChange(currentPage - 1)}
@@ -49,8 +53,8 @@ const Paginator: FC<IPaginatorProps> = ({
         key={page}
         className={classNames(
           "h-8 w-8 rounded-full grid place-items-center cursor-pointer", {
-          "bg-tuatara-500": page !== currentPage,
-          "bg-leaf-500": page === currentPage
+          "bg-tuatara-200 dark:bg-tuatara-500": page !== currentPage,
+          "bg-leaf-500 text-white": page === currentPage
         })}
         onClick={() => handlePageChange(page)}
       >
@@ -60,7 +64,8 @@ const Paginator: FC<IPaginatorProps> = ({
 
     <button
       className={classNames(
-        "grid place-items-center h-8 w-8 rounded-full bg-tuatara-500", {
+        "grid place-items-center h-8 w-8 rounded-full",
+        " bg-tuatara-200 dark:bg-tuatara-500", {
         "opacity-50 cursor-not-allowed": currentPage === totalPages
       })}
       onClick={() => handlePageChange(currentPage + 1)}
@@ -71,7 +76,8 @@ const Paginator: FC<IPaginatorProps> = ({
 
     <button
       className={classNames(
-        "grid place-items-center h-8 w-8 rounded-full bg-tuatara-500", {
+        "grid place-items-center h-8 w-8 rounded-full",
+        " bg-tuatara-200 dark:bg-tuatara-500", {
         "opacity-50 cursor-not-allowed": currentPage === totalPages
       })}
       onClick={() => handlePageChange(totalPages)}

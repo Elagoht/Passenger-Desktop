@@ -11,9 +11,11 @@ class StringHelper {
     input.charAt(0).toUpperCase() + input.slice(1)
 
   /**
-   * Removes the "passenger:" prefix from a string and trims any leading or trailing whitespace.
+   * Removes the "passenger:" prefix from a string and trims any
+   * leading or trailing whitespace.
    * @param input - The input string.
-   * @returns The input string with the "passenger:" prefix removed and any leading or trailing whitespace trimmed.
+   * @returns The input string with the "passenger:" prefix removed
+   * and any leading or trailing whitespace trimmed.
    */
   static removeUnixErrorPrefix = (input: string) =>
     this.capitalize(
@@ -29,8 +31,10 @@ class StringHelper {
     `'${input.replace(/'/g, "\\'")}'`
 
   /**
-   * Converts a string to a URL by prepending "http://" if it doesn't already have a protocol.
-   * @description This method protects Tauri from openin external URLs in its own window.
+   * Converts a string to a URL by prepending "http://" if it doesn't
+   * already have a protocol.
+   * @description This method protects Tauri from openin external URLs
+   * in its own window.
    * @param url - The input string.
    * @returns The input string as a URL.
    * @example

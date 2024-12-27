@@ -11,7 +11,10 @@ const handleResponse = (
     {
       successTitle?: string,
       successMessage?: string,
-      successIcon?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & RefAttributes<Icon>>
+      successIcon?: ForwardRefExoticComponent<
+        Omit<IconProps, "ref">
+        & RefAttributes<Icon>
+      >
     }?
   ],
   onError: [
@@ -19,7 +22,10 @@ const handleResponse = (
     {
       errorTitle?: string,
       errorMessage?: string,
-      errorIcon?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & RefAttributes<Icon>>
+      errorIcon?: ForwardRefExoticComponent<
+        Omit<IconProps, "ref">
+        & RefAttributes<Icon>
+      >
     }?
   ],
 ) => {
@@ -34,7 +40,9 @@ const handleResponse = (
 
   onError?.[1] && Toast.error({
     title: onError[1].errorTitle,
-    message: onError[1].errorMessage || StringHelper.removeUnixErrorPrefix(response.stderr),
+    message:
+      onError[1].errorMessage
+      || StringHelper.removeUnixErrorPrefix(response.stderr),
     icon: onError[1].errorIcon
   })
   return onError?.[0]()
@@ -47,7 +55,10 @@ export const handleHTTPResponse = (
     {
       successTitle?: string,
       successMessage?: string,
-      successIcon?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & RefAttributes<Icon>>
+      successIcon?: ForwardRefExoticComponent<
+        Omit<IconProps, "ref">
+        & RefAttributes<Icon>
+      >
     }?
   ],
   onError: [
@@ -55,7 +66,10 @@ export const handleHTTPResponse = (
     {
       errorTitle?: string,
       errorMessage?: string,
-      errorIcon?: ForwardRefExoticComponent<Omit<IconProps, "ref"> & RefAttributes<Icon>>
+      errorIcon?: ForwardRefExoticComponent<
+        Omit<IconProps, "ref">
+        & RefAttributes<Icon>
+      >
     }?
   ],
 ) => {
