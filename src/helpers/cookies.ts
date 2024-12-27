@@ -17,9 +17,9 @@ class Cookie {
     const cookiePrefix = `${cookieName}=`
     const cookiesArray = document.cookie.split(";")
     for (let cookie of cookiesArray) {
-      while (cookie.charAt(0) === " ")
+      while (cookie.startsWith(" "))
         cookie = cookie.substring(1)
-      if (cookie.indexOf(cookiePrefix) === 0)
+      if (cookie.startsWith(cookiePrefix))
         return cookie.substring(cookiePrefix.length)
     }
     return null
